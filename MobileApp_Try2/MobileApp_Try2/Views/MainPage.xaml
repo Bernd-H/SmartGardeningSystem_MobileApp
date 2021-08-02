@@ -12,11 +12,43 @@
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="Accent">#96e4ff</Color>
+            <Color x:Key="Accent">#2aa361</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView>
-    </ScrollView>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*">
+            <pancake:PancakeView Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundGradientEndPoint="0,1">
+                <pancake:PancakeView.BackgroundGradientStops>
+                    <pancake:GradientStopCollection>
+                        <pancake:GradientStop Color="#2aa361" Offset="0.1" />
+                        <pancake:GradientStop Color="White" Offset="1" />
+                    </pancake:GradientStopCollection>
+                </pancake:PancakeView.BackgroundGradientStops>
+            </pancake:PancakeView>
+            <StackLayout Grid.Row="0">
+                <Grid RowDefinitions="Auto,*">
+                    <Path VerticalOptions="Start" Aspect="Fill" Margin="0,-80,0,0" Data="m90.90825,13.49505l197.41978,0l0,184.75662c-94.19376,-22.31277 -96.77441,47.36313 -197.41978,30.39813l0,-215.15475z" Stroke="#0000" Fill="#2aa361"/>
+                    <!-- Some information about the product -->
+                    <StackLayout Grid.Row="0" Margin="15,15,15,15">
+                        <Grid ColumnDefinitions="Auto, Auto">
+                            <Label Grid.Column="0" Text="Status: online" />
+                            <Label Grid.Column="1" Text="Running since: 28th February 2021" />
+                        </Grid>
+                        <Label Text="Opened 112 times a water ventil" />
+                        <Label Text="Average soil humidity: 20%" />
+                        <Label Text="Weather prediction for next day: raining" />
+                    </StackLayout>
 
+                    <StackLayout Grid.Row="1" Padding="17">
+                        <Label Text="Ventil opened time chart:"/>
+                        <dxc:ChartView>
+                            
+                        </dxc:ChartView>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+    
 </ContentPage>
