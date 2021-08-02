@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileApp_Try2.Views.MainPage"
              xmlns:vm="clr-namespace:MobileApp_Try2.ViewModels"
-             xmlns:renderers="clr-namespace:MobileApp_Try2.Renders"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="{Binding Title}">
     

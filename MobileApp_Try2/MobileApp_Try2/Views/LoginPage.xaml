@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              x:Class="MobileApp_Try2.Views.LoginPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:renderers="clr-namespace:MobileApp_Try2.Renders"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#2aa361">
     <!--<ContentPage.Content>
@@ -51,11 +50,14 @@
                         BackgroundColor="White"
                         CornerRadius="15"
                         HeightRequest="50">
-                            <renderers:BorderlessEntry
+                            <Entry
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             Keyboard="Email"
                             TextColor="#484848" />
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow BlurRadius="5" />
+                            </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>
                     <StackLayout Spacing="5">
@@ -69,11 +71,14 @@
                         BackgroundColor="White"
                         CornerRadius="15"
                         HeightRequest="50">
-                            <renderers:BorderlessEntry
+                            <Entry
                             FontSize="25"
                              ClearButtonVisibility="WhileEditing"
                             IsPassword="True"
                             TextColor="#484848" />
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow BlurRadius="5" />
+                            </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>
                     <Label
