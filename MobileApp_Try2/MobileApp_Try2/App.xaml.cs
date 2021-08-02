@@ -15,12 +15,14 @@ namespace MobileApp_Try2
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
-            //MainPage = new LoginPage();
         }
 
         protected override void OnStart()
         {
-            Shell.Current.GoToAsync("//LoginPage");
+            //if (false)
+            {
+                Shell.Current.GoToAsync("//LoginPage");
+            }
         }
 
         protected override void OnSleep()

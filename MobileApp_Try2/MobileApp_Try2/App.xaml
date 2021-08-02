@@ -7,26 +7,12 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#8396D1</Color>
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Disabled">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#332196F3" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-        </ResourceDictionary>        
+            <Color x:Key="Primary">#dedddc</Color>
+
+            <!-- Colors for the tab bar -->
+            <Color x:Key="TabBarBackgroundColor">#252836</Color>
+            <Color x:Key="TabBarTitleColor">#6FCF97</Color>
+            <Color x:Key="TabBarUnselectedColor">#828282</Color>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

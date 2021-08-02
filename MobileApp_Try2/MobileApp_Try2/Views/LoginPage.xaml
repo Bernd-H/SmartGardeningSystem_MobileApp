@@ -95,10 +95,10 @@
                         HorizontalOptions="CenterAndExpand"
                         Text="Login"
                         TextColor="White"
-                        VerticalOptions="CenterAndExpand" >
-                            <!--<Label.GestureRecognizers>
-                               <TapGestureRecognizer Tapped="LoginClick" ></TapGestureRecognizer>
-                            </Label.GestureRecognizers>-->
+                        VerticalOptions="CenterAndExpand"> 
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
                         </Label>
                     </pancake:PancakeView>
                     <Label

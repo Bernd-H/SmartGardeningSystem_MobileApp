@@ -10,4 +10,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />  
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -9,7 +9,6 @@
         The overall app visual hierarchy is defined here, along with navigation.
     
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -27,11 +26,12 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
-    </Shell.Resources>
+    </Shell.Resources>    -->
 
     <TabBar>
-        <ShellContent Title="Test" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Home" Icon="house.png" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent Title="Configure" Icon="settings.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Account" Icon="user.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </TabBar>
 
     <!--
