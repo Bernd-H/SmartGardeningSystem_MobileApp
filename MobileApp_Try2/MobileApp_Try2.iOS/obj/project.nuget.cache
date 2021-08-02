@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "xlL0YBuULUZiLsDGmsqportFHoGNNAnLR23Ejs6VlN+RpO/mpk3/coGqZ1g+yM2TYG1mDUQnXA8lOHc5K1I07Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2.iOS\\MobileApp_Try2.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bernd\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
+  ],
+  "logs": []
+}
