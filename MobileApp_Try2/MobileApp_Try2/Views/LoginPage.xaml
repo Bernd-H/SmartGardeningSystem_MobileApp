@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MobileApp_Try2.Views.LoginPage"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:renderers="clr-namespace:MobileApp_Try2.Renders"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#2aa361">
+    <!--<ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>-->
+
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout>
+            <StackLayout>
+                <Image Margin="15,15,15,15"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    Source="info"
+                    VerticalOptions="Start"
+                    WidthRequest="20" />
+                <StackLayout>
+                    <Label Margin="15,15,0,15"
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Text="Sign up to your account"
+                    TextColor="White"
+                    VerticalOptions="EndAndExpand" />
+                </StackLayout>
+            </StackLayout>
+            <pancake:PancakeView
+            Margin="0,0,0,0"
+            Padding="15,30,15,15"
+            BackgroundColor="White"
+            CornerRadius="35,35,0,0"
+            VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="15">
+                    <StackLayout Spacing="5">
+                        <Label
+                        Margin="15,0,0,0"
+                        FontSize="20"
+                        Text="Email"
+                        TextColor="#99A1B3" />
+                        <pancake:PancakeView
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="15"
+                        HeightRequest="50">
+                            <renderers:BorderlessEntry
+                            FontSize="20"
+                            ClearButtonVisibility="WhileEditing"
+                            Keyboard="Email"
+                            TextColor="#484848" />
+                        </pancake:PancakeView>
+                    </StackLayout>
+                    <StackLayout Spacing="5">
+                        <Label
+                        Margin="20,0,0,0"
+                        FontSize="20"
+                        Text="Password"
+                        TextColor="#99A1B3" />
+                        <pancake:PancakeView
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="15"
+                        HeightRequest="50">
+                            <renderers:BorderlessEntry
+                            FontSize="25"
+                             ClearButtonVisibility="WhileEditing"
+                            IsPassword="True"
+                            TextColor="#484848" />
+                        </pancake:PancakeView>
+                    </StackLayout>
+                    <Label
+                        Margin="0,0,10,10"
+                    FontAttributes="None"
+                    FontSize="15"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Forget Password?"
+                    TextColor="#99A1B3" />
+                    <pancake:PancakeView
+                    BackgroundColor="#2f7545"
+                    CornerRadius="25"
+                    HeightRequest="45"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="150">
+                        <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Login"
+                        TextColor="White"
+                        VerticalOptions="CenterAndExpand" >
+                            <!--<Label.GestureRecognizers>
+                               <TapGestureRecognizer Tapped="LoginClick" ></TapGestureRecognizer>
+                            </Label.GestureRecognizers>-->
+                        </Label>
+                    </pancake:PancakeView>
+                    <Label
+                    FontAttributes="None"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Or"
+                    TextColor="#99A1B3" />
+                    <Label
+                        FontAttributes="None"
+                        FontSize="18"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="#99A1B3"
+                        VerticalOptions="CenterAndExpand" >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Don't have an account? " ></Span>
+                                <Span TextColor="#2f7545" Text="Sign Up" ></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </pancake:PancakeView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

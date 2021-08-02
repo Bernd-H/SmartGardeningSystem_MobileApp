@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp_Try2.Views.AboutPage"
+             xmlns:vm="clr-namespace:MobileApp_Try2.ViewModels"
+             xmlns:renderers="clr-namespace:MobileApp_Try2.Renders"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid BackgroundColor="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Aspect="AspectFill" Source="https://images.pexels.com/photos/6023784/pexels-photo-6023784.jpeg" />
+
+            <pancake:PancakeView  Grid.Row="0"              
+                Margin="20,0,20,-20"
+                    Padding="10,0,0,0"
+                    BackgroundColor="White"
+                    CornerRadius="25"
+                  
+                    HeightRequest="50"
+                    VerticalOptions="EndAndExpand">
+                <pancake:PancakeView.Border>
+                    <pancake:Border Thickness="1" Color="White" />
+                    <!--BorderThickness="1"-->
+                </pancake:PancakeView.Border>
+                <StackLayout Orientation="Horizontal">
+                    <Image
+                            HeightRequest="25"
+                            HorizontalOptions="Start"
+                            Source="search"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="25" />
+                    <renderers:BorderlessEntry
+                            ClearButtonVisibility="WhileEditing"
+                            FontSize="18"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Text"
+                            Placeholder="Search here "
+                            PlaceholderColor="#99A1B3"
+                            TextColor="#484848" />
+                </StackLayout>
+            </pancake:PancakeView>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
