@@ -7,7 +7,7 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2f7545</Color>
+            <Color x:Key="Primary">#46a5e0</Color>
 
             <!-- Colors for the tab bar -->
             <Color x:Key="TabBarBackgroundColor">#252836</Color>

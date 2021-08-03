@@ -2,7 +2,6 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\ref\MobileApp_Try2.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.csproj.AssemblyReference.cache
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs
@@ -17,3 +16,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\ref\MobileApp_Try2.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.csproj.AssemblyReference.cache

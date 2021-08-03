@@ -36,16 +36,17 @@
             Margin="0,0,0,0"
             Padding="15,30,15,15"
             BackgroundColor="White"
-            CornerRadius="35,35,0,0"
+            CornerRadius="30,30,0,0"
             VerticalOptions="FillAndExpand">
                 <StackLayout Spacing="15">
                     <StackLayout Spacing="5">
                         <Label
-                        Margin="15,0,0,0"
+                        Margin="10,0,0,0"
                         FontSize="20"
                         Text="Email"
                         TextColor="#99A1B3" />
                         <pancake:PancakeView
+                            Margin="5,0,5,0"
                         Padding="10,0,10,0"
                         BackgroundColor="White"
                         CornerRadius="15"
@@ -56,17 +57,18 @@
                             Keyboard="Email"
                             TextColor="#484848" />
                             <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow BlurRadius="5" />
+                                <pancake:DropShadow BlurRadius="4" />
                             </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>
                     <StackLayout Spacing="5">
                         <Label
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         FontSize="20"
                         Text="Password"
                         TextColor="#99A1B3" />
                         <pancake:PancakeView
+                            Margin="5,0,5,0"
                         Padding="10,0,10,0"
                         BackgroundColor="White"
                         CornerRadius="15"
@@ -77,7 +79,7 @@
                             IsPassword="True"
                             TextColor="#484848" />
                             <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow BlurRadius="5" />
+                                <pancake:DropShadow BlurRadius="4" />
                             </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>

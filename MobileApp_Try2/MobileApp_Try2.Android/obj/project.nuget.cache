@@ -1,11 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "FTGgJ/nTIbPGgASRdQp1c4wHglFJqUVT4iYQ1H+Skz1ta0ZrDJuH7wnun6Y/UtHLUCM3QpV5BtD156TtD16/Vw==",
+  "dgSpecHash": "ddIrimMbjeWEUUJaqj5yTFYIiiY0sQeUQeugq9cH3V1tiQsYQda/xqeGHFmwbpxGpE4+FVnSscAQZU/GLgUuog==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2.Android\\MobileApp_Try2.Android.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\bernd\\.nuget\\packages\\microcharts\\0.9.5.9\\microcharts.0.9.5.9.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\microcharts.forms\\0.9.5.9\\microcharts.forms.0.9.5.9.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.activity\\1.1.0.5\\xamarin.androidx.activity.1.1.0.5.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.annotation\\1.1.0.8\\xamarin.androidx.annotation.1.1.0.8.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.annotation.experimental\\1.0.0.8\\xamarin.androidx.annotation.experimental.1.0.0.8.nupkg.sha512",
@@ -56,5 +62,26 @@
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.google.android.material\\1.2.1.1\\xamarin.google.android.material.1.2.1.1.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.google.guava.listenablefuture\\1.0.0.2\\xamarin.google.guava.listenablefuture.1.0.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ein Downgrade des Pakets \"Xamarin.Essentials\" von 1.7.0 auf 1.6.1 wurde festgestellt. Verweisen Sie direkt aus dem Projekt auf das Paket, um eine andere Version auszuwählen. \r\n MobileApp_Try2.Android -> MobileApp_Try2 -> Xamarin.Essentials (>= 1.7.0) \r\n MobileApp_Try2.Android -> Xamarin.Essentials (>= 1.6.1)",
+      "libraryId": "Xamarin.Essentials",
+      "targetGraphs": [
+        "MonoAndroid,Version=v11.0"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ein Downgrade des Pakets \"Xamarin.Forms\" von 5.0.0.2083 auf 5.0.0.2012 wurde festgestellt. Verweisen Sie direkt aus dem Projekt auf das Paket, um eine andere Version auszuwählen. \r\n MobileApp_Try2.Android -> MobileApp_Try2 -> Xamarin.Forms (>= 5.0.0.2083) \r\n MobileApp_Try2.Android -> Xamarin.Forms (>= 5.0.0.2012)",
+      "libraryId": "Xamarin.Forms",
+      "targetGraphs": [
+        "MonoAndroid,Version=v11.0"
+      ]
+    }
+  ]
 }

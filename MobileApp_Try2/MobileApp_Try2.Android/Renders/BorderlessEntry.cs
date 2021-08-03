@@ -11,7 +11,6 @@ namespace MobileApp_Try2.Droid.Renders
     {
         public BorderlessEntry(Context context) : base(context)
         {
-            
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)

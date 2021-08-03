@@ -4,7 +4,13 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "MobileApp_Try2.Android.dll" comes first in this list. */
 		"MobileApp_Try2.Android.dll",
 		"FormsViewGroup.dll",
+		"Microcharts.dll",
+		"Microcharts.Droid.dll",
+		"Microcharts.Forms.dll",
 		"MobileApp_Try2.dll",
+		"SkiaSharp.dll",
+		"SkiaSharp.Views.Android.dll",
+		"SkiaSharp.Views.Forms.dll",
 		"Xamarin.AndroidX.Activity.dll",
 		"Xamarin.AndroidX.Annotation.dll",
 		"Xamarin.AndroidX.Annotation.Experimental.dll",
