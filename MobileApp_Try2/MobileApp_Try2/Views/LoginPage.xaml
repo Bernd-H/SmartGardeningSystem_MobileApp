@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="MobileApp_Try2.Views.LoginPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#2aa361">
     <!--<ContentPage.Content>
@@ -16,12 +17,16 @@
 
     <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="Auto,*,Auto,Auto">
-            <Image Grid.Row="0" Margin="15,15,15,15"
-                    HeightRequest="20"
+            <Image Grid.Row="0" Margin="15,20,20,15"
+                    HeightRequest="30"
                     HorizontalOptions="End"
                     Source="info"
                     VerticalOptions="Start"
-                    WidthRequest="20" />
+                    WidthRequest="30" />
+
+            <!--<abstractions:SvgImage Grid.Row="1" SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LoginSvgPath}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />-->
+            <Image Grid.Row="1" Source="{Binding LoginImagePath}" WidthRequest="200" VerticalOptions="Start" />
+
             <Label Grid.Row="2"
                     Margin="15,15,0,15"
                     FontAttributes="Bold"
@@ -104,9 +109,6 @@
                         Text="Login"
                         TextColor="White"
                         VerticalOptions="CenterAndExpand">
-                            <!--<Label.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
-                            </Label.GestureRecognizers>-->
                         </Label>
                     </pancake:PancakeView>
                     <Label

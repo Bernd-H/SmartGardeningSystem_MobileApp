@@ -1753,7 +1753,8 @@
     "Xamarin.iOS,Version=v1.0": [
       "MobileApp_Try2 >= 1.0.0",
       "Xamarin.Essentials >= 1.6.1",
-      "Xamarin.Forms >= 5.0.0.2012"
+      "Xamarin.Forms >= 5.0.0.2012",
+      "Xamarin.Forms.PancakeView >= 2.3.0.759"
     ]
   },
   "packageFolders": {
@@ -1808,6 +1809,10 @@
           "Xamarin.Forms": {
             "target": "Package",
             "version": "[5.0.0.2012, )"
+          },
+          "Xamarin.Forms.PancakeView": {
+            "target": "Package",
+            "version": "[2.3.0.759, )"
           }
         }
       }

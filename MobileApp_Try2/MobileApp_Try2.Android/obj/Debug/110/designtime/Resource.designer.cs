@@ -17033,10 +17033,16 @@ namespace MobileApp_Try2.Droid
 			public const int twitter = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int user = 2131165350;
+			public const int undraw_authentication_fsn5 = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int xamarin_logo = 2131165351;
+			public const int undraw_metrics = 2131165351;
+			
+			// aapt resource value: 0x7F0700A8
+			public const int user = 2131165352;
+			
+			// aapt resource value: 0x7F0700A9
+			public const int xamarin_logo = 2131165353;
 			
 			static Drawable()
 			{

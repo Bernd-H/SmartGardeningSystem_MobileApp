@@ -51,6 +51,10 @@
             "Xamarin.Forms": {
               "target": "Package",
               "version": "[5.0.0.2012, )"
+            },
+            "Xamarin.Forms.PancakeView": {
+              "target": "Package",
+              "version": "[2.3.0.759, )"
             }
           }
         }

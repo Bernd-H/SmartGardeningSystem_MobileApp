@@ -49,6 +49,9 @@ skiasharp.views.forms.SKCanvasViewRendererBase_2;crc64bb223c2be3a01e03.SKCanvasV
 SkiaSharp.Views.Forms.SKGLViewRendererBase`2, SkiaSharp.Views.Forms;crc64bb223c2be3a01e03.SKGLViewRendererBase_2
 SkiaSharp.Views.Forms.SKGLViewRendererBase`2;crc64bb223c2be3a01e03.SKGLViewRendererBase_2
 skiasharp.views.forms.SKGLViewRendererBase_2;crc64bb223c2be3a01e03.SKGLViewRendererBase_2
+SVG.Forms.Plugin.Droid.SvgImageRenderer, SVG.Forms.Plugin.Android;crc6443dd84913586bb0d.SvgImageRenderer
+SVG.Forms.Plugin.Droid.SvgImageRenderer;crc6443dd84913586bb0d.SvgImageRenderer
+svg.forms.plugin.droid.SvgImageRenderer;crc6443dd84913586bb0d.SvgImageRenderer
 AndroidX.Activity.IOnBackPressedDispatcherOwner, Xamarin.AndroidX.Activity;androidx.activity.OnBackPressedDispatcherOwner
 AndroidX.Activity.IOnBackPressedDispatcherOwner;androidx.activity.OnBackPressedDispatcherOwner
 androidx.activity.OnBackPressedDispatcherOwner;androidx.activity.OnBackPressedDispatcherOwner

@@ -6547,8 +6547,10 @@ public final class R {
     public static final int tooltip_frame_dark=0x7f0700a3;
     public static final int tooltip_frame_light=0x7f0700a4;
     public static final int twitter=0x7f0700a5;
-    public static final int user=0x7f0700a6;
-    public static final int xamarin_logo=0x7f0700a7;
+    public static final int undraw_authentication_fsn5=0x7f0700a6;
+    public static final int undraw_metrics=0x7f0700a7;
+    public static final int user=0x7f0700a8;
+    public static final int xamarin_logo=0x7f0700a9;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
