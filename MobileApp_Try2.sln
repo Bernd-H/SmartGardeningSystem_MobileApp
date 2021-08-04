@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp_Try2.Android", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp_Try2.iOS", "MobileApp_Try2\MobileApp_Try2.iOS\MobileApp_Try2.iOS.csproj", "{8B64E2D5-3B3A-4109-A0E6-BDE254CCD0DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp_Try2", "MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.csproj", "{F0C92772-725D-4740-95FD-0BAF69188858}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp_Try2", "MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.csproj", "{F0C92772-725D-4740-95FD-0BAF69188858}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A0224F4-8A3F-43A0-9CBA-EBB8DBF0655F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

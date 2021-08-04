@@ -4,5 +4,6 @@
     <SelectedDevice>Android_Accelerated_x86_Oreo</SelectedDevice>
     <ActiveDebugProfile>Android_Accelerated_x86_Oreo</ActiveDebugProfile>
     <DefaultDevice>Android_Accelerated_x86_Oreo</DefaultDevice>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
 </Project>

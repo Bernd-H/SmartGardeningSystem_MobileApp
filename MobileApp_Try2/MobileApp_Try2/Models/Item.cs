@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MobileApp_Try2.Models
+﻿namespace MobileApp_Try2.Models
 {
     public class Item
     {

@@ -82,7 +82,7 @@
 
 	/* 6: MobileApp_Try2.dll */
 	/* uncompressed_file_size */
-	.long	65024
+	.long	70144
 	/* loaded */
 	.byte	0
 	/* data */

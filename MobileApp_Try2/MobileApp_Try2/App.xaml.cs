@@ -1,8 +1,5 @@
 ﻿using MobileApp_Try2.Services;
-using MobileApp_Try2.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MobileApp_Try2
 {
@@ -14,6 +11,7 @@ namespace MobileApp_Try2
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<ModulesMockDataStore>();
             MainPage = new AppShell();
         }
 

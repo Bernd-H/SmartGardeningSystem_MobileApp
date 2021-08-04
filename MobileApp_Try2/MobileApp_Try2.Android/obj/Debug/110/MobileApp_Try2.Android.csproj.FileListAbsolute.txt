@@ -623,3 +623,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\src\crc64bb223c2be3a01e03\SKGLViewRendererBase_2.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\src\crc64e9f97cf19b8286a9\ChartView.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\res\drawable\question.png
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\res\drawable\plus.png
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\res\drawable\minus.png

@@ -1,32 +1,23 @@
 ﻿using Microcharts;
-using MobileApp_Try2.Models;
 using MobileApp_Try2.ViewModels;
-using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace MobileApp_Try2.Views
-{
-    public partial class MainPage : ContentPage
-    {
-        public MainPage()
-        {
+namespace MobileApp_Try2.Views {
+    public partial class MainPage : ContentPage {
+        MainPageViewModel _viewModel;
+
+        public MainPage() {
             InitializeComponent();
-            this.BindingContext = new MainPageViewModel();
+            //this.BindingContext = new MainPageViewModel();
+            BindingContext = _viewModel = new MainPageViewModel();
         }
 
-        protected override void OnAppearing()
-        {
+        protected override void OnAppearing() {
             base.OnAppearing();
+            _viewModel.OnAppearing();
 
-
-            var entries = new[]
- {
-     new ChartEntry(212)
-     {
+            var entries = new[] {
+                new ChartEntry(212){
          Label = "UWP",
          ValueLabel = "212",
      },
@@ -44,7 +35,7 @@ namespace MobileApp_Try2.Views
      {
          Label = "Shared",
          ValueLabel = "514",
-} };
+            } };
 
             var chart = new LineChart() { Entries = entries };
 

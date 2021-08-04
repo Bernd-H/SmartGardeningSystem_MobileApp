@@ -1,8 +1,5 @@
 ﻿using MobileApp_Try2.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2.ViewModels

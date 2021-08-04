@@ -15,24 +15,22 @@
     </ContentPage.Content>-->
 
     <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <StackLayout>
-            <StackLayout>
-                <Image Margin="15,15,15,15"
+        <Grid RowDefinitions="Auto,*,Auto,Auto">
+            <Image Grid.Row="0" Margin="15,15,15,15"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     Source="info"
                     VerticalOptions="Start"
                     WidthRequest="20" />
-                <StackLayout>
-                    <Label Margin="15,15,0,15"
+            <Label Grid.Row="2"
+                    Margin="15,15,0,15"
                     FontAttributes="Bold"
                     FontSize="24"
                     Text="Sign up to your account"
                     TextColor="White"
                     VerticalOptions="EndAndExpand" />
-                </StackLayout>
-            </StackLayout>
             <pancake:PancakeView
+                    Grid.Row="3"
             Margin="0,0,0,0"
             Padding="15,30,15,15"
             BackgroundColor="White"
@@ -96,16 +94,19 @@
                     HeightRequest="45"
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="150">
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="CenterAndExpand"
                         Text="Login"
                         TextColor="White"
-                        VerticalOptions="CenterAndExpand"> 
-                            <Label.GestureRecognizers>
+                        VerticalOptions="CenterAndExpand">
+                            <!--<Label.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
-                            </Label.GestureRecognizers>
+                            </Label.GestureRecognizers>-->
                         </Label>
                     </pancake:PancakeView>
                     <Label
@@ -129,6 +130,6 @@
                     </Label>
                 </StackLayout>
             </pancake:PancakeView>
-        </StackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>
