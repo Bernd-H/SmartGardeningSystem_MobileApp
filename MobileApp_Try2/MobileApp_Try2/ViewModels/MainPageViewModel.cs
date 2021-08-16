@@ -68,15 +68,15 @@ namespace MobileApp_Try2.ViewModels {
         }
 
         private async void OnAddItem(object obj) {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            //await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
         async void OnItemSelected(SGModule item) {
-            //if (item == null)
-            //    return;
+            if (item == null)
+                return;
 
-            //// This will push the ItemDetailPage onto the navigation stack
-            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(SGModuleDetailPage)}?{nameof(SGModuleDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

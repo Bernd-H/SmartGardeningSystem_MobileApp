@@ -1,6 +1,9 @@
 ﻿
 using Foundation;
+using MobileApp_Try2.iOS.Renders;
+using MobileApp_Try2.Specifications;
 using UIKit;
+using Xamarin.Forms;
 
 namespace MobileApp_Try2.iOS
 {
@@ -19,6 +22,8 @@ namespace MobileApp_Try2.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            DependencyService.Register<ITextWidth, CalculateTextWidthiOS>();
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

@@ -14,9 +14,9 @@ namespace MobileApp_Try2.Views
             this.BindingContext = new LoginViewModel();
         }
 
-        void LoginClick(object sender, EventArgs args) // Tapped="LoginClick"
-        {
-            Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        }
+        //void LoginClick(object sender, EventArgs args) // Tapped="LoginClick"
+        //{
+        //    Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        //}
     }
 }

@@ -10,7 +10,6 @@ namespace MobileApp_Try2.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IDataStore<SGModule> ModulesDataStore => DependencyService.Get<IDataStore<SGModule>>();
 
         bool isBusy = false;

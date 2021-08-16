@@ -26,7 +26,6 @@ namespace MobileApp_Try2.Droid
 		public static void UpdateIdValues()
 		{
 			global::Microcharts.Droid.Resource.String.library_name = global::MobileApp_Try2.Droid.Resource.String.library_name;
-			global::NGraphics.Android.Custom.Resource.String.library_name = global::MobileApp_Try2.Droid.Resource.String.library_name;
 			global::SkiaSharp.Views.Forms.Resource.Animation.abc_fade_in = global::MobileApp_Try2.Droid.Resource.Animation.abc_fade_in;
 			global::SkiaSharp.Views.Forms.Resource.Animation.abc_fade_out = global::MobileApp_Try2.Droid.Resource.Animation.abc_fade_out;
 			global::SkiaSharp.Views.Forms.Resource.Animation.abc_grow_fade_in_from_bottom = global::MobileApp_Try2.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -17040,10 +17039,16 @@ namespace MobileApp_Try2.Droid
 			public const int undraw_metrics = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int user = 2131165352;
+			public const int undraw_Mind_map_re_nlb6 = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int xamarin_logo = 2131165353;
+			public const int undraw_tabs = 2131165353;
+			
+			// aapt resource value: 0x7F0700AA
+			public const int user = 2131165354;
+			
+			// aapt resource value: 0x7F0700AB
+			public const int xamarin_logo = 2131165355;
 			
 			static Drawable()
 			{

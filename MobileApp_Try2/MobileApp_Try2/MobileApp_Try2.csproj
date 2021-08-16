@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder1\**" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder1\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
@@ -13,8 +22,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\SGModuleDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

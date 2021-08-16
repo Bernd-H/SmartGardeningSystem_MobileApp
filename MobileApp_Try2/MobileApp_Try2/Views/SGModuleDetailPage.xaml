@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp_Try2.Views.SGModuleDetailPage"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:viewmodels="clr-namespace:MobileApp_Try2.ViewModels" x:DataType="viewmodels:SGModuleDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="WhiteSmoke">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,*,*,40">
+            <pancake:PancakeView Grid.Row="0" Grid.RowSpan="2" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Frame BackgroundColor="#084ebf" />
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow />
+                </pancake:PancakeView.Shadow>
+            </pancake:PancakeView>
+
+            <Image Grid.Row="0" Source="{Binding ModuleImagePath}" Margin="0,15,0,0" WidthRequest="120" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+            <StackLayout Grid.Row="1" Margin="15" VerticalOptions="End" HorizontalOptions="Start">
+                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="LightGray"/>
+                <Label Text="{Binding LastUpdated}" FontSize="Small" TextColor="LightGray"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" Margin="15,10,15,15" Spacing="10">
+                <StackLayout Spacing="0">
+                    <Label Text="ID" FontAttributes="Bold" FontSize="13" />
+                    <Label Text="{Binding Id}" FontSize="Small"/>
+                </StackLayout>
+                <StackLayout Spacing="0">
+                    <Label Text="Weitere Informationen" FontAttributes="Bold" FontSize="13" />
+                    <Label Text="{Binding InfoText}" FontSize="Small"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Grid.Row="3" Margin="15,0,15,0">
+                <!--<Grid ColumnDefinitions="*,*,*,*,*" HorizontalOptions="FillAndExpand">
+                    <Label Grid.Column="0" Text="Low" />
+                    <Label Grid.Column="1" Text="Low" />
+                    <Label Grid.Column="2" Text="Low" />
+                    <Label Grid.Column="3" Text="Low" />
+                    <Label Grid.Column="4" Text="Low" />
+                </Grid>-->
+                <StackLayout x:Name="stack" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="0"/>
+                <Slider x:Name="slider" HorizontalOptions="FillAndExpand" ValueChanged="Slider_ValueChanged" ThumbColor="#084ebf"/>
+            </StackLayout>
+
+            <Label Grid.Row="4"
+                        FontSize="17"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Remove module"
+                        TextColor="IndianRed"
+                        VerticalOptions="CenterAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding RemoveCommand}"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+            
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

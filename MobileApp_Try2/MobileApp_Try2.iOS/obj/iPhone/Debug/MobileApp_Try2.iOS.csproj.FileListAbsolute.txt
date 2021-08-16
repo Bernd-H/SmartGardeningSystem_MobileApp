@@ -57,3 +57,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.exe
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\Microcharts.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\Microcharts.iOS.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\Microcharts.Forms.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.iOS.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.Forms.dll

@@ -11,10 +11,10 @@
         "dependencies": {
           "Microcharts.Forms": "0.9.5.9",
           "NETStandard.Library": "2.0.3",
-          "Xam.Plugins.Forms.Svg": "1.0.0.27",
           "Xamarin.Essentials": "1.7.0",
           "Xamarin.Forms": "5.0.0.2083",
-          "Xamarin.Forms.PancakeView": "2.3.0.759"
+          "Xamarin.Forms.PancakeView": "2.3.0.759",
+          "Mono.Android": "0.0.0.0"
         },
         "runtime": {
           "MobileApp_Try2.dll": {}
@@ -130,17 +130,6 @@
         }
       },
       "System.ValueTuple/4.5.0": {},
-      "Xam.Plugins.Forms.Svg/1.0.0.27": {
-        "dependencies": {
-          "Xamarin.Forms": "5.0.0.2083"
-        },
-        "runtime": {
-          "lib/portable-net45+wp8+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SVG.Forms.Plugin.Abstractions.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "Xamarin.Essentials/1.7.0": {
         "dependencies": {
           "System.Numerics.Vectors": "4.5.0"
@@ -177,6 +166,14 @@
           "lib/netstandard2.0/Xamarin.Forms.PancakeView.dll": {
             "assemblyVersion": "2.0.1.0",
             "fileVersion": "2.0.1.0"
+          }
+        }
+      },
+      "Mono.Android/0.0.0.0": {
+        "runtime": {
+          "Mono.Android.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
           }
         }
       }
@@ -286,13 +283,6 @@
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
-    "Xam.Plugins.Forms.Svg/1.0.0.27": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oE1uuT0EksjVYpfcoV3l1HP68bUN9fRez8uUVLMw1GBON0GMwmyTnNdsroXStYeYI1UYIrt22VHTD3nBGMzovg==",
-      "path": "xam.plugins.forms.svg/1.0.0.27",
-      "hashPath": "xam.plugins.forms.svg.1.0.0.27.nupkg.sha512"
-    },
     "Xamarin.Essentials/1.7.0": {
       "type": "package",
       "serviceable": true,
@@ -313,6 +303,11 @@
       "sha512": "sha512-TGVsLJuGd/PKlyhmcBxZnHhHqyhYppzyrdb2q/sy+S6dQYkeGM8A+HmIIHVhbi7r8Sjasa/HRBkOmTSYQOZzhQ==",
       "path": "xamarin.forms.pancakeview/2.3.0.759",
       "hashPath": "xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
+    },
+    "Mono.Android/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

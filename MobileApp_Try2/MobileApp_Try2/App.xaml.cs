@@ -10,7 +10,7 @@ namespace MobileApp_Try2
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
             DependencyService.Register<ModulesMockDataStore>();
             MainPage = new AppShell();
         }

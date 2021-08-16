@@ -3,6 +3,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using MobileApp_Try2.Droid.Renders;
+using MobileApp_Try2.Specifications;
+using Xamarin.Forms;
 
 namespace MobileApp_Try2.Droid
 {
@@ -11,6 +14,8 @@ namespace MobileApp_Try2.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            DependencyService.Register<ITextWidth, CalculateTextWidthAndroid>();
+
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

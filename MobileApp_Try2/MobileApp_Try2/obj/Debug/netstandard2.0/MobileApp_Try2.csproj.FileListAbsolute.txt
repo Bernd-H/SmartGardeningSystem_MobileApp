@@ -4,9 +4,7 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\LoginPage.xaml.g.cs
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\NewItemPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.AssemblyInfoInputs.cache
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.AssemblyInfo.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.csproj.CoreCompileInputs.cache
@@ -15,4 +13,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\ref\MobileApp_Try2.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\Views\SGModuleDetailPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.csproj.AssemblyReference.cache
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\Mono.Android.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\Mono.Android.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\Mono.Android.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Debug\netstandard2.0\MobileApp_Try2.csproj.CopyComplete
