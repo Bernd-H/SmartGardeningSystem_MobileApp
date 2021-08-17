@@ -10,7 +10,7 @@
     
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
 -->
-    <Shell.Resources>
+    <!--<Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
@@ -26,20 +26,20 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
-    </Shell.Resources>    
+    </Shell.Resources>-->    
 
-    <TabBar>
-        <ShellContent Title="Home" Icon="house.png" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+    <!--<TabBar>-->
+        <!--<ShellContent Title="Home" Icon="house.png" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />-->
         <!--<ShellContent Title="Configure" Icon="settings.png" ContentTemplate="{DataTemplate local:AccountPage}" />-->
-        <ShellContent Title="Account" Icon="user.png" ContentTemplate="{DataTemplate local:AccountPage}" />
-    </TabBar>
+        <!--<ShellContent Title="Account" Icon="user.png" ContentTemplate="{DataTemplate local:AccountPage}" />-->
+    <!--</TabBar>-->
 
-    <!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
+    
+        <!--If you would like to navigate to this content you can do so by calling
+        await Shell.Current.GoToAsync("//LoginPage");-->
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </TabBar>
 
 

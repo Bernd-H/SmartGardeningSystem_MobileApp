@@ -4,11 +4,9 @@
              x:Class="MobileApp_Try2.Views.MainPage"
              xmlns:vm="clr-namespace:MobileApp_Try2.ViewModels"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
-             xmlns:model="clr-namespace:MobileApp_Try2.Models"
-             Title="{Binding Title}">
+             xmlns:model="clr-namespace:MobileApp_Try2.Models">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:MainPageViewModel />
     </ContentPage.BindingContext>
 
@@ -16,49 +14,72 @@
         <ResourceDictionary>
 
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentPage.Resources>-->
 
     <ContentPage.Content>
         <ScrollView>
-            <!--<RefreshView x:DataType="vm:MainPageViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">-->
-                <Grid RowDefinitions="Auto,Auto,200,Auto,*">
-                    <!--<Path Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Start" Aspect="Fill" Margin="0,-30,0,0" Data="m220.13402,142.44819l109.03261,0l0,67.08057c-54.51631,0 -54.51631,25.55893 -109.03261,11.03681l0,-78.11738z" Stroke="#0000" Fill="#37a6b8"/>-->
+            <Grid RowDefinitions="Auto,200,Auto,70">
+                <!--<Path Grid.Row="1" Grid.RowSpan="2" VerticalOptions="Center" Aspect="Uniform" Margin="0,0,0,0" Data="m137.76947,194.64265c106.23712,51.41772 189.24843,-11.46303 200.64682,0l0,138.6936c-69.46292,21.11544 -133.76454,-77.052 -200.64682,0l0,-138.6936z" Stroke="#0000" Fill="#37a6b8"/>-->
 
-                    <Path Grid.Row="1" Grid.RowSpan="2" VerticalOptions="Center" Aspect="Uniform" Margin="0,0,0,0" Data="m137.76947,194.64265c106.23712,51.41772 189.24843,-11.46303 200.64682,0l0,138.6936c-69.46292,21.11544 -133.76454,-77.052 -200.64682,0l0,-138.6936z" Stroke="#0000" Fill="#37a6b8"/>
-
-                    <!-- Startinformation + Logo -->
+                <!-- System info + Logo -->
+                <Grid Grid.Row="0">
                     <pancake:PancakeView Grid.Row="0" Margin="0,0,0,0" BackgroundColor="White" Padding="0,0"
-                               HorizontalOptions="FillAndExpand" CornerRadius="0,0,5,20">
-                        <Grid RowDefinitions="35,35,35,35" ColumnDefinitions="*,Auto" Grid.Row="0" Margin="15,15,15,0">
-                            <StackLayout Grid.Column="0">
+                               HorizontalOptions="FillAndExpand" CornerRadius="0,0,20,20">
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" Margin="15,15,15,5">
+                            <StackLayout Spacing="10">
                                 <StackLayout Grid.Row="0" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Status" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="online" />
+                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Status" />
+                                    <Label Grid.Column="0" TextColor="Green" FontSize="16" Text="online - aktive" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="1" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Current soil humidity" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="20%" />
-                                </StackLayout>
-                                <Image Grid.Row="2" Grid.RowSpan="2" Margin="-5,-5,15,10" Source="undraw_Mind_map_re_nlb6" />
-                            </StackLayout>
-
-                            <StackLayout Grid.Column="1" HorizontalOptions="EndAndExpand">
-                                <StackLayout Grid.Row="0" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Running since" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="28th February 2021" />
-                                </StackLayout>
-                                <StackLayout Grid.Row="1" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Weather of tomorrow" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="raining" />
+                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Temperatur" />
+                                    <Label Grid.Column="0" FontSize="16" Text="20°C" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="2" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Opened water ventil count" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="112 times" />
+                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Soil humidity" />
+                                    <Label Grid.Column="0" FontSize="16" Text="40%" />
                                 </StackLayout>
-                                <StackLayout Grid.Row="3" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="14" Text="Current temperatur" />
-                                    <Label Grid.Column="0" FontAttributes="Italic" FontSize="14" Text="28°C" />
+                                
+                                <!-- Stop and Start button -->
+                                <StackLayout Grid.Row="3" Orientation="Horizontal">
+                                    <pancake:PancakeView
+                    BackgroundColor="#993a03"
+                    CornerRadius="25"
+                    HeightRequest="45"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="120">
+                                        <pancake:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                                        </pancake:PancakeView.GestureRecognizers>
+                                        <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Stop"
+                        TextColor="White"
+                        VerticalOptions="CenterAndExpand">
+                                        </Label>
+                                    </pancake:PancakeView>
+                                    <pancake:PancakeView
+                    BackgroundColor="#2f7545"
+                    CornerRadius="25"
+                    HeightRequest="45"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="120">
+                                        <pancake:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                                        </pancake:PancakeView.GestureRecognizers>
+                                        <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Start"
+                        TextColor="White"
+                        VerticalOptions="CenterAndExpand">
+                                        </Label>
+                                    </pancake:PancakeView>
                                 </StackLayout>
+                                
                             </StackLayout>
                         </Grid>
                         <pancake:PancakeView.Shadow>
@@ -66,40 +87,18 @@
                         </pancake:PancakeView.Shadow>
                     </pancake:PancakeView>
 
-                    <!-- Info Icon -->
-                    <StackLayout Grid.Row="1">
-                        <!-- StackLayout so that the element will overlap the pancakeview above -->
-                        <pancake:PancakeView  CornerRadius="50" BackgroundColor="#37a6b8" HeightRequest="40" WidthRequest="40" Padding="5"
-                       HorizontalOptions="EndAndExpand" VerticalOptions="Start" Margin="0,-30,15,0">
-                            <Image Source="question" Aspect="AspectFit" Margin="7" />
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow />
-                            </pancake:PancakeView.Shadow>
-                        </pancake:PancakeView>
-                    </StackLayout>
+                    <!-- Account icon -->
+                    <pancake:PancakeView Margin="15" CornerRadius="40" BackgroundColor="#37a6b8" HeightRequest="40" WidthRequest="40" Padding="5" VerticalOptions="StartAndExpand" HorizontalOptions="EndAndExpand">
+                        <Image Source="user" Aspect="AspectFit" Margin="7" />
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow />
+                        </pancake:PancakeView.Shadow>
+                    </pancake:PancakeView>
+                </Grid>
 
-                    <!-- Ventil opened time chart -->
-                    <StackLayout Grid.Row="1" Margin="0,10,0,0">
-                        <Label Margin="15,0,0,-10"
-                            FontAttributes="Bold,Italic"
-                            FontSize="17"
-                            Text="Ventil opened time chart:"/>
-                        <pancake:PancakeView Margin="15,15,15,15" BackgroundColor="White" Padding="-20,10"
-                               HorizontalOptions="FillAndExpand" HeightRequest="200" CornerRadius="20">
-
-                            <microcharts:ChartView x:Name="chartView"
-                                   BackgroundColor="White"
-                                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow />
-                            </pancake:PancakeView.Shadow>
-                        </pancake:PancakeView>
-                    </StackLayout>
-
-                    <!-- Modules -->
-                    <StackLayout  Grid.Row="2"  Margin="0,10,0,0">
-                        <Label Margin="15,0,0,-5"
+                <!-- Modules -->
+                <StackLayout  Grid.Row="1"  Margin="0,10,0,0">
+                    <Label Margin="15,0,0,-5"
                             FontAttributes="Bold,Italic"
                             FontSize="17"
                             Text="Connected Modules:"/>
@@ -113,19 +112,19 @@
                                 <DataTemplate>
                                     <Grid>
                                         <!-- Look foreach element -->
-                                        <pancake:PancakeView  Margin="15,15,15,15" BackgroundColor="White" Padding="20,10" HorizontalOptions="FillAndExpand" HeightRequest="150" CornerRadius="20">
+                                        <pancake:PancakeView  Margin="15,15,15,15" BackgroundColor="White" Padding="20,20" HorizontalOptions="FillAndExpand" HeightRequest="150" CornerRadius="20">
                                             <StackLayout x:DataType="model:SGModule">
-                                                <Label Text="{Binding Id}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                                <Label Text="{Binding Type}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="18" />
+                                                <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="18" />
+                                                <Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="16" />
                                                 <Label Text="{Binding InfoText}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
-                                                <Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
-                                                <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
                                                 <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer 
+                                                    <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
-                                            </TapGestureRecognizer>
-                                        </StackLayout.GestureRecognizers>
+                                                    </TapGestureRecognizer>
+                                                </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                             <pancake:PancakeView.Shadow>
                                                 <pancake:DropShadow />
@@ -135,60 +134,58 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        </RefreshView>
-                    </StackLayout>
+                    </RefreshView>
+                </StackLayout>
 
-                    <!-- Add module icon -->
-                    <StackLayout Grid.Row="3" Margin="0,-30,15,0" VerticalOptions="Start">
-                        <pancake:PancakeView Grid.Row="0" CornerRadius="50" BackgroundColor="Gray" HeightRequest="40" WidthRequest="40"
+                <!-- Add module icon -->
+                <StackLayout Grid.Row="2" Margin="0,-50,15,0" VerticalOptions="Start">
+                    <pancake:PancakeView Grid.Row="0" CornerRadius="50" BackgroundColor="Gray" HeightRequest="40" WidthRequest="40"
                                              HorizontalOptions="EndAndExpand" Padding="5">
-                            <Image Source="plus" Aspect="AspectFit" Margin="8" />
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow BlurRadius="10" />
-                            </pancake:PancakeView.Shadow>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <!--<TapGestureRecognizer Command="{Binding AddModuleCommand}" />-->
+                        <Image Source="plus" Aspect="AspectFit" Margin="8" />
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow BlurRadius="10" />
+                        </pancake:PancakeView.Shadow>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <!--<TapGestureRecognizer Command="{Binding AddModuleCommand}" />-->
                             <TapGestureRecognizer
                                 NumberOfTapsRequired="1"
                                 Command="{Binding AddItemCommand}">
                             </TapGestureRecognizer>
                         </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <Label Text="Add Module" FontAttributes="Italic" HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
+                    </pancake:PancakeView>
+                    <Label Text="Add Module" FontAttributes="Italic" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
 
-                    <!-- Information about the firm -->
-                    <StackLayout Grid.Row="4" VerticalOptions="End" Margin="15,30,15,5">
-                        <Grid RowDefinitions="Auto,Auto">
-                        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" >
-                            <Label  FontAttributes="Bold,Italic"
-                            FontSize="16"
-                            Text="Our Website:"/>
-                            <Label Grid.Column="1"
-                            FontSize="15"
+                <!-- Information about the firm -->
+                <StackLayout Grid.Row="3" VerticalOptions="End" Margin="15,-20,15,5">
+                    <Grid ColumnDefinitions="Auto,*" >
+                        <!-- Help icon -->
+                        <pancake:PancakeView Margin="-115,0,0,-105" CornerRadius="200" BackgroundColor="#37a6b8" HeightRequest="200" WidthRequest="200" Padding="5" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
+                            <!--<Image Source="question" Aspect="AspectFit" Margin="7" />-->
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow />
+                            </pancake:PancakeView.Shadow>
+                        </pancake:PancakeView>
+
+                        <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Spacing="0">
+                            <Label
+                            FontSize="18"
                             Text="smartgardening.at"
-                            TextColor="#37a6b8"
-                            VerticalOptions="End">
+                            TextColor="#37a6b8">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding OpenWebCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
-                        </Grid>
-                        <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
-                            <Label  Grid.Column="0"
-                            FontAttributes="Bold,Italic"
-                            FontSize="15"
-                            Text="Creators:"/>
-                            <Label  Grid.Column="1"
-                            FontSize="14"
-                            Text="© Bernd Hatzinger, Lukas Zrout"
-                            VerticalOptions="End" />
-                        </Grid>
-                        </Grid>
-                    </StackLayout>
+                            <Label  FontAttributes="Bold,Italic" HorizontalOptions="End"
+                            FontSize="16"
+                            Text="(Website)"
+                               />
+                        </StackLayout>
+                        <Image Source="question" Aspect="AspectFit" Margin="-2,0,0,10" HeightRequest="45" WidthRequest="45" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                    </Grid>
+                </StackLayout>
 
-                </Grid>
-            <!--</RefreshView>-->
+            </Grid>
         </ScrollView>
     </ContentPage.Content>
 

@@ -11,7 +11,6 @@ using Xamarin.Forms;
 namespace MobileApp_Try2.ViewModels {
     public class MainPageViewModel : BaseViewModel {
         public MainPageViewModel() {
-            Title = "Smart Gardening System";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
             AddModuleCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));
 

@@ -17,23 +17,34 @@ namespace MobileApp_Try2.Services
                 new SGModule {
                     Id = Guid.NewGuid().ToString(),
                     IsOnline = true,
-                    InfoText = "Vorgarten sensor links.",
+                    InfoText = "Für mehr Infos drücken...",
+                    _Type = SGModuleType.MAINSTATION,
+                    MeasuredValue = "-",
+                    Name = "Hauptstation"
+                },
+                new SGModule {
+                    Id = Guid.NewGuid().ToString(),
+                    IsOnline = true,
+                    InfoText = "Für mehr Infos drücken...",
+                    _Type = SGModuleType.SENSOR,
                     MeasuredValue = "40%",
-                    Name = "SensVorgartenL"
+                    Name = "Vorgarten Links"
                 },
                 new SGModule {
                     Id = Guid.NewGuid().ToString(),
                     IsOnline = true,
-                    InfoText = "Hintergarten sensor links.",
-                    MeasuredValue = "38.2%",
-                    Name = "SensHintergartenL"
+                    InfoText = "Für mehr Infos drücken...",
+                    MeasuredValue = "closed",
+                    _Type = SGModuleType.ACTOR,
+                    Name = "Vorgarten Links"
                 },
                 new SGModule {
                     Id = Guid.NewGuid().ToString(),
                     IsOnline = true,
-                    InfoText = "Vorgarten sensor rechts.",
-                    MeasuredValue = "52.3%",
-                    Name = "SensVorgartenR"
+                    InfoText = "Für mehr Infos drücken...",
+                    MeasuredValue = "open",
+                    Name = "Ventil 2",
+                    _Type = SGModuleType.ACTOR
                 }
             };
         }

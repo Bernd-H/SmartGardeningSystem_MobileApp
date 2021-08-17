@@ -8,6 +8,8 @@ namespace MobileApp_Try2.Views {
 
         public MainPage() {
             InitializeComponent();
+            Shell.SetTabBarIsVisible(this, false);
+            Shell.SetNavBarIsVisible(this, false);
             //this.BindingContext = new MainPageViewModel();
             BindingContext = _viewModel = new MainPageViewModel();
         }
@@ -15,31 +17,6 @@ namespace MobileApp_Try2.Views {
         protected override void OnAppearing() {
             base.OnAppearing();
             _viewModel.OnAppearing();
-
-            var entries = new[] {
-                new ChartEntry(212){
-         Label = "UWP",
-         ValueLabel = "212",
-     },
-     new ChartEntry(248)
-     {
-         Label = "Android",
-         ValueLabel = "248",
-     },
-     new ChartEntry(128)
-     {
-         Label = "iOS",
-         ValueLabel = "128",
-     },
-     new ChartEntry(514)
-     {
-         Label = "Shared",
-         ValueLabel = "514",
-            } };
-
-            var chart = new LineChart() { Entries = entries };
-
-            chartView.Chart = chart;
         }
     }
 }
