@@ -20,7 +20,7 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <RefreshView x:DataType="vm:MainPageViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <!--<RefreshView x:DataType="vm:MainPageViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">-->
                 <Grid RowDefinitions="Auto,Auto,200,Auto,*">
                     <!--<Path Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Start" Aspect="Fill" Margin="0,-30,0,0" Data="m220.13402,142.44819l109.03261,0l0,67.08057c-54.51631,0 -54.51631,25.55893 -109.03261,11.03681l0,-78.11738z" Stroke="#0000" Fill="#37a6b8"/>-->
 
@@ -104,7 +104,7 @@
                             FontSize="17"
                             Text="Connected Modules:"/>
 
-                        <!--<RefreshView x:DataType="vm:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">-->
+                    <RefreshView x:DataType="vm:MainPageViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
                         <CollectionView x:Name="ItemsListView" ItemsSource="{Binding Items}" SelectionMode="None">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" />
@@ -135,10 +135,10 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <!--</RefreshView>-->
+                        </RefreshView>
                     </StackLayout>
 
-                    <!-- Add and remove module icons -->
+                    <!-- Add module icon -->
                     <StackLayout Grid.Row="3" Margin="0,-30,15,0" VerticalOptions="Start">
                         <pancake:PancakeView Grid.Row="0" CornerRadius="50" BackgroundColor="Gray" HeightRequest="40" WidthRequest="40"
                                              HorizontalOptions="EndAndExpand" Padding="5">
@@ -147,8 +147,12 @@
                                 <pancake:DropShadow BlurRadius="10" />
                             </pancake:PancakeView.Shadow>
                             <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding AddModuleCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
+                                <!--<TapGestureRecognizer Command="{Binding AddModuleCommand}" />-->
+                            <TapGestureRecognizer
+                                NumberOfTapsRequired="1"
+                                Command="{Binding AddItemCommand}">
+                            </TapGestureRecognizer>
+                        </pancake:PancakeView.GestureRecognizers>
                         </pancake:PancakeView>
                         <Label Text="Add Module" FontAttributes="Italic" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
@@ -184,7 +188,7 @@
                     </StackLayout>
 
                 </Grid>
-            </RefreshView>
+            <!--</RefreshView>-->
         </ScrollView>
     </ContentPage.Content>
 

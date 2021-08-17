@@ -8,7 +8,7 @@
              BackgroundColor="WhiteSmoke">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,*,*,40">
+        <Grid RowDefinitions="Auto,Auto,Auto,*,40">
             <pancake:PancakeView Grid.Row="0" Grid.RowSpan="2" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Frame BackgroundColor="#084ebf" />
                 <pancake:PancakeView.Shadow>
@@ -33,16 +33,15 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Grid.Row="3" Margin="15,0,15,0">
-                <!--<Grid ColumnDefinitions="*,*,*,*,*" HorizontalOptions="FillAndExpand">
-                    <Label Grid.Column="0" Text="Low" />
-                    <Label Grid.Column="1" Text="Low" />
-                    <Label Grid.Column="2" Text="Low" />
-                    <Label Grid.Column="3" Text="Low" />
-                    <Label Grid.Column="4" Text="Low" />
-                </Grid>-->
-                <StackLayout x:Name="stack" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="0"/>
-                <Slider x:Name="slider" HorizontalOptions="FillAndExpand" ValueChanged="Slider_ValueChanged" ThumbColor="#084ebf"/>
+            <StackLayout Grid.Row="3" Margin="15" Spacing="10">
+                <StackLayout>
+                    <Label Text="Watering setting" FontAttributes="Bold" FontSize="14" />
+                    <Label Text="It is recommended to set this setting according to what"  FontSize="14" />
+                </StackLayout>
+                <StackLayout>
+                    <StackLayout x:Name="stack" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="0"/>
+                    <Slider x:Name="slider" HorizontalOptions="FillAndExpand" ValueChanged="Slider_ValueChanged" ThumbColor="#084ebf"/>
+                </StackLayout>
             </StackLayout>
 
             <Label Grid.Row="4"

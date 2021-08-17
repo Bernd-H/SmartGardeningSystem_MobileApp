@@ -67,8 +67,8 @@ namespace MobileApp_Try2.ViewModels {
             }
         }
 
-        private async void OnAddItem(object obj) {
-            //await Shell.Current.GoToAsync(nameof(NewItemPage));
+        async void OnAddItem(object obj) {
+            await Shell.Current.GoToAsync(nameof(AddModulePage));
         }
 
         async void OnItemSelected(SGModule item) {

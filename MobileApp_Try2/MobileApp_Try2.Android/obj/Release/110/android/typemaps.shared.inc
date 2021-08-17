@@ -49,50 +49,50 @@
 	.section	.rodata.map_aname.8,"aMS",@progbits,1
 	.type	.L.map_aname.8, @object
 .L.map_aname.8:
-	.asciz	"Xamarin.AndroidX.Loader"
-	.size	.L.map_aname.8, 24
+	.asciz	"Mono.Android"
+	.size	.L.map_aname.8, 13
 
 	.section	.rodata.map_aname.9,"aMS",@progbits,1
 	.type	.L.map_aname.9, @object
 .L.map_aname.9:
-	.asciz	"Xamarin.AndroidX.SavedState"
-	.size	.L.map_aname.9, 28
+	.asciz	"Xamarin.AndroidX.Loader"
+	.size	.L.map_aname.9, 24
 
 	.section	.rodata.map_aname.10,"aMS",@progbits,1
 	.type	.L.map_aname.10, @object
 .L.map_aname.10:
-	.asciz	"Xamarin.AndroidX.Browser"
-	.size	.L.map_aname.10, 25
+	.asciz	"Xamarin.AndroidX.SavedState"
+	.size	.L.map_aname.10, 28
 
 	.section	.rodata.map_aname.11,"aMS",@progbits,1
 	.type	.L.map_aname.11, @object
 .L.map_aname.11:
-	.asciz	"Xamarin.Google.Android.Material"
-	.size	.L.map_aname.11, 32
+	.asciz	"Xamarin.AndroidX.Browser"
+	.size	.L.map_aname.11, 25
 
 	.section	.rodata.map_aname.12,"aMS",@progbits,1
 	.type	.L.map_aname.12, @object
 .L.map_aname.12:
-	.asciz	"Xamarin.AndroidX.Lifecycle.Common"
-	.size	.L.map_aname.12, 34
+	.asciz	"Xamarin.Google.Android.Material"
+	.size	.L.map_aname.12, 32
 
 	.section	.rodata.map_aname.13,"aMS",@progbits,1
 	.type	.L.map_aname.13, @object
 .L.map_aname.13:
-	.asciz	"Xamarin.Forms.Platform.Android"
-	.size	.L.map_aname.13, 31
+	.asciz	"Xamarin.AndroidX.Lifecycle.Common"
+	.size	.L.map_aname.13, 34
 
 	.section	.rodata.map_aname.14,"aMS",@progbits,1
 	.type	.L.map_aname.14, @object
 .L.map_aname.14:
-	.asciz	"Xamarin.AndroidX.Activity"
-	.size	.L.map_aname.14, 26
+	.asciz	"Xamarin.Forms.Platform.Android"
+	.size	.L.map_aname.14, 31
 
 	.section	.rodata.map_aname.15,"aMS",@progbits,1
 	.type	.L.map_aname.15, @object
 .L.map_aname.15:
-	.asciz	"MobileApp_Try2.Android"
-	.size	.L.map_aname.15, 23
+	.asciz	"Xamarin.AndroidX.Activity"
+	.size	.L.map_aname.15, 26
 
 	.section	.rodata.map_aname.16,"aMS",@progbits,1
 	.type	.L.map_aname.16, @object
@@ -127,20 +127,20 @@
 	.section	.rodata.map_aname.21,"aMS",@progbits,1
 	.type	.L.map_aname.21, @object
 .L.map_aname.21:
-	.asciz	"Mono.Android"
-	.size	.L.map_aname.21, 13
+	.asciz	"Xamarin.AndroidX.RecyclerView"
+	.size	.L.map_aname.21, 30
 
 	.section	.rodata.map_aname.22,"aMS",@progbits,1
 	.type	.L.map_aname.22, @object
 .L.map_aname.22:
-	.asciz	"Xamarin.AndroidX.RecyclerView"
-	.size	.L.map_aname.22, 30
+	.asciz	"Xamarin.AndroidX.CardView"
+	.size	.L.map_aname.22, 26
 
 	.section	.rodata.map_aname.23,"aMS",@progbits,1
 	.type	.L.map_aname.23, @object
 .L.map_aname.23:
-	.asciz	"Xamarin.AndroidX.CardView"
-	.size	.L.map_aname.23, 26
+	.asciz	"MobileApp_Try2.Android"
+	.size	.L.map_aname.23, 23
 
 	.section	.rodata.map_aname.24,"aMS",@progbits,1
 	.type	.L.map_aname.24, @object

@@ -30,8 +30,8 @@
 
     <TabBar>
         <ShellContent Title="Home" Icon="house.png" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
-        <ShellContent Title="Configure" Icon="settings.png" ContentTemplate="{DataTemplate local:MainPage}" />
-        <ShellContent Title="Account" Icon="user.png" ContentTemplate="{DataTemplate local:MainPage}" />
+        <!--<ShellContent Title="Configure" Icon="settings.png" ContentTemplate="{DataTemplate local:AccountPage}" />-->
+        <ShellContent Title="Account" Icon="user.png" ContentTemplate="{DataTemplate local:AccountPage}" />
     </TabBar>
 
     <!--

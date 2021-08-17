@@ -1435,9 +1435,10 @@ int drawable tooltip_frame_light 0x7f0700a4
 int drawable twitter 0x7f0700a5
 int drawable undraw_authentication_fsn5 0x7f0700a6
 int drawable undraw_metrics 0x7f0700a7
-int drawable undraw_tabs 0x7f0700a8
-int drawable user 0x7f0700a9
-int drawable xamarin_logo 0x7f0700aa
+int drawable undraw_mind_map_re_nlb6 0x7f0700a8
+int drawable undraw_tabs 0x7f0700a9
+int drawable user 0x7f0700aa
+int drawable xamarin_logo 0x7f0700ab
 int id ALT 0x7f080000
 int id BOTTOM_END 0x7f080001
 int id BOTTOM_START 0x7f080002
