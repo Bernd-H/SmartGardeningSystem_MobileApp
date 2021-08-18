@@ -6550,9 +6550,10 @@ public final class R {
     public static final int undraw_authentication_fsn5=0x7f0700a6;
     public static final int undraw_metrics=0x7f0700a7;
     public static final int undraw_mind_map_re_nlb6=0x7f0700a8;
-    public static final int undraw_tabs=0x7f0700a9;
-    public static final int user=0x7f0700aa;
-    public static final int xamarin_logo=0x7f0700ab;
+    public static final int undraw_outdoors_amdn=0x7f0700a9;
+    public static final int undraw_tabs=0x7f0700aa;
+    public static final int user=0x7f0700ab;
+    public static final int xamarin_logo=0x7f0700ac;
   }
   public static final class id {
     public static final int ALT=0x7f080000;

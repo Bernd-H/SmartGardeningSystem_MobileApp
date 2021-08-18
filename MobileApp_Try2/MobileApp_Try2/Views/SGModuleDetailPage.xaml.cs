@@ -15,6 +15,7 @@ namespace MobileApp_Try2.Views
 		public SGModuleDetailPage()
 		{
 			InitializeComponent ();
+            Shell.SetTabBarIsVisible(this, false);
             BindingContext = new SGModuleDetailViewModel();
 
             slider.BindingContext = this;
@@ -28,12 +29,17 @@ namespace MobileApp_Try2.Views
                     BuildSlider();
                 }
             };
+
+            connectedToPicker.ItemsSource = null;
+            connectedToPicker.Items.Add("Actor1");
+            connectedToPicker.Items.Add("Actor2");
+            connectedToPicker.IsVisible = true;
         }
 
         private void BuildSlider() {
 
             // slider, help from https://ahorasomos.izertis.com/solidgear/en/xamarin-diaries-stepped-slider/
-            slider.Maximum = 4;
+            slider.Maximum = 2;
             slider.Minimum = 0;
 
             stack.Children.Clear();
@@ -41,8 +47,6 @@ namespace MobileApp_Try2.Views
             values.Add("1");
             values.Add("2");
             values.Add("3");
-            values.Add("4");
-            values.Add("5");
 
             var ballSize = slider.Height;
             var labelWidth = (slider.Width - ballSize) / (values.Count - 1);
@@ -67,6 +71,10 @@ namespace MobileApp_Try2.Views
 
             var slider = (Slider)sender;
             slider.Value = newStep * 1;
+        }
+
+        void OnPickerSelectedChanged(object sender, EventArgs e) {
+
         }
     }
 }

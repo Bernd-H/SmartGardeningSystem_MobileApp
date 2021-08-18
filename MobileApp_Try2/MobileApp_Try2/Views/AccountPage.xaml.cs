@@ -12,6 +12,7 @@ namespace MobileApp_Try2.Views {
     public partial class AccountPage : ContentPage {
         public AccountPage() {
             InitializeComponent();
+            Shell.SetTabBarIsVisible(this, false);
         }
     }
 }

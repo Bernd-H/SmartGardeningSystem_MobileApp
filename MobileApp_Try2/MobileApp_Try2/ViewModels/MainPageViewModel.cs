@@ -21,6 +21,7 @@ namespace MobileApp_Try2.ViewModels {
             ItemTapped = new Command<SGModule>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+            AccountCommand = new Command(OnAccountTapped);
         }
 
         public ICommand OpenWebCommand { get; }
@@ -33,6 +34,7 @@ namespace MobileApp_Try2.ViewModels {
         public ObservableCollection<SGModule> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
+        public Command AccountCommand { get; }
         public Command<SGModule> ItemTapped { get; }
 
         async Task ExecuteLoadItemsCommand() {
@@ -68,6 +70,10 @@ namespace MobileApp_Try2.ViewModels {
 
         async void OnAddItem(object obj) {
             await Shell.Current.GoToAsync(nameof(AddModulePage));
+        }
+
+        async void OnAccountTapped(object obj) {
+            await Shell.Current.GoToAsync(nameof(AccountPage));
         }
 
         async void OnItemSelected(SGModule item) {

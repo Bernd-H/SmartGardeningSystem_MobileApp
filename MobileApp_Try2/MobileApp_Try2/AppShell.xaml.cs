@@ -12,6 +12,7 @@ namespace MobileApp_Try2
             Routing.RegisterRoute(nameof(AccountPage), typeof(AccountPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(AddModulePage), typeof(AddModulePage));
+            Routing.RegisterRoute(nameof(HelpPage), typeof(HelpPage));
         }
 
     }

@@ -11,12 +11,9 @@ namespace MobileApp_Try2.Views
         public LoginPage()
         {
             InitializeComponent();
+            Shell.SetTabBarIsVisible(this, false);
+            Shell.SetNavBarIsVisible(this, false);
             this.BindingContext = new LoginViewModel();
         }
-
-        //void LoginClick(object sender, EventArgs args) // Tapped="LoginClick"
-        //{
-        //    Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        //}
     }
 }

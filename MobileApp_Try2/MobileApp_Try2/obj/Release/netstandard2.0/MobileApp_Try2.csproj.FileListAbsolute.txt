@@ -21,3 +21,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\Views\AccountPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\Views\AddModulePage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\MobileApp_Try2.csproj.CopyComplete
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\Views\HelpPage.xaml.g.cs

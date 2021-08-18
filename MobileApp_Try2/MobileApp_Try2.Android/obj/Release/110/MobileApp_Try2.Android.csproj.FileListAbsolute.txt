@@ -497,3 +497,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Release\110\res\drawable\undraw_metrics.png
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Release\110\res\drawable\undraw_tabs.png
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Release\110\res\drawable\undraw_mind_map_re_nlb6.png
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Release\110\res\drawable\undraw_outdoors_amdn.png
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Release\110\android\src\crc64060d41047a737b7d\BorderlessPickerRenderer.java

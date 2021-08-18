@@ -10,7 +10,7 @@
     
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
 -->
-    <!--<Shell.Resources>
+    <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
@@ -26,7 +26,7 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
-    </Shell.Resources>-->    
+    </Shell.Resources>    
 
     <!--<TabBar>-->
         <!--<ShellContent Title="Home" Icon="house.png" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />-->

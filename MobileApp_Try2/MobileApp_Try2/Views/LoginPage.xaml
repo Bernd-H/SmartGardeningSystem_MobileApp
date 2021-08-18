@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              x:Class="MobileApp_Try2.Views.LoginPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             Shell.NavBarIsVisible="False"
              BackgroundColor="#2aa361">
     <!--<ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">

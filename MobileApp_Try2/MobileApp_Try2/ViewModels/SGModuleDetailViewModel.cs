@@ -10,10 +10,14 @@ namespace MobileApp_Try2.ViewModels
     {
         private string itemId;
         private string name;
-        private string infoText;
+        private string type;
         private string isOnline;
         private string measuredValue;
         private string id;
+        private bool isRemoveButtonEnabled;
+        private string connectedToActor;
+        private bool isSelectActorVisible;
+        private string lastUpdated;
 
         public Command RemoveCommand { get; }
 
@@ -34,26 +38,25 @@ namespace MobileApp_Try2.ViewModels
             set => SetProperty(ref name, value);
         }
 
-        public string InfoText
+        public string Type
         {
-            get => infoText;
-            set => SetProperty(ref infoText, value);
+            get => type;
+            set => SetProperty(ref type, value);
         }
 
         public string IsOnline {
-            get => infoText;
+            get => isOnline;
             set => SetProperty(ref isOnline, value);
         }
 
         public string MeasuredValue {
-            get => infoText;
+            get => measuredValue;
             set => SetProperty(ref measuredValue, value);
         }
 
         public string LastUpdated {
-            get {
-                return "Last updated: " + DateTime.Now.ToString();
-            }
+            get => lastUpdated;
+            set => SetProperty(ref lastUpdated, value);
         }
 
         public string ItemId
@@ -69,6 +72,21 @@ namespace MobileApp_Try2.ViewModels
             }
         }
 
+        public bool IsRemoveButtonEnabled {
+            get => isRemoveButtonEnabled;
+            set => SetProperty(ref isRemoveButtonEnabled, value);
+        }
+
+        public bool IsSelectActorVisible {
+            get => isSelectActorVisible;
+            set => SetProperty(ref isSelectActorVisible, value);
+        }
+
+        public string ConnectedToActor {
+            get => connectedToActor;
+            set => SetProperty(ref connectedToActor, value);
+        }
+
         public string ModuleImagePath {
             get { return "undraw_tabs"; }
         }
@@ -80,9 +98,21 @@ namespace MobileApp_Try2.ViewModels
                 var item = await ModulesDataStore.GetItemAsync(itemId);
                 Id = item.Id;
                 Name = item.Name;
-                InfoText = item.InfoText;
+                Type = item.Type;
+                ConnectedToActor = "Test1";
                 IsOnline = item.IsOnline.ToString();
                 MeasuredValue = item.MeasuredValue;
+                LastUpdated = DateTime.Now.ToString();
+
+                if (item._Type == Models.SGModuleType.MAINSTATION)
+                    IsRemoveButtonEnabled = false;
+                else
+                    IsRemoveButtonEnabled = true;
+
+                if (item._Type == Models.SGModuleType.SENSOR)
+                    IsSelectActorVisible = true;
+                else
+                    IsSelectActorVisible = false;
             }
             catch (Exception)
             {

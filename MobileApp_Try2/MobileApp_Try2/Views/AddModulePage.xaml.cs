@@ -12,6 +12,7 @@ namespace MobileApp_Try2.Views {
     public partial class AddModulePage : ContentPage {
         public AddModulePage() {
             InitializeComponent();
+            Shell.SetTabBarIsVisible(this, false);
 
             this.BindingContext = new AddModuleViewModel();
         }

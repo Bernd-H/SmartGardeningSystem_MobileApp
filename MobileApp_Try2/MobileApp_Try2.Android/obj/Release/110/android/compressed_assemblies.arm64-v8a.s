@@ -53,7 +53,7 @@
 
 	/* 5: MobileApp_Try2.Android.dll */
 	/* uncompressed_file_size */
-	.word	393216
+	.word	393728
 	/* loaded */
 	.byte	0
 	/* data */
@@ -62,7 +62,7 @@
 
 	/* 6: MobileApp_Try2.dll */
 	/* uncompressed_file_size */
-	.word	68608
+	.word	91136
 	/* loaded */
 	.byte	0
 	/* data */

@@ -17042,13 +17042,16 @@ namespace MobileApp_Try2.Droid
 			public const int undraw_Mind_map_re_nlb6 = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int undraw_tabs = 2131165353;
+			public const int undraw_outdoors_amdn = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int user = 2131165354;
+			public const int undraw_tabs = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int xamarin_logo = 2131165355;
+			public const int user = 2131165355;
+			
+			// aapt resource value: 0x7F0700AC
+			public const int xamarin_logo = 2131165356;
 			
 			static Drawable()
 			{
