@@ -22,10 +22,12 @@ namespace MobileApp_Try2.ViewModels {
 
             AddItemCommand = new Command(OnAddItem);
             AccountCommand = new Command(OnAccountTapped);
+            HelpCommand = new Command(OnHelpTapped);
         }
 
         public ICommand OpenWebCommand { get; }
         public ICommand AddModuleCommand { get; }
+        public ICommand HelpCommand { get; }
 
 
 
@@ -70,6 +72,10 @@ namespace MobileApp_Try2.ViewModels {
 
         async void OnAddItem(object obj) {
             await Shell.Current.GoToAsync(nameof(AddModulePage));
+        }
+
+        async void OnHelpTapped(object obj) {
+            await Shell.Current.GoToAsync(nameof(HelpPage));
         }
 
         async void OnAccountTapped(object obj) {

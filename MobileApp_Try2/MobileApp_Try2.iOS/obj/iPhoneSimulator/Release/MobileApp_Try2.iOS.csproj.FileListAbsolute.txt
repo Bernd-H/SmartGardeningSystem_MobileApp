@@ -61,3 +61,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.csproj.CoreCompileInputs.cache
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.exe
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\Xamarin.CommunityToolkit.dll

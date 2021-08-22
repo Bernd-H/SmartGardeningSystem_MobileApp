@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.targets" Condition="Exists('C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.targets')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.communitytoolkit\1.3.0-pre2\build\Xamarin.CommunityToolkit.targets" Condition="Exists('$(NuGetPackageRoot)xamarin.communitytoolkit\1.3.0-pre2\build\Xamarin.CommunityToolkit.targets')" />
     <Import Project="$(NuGetPackageRoot)skiasharp\2.80.2\buildTransitive\xamarinios1.0\SkiaSharp.targets" Condition="Exists('$(NuGetPackageRoot)skiasharp\2.80.2\buildTransitive\xamarinios1.0\SkiaSharp.targets')" />
   </ImportGroup>
 </Project>

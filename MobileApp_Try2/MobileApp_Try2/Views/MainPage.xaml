@@ -5,7 +5,8 @@
              xmlns:vm="clr-namespace:MobileApp_Try2.ViewModels"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:model="clr-namespace:MobileApp_Try2.Models"
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms">
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             x:DataType="vm:MainPageViewModel">
 
     <!--<ContentPage.BindingContext>
         <vm:MainPageViewModel />
@@ -50,7 +51,7 @@
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="120">
                                         <pancake:PancakeView.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding HelpCommand}"></TapGestureRecognizer>
                                         </pancake:PancakeView.GestureRecognizers>
                                         <Label
                         FontAttributes="Bold"
@@ -68,7 +69,7 @@
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="120">
                                         <pancake:PancakeView.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding HelpCommand}"></TapGestureRecognizer>
                                         </pancake:PancakeView.GestureRecognizers>
                                         <Label
                         FontAttributes="Bold"
@@ -191,6 +192,9 @@
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow />
                             </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
                         </pancake:PancakeView>
 
                         <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Spacing="0">

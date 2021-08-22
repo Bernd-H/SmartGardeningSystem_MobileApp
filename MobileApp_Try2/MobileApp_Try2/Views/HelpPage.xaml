@@ -1,13 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              x:Class="MobileApp_Try2.Views.HelpPage"
-             Title="Help">
+             Title="Häufig gestellte Fragen">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="close.png" />
+    </Shell.BackButtonBehavior>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="20" Padding="20,20">
+                <Image Grid.Row="0" Source="undraw_Faq_re_31cw" Aspect="AspectFit" Margin="0,-40,0,0" HorizontalOptions="Center" VerticalOptions="Start" />
+
+                <Label Grid.Row="1" Text="Wie Funktioniert die App?" FontAttributes="Bold" FontSize="20" TextColor="Black" />
+                <pancake:PancakeView Grid.Row="2" CornerRadius="20,20,20,20" BackgroundColor="#46a5e0" HorizontalOptions="FillAndExpand">
+                    <xct:Expander>
+                        <xct:Expander.Header>
+                            <Grid ColumnDefinitions="Auto,*" Margin="15">
+                                <Label Text="Wer hat die App entwickelt?" VerticalOptions="Center" FontSize="18" />
+                                <!--<Image Grid.Column="1" Source="arrow-142-64" IsVisible="false" />
+                                <Image Grid.Column="1" Source="arrow-204-64" IsVisible="true" />-->
+                                <Image Grid.Column="1" Source="arrow_204_64" VerticalOptions="Center" Margin="5">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image"
+                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                                     Value="True">
+                                            <Setter Property="Source"
+                                                    Value="arrow_142_64" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Grid>
+                        </xct:Expander.Header>
+                        <xct:Expander.Content>
+                            <Label Margin="15" Text="Test123" FontSize="16"/>
+                        </xct:Expander.Content>
+                    </xct:Expander>
+
+                </pancake:PancakeView>
+
+                <Label Grid.Row="3" Text="Fragen zum Projekt" FontAttributes="Bold" FontSize="20" TextColor="Black" />
+                <pancake:PancakeView Grid.Row="4" CornerRadius="20,20,20,20" BackgroundColor="#46a5e0" HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions="Auto,*" Margin="15">
+                        <Label Text="Wer hat die App entwickelt?" FontSize="18" />
+                    </Grid>
+                </pancake:PancakeView>
+            </Grid>
+
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

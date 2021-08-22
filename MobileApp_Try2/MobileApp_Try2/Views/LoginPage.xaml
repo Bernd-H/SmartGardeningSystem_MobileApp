@@ -38,7 +38,7 @@
             Padding="15,30,15,15"
             BackgroundColor="White"
             CornerRadius="30,30,0,0"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="StartAndExpand">
                 <StackLayout VerticalOptions="CenterAndExpand">
                     <StackLayout Spacing="15">
                     <StackLayout Spacing="5">

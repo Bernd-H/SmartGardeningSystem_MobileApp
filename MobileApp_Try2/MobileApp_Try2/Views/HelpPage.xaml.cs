@@ -15,6 +15,7 @@ namespace MobileApp_Try2.Views
 		public HelpPage ()
 		{
 			InitializeComponent ();
-		}
+            Shell.SetTabBarIsVisible(this, false);
+        }
 	}
 }
