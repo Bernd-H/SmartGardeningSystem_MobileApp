@@ -61,7 +61,7 @@
 
 	/* 6: MobileApp_Try2.dll */
 	/* uncompressed_file_size */
-	.long	97792
+	.long	101376
 	/* loaded */
 	.byte	0
 	/* data */
@@ -178,7 +178,7 @@
 
 	/* 19: System.dll */
 	/* uncompressed_file_size */
-	.long	759296
+	.long	760320
 	/* loaded */
 	.byte	0
 	/* data */

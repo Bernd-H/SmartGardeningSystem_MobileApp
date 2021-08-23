@@ -211,7 +211,11 @@
                             Text="Visit our website ^"
                                />
                         </StackLayout>
-                        <Image Source="question" Aspect="AspectFit" Margin="-2,0,0,10" HeightRequest="45" WidthRequest="45" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                        <Image Source="question" Aspect="AspectFit" Margin="-2,0,0,10" HeightRequest="45" WidthRequest="45" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
                     </Grid>
                 </StackLayout>
 

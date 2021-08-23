@@ -63,3 +63,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.iOS.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.Forms.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\Xamarin.CommunityToolkit.dll
