@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+             xmlns:viewmodels="clr-namespace:MobileApp_Try2.ViewModels"
+             x:DataType="viewmodels:AccountViewModel"
              x:Class="MobileApp_Try2.Views.AccountPage"
              Title="Account">
     <ContentPage.Content>
         <ScrollView>
-            <Grid RowDefinitions="Auto,Auto" Padding="20" RowSpacing="20">
+            <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="20">
                 <!-- Change email dialog -->
                 <StackLayout Grid.Row="0" Spacing="15">
                     <Label Text="Change email" FontAttributes="Bold" FontSize="24" />
@@ -49,7 +51,7 @@
                     HorizontalOptions="EndAndExpand"
                     WidthRequest="150">
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeEmailCommand}"></TapGestureRecognizer>
                         </pancake:PancakeView.GestureRecognizers>
                         <Label
                         FontAttributes="Bold"
@@ -119,7 +121,7 @@
                     HorizontalOptions="EndAndExpand"
                     WidthRequest="150">
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangePasswordCommand}"></TapGestureRecognizer>
                         </pancake:PancakeView.GestureRecognizers>
                         <Label
                         FontAttributes="Bold"
@@ -131,6 +133,21 @@
                         </Label>
                     </pancake:PancakeView>
                 </StackLayout>
+                
+                <!-- Loggout -->
+                <Label Grid.Row="2"
+                        FontSize="20"
+                        Margin="0,0,0,20"
+                        HorizontalOptions="CenterAndExpand"
+                        FontAttributes="Bold"
+                        Text="Loggout"
+                        TextColor="IndianRed"
+                        VerticalOptions="CenterAndExpand"
+                        IsVisible="{Binding IsRemoveButtonEnabled, Mode=OneWay}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoggoutCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
         </ScrollView>
     </ContentPage.Content>
