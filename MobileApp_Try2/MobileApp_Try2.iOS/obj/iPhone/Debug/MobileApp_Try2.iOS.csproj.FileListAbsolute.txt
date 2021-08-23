@@ -64,3 +64,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.iOS.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\SkiaSharp.Views.Forms.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\Xamarin.CommunityToolkit.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\CommonServiceLocator.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.pdb

@@ -16,11 +16,11 @@
     <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="Auto,Auto,Auto,*">
             <Image Grid.Row="0" Margin="15,20,20,15"
-                    HeightRequest="30"
+                    HeightRequest="27"
                     HorizontalOptions="End"
                     Source="info"
                     VerticalOptions="Start"
-                    WidthRequest="30" />
+                    WidthRequest="27" />
 
             <!--<abstractions:SvgImage Grid.Row="1" SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LoginSvgPath}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />-->
             <Image Grid.Row="1" Source="{Binding LoginImagePath}" WidthRequest="200" VerticalOptions="Start" />
@@ -39,9 +39,8 @@
             BackgroundColor="White"
             CornerRadius="30,30,0,0"
             VerticalOptions="FillAndExpand">
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <StackLayout Spacing="15">
-                    <StackLayout Spacing="5">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" VerticalOptions="FillAndExpand" RowSpacing="20">
+                    <StackLayout Grid.Row="0" Spacing="5">
                         <Label
                         Margin="10,0,0,0"
                         FontSize="20"
@@ -63,7 +62,7 @@
                             </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>
-                    <StackLayout Spacing="5">
+                    <StackLayout Grid.Row="1" Spacing="5">
                         <Label
                         Margin="10,0,0,0"
                         FontSize="20"
@@ -85,7 +84,7 @@
                             </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                     </StackLayout>
-                    <Label
+                    <Label Grid.Row="2"
                         Margin="0,0,10,10"
                     FontAttributes="None"
                     FontSize="15"
@@ -93,6 +92,7 @@
                     Text="Forget Password?"
                     TextColor="#99A1B3" />
                     <pancake:PancakeView
+                        Grid.Row="3"
                     BackgroundColor="#2f7545"
                     CornerRadius="25"
                     HeightRequest="45"
@@ -110,13 +110,14 @@
                         VerticalOptions="CenterAndExpand">
                         </Label>
                     </pancake:PancakeView>
-                    <Label
+                    <Label Grid.Row="4"
                     FontAttributes="None"
                     FontSize="20"
                     HorizontalOptions="CenterAndExpand"
                     Text="Or"
                     TextColor="#99A1B3" />
                     <Label
+                        Grid.Row="5"
                         FontAttributes="None"
                         FontSize="18"
                         HorizontalOptions="CenterAndExpand"
@@ -129,8 +130,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                </StackLayout>
-                </StackLayout>
+                </Grid>
             </pancake:PancakeView>
         </Grid>
     </ScrollView>

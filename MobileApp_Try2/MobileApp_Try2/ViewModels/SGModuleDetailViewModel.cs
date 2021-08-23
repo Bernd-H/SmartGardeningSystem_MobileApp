@@ -17,6 +17,7 @@ namespace MobileApp_Try2.ViewModels
         private bool isRemoveButtonEnabled;
         private string connectedToActor;
         private bool isSelectActorVisible;
+        private bool isWateringSettingVisible;
         private string lastUpdated;
 
         public Command RemoveCommand { get; }
@@ -82,6 +83,11 @@ namespace MobileApp_Try2.ViewModels
             set => SetProperty(ref isSelectActorVisible, value);
         }
 
+        public bool IsWateringSettingVisible {
+            get => isWateringSettingVisible;
+            set => SetProperty(ref isWateringSettingVisible, value);
+        }
+
         public string ConnectedToActor {
             get => connectedToActor;
             set => SetProperty(ref connectedToActor, value);
@@ -109,10 +115,14 @@ namespace MobileApp_Try2.ViewModels
                 else
                     IsRemoveButtonEnabled = true;
 
-                if (item._Type == Models.SGModuleType.SENSOR)
+                if (item._Type == Models.SGModuleType.SENSOR) {
                     IsSelectActorVisible = true;
-                else
+                    IsWateringSettingVisible = true;
+                }
+                else {
                     IsSelectActorVisible = false;
+                    IsWateringSettingVisible = false;
+                }
             }
             catch (Exception)
             {

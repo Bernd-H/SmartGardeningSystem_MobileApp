@@ -136,14 +136,13 @@
                 
                 <!-- Loggout -->
                 <Label Grid.Row="2"
-                        FontSize="20"
-                        Margin="0,0,0,20"
+                        FontSize="22"
+                        Margin="0,15,0,0"
                         HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
                         Text="Loggout"
                         TextColor="IndianRed"
-                        VerticalOptions="CenterAndExpand"
-                        IsVisible="{Binding IsRemoveButtonEnabled, Mode=OneWay}">
+                        VerticalOptions="End">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoggoutCommand}"></TapGestureRecognizer>
                     </Label.GestureRecognizers>

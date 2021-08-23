@@ -37,7 +37,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Grid.Row="3" Margin="15" Spacing="10">
+            <StackLayout Grid.Row="3" Margin="15" Spacing="10" IsVisible="{Binding IsWateringSettingVisible, Mode=OneWay}">
                 <StackLayout>
                     <Label Text="Watering setting" FontAttributes="Bold" FontSize="18" />
                     <Label Text="Do you know that plants in that sensor area do not need as much water as normal ones? Then slide the following slider to 1."  FontSize="16" />
@@ -63,7 +63,7 @@
                         FontAttributes="Bold"
                         Text="Remove module"
                         TextColor="IndianRed"
-                        VerticalOptions="CenterAndExpand"
+                        VerticalOptions="EndAndExpand"
                         IsVisible="{Binding IsRemoveButtonEnabled, Mode=OneWay}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding RemoveCommand}"></TapGestureRecognizer>

@@ -62,3 +62,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.exe
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\Xamarin.CommunityToolkit.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\CommonServiceLocator.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\GalaSoft.MvvmLight.Extras.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\GalaSoft.MvvmLight.Platform.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\GalaSoft.MvvmLight.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.iOS\bin\iPhoneSimulator\Release\GalaSoft.MvvmLight.pdb

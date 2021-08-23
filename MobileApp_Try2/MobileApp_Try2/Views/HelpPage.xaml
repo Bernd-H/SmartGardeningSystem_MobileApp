@@ -39,7 +39,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Ein Modul ist ein Sensor oder ein Ventil, das mit dem System verbunden werden muss." FontSize="16"/>
+                                <Label Margin="15,0,15,15" Text="Ein Modul ist ein Sensor oder ein Ventil, das mit dem System verbunden werden muss." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
@@ -63,7 +63,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Betetige zuerst den Knopf am Ventil/Sensor gehäuse. Danach drücke 'Add Module' im Hauptmenü der Handyapp und schon wird das neue Modul zum System hinzugefügt." FontSize="16"/>
+                                <Label Margin="15,0,15,15" Text="Betetige zuerst den Knopf am Ventil/Sensor gehäuse. Danach drücke 'Add Module' im Hauptmenü der Handyapp und schon wird das neue Modul zum System hinzugefügt." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
@@ -87,7 +87,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Unter dem Stop und Start Knopf sind die verbunden Module aufgelistet. Drück man auf ein verbundenes Modul, so giebt es ganz unten die Option 'Remove Module'." FontSize="16"/>
+                                <Label Margin="15,0,15,15" Text="Unter dem Stop und Start Knopf sind die verbunden Module aufgelistet. Drück man auf ein verbundenes Modul, so giebt es ganz unten die Option 'Remove Module'." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
@@ -116,7 +116,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Die automatische Gießanlage wurde im Zusammenhang mit einer Diplomarbeit von Bernd Hatzinger und Lukas Zrout entwickelt." FontSize="16"/>
+                                <Label Margin="15,0,15,15" Text="Die automatische Gießanlage wurde im Zusammenhang mit einer Diplomarbeit von Bernd Hatzinger und Lukas Zrout entwickelt." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
@@ -140,7 +140,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Der eigen, unter aufsicht eines lang erfahrenen Gärtnerpaares, entwickelte Gießalgorithmus zieht Variablen wie Bodenfeuchtigkeit, Wetterbericht in betracht. Weiters wird nicht oft in kleinen Mengen gegossen, da dadurch die Pflanzenwurzeln nicht zu Sauerstoff gelangen, was der Pflanze schädigt." FontSize="16"/>
+                                <Label Margin="15,0,15,15" Text="Der eigen, unter aufsicht eines lang erfahrenen Gärtnerpaares, entwickelte Gießalgorithmus zieht Variablen wie Bodenfeuchtigkeit, Wetterbericht in betracht. Weiters wird nicht oft in kleinen Mengen gegossen, da dadurch die Pflanzenwurzeln nicht zu Sauerstoff gelangen, was der Pflanze schädigt." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>

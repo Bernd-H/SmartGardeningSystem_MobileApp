@@ -21,4 +21,7 @@
     <Import Project="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props" Condition="Exists('C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props')" />
     <Import Project="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props" Condition="Exists('C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMvvmLight Condition=" '$(PkgMvvmLight)' == '' ">C:\Users\bernd\.nuget\packages\mvvmlight\5.4.1.1</PkgMvvmLight>
+  </PropertyGroup>
 </Project>

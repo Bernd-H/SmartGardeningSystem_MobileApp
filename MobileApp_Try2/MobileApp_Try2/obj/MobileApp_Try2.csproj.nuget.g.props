@@ -21,4 +21,7 @@
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)xamarin.forms\5.0.0.2083\buildTransitive\Xamarin.Forms.props" Condition="Exists('$(NuGetPackageRoot)xamarin.forms\5.0.0.2083\buildTransitive\Xamarin.Forms.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMvvmLight Condition=" '$(PkgMvvmLight)' == '' ">C:\Users\bernd\.nuget\packages\mvvmlight\5.4.1.1</PkgMvvmLight>
+  </PropertyGroup>
 </Project>

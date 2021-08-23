@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "93w1xlnQjXjlnkMsh09KdoGNEnZPwNfb33d68EX+mR/73cfl05W8OYjr9nlWJHtfGYQ2osSBwTBgD+f2uTzBEA==",
+  "dgSpecHash": "lz0B3HuLPdqAP4gy/9AkcU67i27Z8RunfxuMNL4msHMI3vdbh3wbZRCKJ94KCbuvCuoiWzKllImEXaPuIH1gmg==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\bernd\\.nuget\\packages\\microcharts.forms\\0.9.5.9\\microcharts.forms.0.9.5.9.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\mvvmlight\\5.4.1.1\\mvvmlight.5.4.1.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
