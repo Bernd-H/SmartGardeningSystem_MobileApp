@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileApp_Try2.Views.SGModuleDetailPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:viewmodels="clr-namespace:MobileApp_Try2.ViewModels" xmlns:controls="clr-namespace:MobileApp_Try2.Controls" x:DataType="viewmodels:SGModuleDetailViewModel"
+             xmlns:controls="clr-namespace:MobileApp_Try2.Controls"
+             xmlns:viewmodels="clr-namespace:MobileApp_Try2.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             x:DataType="viewmodels:SGModuleDetailViewModel"
              Title="{Binding Title}"
              BackgroundColor="WhiteSmoke">
 

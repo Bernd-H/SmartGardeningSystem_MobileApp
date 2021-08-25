@@ -3,6 +3,8 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "MobileApp_Try2.Android.dll" comes first in this list. */
 		"MobileApp_Try2.Android.dll",
+		"MobileApp.BusinessLogic.dll",
+		"MobileApp_Try2.DataAccess.dll",
 		"CommonServiceLocator.dll",
 		"FormsViewGroup.dll",
 		"GalaSoft.MvvmLight.dll",
@@ -11,6 +13,7 @@ public class MonoPackageManager_Resources {
 		"Microcharts.dll",
 		"Microcharts.Droid.dll",
 		"Microcharts.Forms.dll",
+		"MobileApp_Try2.Common.dll",
 		"MobileApp_Try2.dll",
 		"SkiaSharp.dll",
 		"SkiaSharp.Views.Android.dll",

@@ -22,3 +22,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\Views\AddModulePage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\MobileApp_Try2.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\obj\Release\netstandard2.0\Views\HelpPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp.BusinessLogic.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp_Try2.Common.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp_Try2.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp.BusinessLogic.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp_Try2.Common.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Release\netstandard2.0\MobileApp_Try2.DataAccess.pdb

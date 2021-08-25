@@ -1,7 +1,7 @@
 ﻿
 using Foundation;
+using MobileApp_Try2.Common.Specifications;
 using MobileApp_Try2.iOS.Renders;
-using MobileApp_Try2.Specifications;
 using UIKit;
 using Xamarin.Forms;
 

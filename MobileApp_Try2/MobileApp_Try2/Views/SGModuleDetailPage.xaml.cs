@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MobileApp_Try2.Specifications;
-using MobileApp_Try2.ViewModels;
+using MobileApp_Try2.BusinessLogic.ViewModels;
+using MobileApp_Try2.Common.Specifications;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

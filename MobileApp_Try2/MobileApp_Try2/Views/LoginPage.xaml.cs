@@ -1,5 +1,5 @@
-﻿using MobileApp_Try2.ViewModels;
-using System;
+﻿using System;
+using MobileApp_Try2.BusinessLogic.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

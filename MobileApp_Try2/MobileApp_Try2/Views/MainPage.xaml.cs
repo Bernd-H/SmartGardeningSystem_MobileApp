@@ -1,5 +1,5 @@
 ﻿using Microcharts;
-using MobileApp_Try2.ViewModels;
+using MobileApp_Try2.BusinessLogic.ViewModels;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2.Views {

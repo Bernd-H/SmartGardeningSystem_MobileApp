@@ -678,3 +678,15 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\src\crc64e6bbec0cebca6418\ActivityBase.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\src\crc64e6bbec0cebca6418\DialogService_OnDismissListener.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\src\crc64eb2743c2f6ea027b\ObservableAdapter_1.java
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp_Try2.Common.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp.BusinessLogic.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp_Try2.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp_Try2.Common.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp.BusinessLogic.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\bin\Debug\MobileApp_Try2.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp.BusinessLogic.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp.BusinessLogic.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp_Try2.Common.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp_Try2.Common.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp_Try2.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2.Android\obj\Debug\110\android\assets\MobileApp_Try2.DataAccess.pdb

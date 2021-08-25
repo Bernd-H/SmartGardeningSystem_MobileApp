@@ -11,7 +11,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using MobileApp_Try2.Specifications;
+using MobileApp_Try2.Common.Specifications;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2.Droid.Renders {

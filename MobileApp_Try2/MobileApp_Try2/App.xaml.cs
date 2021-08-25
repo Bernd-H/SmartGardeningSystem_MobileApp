@@ -1,5 +1,5 @@
-﻿using MobileApp_Try2.Services;
-using MobileApp_Try2.Views;
+﻿using MobileApp_Try2.Common;
+using MobileApp_Try2.Services;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2
@@ -18,7 +18,7 @@ namespace MobileApp_Try2
         {
             //if (false)
             {
-                Shell.Current.GoToAsync("//LoginPage");
+                Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
             }
         }
 

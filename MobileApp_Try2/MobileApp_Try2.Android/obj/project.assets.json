@@ -1144,11 +1144,29 @@
           "buildTransitive/monoandroid50/Xamarin.Google.Guava.ListenableFuture.targets": {}
         }
       },
+      "MobileApp.BusinessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "MobileApp_Try2.Common": "1.0.0",
+          "MobileApp_Try2.DataAccess": "1.0.0",
+          "Xamarin.Essentials": "1.7.0",
+          "Xamarin.Forms": "5.0.0.2083"
+        },
+        "compile": {
+          "bin/placeholder/MobileApp.BusinessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp.BusinessLogic.dll": {}
+        }
+      },
       "MobileApp_Try2/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microcharts.Forms": "0.9.5.9",
+          "MobileApp.BusinessLogic": "1.0.0",
+          "MobileApp_Try2.Common": "1.0.0",
           "MvvmLight": "5.4.1.1",
           "Xamarin.CommunityToolkit": "1.3.0-pre2",
           "Xamarin.Essentials": "1.7.0",
@@ -1160,6 +1178,26 @@
         },
         "runtime": {
           "bin/placeholder/MobileApp_Try2.dll": {}
+        }
+      },
+      "MobileApp_Try2.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MobileApp_Try2.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp_Try2.Common.dll": {}
+        }
+      },
+      "MobileApp_Try2.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MobileApp_Try2.DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp_Try2.DataAccess.dll": {}
         }
       }
     }
@@ -2822,15 +2860,31 @@
         "xamarin.google.guava.listenablefuture.nuspec"
       ]
     },
+    "MobileApp.BusinessLogic/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp.BusinessLogic/MobileApp.BusinessLogic.csproj",
+      "msbuildProject": "../../MobileApp.BusinessLogic/MobileApp.BusinessLogic.csproj"
+    },
     "MobileApp_Try2/1.0.0": {
       "type": "project",
       "path": "../MobileApp_Try2/MobileApp_Try2.csproj",
       "msbuildProject": "../MobileApp_Try2/MobileApp_Try2.csproj"
+    },
+    "MobileApp_Try2.Common/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp_Try2.Common/MobileApp_Try2.Common.csproj",
+      "msbuildProject": "../../MobileApp_Try2.Common/MobileApp_Try2.Common.csproj"
+    },
+    "MobileApp_Try2.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp_Try2.DataAccess/MobileApp_Try2.DataAccess.csproj",
+      "msbuildProject": "../../MobileApp_Try2.DataAccess/MobileApp_Try2.DataAccess.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v11.0": [
       "MobileApp_Try2 >= 1.0.0",
+      "MobileApp_Try2.Common >= 1.0.0",
       "MvvmLight >= 5.4.1.1",
       "Xamarin.CommunityToolkit >= 1.3.0-pre2",
       "Xamarin.Essentials >= 1.6.1",
@@ -2873,6 +2927,9 @@
       "frameworks": {
         "monoandroid11.0": {
           "projectReferences": {
+            "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj": {
+              "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj"
+            },
             "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2.csproj": {
               "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2\\MobileApp_Try2.csproj"
             }

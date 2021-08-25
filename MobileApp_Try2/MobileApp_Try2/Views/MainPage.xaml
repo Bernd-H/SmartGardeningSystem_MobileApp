@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileApp_Try2.Views.MainPage"
-             xmlns:vm="clr-namespace:MobileApp_Try2.ViewModels"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:model="clr-namespace:MobileApp_Try2.Models"
+             xmlns:model="clr-namespace:MobileApp_Try2.DataAccess.Models;assembly=MobileApp_Try2.DataAccess"
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:vm="clr-namespace:MobileApp_Try2.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
              x:DataType="vm:MainPageViewModel">
 
     <!--<ContentPage.BindingContext>

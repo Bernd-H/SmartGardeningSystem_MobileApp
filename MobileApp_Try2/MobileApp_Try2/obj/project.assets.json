@@ -272,6 +272,42 @@
         "runtime": {
           "lib/netstandard2.0/Xamarin.Forms.PancakeView.dll": {}
         }
+      },
+      "MobileApp.BusinessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "MobileApp_Try2.Common": "1.0.0",
+          "MobileApp_Try2.DataAccess": "1.0.0",
+          "Xamarin.Essentials": "1.7.0",
+          "Xamarin.Forms": "5.0.0.2083"
+        },
+        "compile": {
+          "bin/placeholder/MobileApp.BusinessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp.BusinessLogic.dll": {}
+        }
+      },
+      "MobileApp_Try2.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MobileApp_Try2.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp_Try2.Common.dll": {}
+        }
+      },
+      "MobileApp_Try2.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MobileApp_Try2.DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp_Try2.DataAccess.dll": {}
+        }
       }
     }
   },
@@ -1410,11 +1446,28 @@
         "xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512",
         "xamarin.forms.pancakeview.nuspec"
       ]
+    },
+    "MobileApp.BusinessLogic/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp.BusinessLogic/MobileApp.BusinessLogic.csproj",
+      "msbuildProject": "../../MobileApp.BusinessLogic/MobileApp.BusinessLogic.csproj"
+    },
+    "MobileApp_Try2.Common/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp_Try2.Common/MobileApp_Try2.Common.csproj",
+      "msbuildProject": "../../MobileApp_Try2.Common/MobileApp_Try2.Common.csproj"
+    },
+    "MobileApp_Try2.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../../MobileApp_Try2.DataAccess/MobileApp_Try2.DataAccess.csproj",
+      "msbuildProject": "../../MobileApp_Try2.DataAccess/MobileApp_Try2.DataAccess.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "Microcharts.Forms >= 0.9.5.9",
+      "MobileApp.BusinessLogic >= 1.0.0",
+      "MobileApp_Try2.Common >= 1.0.0",
       "MvvmLight >= 5.4.1.1",
       "NETStandard.Library >= 2.0.3",
       "Xamarin.CommunityToolkit >= 1.3.0-pre2",
@@ -1459,7 +1512,14 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj"
+            },
+            "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj": {
+              "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

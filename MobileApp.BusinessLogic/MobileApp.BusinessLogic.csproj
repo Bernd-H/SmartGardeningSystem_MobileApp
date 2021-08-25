@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MobileApp_Try2.Common\MobileApp_Try2.Common.csproj" />
+    <ProjectReference Include="..\MobileApp_Try2.DataAccess\MobileApp_Try2.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

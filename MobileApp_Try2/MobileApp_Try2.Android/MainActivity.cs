@@ -3,8 +3,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using MobileApp_Try2.Common.Specifications;
 using MobileApp_Try2.Droid.Renders;
-using MobileApp_Try2.Specifications;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2.Droid

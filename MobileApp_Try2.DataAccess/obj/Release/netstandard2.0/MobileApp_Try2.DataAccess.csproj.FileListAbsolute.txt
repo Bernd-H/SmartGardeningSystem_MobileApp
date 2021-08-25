@@ -1,0 +1,9 @@
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\bin\Release\netstandard2.0\MobileApp_Try2.DataAccess.deps.json
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\bin\Release\netstandard2.0\MobileApp_Try2.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\bin\Release\netstandard2.0\MobileApp_Try2.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.AssemblyInfoInputs.cache
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.AssemblyInfo.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.DataAccess\obj\Release\netstandard2.0\MobileApp_Try2.DataAccess.csproj.AssemblyReference.cache
