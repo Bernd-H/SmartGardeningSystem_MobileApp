@@ -1,5 +1,7 @@
 ﻿using MobileApp_Try2.Common;
 using MobileApp_Try2.Services;
+using Spring.Context;
+using Spring.Context.Support;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2
@@ -12,6 +14,8 @@ namespace MobileApp_Try2
             InitializeComponent();
             DependencyService.Register<ModulesMockDataStore>();
             MainPage = new AppShell();
+
+            //MainPage = IocGet<AppShell>();
         }
 
         protected override void OnStart()

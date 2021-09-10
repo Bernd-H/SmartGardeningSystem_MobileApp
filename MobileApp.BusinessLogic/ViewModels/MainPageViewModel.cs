@@ -4,12 +4,16 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp_Try2.Common;
+using MobileApp_Try2.Common.Specifications.Services;
 using MobileApp_Try2.DataAccess.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MobileApp_Try2.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
+
+        internal IDialogService DialogService;
+
         public MainPageViewModel() {
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
             AddModuleCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));

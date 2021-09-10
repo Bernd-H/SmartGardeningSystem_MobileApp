@@ -28,3 +28,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\Mobil
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.Common.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2\MobileApp_Try2\bin\Debug\netstandard2.0\MobileApp_Try2.dll.config
