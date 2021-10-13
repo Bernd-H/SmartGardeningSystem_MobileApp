@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MobileApp.BusinessLogic.Services;
 using MobileApp.Common;
+using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications.Services;
 using MobileApp.DataAccess.Models;
 using Xamarin.Essentials;
@@ -12,7 +14,8 @@ using Xamarin.Forms;
 namespace MobileApp.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        internal IDialogService DialogService;
+        //private IDialogService DialogService => IoC.Get<IDialogService>();
+        private IDialogService DialogService => new DialogService();
 
         public MainPageViewModel() {
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
@@ -27,11 +30,15 @@ namespace MobileApp.BusinessLogic.ViewModels {
             AddItemCommand = new Command(OnAddItem);
             AccountCommand = new Command(OnAccountTapped);
             HelpCommand = new Command(OnHelpTapped);
+            StartCommand = new Command(OnStartTapped);
+            StopCommand = new Command(OnStopTapped);
         }
 
         public ICommand OpenWebCommand { get; }
         public ICommand AddModuleCommand { get; }
         public ICommand HelpCommand { get; }
+        public ICommand StartCommand { get; }
+        public ICommand StopCommand { get; }
 
 
 
@@ -84,6 +91,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void OnAccountTapped(object obj) {
             await Shell.Current.GoToAsync(PageNames.AccountPage);
+        }
+
+        async void OnStartTapped(object obj) {
+            await DialogService.ShowMessage("Start tapped.", "Info", "Ok", null);
+        }
+
+        async void OnStopTapped(object obj) {
+            await DialogService.ShowMessage("Stop tapped.", "Info", "Ok", null);
         }
 
         async void OnItemSelected(SGModule item) {

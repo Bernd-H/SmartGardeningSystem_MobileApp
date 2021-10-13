@@ -3,7 +3,7 @@
   <PropertyGroup>
     <SelectedDevice>Android-Emulator</SelectedDevice>
     <ActiveDebugProfile>Android-Emulator</ActiveDebugProfile>
-    <DefaultDevice>Android_Accelerated_x86_Oreo</DefaultDevice>
+    <DefaultDevice>pixel_2_pie_9_0_-_api_28</DefaultDevice>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
 </Project>

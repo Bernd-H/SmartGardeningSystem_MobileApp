@@ -14,6 +14,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private async void OnLoginClicked(object obj)
         {
+
             await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
         }
 

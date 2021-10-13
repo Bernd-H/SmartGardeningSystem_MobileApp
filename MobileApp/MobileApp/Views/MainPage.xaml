@@ -51,7 +51,7 @@
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="120">
                                         <pancake:PancakeView.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding HelpCommand}"></TapGestureRecognizer>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding StopCommand}"></TapGestureRecognizer>
                                         </pancake:PancakeView.GestureRecognizers>
                                         <Label
                         FontAttributes="Bold"
@@ -69,7 +69,7 @@
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="120">
                                         <pancake:PancakeView.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding HelpCommand}"></TapGestureRecognizer>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding StartCommand}"></TapGestureRecognizer>
                                         </pancake:PancakeView.GestureRecognizers>
                                         <Label
                         FontAttributes="Bold"

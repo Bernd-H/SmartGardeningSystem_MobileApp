@@ -1,4 +1,7 @@
-﻿using MobileApp.Common;
+﻿using MobileApp.BusinessLogic.Services;
+using MobileApp.BusinessLogic.ViewModels;
+using MobileApp.Common;
+using MobileApp.Common.Specifications.Services;
 using MobileApp.Services;
 using Xamarin.Forms;
 
@@ -10,7 +13,6 @@ namespace MobileApp
         public App()
         {
             InitializeComponent();
-            DependencyService.Register<ModulesMockDataStore>();
             MainPage = new AppShell();
 
             //MainPage = IocGet<AppShell>();
@@ -30,6 +32,13 @@ namespace MobileApp
 
         protected override void OnResume()
         {
+        }
+
+        private void RegisterDependencies() {
+            //DependencyService.Register<ModulesMockDataStore>();
+            //DependencyService.Register<IDialogService, DialogService>();
+
+            //DependencyService.Register<MainPageViewModel>();
         }
     }
 }

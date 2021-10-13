@@ -12,8 +12,8 @@ namespace MobileApp.Views {
             Shell.SetTabBarIsVisible(this, false);
             Shell.SetNavBarIsVisible(this, false);
             //this.BindingContext = new MainPageViewModel();
-            //BindingContext = _viewModel = new MainPageViewModel();
-            BindingContext = _viewModel = IoC.Get<MainPageViewModel>();
+            BindingContext = _viewModel = new MainPageViewModel();
+            //BindingContext = _viewModel = IoC.Get<MainPageViewModel>();
         }
 
         protected override void OnAppearing() {

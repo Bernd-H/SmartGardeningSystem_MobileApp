@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EXV2QhaBb9+99w3dqZNm+Z3TZEoy8LNHsjVbEIrulu5IJzeUkKjnXYRALm0s347aXzhyMlZyofcCJ3KdGRc2ow==",
+  "dgSpecHash": "0wUYLInRzrOG52I+fkkoglnVzmZfyd7+BZ8ipyn7m/P/0lizzYYZkhcJMA3uAgpHYDz2NGmEas0JrE4eMqYoCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp\\MobileApp.iOS\\MobileApp.iOS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\bernd\\.nuget\\packages\\autofac\\6.3.0\\autofac.6.3.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\commonservicelocator\\2.0.2\\commonservicelocator.2.0.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microcharts\\0.9.5.9\\microcharts.0.9.5.9.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microcharts.forms\\0.9.5.9\\microcharts.forms.0.9.5.9.nupkg.sha512",
@@ -13,6 +14,7 @@
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\xamarin.communitytoolkit\\1.3.0-pre2\\xamarin.communitytoolkit.1.3.0-pre2.nupkg.sha512",
