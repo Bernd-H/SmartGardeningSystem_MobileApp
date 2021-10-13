@@ -3,22 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp.Android", "MobileApp\MobileApp.Android\MobileApp.Android.csproj", "{61870624-F090-4E7E-9D3C-D8E1023886DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp.Android", "Frontend\MobileApp.Android\MobileApp.Android.csproj", "{61870624-F090-4E7E-9D3C-D8E1023886DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp.iOS", "MobileApp\MobileApp.iOS\MobileApp.iOS.csproj", "{8B64E2D5-3B3A-4109-A0E6-BDE254CCD0DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileApp.iOS", "Frontend\MobileApp.iOS\MobileApp.iOS.csproj", "{8B64E2D5-3B3A-4109-A0E6-BDE254CCD0DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp", "MobileApp\MobileApp\MobileApp.csproj", "{F0C92772-725D-4740-95FD-0BAF69188858}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp", "Frontend\MobileApp\MobileApp.csproj", "{F0C92772-725D-4740-95FD-0BAF69188858}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A0224F4-8A3F-43A0-9CBA-EBB8DBF0655F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.BusinessLogic", "MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj", "{23CC4AB5-AE79-4667-8EE7-8C458BAC0C36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.BusinessLogic", "Backend\MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj", "{23CC4AB5-AE79-4667-8EE7-8C458BAC0C36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.Common", "MobileApp.Common\MobileApp.Common.csproj", "{BDA253B5-9BDC-4842-864C-2CC071623A7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.Common", "Common\MobileApp.Common\MobileApp.Common.csproj", "{BDA253B5-9BDC-4842-864C-2CC071623A7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.DataAccess", "MobileApp.DataAccess\MobileApp.DataAccess.csproj", "{C66E4F20-F436-4F54-A449-280A475A1321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp.DataAccess", "Backend\MobileApp.DataAccess\MobileApp.DataAccess.csproj", "{C66E4F20-F436-4F54-A449-280A475A1321}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B6AC0BB1-0998-4138-BB17-0A46E6998EF1}"
 EndProject
