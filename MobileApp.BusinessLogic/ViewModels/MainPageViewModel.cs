@@ -3,13 +3,13 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MobileApp_Try2.Common;
-using MobileApp_Try2.Common.Specifications.Services;
-using MobileApp_Try2.DataAccess.Models;
+using MobileApp.Common;
+using MobileApp.Common.Specifications.Services;
+using MobileApp.DataAccess.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace MobileApp_Try2.BusinessLogic.ViewModels {
+namespace MobileApp.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
         internal IDialogService DialogService;

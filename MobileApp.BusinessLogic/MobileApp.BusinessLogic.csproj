@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MobileApp_Try2.Common\MobileApp_Try2.Common.csproj" />
-    <ProjectReference Include="..\MobileApp_Try2.DataAccess\MobileApp_Try2.DataAccess.csproj" />
+    <ProjectReference Include="..\MobileApp.Common\MobileApp.Common.csproj" />
+    <ProjectReference Include="..\MobileApp.DataAccess\MobileApp.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

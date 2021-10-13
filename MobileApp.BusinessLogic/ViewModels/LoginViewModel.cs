@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using MobileApp_Try2.Common;
+using MobileApp.Common;
 using Xamarin.Forms;
 
-namespace MobileApp_Try2.BusinessLogic.ViewModels {
+namespace MobileApp.BusinessLogic.ViewModels {
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }

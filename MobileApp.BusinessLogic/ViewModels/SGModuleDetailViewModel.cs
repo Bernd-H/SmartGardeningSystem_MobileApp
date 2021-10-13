@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using MobileApp_Try2.Common;
-using MobileApp_Try2.DataAccess.Models;
+using MobileApp.Common;
+using MobileApp.DataAccess.Models;
 using Xamarin.Forms;
 
-namespace MobileApp_Try2.BusinessLogic.ViewModels {
+namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class SGModuleDetailViewModel : BaseViewModel
     {

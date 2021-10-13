@@ -1,13 +1,13 @@
-﻿using MobileApp_Try2.Common.Configuration;
-using MobileApp_Try2.Common.Specifications.Services;
-using MobileApp_Try2.DataAccess.Models;
+﻿using MobileApp.Common.Configuration;
+using MobileApp.Common.Specifications.Services;
+using MobileApp.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
-namespace MobileApp_Try2.BusinessLogic.ViewModels {
+namespace MobileApp.BusinessLogic.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<SGModule> ModulesDataStore => IoC.Get<IDataStore<SGModule>>();

@@ -1,11 +1,11 @@
-﻿using MobileApp_Try2.Common.Specifications.Services;
-using MobileApp_Try2.DataAccess.Models;
+﻿using MobileApp.Common.Specifications.Services;
+using MobileApp.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MobileApp_Try2.Services
+namespace MobileApp.Services
 {
     public class ModulesMockDataStore : IDataStore<SGModule>
     {

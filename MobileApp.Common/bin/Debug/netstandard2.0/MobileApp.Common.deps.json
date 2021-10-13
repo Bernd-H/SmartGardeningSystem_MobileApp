@@ -1,0 +1,191 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "MobileApp.Common/1.0.0": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "Xamarin.Forms.Core": "2.0.0.0"
+        },
+        "runtime": {
+          "MobileApp.Common.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "Xamarin.Forms.Core/2.0.0.0": {
+        "runtime": {
+          "Xamarin.Forms.Core.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          }
+        }
+      },
+      "Xamarin.Forms.Platform/2.0.0.0": {
+        "runtime": {
+          "Xamarin.Forms.Platform.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          }
+        }
+      },
+      "Xamarin.Forms.Platform.iOS/2.0.0.0": {
+        "runtime": {
+          "Xamarin.Forms.Platform.iOS.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          }
+        },
+        "resources": {
+          "ar/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ar"
+          },
+          "ca/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ca"
+          },
+          "cs/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "cs"
+          },
+          "da/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "da"
+          },
+          "de/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "de"
+          },
+          "el/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "el"
+          },
+          "es/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "es"
+          },
+          "fi/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "fi"
+          },
+          "fr/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "fr"
+          },
+          "he/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "he"
+          },
+          "hi/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "hi"
+          },
+          "hr/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "hr"
+          },
+          "hu/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "hu"
+          },
+          "id/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "id"
+          },
+          "it/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "it"
+          },
+          "ja/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ja"
+          },
+          "ko/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ko"
+          },
+          "ms/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ms"
+          },
+          "nb/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "nb"
+          },
+          "nl/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "nl"
+          },
+          "pl/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pl"
+          },
+          "pt/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt"
+          },
+          "pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "ro/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ro"
+          },
+          "ru/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "ru"
+          },
+          "sk/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "sk"
+          },
+          "sv/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "sv"
+          },
+          "th/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "th"
+          },
+          "tr/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "tr"
+          },
+          "uk/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "uk"
+          },
+          "vi/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "vi"
+          },
+          "zh-Hans/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "zh-Hant/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "zh-Hant"
+          },
+          "zh-HK/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "zh-HK"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MobileApp.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Xamarin.Forms.Core/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Xamarin.Forms.Platform/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Xamarin.Forms.Platform.iOS/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

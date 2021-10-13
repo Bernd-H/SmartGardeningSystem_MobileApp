@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MobileApp_Try2.Common.Specifications.Services;
+using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.Services {

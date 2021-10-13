@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj": {}
+    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj": {
+    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
         "projectName": "MobileApp.BusinessLogic",
-        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
+        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\bernd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\obj\\",
+        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -35,11 +35,11 @@
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
             "projectReferences": {
-              "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj": {
-                "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj"
+              "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj": {
+                "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj"
               },
-              "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\MobileApp_Try2.DataAccess.csproj": {
-                "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\MobileApp_Try2.DataAccess.csproj"
+              "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj": {
+                "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj"
               }
             }
           }
@@ -79,18 +79,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj": {
+    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj",
-        "projectName": "MobileApp_Try2.Common",
-        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\MobileApp_Try2.Common.csproj",
+        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj",
+        "projectName": "MobileApp.Common",
+        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj",
         "packagesPath": "C:\\Users\\bernd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.Common\\obj\\",
+        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -143,18 +143,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\MobileApp_Try2.DataAccess.csproj": {
+    "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\MobileApp_Try2.DataAccess.csproj",
-        "projectName": "MobileApp_Try2.DataAccess",
-        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\MobileApp_Try2.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj",
+        "projectName": "MobileApp.DataAccess",
+        "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj",
         "packagesPath": "C:\\Users\\bernd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp_Try2.DataAccess\\obj\\",
+        "outputPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -177,7 +177,11 @@
         "frameworks": {
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj": {
+                "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.Common\\MobileApp.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -207,7 +211,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

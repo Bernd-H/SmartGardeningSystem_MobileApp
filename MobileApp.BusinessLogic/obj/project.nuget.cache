@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OoDKK9fgWZhLavCuxbgNE1gX6glKddNduiCDvnUixEAEJ47dcXMRGd/fcs2xyKzJ6Od0oKqrrCVZrbsqoTVSTA==",
+  "dgSpecHash": "N8qOIT18wt0s1/ExMbWRP8pZngDxt5Oa/gkt6SI9AMtu+IaDl2T1EP/skGtgz0pCQk4WJq5NysdYvbNW0YPV9Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\MobileApp_Try2\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\MobileApp.BusinessLogic\\MobileApp.BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

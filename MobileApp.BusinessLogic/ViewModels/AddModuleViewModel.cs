@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 
-namespace MobileApp_Try2.BusinessLogic.ViewModels {
+namespace MobileApp.BusinessLogic.ViewModels {
     public class AddModuleViewModel : BaseViewModel
     {
         private string name;
