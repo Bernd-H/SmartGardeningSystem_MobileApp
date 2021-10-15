@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "08QnTqRvwmYFbo1/lmuKs7R4R+SF7XsfjynAasgIUZCAQwY6EjZLCVku20O04a6e8YmWmuuRiT4hmp1Dc2nAzQ==",
+  "dgSpecHash": "UDggLRkAOt9f9lI7CV7kKL1yPPINQ/nQF3gR7iLwggVUOe0MrsST6Z9Oe8yBCw6qSd+61UaOJH26zHLts+tClQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Common\\MobileApp.Common\\MobileApp.Common.csproj",
   "expectedPackageFiles": [
@@ -8,12 +8,14 @@
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\tinyioc\\1.4.0-alpha3\\tinyioc.1.4.0-alpha3.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\xamarin.forms\\5.0.0.2083\\xamarin.forms.5.0.0.2083.nupkg.sha512"
   ],
   "logs": []

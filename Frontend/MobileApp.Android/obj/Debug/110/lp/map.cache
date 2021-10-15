@@ -1,6 +1,8 @@
 FormsViewGroup.dll
 GalaSoft.MvvmLight.Platform.dll
 Microcharts.Droid.dll
+MobileApp.DataAccess.dll
+NLog.dll
 SkiaSharp.dll
 SkiaSharp.Views.Android.dll
 SkiaSharp.Views.Forms.dll

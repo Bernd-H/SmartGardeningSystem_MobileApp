@@ -56,7 +56,8 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             Keyboard="Email"
-                            TextColor="#484848" />
+                            TextColor="#484848"
+                            Text="{Binding Email, Mode=OneWayToSource}" />
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow BlurRadius="4" />
                             </pancake:PancakeView.Shadow>
@@ -78,7 +79,8 @@
                             FontSize="25"
                              ClearButtonVisibility="WhileEditing"
                             IsPassword="True"
-                            TextColor="#484848" />
+                            TextColor="#484848"
+                            Text="{Binding Password, Mode=OneWayToSource}" />
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow BlurRadius="4" />
                             </pancake:PancakeView.Shadow>

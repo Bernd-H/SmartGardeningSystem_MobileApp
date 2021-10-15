@@ -11,7 +11,9 @@
         "dependencies": {
           "Autofac": "6.3.0",
           "MobileApp.Common": "1.0.0",
-          "NETStandard.Library": "2.0.3"
+          "NETStandard.Library": "2.0.3",
+          "NLog": "4.7.11",
+          "Mono.Android": "0.0.0.0"
         },
         "runtime": {
           "MobileApp.DataAccess.dll": {}
@@ -44,6 +46,14 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "NLog/4.7.11": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.7.11.13229"
+          }
         }
       },
       "System.Buffers/4.5.1": {
@@ -124,10 +134,19 @@
       "MobileApp.Common/1.0.0": {
         "dependencies": {
           "Autofac": "6.3.0",
+          "NLog": "4.7.11",
           "Xamarin.Forms": "5.0.0.2083"
         },
         "runtime": {
           "MobileApp.Common.dll": {}
+        }
+      },
+      "Mono.Android/0.0.0.0": {
+        "runtime": {
+          "Mono.Android.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
         }
       }
     }
@@ -165,6 +184,13 @@
       "sha512": "sha512-548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "NLog/4.7.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A7EpoOjWesV5BPx1cOiBndazZq1VGdagIs6oK8ttcRDl5adCMtHiTqnsD5yYaOrMxOQeCjHBf/w3nKzCmhGbgw==",
+      "path": "nlog/4.7.11",
+      "hashPath": "nlog.4.7.11.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
@@ -217,6 +243,11 @@
     },
     "MobileApp.Common/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Mono.Android/0.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

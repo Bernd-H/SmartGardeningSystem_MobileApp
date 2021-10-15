@@ -61,6 +61,14 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.7.0, )"
@@ -140,6 +148,10 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
             }
           },
           "imports": [
@@ -208,6 +220,16 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "TinyIoC": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.4.0-alpha3, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
@@ -295,6 +317,10 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
             },
             "Xamarin.CommunityToolkit": {
               "target": "Package",

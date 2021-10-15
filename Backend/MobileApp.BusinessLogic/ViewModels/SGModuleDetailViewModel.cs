@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using MobileApp.Common;
-using MobileApp.DataAccess.Models;
+using MobileApp.Common.Models;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class SGModuleDetailViewModel : BaseViewModel
-    {
+    public class SGModuleDetailViewModel : BaseViewModel {
         private string itemId;
         private string name;
         private string type;
@@ -27,20 +26,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
             RemoveCommand = new Command(OnRemoveClicked);
         }
 
-        public string Id 
-        {
+        public string Id {
             get => id;
             set => SetProperty(ref id, value);
         }
 
-        public string Name
-        {
+        public string Name {
             get => name;
             set => SetProperty(ref name, value);
         }
 
-        public string Type
-        {
+        public string Type {
             get => type;
             set => SetProperty(ref type, value);
         }
@@ -60,14 +56,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref lastUpdated, value);
         }
 
-        public string ItemId
-        {
-            get
-            {
+        public string ItemId {
+            get {
                 return itemId;
             }
-            set
-            {
+            set {
                 itemId = value;
                 LoadItemId(value);
             }
@@ -97,10 +90,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             get { return "undraw_tabs"; }
         }
 
-        public async void LoadItemId(string itemId)
-        {
-            try
-            {
+        public async void LoadItemId(string itemId) {
+            try {
                 var item = await ModulesDataStore.GetItemAsync(itemId);
                 Id = item.Id;
                 Name = item.Name;
@@ -124,8 +115,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     IsWateringSettingVisible = false;
                 }
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 Debug.WriteLine("Failed to Load Item");
             }
         }

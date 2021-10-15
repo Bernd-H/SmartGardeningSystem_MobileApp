@@ -1,6 +1,6 @@
 ﻿using MobileApp.Common.Configuration;
+using MobileApp.Common.Models;
 using MobileApp.Common.Specifications.Services;
-using MobileApp.DataAccess.Models;
 using MobileApp.Services;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,7 @@ using Xamarin.Forms;
 namespace MobileApp.BusinessLogic.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        //public IDataStore<SGModule> ModulesDataStore => IoC.Get<IDataStore<SGModule>>();
-        public IDataStore<SGModule> ModulesDataStore => IoC.Get<ModulesMockDataStore>();
+        public IDataStore<SGModule> ModulesDataStore = IoC.Get<IDataStore<SGModule>>();
 
         bool isBusy = false;
         public bool IsBusy

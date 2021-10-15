@@ -66,6 +66,9 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renders\CalculateTextWidthiOS.cs" />
+    <BundleResource Include="..\..\Common\MobileApp.Common\Configuration\config.json">
+      <Link>config.json</Link>
+    </BundleResource>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +142,9 @@
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
     </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.7.11</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>1.3.0-pre2</Version>
     </PackageReference>
@@ -150,6 +156,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\Backend\MobileApp.DataAccess\MobileApp.DataAccess.csproj">
+      <Project>{C66E4F20-F436-4F54-A449-280A475A1321}</Project>
+      <Name>MobileApp.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\MobileApp.Common\MobileApp.Common.csproj">
       <Project>{BDA253B5-9BDC-4842-864C-2CC071623A7F}</Project>
       <Name>MobileApp.Common</Name>

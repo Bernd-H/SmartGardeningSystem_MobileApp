@@ -18,6 +18,18 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(Language)' == 'C#' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Compile Include="$(NuGetPackageRoot)tinyioc\1.4.0-alpha3\contentFiles\cs\any\TinyIoc.cs" Condition="Exists('$(NuGetPackageRoot)tinyioc\1.4.0-alpha3\contentFiles\cs\any\TinyIoc.cs')">
+      <NuGetPackageId>TinyIoC</NuGetPackageId>
+      <NuGetPackageVersion>1.4.0-alpha3</NuGetPackageVersion>
+      <NuGetItemType>Compile</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>TinyIoc.cs</TargetPath>
+      <Private>True</Private>
+      <Link>TinyIoc.cs</Link>
+    </Compile>
+  </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)xamarin.forms\5.0.0.2083\buildTransitive\Xamarin.Forms.props" Condition="Exists('$(NuGetPackageRoot)xamarin.forms\5.0.0.2083\buildTransitive\Xamarin.Forms.props')" />
   </ImportGroup>

@@ -6,18 +6,19 @@ using System.Windows.Input;
 using MobileApp.BusinessLogic.Services;
 using MobileApp.Common;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Models;
 using MobileApp.Common.Specifications.Services;
-using MobileApp.DataAccess.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        private IDialogService DialogService => IoC.Get<IDialogService>();
-        //private IDialogService DialogService => new DialogService();
+        private IDialogService DialogService;
 
-        public MainPageViewModel() {
+        public MainPageViewModel(IDialogService dialogService) {
+            DialogService = dialogService;
+
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
             AddModuleCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));
 

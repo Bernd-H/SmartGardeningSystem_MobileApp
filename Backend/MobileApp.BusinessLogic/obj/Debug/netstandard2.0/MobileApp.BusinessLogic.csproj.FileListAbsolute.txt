@@ -42,3 +42,8 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\M
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\MobileApp.DataAccess.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\MobileApp.Common.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\obj\Debug\netstandard2.0\MobileApp.BusinessLogic.csproj.CopyComplete
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\Configuration\config.json
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\Mono.Android.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\Mono.Android.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\Mono.Android.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.BusinessLogic\bin\Debug\netstandard2.0\TinyIoc.cs

@@ -57,6 +57,16 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "TinyIoC": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.4.0-alpha3, )"
+            },
             "Xamarin.Forms": {
               "target": "Package",
               "version": "[5.0.0.2083, )"

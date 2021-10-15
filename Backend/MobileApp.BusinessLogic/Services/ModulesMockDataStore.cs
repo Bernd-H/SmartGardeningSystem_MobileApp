@@ -1,18 +1,15 @@
-﻿using MobileApp.Common.Specifications.Services;
-using MobileApp.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MobileApp.Common.Models;
+using MobileApp.Common.Specifications.Services;
 
-namespace MobileApp.Services
-{
-    public class ModulesMockDataStore : IDataStore<SGModule>
-    {
+namespace MobileApp.Services {
+    public class ModulesMockDataStore : IDataStore<SGModule> {
         readonly List<SGModule> items;
 
-        public ModulesMockDataStore()
-        {
+        public ModulesMockDataStore() {
             items = new List<SGModule>()
             {
                 new SGModule {
@@ -50,15 +47,13 @@ namespace MobileApp.Services
             };
         }
 
-        public async Task<bool> AddItemAsync(SGModule item)
-        {
+        public async Task<bool> AddItemAsync(SGModule item) {
             items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(SGModule item)
-        {
+        public async Task<bool> UpdateItemAsync(SGModule item) {
             var oldItem = items.Where((SGModule arg) => arg.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
@@ -66,21 +61,18 @@ namespace MobileApp.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
-        {
+        public async Task<bool> DeleteItemAsync(string id) {
             var oldItem = items.Where((SGModule arg) => arg.Id == id).FirstOrDefault();
             items.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<SGModule> GetItemAsync(string id)
-        {
+        public async Task<SGModule> GetItemAsync(string id) {
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<SGModule>> GetItemsAsync(bool forceRefresh = false)
-        {
+        public async Task<IEnumerable<SGModule>> GetItemsAsync(bool forceRefresh = false) {
             return await Task.FromResult(items);
         }
     }

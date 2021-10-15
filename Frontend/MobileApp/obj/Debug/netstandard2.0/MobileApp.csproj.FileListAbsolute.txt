@@ -75,3 +75,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\Mono.Android.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\MobileApp.csproj.CopyComplete
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\Configuration\config.json
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\TinyIoc.cs

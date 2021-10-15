@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MobileApp.BusinessLogic.ViewModels;
+using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,7 +17,8 @@ namespace MobileApp.Views
 		{
 			InitializeComponent ();
             Shell.SetTabBarIsVisible(this, false);
-            BindingContext = new SGModuleDetailViewModel();
+            //BindingContext = new SGModuleDetailViewModel();
+            BindingContext = IoC.Get<SGModuleDetailViewModel>();
 
             slider.BindingContext = this;
             slider.PropertyChanged += (sender, e) => {
@@ -50,7 +52,7 @@ namespace MobileApp.Views
 
             var ballSize = slider.Height;
             var labelWidth = (slider.Width - ballSize) / (values.Count - 1);
-            var textService = DependencyService.Get<ITextWidth>();
+            var textService = IoC.Get<ITextWidth>();
 
             for (int i = 0; i < values.Count; i++) {
                 var textwidth = textService.CalculateTextWidth(values[i]);

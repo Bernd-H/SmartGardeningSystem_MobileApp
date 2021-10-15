@@ -11,6 +11,8 @@
         "dependencies": {
           "Autofac": "6.3.0",
           "NETStandard.Library": "2.0.3",
+          "NLog": "4.7.11",
+          "TinyIoC": "1.4.0-alpha3",
           "Xamarin.Forms": "5.0.0.2083"
         },
         "runtime": {
@@ -44,6 +46,14 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "NLog/4.7.11": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.7.11.13229"
+          }
         }
       },
       "System.Buffers/4.5.1": {
@@ -105,6 +115,7 @@
           }
         }
       },
+      "TinyIoC/1.4.0-alpha3": {},
       "Xamarin.Forms/5.0.0.2083": {
         "runtime": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
@@ -157,6 +168,13 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
+    "NLog/4.7.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A7EpoOjWesV5BPx1cOiBndazZq1VGdagIs6oK8ttcRDl5adCMtHiTqnsD5yYaOrMxOQeCjHBf/w3nKzCmhGbgw==",
+      "path": "nlog/4.7.11",
+      "hashPath": "nlog.4.7.11.nupkg.sha512"
+    },
     "System.Buffers/4.5.1": {
       "type": "package",
       "serviceable": true,
@@ -198,6 +216,13 @@
       "sha512": "sha512-5HCu8V3QB+gouMZmGrA666weZ0UQRt+OTD16rSE3Hyhu4Qhlvxkf4nTPI0GLy52s0rxgi7C8t2ayFAzw7UK1og==",
       "path": "system.threading.tasks.extensions/4.5.2",
       "hashPath": "system.threading.tasks.extensions.4.5.2.nupkg.sha512"
+    },
+    "TinyIoC/1.4.0-alpha3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vh6/YWNLHG8lmvpyMGTheRtXrO5JJt3hj+SLI4792fAg3zME5JX8puwRLmD24Qr7Wa626SUptyiUN56fgwWuHA==",
+      "path": "tinyioc/1.4.0-alpha3",
+      "hashPath": "tinyioc.1.4.0-alpha3.nupkg.sha512"
     },
     "Xamarin.Forms/5.0.0.2083": {
       "type": "package",

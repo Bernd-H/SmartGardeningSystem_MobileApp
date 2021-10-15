@@ -5,7 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Configuration\config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Configuration\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="TinyIoC" Version="1.4.0-alpha3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
   </ItemGroup>
 

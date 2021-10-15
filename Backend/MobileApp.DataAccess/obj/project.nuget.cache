@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Wfhxi31PB7bDbbYNbZ/xp7GUCLPcGokIl4T71+UKrO+kMgoGcVG8rXpeeRAgqmfXAIOaN3tzz5EEHQa4sL4Eig==",
+  "dgSpecHash": "9MdUcOsIpzln1eiKCumFJ+n4Sw1W5+6J4ggbyw+4MGqjiwVPgVSt3UniFIyFxddobjylBMrw4LtsCp6oo0B9Hw==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Backend\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
