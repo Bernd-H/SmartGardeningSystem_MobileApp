@@ -1,8 +1,10 @@
-﻿namespace MobileApp.Common.Specifications.Configuration {
+﻿using MobileApp.Common.Models.Entities.Configuration;
+
+namespace MobileApp.Common.Specifications.Configuration {
     public interface IConfiguration {
 
-        IConnectionSettings ConnectionSettings { get; }
+        ConnectionSettings ConnectionSettings { get; set; }
 
-        IFileNames FileNames { get; }
+        FileNames FileNames { get; set; }
     }
 }

@@ -4,6 +4,9 @@
   },
   "ConnectionSettings": {
     "LocalPeerDiscovery_port": 6771,
-    "LocalPeerDiscovery_multicastIP": "239.192.152.143"
+    "LocalPeerDiscovery_multicastIP": "239.192.152.143",
+
+    "API_Port": 5001,
+    "API_URL_Login": "https://{0}:{1}/api/Login/"
   }
 }

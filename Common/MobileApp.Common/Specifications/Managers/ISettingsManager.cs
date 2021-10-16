@@ -5,7 +5,7 @@ using MobileApp.Common.Models.DTOs;
 namespace MobileApp.Common.Specifications.Managers {
     public interface ISettingsManager {
 
-        Task<ApplicationSettingsDto> GetApplicationSettings();
+        ApplicationSettingsDto GetApplicationSettings();
 
         /// <summary>
         /// Ensures that up to date settings get passed to updateFunc and

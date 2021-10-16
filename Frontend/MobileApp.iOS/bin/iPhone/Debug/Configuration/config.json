@@ -1,9 +1,0 @@
-﻿{
-  "FileNames": {
-    "SettingsFileName": "settings.json"
-  },
-  "ConnectionSettings": {
-    "LocalPeerDiscovery_port": 6771,
-    "LocalPeerDiscovery_multicastIP": "239.192.152.143"
-  }
-}

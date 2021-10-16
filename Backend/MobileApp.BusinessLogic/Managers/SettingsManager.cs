@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
+using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
@@ -12,37 +14,49 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private ILogger Logger;
 
-        private IConfigurationManager ConfigurationManager;
-
         private IFileStorage FileStorage;
 
-        public SettingsManager(ILoggerService logger, IConfigurationManager configurationManager, IFileStorage fileStorage) {
+        private string settingsFilePath;
+
+        public SettingsManager(ILoggerService logger, IFileStorage fileStorage) {
             Logger = logger.GetLogger<SettingsManager>();
-            ConfigurationManager = configurationManager;
             FileStorage = fileStorage;
         }
 
-        public async Task<ApplicationSettingsDto> GetApplicationSettings() {
+        public ApplicationSettingsDto GetApplicationSettings() {
             Logger.Info("[GetApplicationSettings]Loading application settings.");
-            throw new NotImplementedException();
+            SetFilePathIfEmpty();
+            CreateDefaultSettingsByMissingFile().Wait();
+
+            var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
+            return JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
         }
 
         public async Task UpdateCurrentSettings(Func<ApplicationSettingsDto, ApplicationSettingsDto> updateFunc) {
-            UpdateSettings(updateFunc(await GetApplicationSettings()));
+            await UpdateSettings(updateFunc(GetApplicationSettings()));
         }
 
         private async Task UpdateSettings(ApplicationSettingsDto newSettings) {
             Logger.Info("[UpdateSettings]Writing to application settings.");
-            throw new NotImplementedException();
+
+            var jsonSettings = JsonConvert.SerializeObject(newSettings);
+            await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
         }
 
         private async Task CreateDefaultSettingsByMissingFile() {
-            string settingsFilePath = (await ConfigurationManager.GetConfig()).FileNames.SettingsFileName;
             if (!File.Exists(settingsFilePath)) {
                 Logger.Info("[SettingsManager]Creating default settings file.");
 
                 // create default settings file
                 await UpdateSettings(ApplicationSettingsDto.GetStandardSettings());
+            }
+        }
+
+        private void SetFilePathIfEmpty() {
+            if (string.IsNullOrEmpty(settingsFilePath)) {
+                var configuration = ConfigurationStore.GetConfig();
+                settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configuration.FileNames.SettingsFileName);
+                //settingsFilePath = configuration.FileNames.SettingsFileName;
             }
         }
     }

@@ -2,8 +2,8 @@
 
 namespace MobileApp.Common.Models.Entities.Configuration {
     public class Configuration : IConfiguration {
-        public IConnectionSettings ConnectionSettings { get; }
+        public ConnectionSettings ConnectionSettings { get; set; }
 
-        public IFileNames FileNames { get; }
+        public FileNames FileNames { get; set; }
     }
 }

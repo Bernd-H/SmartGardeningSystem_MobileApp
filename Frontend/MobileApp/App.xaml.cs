@@ -1,10 +1,13 @@
 ﻿using MobileApp.BusinessLogic;
+using MobileApp.BusinessLogic.Cryptography;
 using MobileApp.BusinessLogic.Managers;
 using MobileApp.BusinessLogic.Services;
 using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common;
+using MobileApp.Common.Configuration;
 using MobileApp.Common.Models;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
@@ -18,6 +21,7 @@ namespace MobileApp {
         public App() {
             InitializeComponent();
             RegisterDependencies();
+
             MainPage = new AppShell();
         }
 
@@ -48,11 +52,12 @@ namespace MobileApp {
             // managers
             container.Register<IAPIManager, APIManager>().AsSingleton();
             container.Register<ISettingsManager, SettingsManager>().AsSingleton();
-            container.Register<IConfigurationManager, ConfigurationManager>().AsSingleton();
 
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
             container.Register<IDataStore<SGModule>, ModulesMockDataStore>().AsSingleton();
+
+            container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>().AsSingleton();
 
             // register view models
             container.Register<AccountViewModel>();

@@ -22,6 +22,22 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref email, value);
         }
 
+        #region Snack bar elements
+
+        private string snackBarMessage;
+        public string SnackBarMessage {
+            get => snackBarMessage;
+            set => SetProperty(ref snackBarMessage, value);
+        }
+
+        private bool snackBar_IsOpen;
+        public bool SnackBar_IsOpen {
+            get => snackBar_IsOpen;
+            set => SetProperty(ref snackBar_IsOpen, value);
+        }
+
+        #endregion
+
         private IAPIManager APIManager;
 
         public LoginViewModel(IAPIManager _APIManager)
@@ -29,6 +45,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
             APIManager = _APIManager;
 
             LoginCommand = new Command(OnLoginClicked);
+
+            SnackBarMessage = "Test123!";
+            SnackBar_IsOpen = true;
         }
 
         private async void OnLoginClicked(object obj)
@@ -37,6 +56,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             // load screen
 
+            LoginTask.Wait();
             await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
         }
 

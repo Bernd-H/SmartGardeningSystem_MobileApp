@@ -5,17 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configuration\config.json" />
+    <None Remove="Configuration\NLog.config" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Configuration\config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Configuration\NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.11" />
     <PackageReference Include="TinyIoC" Version="1.4.0-alpha3">
       <PrivateAssets>all</PrivateAssets>

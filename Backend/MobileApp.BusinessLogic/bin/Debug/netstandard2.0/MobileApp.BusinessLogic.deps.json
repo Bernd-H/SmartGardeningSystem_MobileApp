@@ -156,6 +156,7 @@
         "dependencies": {
           "Autofac": "6.3.0",
           "NLog": "4.7.11",
+          "Newtonsoft.Json": "13.0.1",
           "Xamarin.Forms": "5.0.0.2083"
         },
         "runtime": {

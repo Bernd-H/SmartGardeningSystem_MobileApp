@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MobileApp.Common.Specifications.Managers {
-    public interface IAPIManager {
+    public interface IAPIManager : IDisposable {
 
         /// <summary>
         /// Performs a login and stores a Json Web Token (JwT) in the SettingsManager. 
