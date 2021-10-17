@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
@@ -18,29 +19,40 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private string settingsFilePath;
 
+        private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
+
         public SettingsManager(ILoggerService logger, IFileStorage fileStorage) {
             Logger = logger.GetLogger<SettingsManager>();
             FileStorage = fileStorage;
         }
 
-        public ApplicationSettingsDto GetApplicationSettings() {
+        public async Task<ApplicationSettingsDto> GetApplicationSettings() {
+            await LOCKER.WaitAsync();
+
             Logger.Info("[GetApplicationSettings]Loading application settings.");
             SetFilePathIfEmpty();
-            CreateDefaultSettingsByMissingFile().Wait();
+            await CreateDefaultSettingsByMissingFile();
 
             var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
-            return JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
+            var settings = JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
+
+            LOCKER.Release();
+            return settings;
         }
 
         public async Task UpdateCurrentSettings(Func<ApplicationSettingsDto, ApplicationSettingsDto> updateFunc) {
-            await UpdateSettings(updateFunc(GetApplicationSettings()));
+            await UpdateSettings(updateFunc(await GetApplicationSettings()));
         }
 
         private async Task UpdateSettings(ApplicationSettingsDto newSettings) {
+            await LOCKER.WaitAsync();
+
             Logger.Info("[UpdateSettings]Writing to application settings.");
 
             var jsonSettings = JsonConvert.SerializeObject(newSettings);
             await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
+
+            LOCKER.Release();
         }
 
         private async Task CreateDefaultSettingsByMissingFile() {

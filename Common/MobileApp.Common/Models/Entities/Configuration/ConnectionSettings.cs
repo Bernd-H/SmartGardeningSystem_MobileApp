@@ -10,5 +10,10 @@ namespace MobileApp.Common.Models.Entities.Configuration {
         public string API_URL_Login { get; set; }
 
         public int API_Port { get; set; }
+
+
+        public string ConfigurationWiFi_ServerIP { get; set; }
+
+        public string ConfigurationWiFi_KeyExchangeListenPort { get; set; }
     }
 }

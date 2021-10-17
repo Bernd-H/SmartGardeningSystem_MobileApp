@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
 using MobileApp.Common;
+using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
+using NLog;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
@@ -40,14 +42,30 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IAPIManager APIManager;
 
-        public LoginViewModel(IAPIManager _APIManager)
-        {
+        private IAesKeyExchangeManager AesKeyExchangeManager;
+
+        private ILogger Logger;
+
+        private ISettingsManager SettingsManager;
+
+
+        private Task getAesServerKeyTask;
+
+        public LoginViewModel(IAPIManager _APIManager, IAesKeyExchangeManager aesKeyExchangeManager, ILoggerService loggerService, ISettingsManager settingsManager) {
+            Logger = loggerService.GetLogger<LoginViewModel>();
             APIManager = _APIManager;
+            AesKeyExchangeManager = aesKeyExchangeManager;
+            SettingsManager = settingsManager;
 
             LoginCommand = new Command(OnLoginClicked);
 
             SnackBarMessage = "Test123!";
             SnackBar_IsOpen = true;
+
+            var settings = SettingsManager.GetApplicationSettings().Result;
+            if (settings.AesKey == null || settings.AesIV == null) {
+                getAesServerKeyTask = AesKeyExchangeManager.Start();
+            }
         }
 
         private async void OnLoginClicked(object obj)

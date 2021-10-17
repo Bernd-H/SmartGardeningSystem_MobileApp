@@ -35,7 +35,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> Login(string email, string password) {
-            var settings = SettingsManager.GetApplicationSettings();
+            var settings = await SettingsManager.GetApplicationSettings();
 
             if (settings.AesIV != null && settings.AesKey != null) {
                 // build url

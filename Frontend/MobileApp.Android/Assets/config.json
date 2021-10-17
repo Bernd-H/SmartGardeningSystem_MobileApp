@@ -7,6 +7,9 @@
     "LocalPeerDiscovery_multicastIP": "239.192.152.143",
 
     "API_Port": 5001,
-    "API_URL_Login": "https://{0}:{1}/api/Login/"
+    "API_URL_Login": "https://{0}:{1}/api/Login/",
+
+    "ConfigurationWiFi_ServerIP": "127.0.0.1",
+    "ConfigurationWiFi_KeyExchangeListenPort": "52145"
   }
 }

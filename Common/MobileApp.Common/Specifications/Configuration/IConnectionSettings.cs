@@ -10,5 +10,10 @@
         string API_URL_Login { get; set; }
 
         int API_Port { get; set; }
+
+
+        string ConfigurationWiFi_ServerIP { get; set; }
+
+        string ConfigurationWiFi_KeyExchangeListenPort { get; set; }
     }
 }
