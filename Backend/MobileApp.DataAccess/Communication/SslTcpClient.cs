@@ -21,7 +21,8 @@ namespace MobileApp.DataAccess.Communication {
             bool result = false;
             TcpClient client = null;
             try {
-                client = new TcpClient(endPoint);
+                client = new TcpClient();
+                client.Connect(endPoint);
                 Logger.Info($"[RunClient]Connected to server {endPoint.ToString()}.");
 
                 // Create an SSL stream that will close the client's stream.
@@ -30,6 +31,8 @@ namespace MobileApp.DataAccess.Communication {
                     false,
                     new RemoteCertificateValidationCallback(ValidateServerCertificate),
                     null);
+
+                sslStream.AuthenticateAsClient("server");
 
                 sslStreamOpenCallback.Invoke(sslStream);
                 result = true;
@@ -51,18 +54,22 @@ namespace MobileApp.DataAccess.Communication {
               X509Certificate certificate,
               X509Chain chain,
               SslPolicyErrors sslPolicyErrors) {
-            if (sslPolicyErrors == SslPolicyErrors.None)
-                return true;
 
-            Logger.Warn("[ValidateServerCertificate]Certificate error: {0}", sslPolicyErrors);
+            //if (sslPolicyErrors == SslPolicyErrors.None)
+            //    return true;
 
-            // Do not allow this client to communicate with unauthenticated servers.
-            return false;
+            //Logger.Warn("[ValidateServerCertificate]Certificate error: {0}", sslPolicyErrors);
+
+            //// Do not allow this client to communicate with unauthenticated servers.
+            //return false;
+
+            return true; // because it's a self signed certificate
         }
 
         public static byte[] ReadMessage(SslStream sslStream) {
             int bytes = -1;
             int packetLength = -1;
+            int readBytes = 0;
             List<byte> packet = new List<byte>();
 
             do {
@@ -76,9 +83,10 @@ namespace MobileApp.DataAccess.Communication {
                     packetLength = BitConverter.ToInt32(length, 0);
                 }
 
+                readBytes += bytes;
                 packet.AddRange(buffer);
 
-            } while (bytes != 0);
+            } while (bytes != 0 && packetLength - readBytes > 0);
 
             // remove length information and attached bytes
             packet.RemoveRange(packetLength, packet.Count - packetLength);

@@ -8,7 +8,6 @@ using MobileApp.Common.Configuration;
 using MobileApp.Common.Models;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
-using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
@@ -28,10 +27,21 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
+            var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 
-            //if (false)
-            {
-                Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+            if (settings.AesKey != null && settings.AesIV != null) {
+                if (settings.SessionAPIToken == null) {
+                    // login credentials will get encrypted with the aes server key after "login" gets pressed
+                    Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+                } else {
+                    // already logged in
+                    // go to main page
+                    Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+                }
+            }
+            else {
+                // to get aes key from server
+                Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.ConnectingPage));
             }
         }
 

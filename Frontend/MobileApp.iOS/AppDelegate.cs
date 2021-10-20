@@ -2,6 +2,7 @@
 using Foundation;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
+using MobileApp.Common.Specifications.Services;
 using MobileApp.DataAccess;
 using MobileApp.iOS.Renders;
 using TinyIoC;
@@ -38,6 +39,8 @@ namespace MobileApp.iOS {
 
             //DependencyService.Register<IFileStorage, FileStorageiOS>();
             container.Register<IFileStorage, FileStorageiOS>().AsMultiInstance();
+
+            container.Register<ICloseApplicationService, CloseApplicationService>();
         }
     }
 }

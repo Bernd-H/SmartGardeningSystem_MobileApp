@@ -16,6 +16,8 @@ namespace MobileApp.Common {
 
         public static readonly string HelpPage = "HelpPage";
 
+        public static readonly string ConnectingPage = "ConnectingPage";
+
         public static string GetNavigationString(string page) {
             return $"//{page}";
         }

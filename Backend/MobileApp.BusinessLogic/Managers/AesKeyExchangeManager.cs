@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications;
@@ -17,15 +18,15 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private ISslTcpClient SslTcpClient;
 
+
         public AesKeyExchangeManager(ILoggerService loggerService, ISettingsManager settingsManager, ISslTcpClient sslTcpClient) {
             Logger = loggerService.GetLogger<AesKeyExchangeManager>();
             SettingsManager = settingsManager;
             SslTcpClient = sslTcpClient;
         }
 
-        public Task Start() {
+        public Task<bool> Start(CancellationToken token) {
             return Task.Run(() => {
-
                 // try to connect to server and exchange aes keys
                 string serverIP = ConfigurationStore.GetConfig().ConnectionSettings.ConfigurationWiFi_ServerIP;
                 int port = Convert.ToInt32(ConfigurationStore.GetConfig().ConnectionSettings.ConfigurationWiFi_KeyExchangeListenPort);
@@ -33,8 +34,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 Logger.Info($"[Start]No aes key stored. Trying to connect to server {endPoint.ToString()}.");
 
-                SslTcpClient.RunClient(endPoint, sslStreamOpenCallback);
-            });
+                return SslTcpClient.RunClient(endPoint, sslStreamOpenCallback);
+            }, token);
         }
 
         private void sslStreamOpenCallback(SslStream openStream) {

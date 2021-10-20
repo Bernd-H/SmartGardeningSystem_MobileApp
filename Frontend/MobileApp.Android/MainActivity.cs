@@ -7,7 +7,9 @@ using Android.Runtime;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
+using MobileApp.Common.Specifications.Services;
 using MobileApp.DataAccess;
+using MobileApp.Droid.Close;
 using MobileApp.Droid.Renders;
 using TinyIoC;
 using Xamarin.Forms;
@@ -45,6 +47,8 @@ namespace MobileApp.Droid {
 
             //DependencyService.Register<IFileStorage, FileStorageAndroid>();
             container.Register<IFileStorage, FileStorageAndroid>().AsMultiInstance();
+
+            container.Register<ICloseApplicationService, CloseApplicationService>();
         }
     }
 }

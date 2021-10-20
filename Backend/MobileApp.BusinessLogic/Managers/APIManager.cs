@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.Managers;
@@ -27,7 +28,9 @@ namespace MobileApp.BusinessLogic.Managers {
             SettingsManager = settingsManager;
             AesEncrypterDecrypter = aesEncrypterDecrypter;
 
-            client = new HttpClient();
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+            client = new HttpClient(httpClientHandler);
         }
 
         public void Dispose() {
@@ -35,6 +38,11 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> Login(string email, string password) {
+            //await SettingsManager.UpdateCurrentSettings(s => {
+            //    s.BaseStationIP = "10.0.2.2";
+            //    return s;
+            //});
+
             var settings = await SettingsManager.GetApplicationSettings();
 
             if (settings.AesIV != null && settings.AesKey != null) {
@@ -56,7 +64,18 @@ namespace MobileApp.BusinessLogic.Managers {
                 var response = await client.PostAsync(url, data);
                 string result = await response.Content.ReadAsStringAsync();
 
-                Logger.Debug(result);
+                if (result.Contains("token")) {
+                    var jwt = JsonConvert.DeserializeObject<Jwt>(result);
+                    jwt.CreationDate = DateTime.UtcNow;
+
+                    // store json web token in settings
+                    await SettingsManager.UpdateCurrentSettings(currentSettings => {
+                        currentSettings.SessionAPIToken = jwt;
+                        return currentSettings;
+                    });
+
+                    return true;
+                }
             }
 
 

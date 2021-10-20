@@ -21,7 +21,8 @@ namespace MobileApp.BusinessLogic.Cryptography {
         public string Decrypt(byte[] data) {
             try {
                 Logger.Info($"[Decrypt]Decrypting byte array with length={data.Length}.");
-                return DecryptStringFromBytes(data, SettingsManager.GetApplicationSettings().AesKey, SettingsManager.GetApplicationSettings().AesIV);
+                var settings = SettingsManager.GetApplicationSettings().Result;
+                return DecryptStringFromBytes(data, settings.AesKey, settings.AesIV);
             } catch (Exception ex) {
                 Logger.Error(ex, $"[Decrypt]Failed to decrypt data.");
                 return string.Empty;
@@ -31,7 +32,8 @@ namespace MobileApp.BusinessLogic.Cryptography {
         public byte[] Encrypt(string data) {
             try {
                 Logger.Info($"[Encrypt]Encrypting string with length={data.Length}.");
-                return EncryptStringToBytes(data, SettingsManager.GetApplicationSettings().AesKey, SettingsManager.GetApplicationSettings().AesIV);
+                var settings = SettingsManager.GetApplicationSettings().Result;
+                return EncryptStringToBytes(data, settings.AesKey, settings.AesIV);
             } catch (Exception ex) {
                 Logger.Fatal(ex, $"[Encrypt]Error while encrypting data.");
                 throw;

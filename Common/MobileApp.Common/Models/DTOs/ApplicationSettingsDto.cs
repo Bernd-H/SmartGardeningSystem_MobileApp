@@ -1,4 +1,5 @@
 ﻿using System;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications.DataObjects;
 
 namespace MobileApp.Common.Models.DTOs {
@@ -21,10 +22,13 @@ namespace MobileApp.Common.Models.DTOs {
 
         public string BaseStationIP { get; set; }
 
+        public Jwt SessionAPIToken { get; set; }
+
         public static ApplicationSettingsDto GetStandardSettings() {
             return new ApplicationSettingsDto() {
                 Id = Guid.NewGuid(),
-                BaseStationIP = "localhost"
+                BaseStationIP = "10.0.2.2",
+                SessionAPIToken = null
             };
         }
     }

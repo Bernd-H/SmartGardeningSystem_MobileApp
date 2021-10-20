@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MobileApp.Common;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
+using MobileApp.Common.Specifications.Services;
 using NLog;
 using Xamarin.Forms;
 
@@ -20,8 +21,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private string password;
         public string Password {
-            get => email;
-            set => SetProperty(ref email, value);
+            get => password;
+            set => SetProperty(ref password, value);
         }
 
         #region Snack bar elements
@@ -42,40 +43,31 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IAPIManager APIManager;
 
-        private IAesKeyExchangeManager AesKeyExchangeManager;
-
         private ILogger Logger;
 
-        private ISettingsManager SettingsManager;
+        private IDialogService DialogService;
 
 
-        private Task getAesServerKeyTask;
-
-        public LoginViewModel(IAPIManager _APIManager, IAesKeyExchangeManager aesKeyExchangeManager, ILoggerService loggerService, ISettingsManager settingsManager) {
+        public LoginViewModel(IAPIManager _APIManager, IAesKeyExchangeManager aesKeyExchangeManager, ILoggerService loggerService,
+             IDialogService dialogService) {
             Logger = loggerService.GetLogger<LoginViewModel>();
             APIManager = _APIManager;
-            AesKeyExchangeManager = aesKeyExchangeManager;
-            SettingsManager = settingsManager;
 
             LoginCommand = new Command(OnLoginClicked);
-
-            SnackBarMessage = "Test123!";
-            SnackBar_IsOpen = true;
-
-            var settings = SettingsManager.GetApplicationSettings().Result;
-            if (settings.AesKey == null || settings.AesIV == null) {
-                getAesServerKeyTask = AesKeyExchangeManager.Start();
-            }
         }
 
         private async void OnLoginClicked(object obj)
         {
-            Task LoginTask = APIManager.Login(email, password);
+            SnackBarMessage = "Please wait. Logging in...";
+            SnackBar_IsOpen = true;
 
-            // load screen
-
-            LoginTask.Wait();
-            await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
+            bool success = await APIManager.Login(email, password);
+            if (success) {
+                await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
+            } else {
+                SnackBar_IsOpen = false;
+                await DialogService.ShowMessage("Wrong login credentials!", "Access denied", "Ok", null);
+            }
         }
 
         public string LoginImagePath {

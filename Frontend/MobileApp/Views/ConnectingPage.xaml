@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             x:DataType="viewmodels:ConnectingPageViewModel"
+             x:Class="MobileApp.Views.ConnectingPage"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,*,*,*">
+            <StackLayout Grid.Row="0">
+                <Label Text="Please wait." FontSize="24"/>
+                <Label Text="Connecting to basestation..." FontSize="24"/>
+            </StackLayout>
+
+            <Label Grid.Row="2" Text="{Binding Status, Mode=OneWay}" FontSize="18"/>
+
+            <ActivityIndicator Grid.Row="3" IsRunning="true" Color="Orange" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

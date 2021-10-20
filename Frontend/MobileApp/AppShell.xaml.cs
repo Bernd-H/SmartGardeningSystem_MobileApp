@@ -21,6 +21,7 @@ namespace MobileApp
             Routing.RegisterRoute(PageNames.AddModulePage, typeof(AddModulePage));
             Routing.RegisterRoute(PageNames.HelpPage, typeof(HelpPage));
             Routing.RegisterRoute(PageNames.LoginPage, typeof(LoginPage));
+            Routing.RegisterRoute(PageNames.ConnectingPage, typeof(ConnectingPage));
         }
 
     }
