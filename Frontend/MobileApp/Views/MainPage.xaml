@@ -4,8 +4,8 @@
              x:Class="MobileApp.Views.MainPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
-             xmlns:model="clr-namespace:MobileApp.Common.Models;assembly=MobileApp.Common"
              xmlns:vm="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             xmlns:model="clr-namespace:MobileApp.Common.Models.DTOs;assembly=MobileApp.Common"
              x:DataType="vm:MainPageViewModel">
 
     <!--<ContentPage.BindingContext>
@@ -125,7 +125,7 @@
                                     <Grid>
                                         <!-- Look foreach element -->
                                         <pancake:PancakeView  Margin="15,15,15,15" BackgroundColor="White" Padding="20,20" HorizontalOptions="FillAndExpand" HeightRequest="150" CornerRadius="20">
-                                            <StackLayout x:DataType="model:SGModule" VerticalOptions="CenterAndExpand">
+                                            <StackLayout x:DataType="model:ModuleInfoDto" VerticalOptions="CenterAndExpand">
                                                 <Label Text="{Binding Type}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="18" />
                                                 <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="18" />
                                                 <Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="16" />

@@ -3,8 +3,8 @@
 	.section	.rodata.env.str.1,"aMS",@progbits,1
 	.type	.L.env.str.1, @object
 .L.env.str.1:
-	.asciz	"com.companyname.mobileapp_try2"
-	.size	.L.env.str.1, 31
+	.asciz	"com.companyname.smartgardeningsystemandroid"
+	.size	.L.env.str.1, 44
 	.section	.data.application_config,"aw",@progbits
 	.type	application_config, @object
 	.p2align	3
@@ -73,7 +73,7 @@ mono_aot_mode_name:
 	.section	.rodata.env.str.8,"aMS",@progbits,1
 	.type	.L.env.str.8, @object
 .L.env.str.8:
-	.asciz	"09709bc0-350c-456e-94a7-5a81e55922b9"
+	.asciz	"80fd9703-150e-4263-9347-f778c89be7ec"
 	.size	.L.env.str.8, 37
 	.section	.rodata.env.str.9,"aMS",@progbits,1
 	.type	.L.env.str.9, @object

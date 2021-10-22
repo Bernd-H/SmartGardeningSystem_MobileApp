@@ -23,15 +23,15 @@ namespace MobileApp.DataAccess {
         }
 
         private Task WriteAsBytes(string filePath, byte[] data) {
-            return Task.Run(() => {
-                var bytes = new List<byte>(data);
+            var bytes = new List<byte>(data);
 
-                // add byte order mark
-                var bom = new byte[] { 0xEF, 0xBB, 0xBF };
-                bytes.InsertRange(0, bom);
+            // add byte order mark
+            var bom = new byte[] { 0xEF, 0xBB, 0xBF };
+            bytes.InsertRange(0, bom);
 
-                File.WriteAllBytes(filePath, bytes.ToArray());
-            });
+            File.WriteAllBytes(filePath, bytes.ToArray());
+
+            return Task.CompletedTask;
         }
 
         private Task<byte[]> ReadAsBytes(string filePath) {

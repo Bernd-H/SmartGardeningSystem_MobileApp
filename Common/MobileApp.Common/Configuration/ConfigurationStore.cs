@@ -29,5 +29,15 @@ namespace MobileApp.Common.Configuration {
 
             return config;
         }
+
+        /// <summary>
+        /// Used when loading the configuration file failed.
+        /// </summary>
+        public static void SetConfigToStandardValues() {
+            #region Serialized standard configurationString
+            string jsonString = "{\r\n  \"FileNames\": {\r\n    \"SettingsFileName\": \"settings.json\"\r\n  },\r\n  \"ConnectionSettings\": {\r\n    \"LocalPeerDiscovery_port\": 6771,\r\n    \"LocalPeerDiscovery_multicastIP\": \"239.192.152.143\",\r\n\r\n    \"API_Port\": 5001,\r\n    \"API_URL_Login\": \"https://{0}:{1}/api/Login/\",\r\n    \"API_URL_Modules\": \"https://{0}:{1}/api/Modules/\",\r\n\r\n    \"ConfigurationWiFi_ServerIP\": \"10.0.2.2\",\r\n    \"ConfigurationWiFi_KeyExchangeListenPort\": \"52143\"\r\n  }\r\n}";
+            #endregion
+            config = JsonConvert.DeserializeObject<MobileApp.Common.Models.Entities.Configuration.Configuration>(jsonString);
+        }
     }
 }

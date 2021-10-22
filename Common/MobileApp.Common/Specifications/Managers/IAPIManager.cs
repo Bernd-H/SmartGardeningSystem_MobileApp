@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 
 namespace MobileApp.Common.Specifications.Managers {
     public interface IAPIManager : IDisposable {
@@ -14,5 +15,21 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <param name="password"></param>
         /// <returns>True when login was successfully</returns>
         Task<bool> Login(string email, string password);
+
+        #region Module
+
+        /// <summary>
+        /// Requests all modules from rest api.
+        /// </summary>
+        /// <returns>Null when error</returns>
+        Task<IEnumerable<ModuleInfoDto>> GetModules();
+
+        Task<bool> UpdateModule(ModuleInfo updatedModule);
+
+        Task<bool> AddModule(ModuleInfo newModule);
+
+        Task<bool> DeleteModule(Guid moduleId);
+
+        #endregion
     }
 }

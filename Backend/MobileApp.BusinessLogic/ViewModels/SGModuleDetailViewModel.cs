@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using MobileApp.Common;
 using MobileApp.Common.Models;
+using MobileApp.Common.Models.DTOs;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
@@ -93,20 +94,20 @@ namespace MobileApp.BusinessLogic.ViewModels {
         public async void LoadItemId(string itemId) {
             try {
                 var item = await ModulesDataStore.GetItemAsync(itemId);
-                Id = item.Id;
+                Id = item.Id.ToString();
                 Name = item.Name;
-                Type = item.Type;
+                Type = item.Type.Value;
                 ConnectedToActor = "Test1";
                 IsOnline = item.IsOnline.ToString();
                 MeasuredValue = item.MeasuredValue;
                 LastUpdated = DateTime.Now.ToString();
 
-                if (item._Type == SGModuleType.MAINSTATION)
+                if (item.Type.Value.Equals(ModuleType.MAINSTATION))
                     IsRemoveButtonEnabled = false;
                 else
                     IsRemoveButtonEnabled = true;
 
-                if (item._Type == SGModuleType.SENSOR) {
+                if (item.Type.Value.Equals(ModuleType.SENSOR)) {
                     IsSelectActorVisible = true;
                     IsWateringSettingVisible = true;
                 }

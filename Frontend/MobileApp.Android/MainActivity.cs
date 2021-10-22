@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.IO;
 using Android.App;
 using Android.Content.PM;
@@ -15,19 +16,24 @@ using TinyIoC;
 using Xamarin.Forms;
 
 namespace MobileApp.Droid {
-    [Activity(Label = "MobileApp_Try2", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    [Activity(Label = "MobileApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity {
         protected override void OnCreate(Bundle savedInstanceState) {
             RegisterPlatformSpecificDependencies();
 
             base.OnCreate(savedInstanceState);
-
-            // load config file
-            using (var inputStream = Assets.Open(ConfigurationStore.ConfigFileName)) {
-                using (var streamReader = new StreamReader(inputStream)) {
-                    ConfigurationStore.ConfigurationContent = streamReader.ReadToEnd();
+            
+            try {
+                // load config file
+                using (var inputStream = Assets.Open(ConfigurationStore.ConfigFileName)) {
+                    using (var streamReader = new StreamReader(inputStream)) {
+                        ConfigurationStore.ConfigurationContent = streamReader.ReadToEnd();
+                    }
                 }
+            } catch (Exception) {
+                ConfigurationStore.SetConfigToStandardValues();
             }
+
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

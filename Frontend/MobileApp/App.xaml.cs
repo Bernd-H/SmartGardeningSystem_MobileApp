@@ -6,13 +6,13 @@ using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models;
+using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
 using MobileApp.DataAccess.Communication;
-using MobileApp.Services;
 using TinyIoC;
 using Xamarin.Forms;
 
@@ -27,9 +27,19 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
+            IoC.Get<ISettingsManager>().UpdateCurrentSettings(cs => {
+                return ApplicationSettingsDto.GetStandardSettings();
+            }).Wait();
+
             var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 
-            if (settings.AesKey != null && settings.AesIV != null) {
+            // check if basestation ip is known and available
+            bool isAvailable = false;
+            if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
+                //isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
+            }
+
+            if (settings.AesKey != null && settings.AesIV != null && isAvailable) {
                 if (settings.SessionAPIToken == null) {
                     // login credentials will get encrypted with the aes server key after "login" gets pressed
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
@@ -40,7 +50,7 @@ namespace MobileApp {
                 }
             }
             else {
-                // to get aes key from server
+                // to get ip and aes key from basestation (server)
                 Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.ConnectingPage));
             }
         }
@@ -67,13 +77,17 @@ namespace MobileApp {
             container.Register<IAPIManager, APIManager>();
             container.Register<ISettingsManager, SettingsManager>();
             container.Register<IAesKeyExchangeManager, AesKeyExchangeManager>();
+            container.Register<IBasestationFinderManager, BasestationFinderManager>();
 
             // communication
             container.Register<ISslTcpClient, SslTcpClient>();
+            container.Register<ILocalBasestationDiscovery, LocalBasestationDiscovery>();
+            container.Register<IMulticastUdpSender, MulticastUdpSender>();
 
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
-            container.Register<IDataStore<SGModule>, ModulesMockDataStore>();
+            //container.Register<IDataStore<SGModule>, ModulesMockDataStore>();
+            container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();
 

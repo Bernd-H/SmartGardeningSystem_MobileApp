@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
@@ -31,6 +32,13 @@ namespace MobileApp.BusinessLogic.Managers {
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
             client = new HttpClient(httpClientHandler);
+
+            // add json web token to header if a token exists
+            TryAddWebTokenToHeader().Wait();
+        }
+
+        ~APIManager() {
+            Dispose();
         }
 
         public void Dispose() {
@@ -38,11 +46,6 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> Login(string email, string password) {
-            //await SettingsManager.UpdateCurrentSettings(s => {
-            //    s.BaseStationIP = "10.0.2.2";
-            //    return s;
-            //});
-
             var settings = await SettingsManager.GetApplicationSettings();
 
             if (settings.AesIV != null && settings.AesKey != null) {
@@ -74,10 +77,135 @@ namespace MobileApp.BusinessLogic.Managers {
                         return currentSettings;
                     });
 
-                    return true;
+                    // add web token to request header
+                    return await TryAddWebTokenToHeader();
                 }
             }
 
+
+            return false;
+        }
+
+        public async Task<IEnumerable<ModuleInfoDto>> GetModules() {
+            var settings = await SettingsManager.GetApplicationSettings();
+
+            string url = "";
+            try {
+                if (settings.SessionAPIToken != null) {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                    var response = await client.GetAsync(url);
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    var modules = JsonConvert.DeserializeObject<List<ModuleInfo>>(result);
+
+                    return modules.ToDtos();
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[GetModules]Could not get modules from rest api. (url={url})");
+            }
+
+            return null;
+        }
+
+
+        private async Task<bool> TryAddWebTokenToHeader() {
+            var settings = await SettingsManager.GetApplicationSettings();
+            if (settings.SessionAPIToken != null) {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.SessionAPIToken.Token}");
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateModule(ModuleInfo updatedModule) {
+            var settings = await SettingsManager.GetApplicationSettings();
+            string url = "";
+
+            try {
+                // build url
+                var config = ConfigurationStore.GetConfig();
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                url += $"{updatedModule.Id.ToString()}"; // add id to url
+
+                // prepare data to send
+                var moduleDto = updatedModule.ToDto();
+                string json = JsonConvert.SerializeObject(moduleDto);
+
+                // setup the body of the request
+                StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(url, data);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    return true;
+                }
+                else {
+                    Logger.Error($"[UpdateModule]API returned code: {response.StatusCode.ToString()}.");
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[UpdateModule]Could not get modules from rest api. (url={url})");
+            }
+
+            return false;
+        }
+
+        public async Task<bool> AddModule(ModuleInfo newModule) {
+            var settings = await SettingsManager.GetApplicationSettings();
+            string url = "";
+
+            try {
+                // build url
+                var config = ConfigurationStore.GetConfig();
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                // prepare data to send
+                var moduleDto = newModule.ToDto();
+                string json = JsonConvert.SerializeObject(moduleDto);
+
+                // setup the body of the request
+                StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, data);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    return true;
+                } else {
+                    Logger.Error($"[AddModule]API returned code: {response.StatusCode.ToString()}.");
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[AddModule]Could not get modules from rest api. (url={url})");
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteModule(Guid moduleId) {
+            var settings = await SettingsManager.GetApplicationSettings();
+            string url = "";
+
+            try {
+                // build url
+                var config = ConfigurationStore.GetConfig();
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                var response = await client.DeleteAsync(url);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    return true;
+                }
+                else {
+                    Logger.Error($"[DeleteModule]API returned code: {response.StatusCode.ToString()}.");
+                }
+            } catch (Exception ex) {
+                Logger.Error(ex, $"[DeleteModule]Could not get modules from rest api. (url={url})");
+            }
 
             return false;
         }

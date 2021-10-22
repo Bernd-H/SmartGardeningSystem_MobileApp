@@ -29,42 +29,48 @@ namespace MobileApp.BusinessLogic.Managers {
         public async Task<ApplicationSettingsDto> GetApplicationSettings() {
             await LOCKER.WaitAsync();
 
-            Logger.Info("[GetApplicationSettings]Loading application settings.");
-            SetFilePathIfEmpty();
-            await CreateDefaultSettingsByMissingFile();
-
-            var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
-            var settings = JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
+            var settings = await getApplicationSettings();
 
             LOCKER.Release();
             return settings;
         }
 
         public async Task UpdateCurrentSettings(Func<ApplicationSettingsDto, ApplicationSettingsDto> updateFunc) {
-            await UpdateSettings(updateFunc(await GetApplicationSettings()));
-        }
-
-        private async Task UpdateSettings(ApplicationSettingsDto newSettings) {
             await LOCKER.WaitAsync();
 
-            Logger.Info("[UpdateSettings]Writing to application settings.");
-
-            var jsonSettings = JsonConvert.SerializeObject(newSettings);
-            await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
+            await updateSettings(updateFunc(await getApplicationSettings()));
 
             LOCKER.Release();
         }
 
-        private async Task CreateDefaultSettingsByMissingFile() {
+        private async Task<ApplicationSettingsDto> getApplicationSettings() {
+            Logger.Info("[GetApplicationSettings]Loading application settings.");
+            setFilePathIfEmpty();
+            await createDefaultSettingsByMissingFile();
+
+            var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
+            var settings = JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
+
+            return settings;
+        }
+
+        private async Task updateSettings(ApplicationSettingsDto newSettings) {
+            Logger.Info("[UpdateSettings]Writing to application settings.");
+
+            var jsonSettings = JsonConvert.SerializeObject(newSettings);
+            await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
+        }
+
+        private async Task createDefaultSettingsByMissingFile() {
             if (!File.Exists(settingsFilePath)) {
                 Logger.Info("[SettingsManager]Creating default settings file.");
 
                 // create default settings file
-                await UpdateSettings(ApplicationSettingsDto.GetStandardSettings());
+                await updateSettings(ApplicationSettingsDto.GetStandardSettings());
             }
         }
 
-        private void SetFilePathIfEmpty() {
+        private void setFilePathIfEmpty() {
             if (string.IsNullOrEmpty(settingsFilePath)) {
                 var configuration = ConfigurationStore.GetConfig();
                 settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configuration.FileNames.SettingsFileName);

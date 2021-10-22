@@ -7,6 +7,7 @@ using MobileApp.BusinessLogic.Services;
 using MobileApp.Common;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models;
+using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -23,10 +24,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
             AddModuleCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));
 
             // module items
-            Items = new ObservableCollection<SGModule>();
+            //Items = new ObservableCollection<SGModule>();
+            Items = new ObservableCollection<ModuleInfoDto>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<SGModule>(OnItemSelected);
+            //ItemTapped = new Command<SGModule>(OnItemSelected);
+            ItemTapped = new Command<ModuleInfoDto>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
             AccountCommand = new Command(OnAccountTapped);
@@ -43,13 +46,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
 
 
-        private SGModule _selectedItem;
+        //private SGModule _selectedItem;
+        private ModuleInfoDto _selectedItem;
 
-        public ObservableCollection<SGModule> Items { get; }
+
+        //public ObservableCollection<SGModule> Items { get; }
+        public ObservableCollection<ModuleInfoDto> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command AccountCommand { get; }
-        public Command<SGModule> ItemTapped { get; }
+        //public Command<SGModule> ItemTapped { get; }
+        public Command<ModuleInfoDto> ItemTapped { get; }
 
         async Task ExecuteLoadItemsCommand() {
             IsBusy = true;
@@ -74,7 +81,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             SelectedItem = null;
         }
 
-        public SGModule SelectedItem {
+        public ModuleInfoDto SelectedItem {
             get => _selectedItem;
             set {
                 SetProperty(ref _selectedItem, value);
@@ -102,7 +109,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             await DialogService.ShowMessage("Stop tapped.", "Info", "Ok", null);
         }
 
-        async void OnItemSelected(SGModule item) {
+        async void OnItemSelected(ModuleInfoDto item) {
             if (item == null)
                 return;
 

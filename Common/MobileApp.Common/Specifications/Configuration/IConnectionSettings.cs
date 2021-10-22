@@ -9,6 +9,8 @@
 
         string API_URL_Login { get; set; }
 
+        string API_URL_Modules { get; set; }
+
         int API_Port { get; set; }
 
 

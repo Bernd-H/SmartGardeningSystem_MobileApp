@@ -10,9 +10,8 @@ namespace MobileApp.DataAccess {
         private Context _context = Application.Context;
 
         public Task<string> ReadAsString(string filePath) {
-            return Task.Run(() => {
-                return File.ReadAllText(filePath);
-            });
+            var text = File.ReadAllText(filePath);
+            return Task.FromResult(text);
         }
 
         //public async Task<string> ReadAsString(string filename) {
@@ -24,9 +23,9 @@ namespace MobileApp.DataAccess {
         //}
 
         public Task WriteAllText(string filePath, string text) {
-            return Task.Run(() => {
-                File.WriteAllText(filePath, text);
-            });
+            File.WriteAllText(filePath, text);
+
+            return Task.CompletedTask;
         }
     }
 }

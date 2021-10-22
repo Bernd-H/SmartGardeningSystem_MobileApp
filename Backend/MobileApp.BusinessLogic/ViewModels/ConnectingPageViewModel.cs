@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common;
 using MobileApp.Common.Specifications;
@@ -21,6 +18,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ILogger Logger;
 
+        private IBasestationFinderManager BasestationFinderManager;
+
         private IAesKeyExchangeManager AesKeyExchangeManager;
 
         private IDialogService DialogService;
@@ -30,11 +29,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         public ConnectingPageViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IAesKeyExchangeManager aesKeyExchangeManager,
-            IDialogService dialogService, ICloseApplicationService closeApplicationService) {
+            IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager) {
             Logger = loggerService.GetLogger<ConnectingPageViewModel>();
             AesKeyExchangeManager = aesKeyExchangeManager;
             DialogService = dialogService;
             CloseApplicationService = closeApplicationService;
+            BasestationFinderManager = basestationFinderManager;
 
             _ = BeginConnect();
         }
@@ -44,16 +44,30 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         public async Task BeginConnect() {
-            Logger.Info($"[BeginConnect]Trying to get aes key from server.");
-            var success = await AesKeyExchangeManager.Start(cancellationToken.Token);
+            // get basestation ip
+            Status = "Status: Searching for a local basestation...";
+            var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
 
-            if (!success) {
-                await DialogService.ShowMessage("Could not connect to basestation!", "Error", "Close app", () => {
+            if (baseStationFound) {
+                Status = "Status: Exchanging keys...";
+                Logger.Info($"[BeginConnect]Trying to get aes key from server.");
+                var success = await AesKeyExchangeManager.Start(cancellationToken.Token);
+
+                if (!success) {
+                    await DialogService.ShowMessage("Could not connect to basestation!", "Error", "Close app", () => {
+                        CloseApplicationService.CloseApplication();
+                    });
+                }
+                else {
+                    // redirect to login page
+                    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+                }
+
+            }
+            else {
+                await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Close app", () => {
                     CloseApplicationService.CloseApplication();
                 });
-            } else {
-                // redirect to login page
-                await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
             }
         }
     }

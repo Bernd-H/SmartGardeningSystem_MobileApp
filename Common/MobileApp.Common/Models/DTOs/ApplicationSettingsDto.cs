@@ -27,7 +27,9 @@ namespace MobileApp.Common.Models.DTOs {
         public static ApplicationSettingsDto GetStandardSettings() {
             return new ApplicationSettingsDto() {
                 Id = Guid.NewGuid(),
-                BaseStationIP = "10.0.2.2",
+                BaseStationIP = string.Empty,
+                //BaseStationIP = "10.0.2.2",
+                //BaseStationIP = "192.168.103.239",
                 SessionAPIToken = null
             };
         }
