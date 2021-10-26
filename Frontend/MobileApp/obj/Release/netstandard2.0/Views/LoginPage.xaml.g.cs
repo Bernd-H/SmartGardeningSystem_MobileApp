@@ -8,17 +8,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp_Try2.Views.LoginPage.xaml", "Views/LoginPage.xaml", typeof(global::MobileApp_Try2.Views.LoginPage))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp.Views.LoginPage.xaml", "Views/LoginPage.xaml", typeof(global::MobileApp.Views.LoginPage))]
 
-namespace MobileApp_Try2.Views {
+namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\LoginPage.xaml")]
     public partial class LoginPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::MobileApp.Views.SnackBar SnackB;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(LoginPage));
+            SnackB = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::MobileApp.Views.SnackBar>(this, "SnackB");
         }
     }
 }

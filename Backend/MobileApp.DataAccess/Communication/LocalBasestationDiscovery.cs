@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
@@ -39,12 +38,14 @@ namespace MobileApp.DataAccess.Communication {
         public async Task<BasestationFoundDto> TryFindBasestation() {
             BasestationFoundDto result = null;
 
+            // start listening
+            var asyncResult = listener.BeginReceive(null, null);
+
             // send message
             int port = ((IPEndPoint)listener.Client.LocalEndPoint).Port;
             await MulticastUdpSender.SendToMulticastGroupAsync(port);
 
             // wait for an answer
-            var asyncResult = listener.BeginReceive(null, null);
             asyncResult.AsyncWaitHandle.WaitOne(ReceiveTimeOut);
             if (asyncResult.IsCompleted) {
                 try {
@@ -53,7 +54,7 @@ namespace MobileApp.DataAccess.Communication {
 
                     // parse data to dto
                     result = new BasestationFoundDto() {
-                        Id = Guid.Parse(Encoding.ASCII.GetString(receivedData)),
+                        Id = new Guid(receivedData),
                         RemoteEndPoint = remoteEP
                     };
                 }

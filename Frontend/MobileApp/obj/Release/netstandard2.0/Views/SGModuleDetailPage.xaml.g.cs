@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp_Try2.Views.SGModuleDetailPage.xaml", "Views/SGModuleDetailPage.xaml", typeof(global::MobileApp_Try2.Views.SGModuleDetailPage))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp.Views.SGModuleDetailPage.xaml", "Views/SGModuleDetailPage.xaml", typeof(global::MobileApp.Views.SGModuleDetailPage))]
 
-namespace MobileApp_Try2.Views {
+namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\SGModuleDetailPage.xaml")]
@@ -23,14 +23,14 @@ namespace MobileApp_Try2.Views {
         private global::Xamarin.Forms.Slider slider;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::MobileApp_Try2.Controls.BorderlessPicker connectedToPicker;
+        private global::MobileApp.Controls.BorderlessPicker connectedToPicker;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(SGModuleDetailPage));
             stack = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.StackLayout>(this, "stack");
             slider = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Slider>(this, "slider");
-            connectedToPicker = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::MobileApp_Try2.Controls.BorderlessPicker>(this, "connectedToPicker");
+            connectedToPicker = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::MobileApp.Controls.BorderlessPicker>(this, "connectedToPicker");
         }
     }
 }

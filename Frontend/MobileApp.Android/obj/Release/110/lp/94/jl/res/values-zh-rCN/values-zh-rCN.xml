@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string msgid="3260749812566568062" name="copy_toast_msg">"链接已复制到剪贴板"</string>
-    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"复制链接"</string>
-    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"在浏览器中打开"</string>
-    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"分享链接"</string>
+    <string msgid="6301633601645100427" name="nav_app_bar_navigate_up_description">"转到上一层级"</string>
+    <string msgid="7456070600745802113" name="nav_app_bar_open_drawer_description">"打开抽屉式导航栏"</string>
 </resources>

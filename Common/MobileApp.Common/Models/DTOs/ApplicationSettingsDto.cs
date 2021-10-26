@@ -29,7 +29,7 @@ namespace MobileApp.Common.Models.DTOs {
                 Id = Guid.NewGuid(),
                 BaseStationIP = string.Empty,
                 //BaseStationIP = "10.0.2.2",
-                //BaseStationIP = "192.168.103.239",
+                //BaseStationIP = "192.168.1.48",
                 SessionAPIToken = null
             };
         }

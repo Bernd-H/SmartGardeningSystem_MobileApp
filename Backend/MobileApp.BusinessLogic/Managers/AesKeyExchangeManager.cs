@@ -26,9 +26,10 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public Task<bool> Start(CancellationToken token) {
-            return Task.Run(() => {
+            return Task.Run(async () => {
                 // try to connect to server and exchange aes keys
-                string serverIP = ConfigurationStore.GetConfig().ConnectionSettings.ConfigurationWiFi_ServerIP;
+                //string serverIP = ConfigurationStore.GetConfig().ConnectionSettings.ConfigurationWiFi_ServerIP;
+                string serverIP = (await SettingsManager.GetApplicationSettings()).BaseStationIP;
                 int port = Convert.ToInt32(ConfigurationStore.GetConfig().ConnectionSettings.ConfigurationWiFi_KeyExchangeListenPort);
                 var endPoint = new IPEndPoint(IPAddress.Parse(serverIP), port);
 

@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp_Try2.Views.AddModulePage.xaml", "Views/AddModulePage.xaml", typeof(global::MobileApp_Try2.Views.AddModulePage))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp.Views.AddModulePage.xaml", "Views/AddModulePage.xaml", typeof(global::MobileApp.Views.AddModulePage))]
 
-namespace MobileApp_Try2.Views {
+namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\AddModulePage.xaml")]

@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp_Try2.Views.HelpPage.xaml", "Views/HelpPage.xaml", typeof(global::MobileApp_Try2.Views.HelpPage))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("MobileApp.Views.HelpPage.xaml", "Views/HelpPage.xaml", typeof(global::MobileApp.Views.HelpPage))]
 
-namespace MobileApp_Try2.Views {
+namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\HelpPage.xaml")]

@@ -22,7 +22,7 @@ namespace MobileApp.Droid {
             RegisterPlatformSpecificDependencies();
 
             base.OnCreate(savedInstanceState);
-            
+
             try {
                 // load config file
                 using (var inputStream = Assets.Open(ConfigurationStore.ConfigFileName)) {
@@ -30,10 +30,10 @@ namespace MobileApp.Droid {
                         ConfigurationStore.ConfigurationContent = streamReader.ReadToEnd();
                     }
                 }
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 ConfigurationStore.SetConfigToStandardValues();
             }
-
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

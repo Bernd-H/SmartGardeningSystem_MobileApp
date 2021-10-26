@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string msgid="3260749812566568062" name="copy_toast_msg">"கிளிப்-போர்டுக்கு இணைப்பு நகலெடுக்கப்பட்டது"</string>
-    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"இணைப்பை நகலெடு"</string>
-    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"உலாவியில் திற"</string>
-    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"இணைப்பைப் பகிர்"</string>
+    <string msgid="6301633601645100427" name="nav_app_bar_navigate_up_description">"மேலே செல்லும்"</string>
+    <string msgid="7456070600745802113" name="nav_app_bar_open_drawer_description">"வழிசெலுத்தல் டிராயரைத் திறக்கும்"</string>
 </resources>

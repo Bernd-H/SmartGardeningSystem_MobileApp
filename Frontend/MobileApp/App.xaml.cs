@@ -5,7 +5,6 @@ using MobileApp.BusinessLogic.Services;
 using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common;
 using MobileApp.Common.Configuration;
-using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
@@ -36,14 +35,15 @@ namespace MobileApp {
             // check if basestation ip is known and available
             bool isAvailable = false;
             if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
-                //isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
+                isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
             }
 
             if (settings.AesKey != null && settings.AesIV != null && isAvailable) {
                 if (settings.SessionAPIToken == null) {
                     // login credentials will get encrypted with the aes server key after "login" gets pressed
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
-                } else {
+                }
+                else {
                     // already logged in
                     // go to main page
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));

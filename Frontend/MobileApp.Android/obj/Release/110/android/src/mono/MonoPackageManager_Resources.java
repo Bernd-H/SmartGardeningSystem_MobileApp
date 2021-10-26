@@ -1,10 +1,10 @@
 package mono;
 public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
-		/* We need to ensure that "MobileApp_Try2.Android.dll" comes first in this list. */
-		"MobileApp_Try2.Android.dll",
+		/* We need to ensure that "MobileApp.Android.dll" comes first in this list. */
+		"MobileApp.Android.dll",
 		"MobileApp.BusinessLogic.dll",
-		"MobileApp_Try2.DataAccess.dll",
+		"Autofac.dll",
 		"CommonServiceLocator.dll",
 		"FormsViewGroup.dll",
 		"GalaSoft.MvvmLight.dll",
@@ -13,11 +13,15 @@ public class MonoPackageManager_Resources {
 		"Microcharts.dll",
 		"Microcharts.Droid.dll",
 		"Microcharts.Forms.dll",
-		"MobileApp_Try2.Common.dll",
-		"MobileApp_Try2.dll",
+		"MobileApp.Common.dll",
+		"MobileApp.DataAccess.dll",
+		"MobileApp.dll",
+		"Newtonsoft.Json.dll",
+		"NLog.dll",
 		"SkiaSharp.dll",
 		"SkiaSharp.Views.Android.dll",
 		"SkiaSharp.Views.Forms.dll",
+		"System.Diagnostics.DiagnosticSource.dll",
 		"Xamarin.AndroidX.Activity.dll",
 		"Xamarin.AndroidX.AppCompat.AppCompatResources.dll",
 		"Xamarin.AndroidX.AppCompat.dll",
