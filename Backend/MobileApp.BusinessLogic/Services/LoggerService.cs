@@ -27,6 +27,25 @@ namespace MobileApp.BusinessLogic {
             return logger[typeof(T)];
         }
 
+        public string GetLogFilePath(bool allLogsFile) {
+            LogEventInfo logEventInfo;
+
+            // to set the timestamp and folderpath on Render()
+            // (Render replaces ${date:format=yyyy-MM-dd} with the current timestamp and ${specialfolder:folder=MyDocuments} with the correct folder path)
+            logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
+
+            if (allLogsFile) {
+                return clearFileNamePathFromApostrophs(((FileTarget)LogManager.Configuration.FindTargetByName("allLogFile")).FileName.Render(logEventInfo));
+            } else {
+                return clearFileNamePathFromApostrophs(((FileTarget)LogManager.Configuration.FindTargetByName("logFile")).FileName.Render(logEventInfo));
+            }
+        }
+
+        public string GetInternalLogFilePath() {
+            //LogManager.Configuration.
+            throw new NotImplementedException();
+        }
+
         private static Stream GetEmbeddedResourceStream(Assembly assembly, string resourceFileName) {
             var resourcePaths = assembly.GetManifestResourceNames()
               .Where(x => x.EndsWith(resourceFileName, StringComparison.OrdinalIgnoreCase))
@@ -47,16 +66,24 @@ namespace MobileApp.BusinessLogic {
             }
 
             // set log file paths
-            var allLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("allLogFile");
-            allLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), allLogFileTarget.FileName.ToString());
+            // all log file paths get already correctly set in the NLog.config file
+            //var allLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("allLogFile");
+            //var fileName = clearFileNamePathFromApostrophs(allLogFileTarget.FileName.ToString());
+            //allLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
 
-            var ownLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("ownLogFile");
-            ownLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ownLogFileTarget.FileName.ToString());
+            //var ownLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("logFile");
+            //fileName = clearFileNamePathFromApostrophs(ownLogFileTarget.FileName.ToString());
+            //ownLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
 
-            var errorLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("errorLogFile");
-            errorLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), errorLogFileTarget.FileName.ToString());
+            //var errorLogFileTarget = (FileTarget)LogManager.Configuration.FindTargetByName("errorLogFile");
+            //fileName = clearFileNamePathFromApostrophs(errorLogFileTarget.FileName.ToString());
+            //errorLogFileTarget.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
 
-            LogManager.ReconfigExistingLoggers();
+            //LogManager.ReconfigExistingLoggers();
+        }
+
+        private static string clearFileNamePathFromApostrophs(string fileNameOrPath) {
+            return fileNameOrPath.Replace("'", string.Empty);
         }
     }
 }

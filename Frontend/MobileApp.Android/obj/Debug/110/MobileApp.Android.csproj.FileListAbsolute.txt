@@ -1464,3 +1464,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\android\src\crc64374b6ab881fc3e18\BorderlessEntry.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\android\src\crc64374b6ab881fc3e18\BorderlessPickerRenderer.java
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\android\src\crc64bcb156adcf39ed15\MainActivity.java
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\res\drawable\icon_logs_64.png

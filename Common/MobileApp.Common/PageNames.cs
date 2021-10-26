@@ -18,6 +18,8 @@ namespace MobileApp.Common {
 
         public static readonly string ConnectingPage = "ConnectingPage";
 
+        public static readonly string LogsPage = "LogsPage";
+
         public static string GetNavigationString(string page) {
             return $"//{page}";
         }

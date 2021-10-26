@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MobileApp.Common;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
@@ -15,6 +16,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
             get => status;
             set => SetProperty(ref status, value);
         }
+
+        public ICommand ViewLogsPageCommand { get; }
+
 
         private ILogger Logger;
 
@@ -36,6 +40,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             CloseApplicationService = closeApplicationService;
             BasestationFinderManager = basestationFinderManager;
 
+            ViewLogsPageCommand = new Command(OnViewLogsTapped);
+
             _ = BeginConnect();
         }
 
@@ -43,7 +49,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             cancellationToken.Cancel();
         }
 
-        public async Task BeginConnect() {
+        async Task BeginConnect() {
             // get basestation ip
             Status = "Status: Searching for a local basestation...";
             var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
@@ -54,8 +60,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 var success = await AesKeyExchangeManager.Start(cancellationToken.Token);
 
                 if (!success) {
-                    await DialogService.ShowMessage("Could not connect to basestation!", "Error", "Close app", () => {
-                        CloseApplicationService.CloseApplication();
+                    await DialogService.ShowMessage("Could not connect to basestation!", "Error", "Ok", () => {
+                        Status = "Exchanging a key with the basestation failed! Please restart the application.";
+                        //CloseApplicationService.CloseApplication();
                     });
                 }
                 else {
@@ -65,10 +72,15 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             }
             else {
-                await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Close app", () => {
-                    CloseApplicationService.CloseApplication();
+                await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
+                    //CloseApplicationService.CloseApplication();
+                    Status = "Find a basestation failed! Please restart the application.";
                 });
             }
+        }
+
+        async void OnViewLogsTapped(object obj) {
+            await Shell.Current.GoToAsync(PageNames.LogsPage);
         }
     }
 }

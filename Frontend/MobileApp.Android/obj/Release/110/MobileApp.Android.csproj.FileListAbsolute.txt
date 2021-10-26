@@ -576,3 +576,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\stamp\_GenerateJavaStubs.stamp
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\res\drawable\icon_logs_64.png
