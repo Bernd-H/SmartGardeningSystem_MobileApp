@@ -7,7 +7,7 @@
              x:Class="MobileApp.Views.LoginPage"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:views="clr-namespace:MobileApp.Views"
-             BackgroundColor="#2aa361">
+             BackgroundColor="White">
     <!--<ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
@@ -16,6 +16,10 @@
 
     <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+            <!-- background color -->
+            <StackLayout Grid.Row="0" Grid.RowSpan="4" BackgroundColor="#2aa361"/>
+
             <Image Grid.Row="0" Margin="15,20,20,15"
                     HeightRequest="27"
                     HorizontalOptions="End"
@@ -137,7 +141,8 @@
             </pancake:PancakeView>
 
             <!-- Snack Bar -->
-            <views:SnackBar Grid.Row="4" x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
+            <StackLayout Grid.Row="4">
+                <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
                              BackgroundColor="#323232" 
                              TextColor="White"
                              IsOpen="{Binding SnackBar_IsOpen, Mode=OneWay}"
@@ -145,6 +150,8 @@
                              Message="{Binding SnackBarMessage, Mode=OneWay}"
                              ButtonTextColor="Orange"
                              CloseButtonText="Exit"/>
+            </StackLayout>
+
         </Grid>
     </ScrollView>
 </ContentPage>

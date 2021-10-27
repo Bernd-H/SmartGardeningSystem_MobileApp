@@ -44,7 +44,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         private async Task<ApplicationSettingsDto> getApplicationSettings() {
-            Logger.Info("[GetApplicationSettings]Loading application settings.");
+            Logger.Trace("[GetApplicationSettings]Loading application settings.");
             setFilePathIfEmpty();
             await createDefaultSettingsByMissingFile();
 
@@ -55,7 +55,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         private async Task updateSettings(ApplicationSettingsDto newSettings) {
-            Logger.Info("[UpdateSettings]Writing to application settings.");
+            Logger.Trace("[UpdateSettings]Writing to application settings.");
 
             var jsonSettings = JsonConvert.SerializeObject(newSettings);
             await FileStorage.WriteAllText(settingsFilePath, jsonSettings);

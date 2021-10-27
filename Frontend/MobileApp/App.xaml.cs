@@ -26,9 +26,9 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
-            IoC.Get<ISettingsManager>().UpdateCurrentSettings(cs => {
-                return ApplicationSettingsDto.GetStandardSettings();
-            }).Wait();
+            //IoC.Get<ISettingsManager>().UpdateCurrentSettings(cs => {
+            //    return ApplicationSettingsDto.GetStandardSettings();
+            //}).Wait();
 
             var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 

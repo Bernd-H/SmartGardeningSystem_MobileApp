@@ -47,41 +47,45 @@ namespace MobileApp.BusinessLogic.Managers {
 
         public async Task<bool> Login(string email, string password) {
             var settings = await SettingsManager.GetApplicationSettings();
+            string url = "";
 
             if (settings.AesIV != null && settings.AesKey != null) {
-                // build url
-                var config = ConfigurationStore.GetConfig();
-                string url = string.Format(config.ConnectionSettings.API_URL_Login, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                try {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = string.Format(config.ConnectionSettings.API_URL_Login, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
-                // prepare data to send
-                var userData = new UserDto() {
-                    Id = settings.Id,
-                    AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
-                    AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
-                };
-                string json = JsonConvert.SerializeObject(userData);
+                    // prepare data to send
+                    var userData = new UserDto() {
+                        Id = settings.Id,
+                        AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
+                        AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                    };
+                    string json = JsonConvert.SerializeObject(userData);
 
-                // setup the body of the request
-                StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+                    // setup the body of the request
+                    StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync(url, data);
-                string result = await response.Content.ReadAsStringAsync();
+                    var response = await client.PostAsync(url, data);
+                    string result = await response.Content.ReadAsStringAsync();
 
-                if (result.Contains("token")) {
-                    var jwt = JsonConvert.DeserializeObject<Jwt>(result);
-                    jwt.CreationDate = DateTime.UtcNow;
+                    if (result.Contains("token")) {
+                        var jwt = JsonConvert.DeserializeObject<Jwt>(result);
+                        jwt.CreationDate = DateTime.UtcNow;
 
-                    // store json web token in settings
-                    await SettingsManager.UpdateCurrentSettings(currentSettings => {
-                        currentSettings.SessionAPIToken = jwt;
-                        return currentSettings;
-                    });
+                        // store json web token in settings
+                        await SettingsManager.UpdateCurrentSettings(currentSettings => {
+                            currentSettings.SessionAPIToken = jwt;
+                            return currentSettings;
+                        });
 
-                    // add web token to request header
-                    return await TryAddWebTokenToHeader();
+                        // add web token to request header
+                        return await TryAddWebTokenToHeader();
+                    }
+                } catch(Exception ex) {
+                    Logger.Error(ex, $"[Login]Error while logging in. (api-request-url={url})");
                 }
             }
-
 
             return false;
         }

@@ -126,8 +126,8 @@
                                         <!-- Look foreach element -->
                                         <pancake:PancakeView  Margin="15,15,15,15" BackgroundColor="White" Padding="20,20" HorizontalOptions="FillAndExpand" HeightRequest="150" CornerRadius="20">
                                             <StackLayout x:DataType="model:ModuleInfoDto" VerticalOptions="CenterAndExpand">
-                                                <Label Text="{Binding Type}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="18" />
-                                                <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="18" />
+                                                <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="18" FontAttributes="Bold" />
+                                                <Label Text="{Binding Type.Value}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="18" />
                                                 <Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="16" />
                                                 <Label Text="{Binding InfoText}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
                                                 <StackLayout.GestureRecognizers>

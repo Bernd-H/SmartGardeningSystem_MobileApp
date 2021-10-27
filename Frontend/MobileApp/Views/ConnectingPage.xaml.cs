@@ -14,7 +14,6 @@ namespace MobileApp.Views {
         public ConnectingPage() {
             InitializeComponent();
             Shell.SetTabBarIsVisible(this, false);
-            Shell.SetNavBarIsVisible(this, false);
 
             this.BindingContext = IoC.Get<ConnectingPageViewModel>();
         }

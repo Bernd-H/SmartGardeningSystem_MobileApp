@@ -48,10 +48,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
         private IDialogService DialogService;
 
 
-        public LoginViewModel(IAPIManager _APIManager, IAesKeyExchangeManager aesKeyExchangeManager, ILoggerService loggerService,
-             IDialogService dialogService) {
+        public LoginViewModel(IAPIManager _APIManager, ILoggerService loggerService, IDialogService dialogService) {
             Logger = loggerService.GetLogger<LoginViewModel>();
             APIManager = _APIManager;
+            DialogService = dialogService;
 
             LoginCommand = new Command(OnLoginClicked);
         }

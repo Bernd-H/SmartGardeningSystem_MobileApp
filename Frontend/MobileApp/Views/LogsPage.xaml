@@ -1,16 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic" 
+             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:DataType="viewmodels:LogsPageViewModel"
              x:Class="MobileApp.Views.LogsPage"
              Title="Logs">
     <ContentPage.Content>
-        <ScrollView>
-            <Label Text="{Binding Logs, Mode=OneWay}"
+        <StackLayout>
+            <ScrollView>
+                <Label Text="{Binding Logs, Mode=OneWay}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="StartAndExpand"
                 FontSize="20"/>
-        </ScrollView>
+            </ScrollView>
+
+            <!-- Load button -->
+            <pancake:PancakeView
+                    BackgroundColor="WhiteSmoke"
+                    CornerRadius="25"
+                    HeightRequest="45"
+                    VerticalOptions="StartAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="150"
+                    IsVisible="{Binding IsButtonVisible, Mode=OneWay}">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoadLogsCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+                <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Load logs"
+                        TextColor="#084ebf"
+                        VerticalOptions="CenterAndExpand">
+                </Label>
+            </pancake:PancakeView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

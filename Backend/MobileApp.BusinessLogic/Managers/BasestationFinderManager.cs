@@ -37,7 +37,7 @@ namespace MobileApp.BusinessLogic.Managers {
             int attempts = 5;
 
             do {
-                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {10 - attempts}.");
+                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {5 - attempts}.");
                 baseStationInfo = await LocalBasestationDiscovery.TryFindBasestation();
 
                 attempts--;

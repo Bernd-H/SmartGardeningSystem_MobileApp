@@ -11,7 +11,7 @@ using Xamarin.Forms;
 namespace MobileApp.BusinessLogic.ViewModels {
     public class ConnectingPageViewModel : BaseViewModel {
 
-        private string status = "Status: -";
+        private string status = "-";
         public string Status {
             get => status;
             set => SetProperty(ref status, value);
@@ -51,11 +51,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async Task BeginConnect() {
             // get basestation ip
-            Status = "Status: Searching for a local basestation...";
+            Status = "Searching for a local basestation...";
             var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
 
             if (baseStationFound) {
-                Status = "Status: Exchanging keys...";
+                Status = "Exchanging keys...";
                 Logger.Info($"[BeginConnect]Trying to get aes key from server.");
                 var success = await AesKeyExchangeManager.Start(cancellationToken.Token);
 
