@@ -185,7 +185,7 @@
 
                 <!-- Information about the firm -->
                 <StackLayout Grid.Row="4" VerticalOptions="End" Margin="15,-20,15,5">
-                    <Grid ColumnDefinitions="Auto,*" >
+                    <Grid ColumnDefinitions="Auto,Auto,*" >
                         <!-- Help icon -->
                         <pancake:PancakeView Margin="-115,0,0,-105" CornerRadius="200" BackgroundColor="#37a6b8" HeightRequest="200" WidthRequest="200" Padding="5" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
                             <!--<Image Source="question" Aspect="AspectFit" Margin="7" />-->
@@ -196,8 +196,30 @@
                                 <TapGestureRecognizer Command="{Binding HelpCommand}" />
                             </pancake:PancakeView.GestureRecognizers>
                         </pancake:PancakeView>
+                        <Image Source="question" Aspect="AspectFit" Margin="-2,0,0,10" HeightRequest="45" WidthRequest="45" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                        <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Spacing="0">
+                        <!-- logs button -->
+                        <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
+                            <pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
+                                <Image Source="icon_logs_64" Aspect="AspectFit" Margin="7" />
+                                <pancake:PancakeView.Shadow>
+                                    <pancake:DropShadow />
+                                </pancake:PancakeView.Shadow>
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                NumberOfTapsRequired="1"
+                                Command="{Binding ViewLogsPageCommand}">
+                                    </TapGestureRecognizer>
+                                </pancake:PancakeView.GestureRecognizers>
+                            </pancake:PancakeView>
+                            <Label Text="View logs" FontSize="16"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="2" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Spacing="0">
                             <Label
                             FontSize="18"
                             Text="smartgardening.at"
@@ -211,11 +233,6 @@
                             Text="Visit our website ^"
                                />
                         </StackLayout>
-                        <Image Source="question" Aspect="AspectFit" Margin="-2,0,0,10" HeightRequest="45" WidthRequest="45" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding HelpCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
                 </StackLayout>
 

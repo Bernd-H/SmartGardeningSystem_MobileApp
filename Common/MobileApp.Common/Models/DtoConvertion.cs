@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
+using MobileApp.Common.Models.Enums;
 
 namespace MobileApp.Common.Models {
     public static class DtoConvertion {
@@ -23,7 +22,7 @@ namespace MobileApp.Common.Models {
             return new ModuleInfoDto() {
                 Id = module.Id,
                 Name = module.Name,
-                Type = new ModuleType(module.ModuleTyp)
+                Type = new ModuleTypes(module.ModuleTyp)
             };
         }
     }

@@ -2,40 +2,32 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic" 
+             xmlns:controls="clr-namespace:MobileApp.Controls"
+             xmlns:model="clr-namespace:MobileApp.Common.Models.DTOs;assembly=MobileApp.Common"
              x:DataType="viewmodels:AddModuleViewModel"
              x:Class="MobileApp.Views.AddModulePage"
-             Title="Add Module">
+             Title="Configure the new module">
     <ScrollView>
         <Grid RowDefinitions="Auto,*,Auto">
-            <pancake:PancakeView Grid.Row="0" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Frame BackgroundColor="#084ebf" />
-                <pancake:PancakeView.Shadow>
-                    <pancake:DropShadow />
-                </pancake:PancakeView.Shadow>
-            </pancake:PancakeView>
+            <Grid Grid.Row="0" RowDefinitions="100, Auto, Auto">
+                <!-- background and picture -->
+                <pancake:PancakeView Grid.RowSpan="3" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Frame BackgroundColor="#084ebf" />
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow />
+                    </pancake:PancakeView.Shadow>
+                </pancake:PancakeView>
+                <Image Source="{Binding AddModuleImagePath}" Margin="0,15,0,15" WidthRequest="120" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
 
-            <Image Grid.Row="0" Source="{Binding AddModuleImagePath}" Margin="0,15,0,15" WidthRequest="120" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+                <!-- page header -->
+                <Label Grid.Row="1" Margin="15,0,0,-5" TextColor="White" Text="Configuration" FontAttributes="Bold" FontSize="24" HorizontalOptions="StartAndExpand" />
+                <Label Grid.Row="2" Margin="15,0,0,15" TextColor="White" Text="settings for your new module" FontSize="18" HorizontalOptions="StartAndExpand" />
+            </Grid>
 
-            <StackLayout Grid.Row="1" Margin="15,10,15,15" Spacing="10">
-                <StackLayout Spacing="0">
-                    <Label Text="ID" FontAttributes="Bold" FontSize="16" />
-                    <pancake:PancakeView
-                            Margin="5,0,5,0"
-                        Padding="10,0,10,0"
-                        BackgroundColor="White"
-                        CornerRadius="15"
-                        HeightRequest="50">
-                        <Entry
-                            FontSize="20"
-                            ClearButtonVisibility="WhileEditing"
-                            TextColor="#484848" />
-                        <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow BlurRadius="4" />
-                        </pancake:PancakeView.Shadow>
-                    </pancake:PancakeView>
-                </StackLayout>
-                <StackLayout Spacing="0">
+            <StackLayout Grid.Row="1" Margin="15,10,15,15" Spacing="15">
+                <!-- name -->
+                <StackLayout Spacing="5">
                     <Label Text="Name" FontAttributes="Bold" FontSize="16" />
                     <pancake:PancakeView
                             Margin="5,0,5,0"
@@ -44,6 +36,7 @@
                         CornerRadius="15"
                         HeightRequest="50">
                         <Entry
+                            Text="{Binding Name, Mode=TwoWay}"
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848" />
@@ -52,18 +45,85 @@
                         </pancake:PancakeView.Shadow>
                     </pancake:PancakeView>
                 </StackLayout>
+                
+                <!-- watering setting for sensor -->
+                <StackLayout Spacing="5" IsVisible="{Binding AddingASensor, Mode=OneWay}">
+                    <Label Text="Watering setting" FontAttributes="Bold" FontSize="16" />
+                    <StackLayout>
+                        <StackLayout x:Name="stack" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="0"/>
+                        <Slider x:Name="slider" HorizontalOptions="FillAndExpand" Value="{Binding WateringSetting_SliderValue}" ValueChanged="Slider_ValueChanged" ThumbColor="#084ebf" MinimumTrackColor="{StaticResource Primary}"/>
+                    </StackLayout>
+                </StackLayout>
+                
+                <!-- add corresponding valves -->
+                <StackLayout Spacing="5" IsVisible="{Binding AddingASensor, Mode=OneWay}">
+                    <Label Text="Linked valves:" FontAttributes="Bold" FontSize="16" />
+                    
+                    <!-- list of linked valves -->
+                    <CollectionView x:Name="ItemsListView" ItemsSource="{Binding LinkedValves}" SelectionMode="None" HeightRequest="110">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <!-- Look foreach element -->
+                                    <pancake:PancakeView x:DataType="model:ModuleInfoDto" BackgroundColor="#cce5ff" CornerRadius="25" HeightRequest="45" HorizontalOptions="FillAndExpand" Margin="0,0,0,5">
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}" FontSize="18" FontAttributes="Italic" />
+                                            <Image Source="close" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Margin="0,10,20,10">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AddModuleViewModel}}, Path=RemoveValveFromModuleCommand}"		
+                                                                          CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                        </Grid>
+                                    </pancake:PancakeView>
+
+                                    <!--<pancake:PancakeView CornerRadius="20" x:DataType="model:ModuleInfoDto" HorizontalOptions="CenterAndExpand">
+                                        <pancake:PancakeView.Border>
+                                            <pancake:Border Color="#000000" Thickness="10" />
+                                        </pancake:PancakeView.Border>
+                                        <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}" FontSize="18" FontAttributes="Italic" />
+                                    </pancake:PancakeView>-->
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    
+                    <!-- add valve button -->
+                    <pancake:PancakeView BackgroundColor="#bec5cc" CornerRadius="25" HeightRequest="45" HorizontalOptions="FillAndExpand">
+                        <!--<pancake:PancakeView CornerRadius="20" HorizontalOptions="CenterAndExpand">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow Color="#000000" Offset="10,10" />
+                        </pancake:PancakeView.Shadow>-->
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AddCorrespondingValveCommand}"></TapGestureRecognizer>
+                        </pancake:PancakeView.GestureRecognizers>
+                        <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Add corresponding valve" FontSize="18" />
+                    </pancake:PancakeView>
+                </StackLayout>
+                
+                <!-- watering method selection -->
+                <StackLayout Spacing="0" IsVisible="{Binding AddingAValve, Mode=OneWay}">
+                    <Label Text="For which method of watering is this valve for?"  FontSize="18" />
+                    <controls:BorderlessPicker x:Name="wateringMethodPicker" Title="Press to select a method!" FontSize="16"
+                            HorizontalOptions="FillAndExpand" IsVisible="True" SelectedIndex="{Binding WateringMethod_PickerIndex, Mode=OneWayToSource}" ItemsSource="{Binding WateringMethods}"/>
+                </StackLayout>
             </StackLayout>
 
+            <!-- save button -->
             <Label Grid.Row="2"
                         FontSize="20"
                         Margin="0,0,0,20"
                         HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
-                        Text="Save and Connect"
+                        Text="Save"
                         TextColor="Green"
                         VerticalOptions="CenterAndExpand">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AddAndConnectCommand}"></TapGestureRecognizer>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SaveCommand}"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
             </Label>
         </Grid>

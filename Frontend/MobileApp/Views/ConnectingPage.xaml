@@ -25,7 +25,7 @@
             </StackLayout>
 
 
-            <!-- view logs button -->
+            <!-- logs button -->
             <StackLayout Grid.Row="3" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
                 <pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
                     <Image Source="icon_logs_64" Aspect="AspectFit" Margin="7" />

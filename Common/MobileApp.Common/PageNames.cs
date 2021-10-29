@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MobileApp.Common {
+﻿namespace MobileApp.Common {
     public static class PageNames {
         public static readonly string LoginPage = "LoginPage";
 
@@ -19,6 +15,10 @@ namespace MobileApp.Common {
         public static readonly string ConnectingPage = "ConnectingPage";
 
         public static readonly string LogsPage = "LogsPage";
+
+        public static readonly string WaitingForNewModulePage = "WaitingForNewModulePage";
+
+        public static readonly string SelectValvePage = "SelectValvePage";
 
         public static string GetNavigationString(string page) {
             return $"//{page}";

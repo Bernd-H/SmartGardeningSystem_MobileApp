@@ -11,7 +11,6 @@ using Xamarin.Forms;
 namespace MobileApp.BusinessLogic.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        //public IDataStore<SGModule> ModulesDataStore = IoC.Get<IDataStore<SGModule>>();
         public IDataStore<ModuleInfoDto> ModulesDataStore = IoC.Get<IDataStore<ModuleInfoDto>>();
 
         bool isBusy = false;

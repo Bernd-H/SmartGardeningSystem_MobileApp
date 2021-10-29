@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             x:DataType="viewmodels:WaitingForNewModulePageViewModel"
+             x:Class="MobileApp.Views.WaitingForNewModulePage"
+             BackgroundColor="White"
+             Title="Searching for a new module...">
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,*,Auto,Auto" Margin="15">
+            <!-- loading animation -->
+            <!--<ActivityIndicator Grid.Row="1" IsRunning="true" Color="#37a6b8" WidthRequest="100" HeightRequest="100" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="EndAndExpand"/>-->
+            
+            <!-- instructions -->
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand">
+                <Label HorizontalOptions="CenterAndExpand" Text="Instructions" FontAttributes="Bold" FontSize="24"/>
+                <Label HorizontalOptions="CenterAndExpand" Text="Just press the button on the module you want to add for about 3 seconds." FontSize="20"/>
+                <Label HorizontalOptions="CenterAndExpand" Text="First connect all valves to the basestation and then all sensors!" FontSize="20"/>
+            </StackLayout>
+
+            <!-- status text -->
+            <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand">
+                <Label Text="Status:" HorizontalOptions="CenterAndExpand" FontSize="19" FontAttributes="Bold"/>
+                <Label Text="{Binding Status, Mode=OneWay}" HorizontalOptions="CenterAndExpand" FontSize="18"/>
+            </StackLayout>
+
+            <!-- abort button -->
+            <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,0,0,15">
+                <Label
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        FontAttributes="Bold"
+                        Text="Abort"
+                        TextColor="IndianRed"
+                        VerticalOptions="EndAndExpand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AbortCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+
+            <!-- view logs button -->
+            <StackLayout Grid.Row="3" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
+                <pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
+                    <Image Source="icon_logs_64" Aspect="AspectFit" Margin="7" />
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer
+                                NumberOfTapsRequired="1"
+                                Command="{Binding ViewLogsPageCommand}">
+                        </TapGestureRecognizer>
+                    </pancake:PancakeView.GestureRecognizers>
+                </pancake:PancakeView>
+                <Label Text="View logs" FontSize="16"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

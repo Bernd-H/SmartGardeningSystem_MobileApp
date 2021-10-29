@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="MobileApp.Views.SelectValvePage"
+             xmlns:vm="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
+             xmlns:dtos="clr-namespace:MobileApp.Common.Models.DTOs;assembly=MobileApp.Common"
+             x:DataType="vm:SelectValvePageViewModel"
+             Title="Please select a valve!">
+    <ContentPage.Content>
+        <StackLayout Margin="15">
+            <RefreshView x:DataType="vm:SelectValvePageViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView ItemsSource="{Binding Valves}"
+                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                            <!--<pancake:PancakeView CornerRadius="20" HorizontalOptions="CenterAndExpand" x:DataType="dtos:ModuleInfoDto">-->
+                            <!--<pancake:PancakeView.Border>
+                            <pancake:Border Color="#000000" Thickness="10" />
+                        </pancake:PancakeView.Border>-->
+                            <pancake:PancakeView x:DataType="dtos:ModuleInfoDto" BackgroundColor="#cce5ff" CornerRadius="25" HeightRequest="45" HorizontalOptions="FillAndExpand" Margin="0,0,0,5">
+                                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}" FontSize="18" FontAttributes="Italic" />
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SelectValvePageViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </pancake:PancakeView.GestureRecognizers>
+                            </pancake:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

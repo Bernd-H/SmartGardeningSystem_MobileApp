@@ -19,13 +19,16 @@ namespace MobileApp.BusinessLogic.ViewModels
 
         private IDialogService DialogService;
 
+        private IAPIManager APIManager;
+
         private ILogger Logger;
 
-        public AccountViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IDialogService dialogService)
+        public AccountViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IDialogService dialogService, IAPIManager _APIManager)
         {
             Logger = loggerService.GetLogger<AccountViewModel>();
             SettingsManager = settingsManager;
             DialogService = dialogService;
+            APIManager = _APIManager;
 
             LoggoutCommand = new Command(OnLoggoutClicked);
             ChangePasswordCommand = new Command(OnChangePassword);
@@ -40,6 +43,8 @@ namespace MobileApp.BusinessLogic.ViewModels
                 currentSettings.SessionAPIToken = null;
                 return currentSettings;
             });
+
+            APIManager.Logout();
 
             await Shell.Current.GoToAsync($"//{PageNames.LoginPage}");
         }

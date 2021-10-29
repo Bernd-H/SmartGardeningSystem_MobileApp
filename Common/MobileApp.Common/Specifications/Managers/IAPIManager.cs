@@ -16,6 +16,11 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <returns>True when login was successfully</returns>
         Task<bool> Login(string email, string password);
 
+        /// <summary>
+        /// Clears stored session information 
+        /// </summary>
+        void Logout();
+
         #region Module
 
         /// <summary>

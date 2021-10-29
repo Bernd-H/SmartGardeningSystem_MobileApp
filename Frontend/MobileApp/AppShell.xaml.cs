@@ -23,6 +23,8 @@ namespace MobileApp
             Routing.RegisterRoute(PageNames.LoginPage, typeof(LoginPage));
             Routing.RegisterRoute(PageNames.ConnectingPage, typeof(ConnectingPage));
             Routing.RegisterRoute(PageNames.LogsPage, typeof(LogsPage));
+            Routing.RegisterRoute(PageNames.WaitingForNewModulePage, typeof(WaitingForNewModulePage));
+            Routing.RegisterRoute(PageNames.SelectValvePage, typeof(SelectValvePage));
         }
 
     }

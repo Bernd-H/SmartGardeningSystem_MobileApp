@@ -26,9 +26,8 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
-            //IoC.Get<ISettingsManager>().UpdateCurrentSettings(cs => {
-            //    return ApplicationSettingsDto.GetStandardSettings();
-            //}).Wait();
+            Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+            return;
 
             var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 
@@ -72,6 +71,7 @@ namespace MobileApp {
             // services
             container.Register<IDialogService, DialogService>();
             container.Register<ILoggerService, LoggerService>();
+            container.Register<ICachePageDataService, CachePageDataService>();
 
             // managers
             container.Register<IAPIManager, APIManager>();
@@ -86,8 +86,8 @@ namespace MobileApp {
 
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
-            //container.Register<IDataStore<SGModule>, ModulesMockDataStore>();
-            container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
+            container.Register<IDataStore<ModuleInfoDto>, ModulesMockDataStore>();
+            //container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();
 

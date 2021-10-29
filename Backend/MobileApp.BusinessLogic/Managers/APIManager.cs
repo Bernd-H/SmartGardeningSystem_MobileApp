@@ -90,6 +90,13 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
+        public async void Logout() {
+            // remove json web token from header
+            if (client?.DefaultRequestHeaders.Contains("Authorization") ?? false) {
+                client.DefaultRequestHeaders.Remove("Authorization");
+            }
+        }
+
         public async Task<IEnumerable<ModuleInfoDto>> GetModules() {
             var settings = await SettingsManager.GetApplicationSettings();
 

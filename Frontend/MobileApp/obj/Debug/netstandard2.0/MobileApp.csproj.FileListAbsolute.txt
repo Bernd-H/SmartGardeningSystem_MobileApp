@@ -80,3 +80,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\SnackBar.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\ConnectingPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\LogsPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\SelectValvePage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\WaitingForNewModulePage.xaml.g.cs

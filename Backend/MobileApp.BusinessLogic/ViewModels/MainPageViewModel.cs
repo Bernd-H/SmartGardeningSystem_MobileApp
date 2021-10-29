@@ -3,10 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MobileApp.BusinessLogic.Services;
 using MobileApp.Common;
-using MobileApp.Common.Configuration;
-using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Essentials;
@@ -15,48 +12,45 @@ using Xamarin.Forms;
 namespace MobileApp.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
+        public ICommand OpenWebCommand { get; }
+        public ICommand HelpCommand { get; }
+        public ICommand StartCommand { get; }
+        public ICommand StopCommand { get; }
+        public ICommand ViewLogsPageCommand { get; }
+
+
+        private ModuleInfoDto _selectedItem;
+
+        public ObservableCollection<ModuleInfoDto> Items { get; }
+
+        public Command LoadItemsCommand { get; }
+
+        public Command AddItemCommand { get; }
+
+        public Command AccountCommand { get; }
+
+        public Command<ModuleInfoDto> ItemTapped { get; }
+
+
         private IDialogService DialogService;
 
         public MainPageViewModel(IDialogService dialogService) {
             DialogService = dialogService;
 
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
-            AddModuleCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));
-
             // module items
-            //Items = new ObservableCollection<SGModule>();
             Items = new ObservableCollection<ModuleInfoDto>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            //ItemTapped = new Command<SGModule>(OnItemSelected);
             ItemTapped = new Command<ModuleInfoDto>(OnItemSelected);
-
             AddItemCommand = new Command(OnAddItem);
+
+            // other commands
             AccountCommand = new Command(OnAccountTapped);
             HelpCommand = new Command(OnHelpTapped);
             StartCommand = new Command(OnStartTapped);
             StopCommand = new Command(OnStopTapped);
+            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
+            ViewLogsPageCommand = new Command(OnViewLogsPageTapped);
         }
-
-        public ICommand OpenWebCommand { get; }
-        public ICommand AddModuleCommand { get; }
-        public ICommand HelpCommand { get; }
-        public ICommand StartCommand { get; }
-        public ICommand StopCommand { get; }
-
-
-
-        //private SGModule _selectedItem;
-        private ModuleInfoDto _selectedItem;
-
-
-        //public ObservableCollection<SGModule> Items { get; }
-        public ObservableCollection<ModuleInfoDto> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command AccountCommand { get; }
-        //public Command<SGModule> ItemTapped { get; }
-        public Command<ModuleInfoDto> ItemTapped { get; }
 
         async Task ExecuteLoadItemsCommand() {
             IsBusy = true;
@@ -90,7 +84,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void OnAddItem(object obj) {
-            await Shell.Current.GoToAsync(PageNames.AddModulePage);
+            await Shell.Current.GoToAsync(PageNames.WaitingForNewModulePage);
         }
 
         async void OnHelpTapped(object obj) {
@@ -115,6 +109,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{PageNames.SGModuleDetailPage}?{nameof(SGModuleDetailViewModel.ItemId)}={item.Id}");
+        }
+
+        async void OnViewLogsPageTapped(object obj) {
+            await Shell.Current.GoToAsync(PageNames.LogsPage);
         }
     }
 }
