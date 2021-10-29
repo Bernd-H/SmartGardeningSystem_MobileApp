@@ -93,10 +93,12 @@ namespace MobileApp {
 
             // register view models
             container.Register<AccountViewModel>().AsSingleton();
-            container.Register<AddModuleViewModel>().AsSingleton();
+            container.Register<AddModuleViewModel>().AsMultiInstance();
             container.Register<LoginViewModel>().AsSingleton();
             container.Register<MainPageViewModel>().AsSingleton();
-            container.Register<SGModuleDetailViewModel>().AsSingleton();
+            container.Register<SGModuleDetailViewModel>().AsMultiInstance();
+            container.Register<WaitingForNewModulePageViewModel>().AsSingleton();
+            container.Register<SelectValvePageViewModel>().AsMultiInstance();
         }
     }
 }

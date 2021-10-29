@@ -11,6 +11,11 @@ namespace MobileApp.BusinessLogic.Services {
         readonly List<ModuleInfoDto> items;
 
         public ModulesMockDataStore() {
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var id3 = Guid.NewGuid();
+            var id4 = Guid.NewGuid();
+
             items = new List<ModuleInfoDto>()
             {
                 new ModuleInfoDto {
@@ -21,30 +26,32 @@ namespace MobileApp.BusinessLogic.Services {
                 new ModuleInfoDto {
                     Id = Guid.NewGuid(),
                     Type = new ModuleTypes(ModuleTypes.SENSOR),
-                    Name = "Sensor1"
+                    Name = "Sensor1",
+                    CorrespondingValves = new List<Guid>() {id1, id2}
                 },
                 new ModuleInfoDto {
                     Id = Guid.NewGuid(),
                     Type = new ModuleTypes(ModuleTypes.SENSOR),
-                    Name = "Sensor2"
+                    Name = "Sensor2",
+                    CorrespondingValves = new List<Guid>() {id3, id4}
                 },
                 new ModuleInfoDto {
-                    Id = Guid.NewGuid(),
+                    Id = id1,
                     Type = new ModuleTypes(ModuleTypes.VALVE),
                     Name = "Valve1"
                 },
                 new ModuleInfoDto {
-                    Id = Guid.NewGuid(),
+                    Id = id2,
                     Type = new ModuleTypes(ModuleTypes.VALVE),
                     Name = "Valve2"
                 },
                 new ModuleInfoDto {
-                    Id = Guid.NewGuid(),
+                    Id = id3,
                     Type = new ModuleTypes(ModuleTypes.VALVE),
                     Name = "Valve3"
                 },
                 new ModuleInfoDto {
-                    Id = Guid.NewGuid(),
+                    Id = id4,
                     Type = new ModuleTypes(ModuleTypes.VALVE),
                     Name = "Valve4"
                 }

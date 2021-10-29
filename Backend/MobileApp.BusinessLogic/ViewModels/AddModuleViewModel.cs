@@ -5,13 +5,14 @@ using System.Windows.Input;
 using MobileApp.Common;
 using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
-    [QueryProperty(nameof(AddModuleViewModel.DataInCacheId), nameof(DataInCacheId))]
+    [QueryProperty("DataInCacheId", nameof(DataInCacheId))]
     [QueryProperty(nameof(AddModuleViewModel.AddingASensor), nameof(AddingASensor))]
-    public class AddModuleViewModel : BaseViewModel {
+    public class AddModuleViewModel : BaseViewModel, IValvesListViewModel {
         /// <summary>
         /// Query property. Defines under what id AddModuleViewModel properties got stored.
         /// </summary>
@@ -32,8 +33,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     Name = storedData.Name;
 
                     AddingASensor = storedData.AddingASensor;
-                    LinkedValves = storedData.LinkedValves;
                     WateringSetting_SliderValue = storedData.WateringSetting_SliderValue;
+                    UpdateLinkedValvesCollectionView(storedData.LinkedValves);
 
                     WateringMethod_PickerIndex = storedData.WateringMethod_PickerIndex;
                 }
@@ -155,12 +156,19 @@ namespace MobileApp.BusinessLogic.ViewModels {
             Guid storageId = Guid.NewGuid();
             CachePageData.Store(storageId, this);
 
-            // open valve select page and pass storageId
-            await Shell.Current.GoToAsync($"{PageNames.SelectValvePage}?{nameof(SelectValvePageViewModel.AddModulePageStorageId)}={storageId}");
+            // open valve select page and pass storageId and page to navigate to after
+            await Shell.Current.GoToAsync($"{PageNames.SelectValvePage}?{nameof(SelectValvePageViewModel.AddModulePageStorageId)}={storageId}&{nameof(SelectValvePageViewModel.NavigationString)}={PageNames.AddModulePage}");
         }
 
         private void RemoveValveTapped(ModuleInfoDto module) {
             LinkedValves.Remove(module);
+        }
+
+        private void UpdateLinkedValvesCollectionView(IEnumerable<ModuleInfoDto> valves) {
+            LinkedValves.Clear();
+            foreach (var valve in valves) {
+                LinkedValves.Add(valve);
+            }
         }
     }
 }

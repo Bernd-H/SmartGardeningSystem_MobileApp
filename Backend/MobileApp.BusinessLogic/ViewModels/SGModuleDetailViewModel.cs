@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Enums;
+using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(SGModuleDetailViewModel.ItemId), nameof(ItemId))]
-    public class SGModuleDetailViewModel : BaseViewModel {
+    [QueryProperty("DataInCacheId", nameof(DataInCacheId))]
+    public class SGModuleDetailViewModel : BaseViewModel, IValvesListViewModel {
 
+        /// <summary>
+        /// Query property. Defines what module should get displayed.
+        /// </summary>
         private string itemId;
         public string ItemId {
             get {
@@ -21,6 +28,38 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 itemId = value;
                 LoadItemId(value);
                 FillLinkedValvesList(value);
+            }
+        }
+
+        /// <summary>
+        /// Query property. Defines under what id SGModuleDetailViewModel properties got stored.
+        /// </summary>
+        private string dataInCacheId;
+        public string DataInCacheId {
+            get {
+                return dataInCacheId;
+            }
+            set {
+                dataInCacheId = value;
+
+                if (dataInCacheId != string.Empty) {
+                    // load cached data and set properties
+                    var cachedData = CachePageDataService.RemoveFromStore(Guid.Parse(dataInCacheId)) as SGModuleDetailViewModel;
+                    itemId = cachedData.ItemId;
+
+                    Id = cachedData.Id;
+                    Name = cachedData.Name;
+                    Type = cachedData.Type;
+                    IsOnline = cachedData.IsOnline;
+                    MeasuredValue = cachedData.MeasuredValue;
+                    LastUpdated = cachedData.LastUpdated;
+                    IsRemoveButtonEnabled = cachedData.IsRemoveButtonEnabled;
+                    IsSelectActorVisible = cachedData.IsSelectActorVisible;
+                    IsWateringSettingVisible = cachedData.IsWateringSettingVisible;
+
+                    UpdateLinkedValvesCollectionView(cachedData.LinkedValves);
+                    ProcessChangedCorrespondingValveList();
+                }
             }
         }
 
@@ -80,12 +119,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref isWateringSettingVisible, value);
         }
 
-        private string connectedToActor;
-        public string ConnectedToActor {
-            get => connectedToActor;
-            set => SetProperty(ref connectedToActor, value);
-        }
-
         public string ModuleImagePath {
             get { return "undraw_tabs"; }
         }
@@ -107,8 +140,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        public SGModuleDetailViewModel(IDialogService dialogService) {
+        private ICachePageDataService CachePageDataService;
+
+        public SGModuleDetailViewModel(IDialogService dialogService, ICachePageDataService cachePageDataService) {
             DialogService = dialogService;
+            CachePageDataService = cachePageDataService;
 
             Title = "Module Info";
             RemoveCommand = new Command(OnRemoveClicked);
@@ -123,7 +159,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 Id = item.Id.ToString();
                 Name = item.Name;
                 Type = item.Type.Value;
-                ConnectedToActor = "Test1";
+                //ConnectedToActor = "Test1";
                 IsOnline = item.IsOnline.ToString();
                 MeasuredValue = item.MeasuredValue;
                 LastUpdated = DateTime.Now.ToString();
@@ -175,16 +211,39 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void AddCorrespondingValveTapped(object obj) {
             // let user select a valve
-            //// save page information in cache
-            //Guid storageId = Guid.NewGuid();
-            //CachePageData.Store(storageId, this);
+            // save page information in cache
+            Guid storageId = Guid.NewGuid();
+            CachePageDataService.Store(storageId, this);
 
-            //// open valve select page and pass storageId
-            //await Shell.Current.GoToAsync($"{PageNames.SelectValvePage}?{nameof(SelectValvePageViewModel.AddModulePageStorageId)}={storageId}");
+            // open valve select page and pass storageId and page to navigate to after
+            await Shell.Current.GoToAsync($"{PageNames.SelectValvePage}?{nameof(SelectValvePageViewModel.AddModulePageStorageId)}={storageId}&{nameof(SelectValvePageViewModel.NavigationString)}={PageNames.SGModuleDetailPage}");
+        }
+
+        async void ProcessChangedCorrespondingValveList() {
+            Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
+
+            // update module via api
+
+
+            await userDialog;
         }
 
         async void RemoveValveTapped(ModuleInfoDto obj) {
-            throw new NotImplementedException();
+            Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
+
+            // update module via api
+
+            // if success...
+            //UpdateLinkedValvesCollectionView()
+
+            await userDialog;
+        }
+
+        void UpdateLinkedValvesCollectionView(IEnumerable<ModuleInfoDto> valves) {
+            LinkedValves.Clear();
+            foreach (var valve in valves) {
+                LinkedValves.Add(valve);
+            }
         }
     }
 }

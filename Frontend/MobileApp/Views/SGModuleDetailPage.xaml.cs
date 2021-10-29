@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MobileApp.Views
-{
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SGModuleDetailPage : ContentPage {
-		public SGModuleDetailPage()
-		{
-			InitializeComponent ();
+namespace MobileApp.Views {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class SGModuleDetailPage : ContentPage {
+        public SGModuleDetailPage() {
+            InitializeComponent();
             Shell.SetTabBarIsVisible(this, false);
-            //BindingContext = new SGModuleDetailViewModel();
             BindingContext = IoC.Get<SGModuleDetailViewModel>();
 
             slider.BindingContext = this;
@@ -31,11 +25,6 @@ namespace MobileApp.Views
                     BuildSlider();
                 }
             };
-
-            connectedToPicker.ItemsSource = null;
-            connectedToPicker.Items.Add("Actor1");
-            connectedToPicker.Items.Add("Actor2");
-            connectedToPicker.IsVisible = true;
         }
 
         private void BuildSlider() {

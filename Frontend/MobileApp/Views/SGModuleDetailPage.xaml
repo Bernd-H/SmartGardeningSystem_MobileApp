@@ -34,10 +34,6 @@
                     <Label Text="Typ" FontAttributes="Bold" FontSize="16" />
                     <Label Text="{Binding Type}" FontSize="18"/>
                 </StackLayout>
-                <StackLayout Spacing="0" IsVisible="{Binding IsSelectActorVisible, Mode=OneWay}">
-                    <Label Text="Currently connected to" FontAttributes="Bold" FontSize="18" />
-                    <Label Text="{Binding ConnectedToActor, Mode=OneWay}"  FontSize="16" />
-                </StackLayout>
             </StackLayout>
 
             <StackLayout Grid.Row="3" Margin="15" Spacing="10" IsVisible="{Binding IsWateringSettingVisible, Mode=OneWay}">
@@ -53,7 +49,7 @@
 
             <!-- corresponding actors show/add/remove -->
             <StackLayout Grid.Row="4" Margin="15" IsVisible="{Binding IsSelectActorVisible, Mode=OneWay}" Spacing="5">
-                <Label Text="Linked valves:" FontAttributes="Bold" FontSize="16" />
+                <Label Text="Linked valves:" FontAttributes="Bold" FontSize="18" />
 
                 <!-- list of linked valves -->
                 <CollectionView x:Name="ItemsListView" ItemsSource="{Binding LinkedValves}" SelectionMode="None" HeightRequest="110">
@@ -82,7 +78,7 @@
                 </CollectionView>
 
                 <!-- add valve button -->
-                <pancake:PancakeView BackgroundColor="#bec5cc" CornerRadius="25" HeightRequest="45" HorizontalOptions="FillAndExpand">
+                <pancake:PancakeView BackgroundColor="#bec5cc" CornerRadius="25" HeightRequest="45" HorizontalOptions="FillAndExpand" Margin="0,-5,0,0">
                     <pancake:PancakeView.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AddCorrespondingValveCommand}"></TapGestureRecognizer>
                     </pancake:PancakeView.GestureRecognizers>

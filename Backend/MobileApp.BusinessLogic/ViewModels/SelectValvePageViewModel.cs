@@ -9,9 +9,11 @@ using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
+using MobileApp.Common.Specifications;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(SelectValvePageViewModel.AddModulePageStorageId), nameof(AddModulePageStorageId))]
+    [QueryProperty(nameof(SelectValvePageViewModel.NavigationString), nameof(NavigationString))]
     public class SelectValvePageViewModel : BaseViewModel {
 
         private string addModulePageStorageId = string.Empty;
@@ -24,6 +26,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 _ = ExecuteLoadItemsCommand();
             }
         }
+
+        /// <summary>
+        /// This navigation string will be used to navigate to the next page after an element got selected.
+        /// </summary>
+        public string NavigationString { get; set; }
 
         //private ModuleInfoDto _selectedItem;
         //public ModuleInfoDto SelectedItem {
@@ -57,7 +64,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             try {
                 if (AddModulePageStorageId != string.Empty) {
-                    var alreadyLinkedValves = (CachePageDataService.GetFromStore(Guid.Parse(AddModulePageStorageId)) as AddModuleViewModel).LinkedValves.ToList();
+                    var alreadyLinkedValves = (CachePageDataService.GetFromStore(Guid.Parse(AddModulePageStorageId)) as IValvesListViewModel).LinkedValves.ToList();
 
                     Valves.Clear();
                     var items = await ModulesDataStore.GetItemsAsync(true);
@@ -87,12 +94,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             // update linked valve list in data cache
             CachePageDataService.UpdateCachedPageData(Guid.Parse(AddModulePageStorageId), data => {
-                var pageViewModel = (AddModuleViewModel)data;
+                var pageViewModel = (IValvesListViewModel)data;
                 pageViewModel.LinkedValves.Add(item);
                 return pageViewModel;
             });
 
-            await Shell.Current.GoToAsync($"{PageNames.AddModulePage}?{nameof(AddModuleViewModel.DataInCacheId)}={AddModulePageStorageId}");
+            await Shell.Current.GoToAsync($"{NavigationString}?DataInCacheId={AddModulePageStorageId}");
         }
     }
 }
