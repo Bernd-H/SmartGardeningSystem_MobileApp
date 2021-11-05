@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.Managers;
@@ -29,6 +30,10 @@ namespace MobileApp.BusinessLogic.Cryptography {
             }
         }
 
+        public byte[] Decrypt(byte[] data, byte[] key, byte[] iv) {
+            return Encoding.UTF8.GetBytes(DecryptStringFromBytes(data, key, iv));
+        }
+
         public byte[] Encrypt(string data) {
             try {
                 Logger.Info($"[Encrypt]Encrypting string with length={data.Length}.");
@@ -38,6 +43,10 @@ namespace MobileApp.BusinessLogic.Cryptography {
                 Logger.Fatal(ex, $"[Encrypt]Error while encrypting data.");
                 throw;
             }
+        }
+
+        public byte[] Encrypt(byte[] data, byte[] key, byte[] iv) {
+            return EncryptStringToBytes(Encoding.UTF8.GetString(data), key, iv);
         }
 
         private void GenerateAndStoreSymmetricKey() {
@@ -89,7 +98,6 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
             // Return the encrypted bytes from the memory stream. 
             return encrypted;
-
         }
 
         static string DecryptStringFromBytes(byte[] cipherText, byte[] Key, byte[] IV) {

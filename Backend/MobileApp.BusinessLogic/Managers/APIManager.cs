@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GardeningSystem.Common.Models.DTOs;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
@@ -90,12 +91,14 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
-        public async void Logout() {
+        public void Logout() {
             // remove json web token from header
             if (client?.DefaultRequestHeaders.Contains("Authorization") ?? false) {
                 client.DefaultRequestHeaders.Remove("Authorization");
             }
         }
+
+        #region Module requests
 
         public async Task<IEnumerable<ModuleInfoDto>> GetModules() {
             var settings = await SettingsManager.GetApplicationSettings();
@@ -108,6 +111,10 @@ namespace MobileApp.BusinessLogic.Managers {
                     url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                     var response = await client.GetAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                        throw new UnauthorizedAccessException();
+                    }
+
                     string result = await response.Content.ReadAsStringAsync();
 
                     var modules = JsonConvert.DeserializeObject<List<ModuleInfo>>(result);
@@ -115,22 +122,14 @@ namespace MobileApp.BusinessLogic.Managers {
                     return modules.ToDtos();
                 }
             }
+            catch (UnauthorizedAccessException) {
+                throw;
+            }
             catch (Exception ex) {
                 Logger.Error(ex, $"[GetModules]Could not get modules from rest api. (url={url})");
             }
 
             return null;
-        }
-
-
-        private async Task<bool> TryAddWebTokenToHeader() {
-            var settings = await SettingsManager.GetApplicationSettings();
-            if (settings.SessionAPIToken != null) {
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.SessionAPIToken.Token}");
-                return true;
-            }
-
-            return false;
         }
 
         public async Task<bool> UpdateModule(ModuleInfo updatedModule) {
@@ -144,8 +143,8 @@ namespace MobileApp.BusinessLogic.Managers {
                 url += $"{updatedModule.Id.ToString()}"; // add id to url
 
                 // prepare data to send
-                var moduleDto = updatedModule.ToDto();
-                string json = JsonConvert.SerializeObject(moduleDto);
+                //var moduleDto = updatedModule.ToDto();
+                string json = JsonConvert.SerializeObject(updatedModule);
 
                 // setup the body of the request
                 StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -155,9 +154,15 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) {
                     return true;
                 }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                    throw new UnauthorizedAccessException();
+                }
                 else {
                     Logger.Error($"[UpdateModule]API returned code: {response.StatusCode.ToString()}.");
                 }
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[UpdateModule]Could not get modules from rest api. (url={url})");
@@ -176,8 +181,8 @@ namespace MobileApp.BusinessLogic.Managers {
                 url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                 // prepare data to send
-                var moduleDto = newModule.ToDto();
-                string json = JsonConvert.SerializeObject(moduleDto);
+                //var moduleDto = newModule.ToDto();
+                string json = JsonConvert.SerializeObject(newModule);
 
                 // setup the body of the request
                 StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -186,9 +191,16 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) {
                     return true;
-                } else {
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                    throw new UnauthorizedAccessException();
+                }
+                else {
                     Logger.Error($"[AddModule]API returned code: {response.StatusCode.ToString()}.");
                 }
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[AddModule]Could not get modules from rest api. (url={url})");
@@ -205,17 +217,108 @@ namespace MobileApp.BusinessLogic.Managers {
                 // build url
                 var config = ConfigurationStore.GetConfig();
                 url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                url += $"{moduleId}";
 
                 var response = await client.DeleteAsync(url);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK) {
                     return true;
                 }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound) {
+                    // delete it locally if it does not exist on server
+                    return true;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                    throw new UnauthorizedAccessException();
+                }
                 else {
                     Logger.Error($"[DeleteModule]API returned code: {response.StatusCode.ToString()}.");
                 }
-            } catch (Exception ex) {
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
+            }
+            catch (Exception ex) {
                 Logger.Error(ex, $"[DeleteModule]Could not get modules from rest api. (url={url})");
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        public async Task<IEnumerable<WlanInfo>> GetWlans() {
+            var settings = await SettingsManager.GetApplicationSettings();
+
+            string url = "";
+            try {
+                if (settings.SessionAPIToken != null) {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                    var response = await client.GetAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                        throw new UnauthorizedAccessException();
+                    }
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    var wlans = JsonConvert.DeserializeObject<List<WlanInfo>>(result);
+                    return wlans;
+                }
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[GetWlans]Could not get wlans from rest api. (url={url})");
+            }
+
+            return null;
+        }
+
+        public async Task<bool> IsBasestationConnectedToWlan() {
+            var settings = await SettingsManager.GetApplicationSettings();
+
+            string url = "";
+            try {
+                if (settings.SessionAPIToken != null) {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url += "isConnected";
+
+                    var response = await client.GetAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                        throw new UnauthorizedAccessException();
+                    }
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    var isConnectedToWlan = JsonConvert.DeserializeObject<IsConnectedToWlanDto>(result);
+                    return isConnectedToWlan.IsConnected;
+                }
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[GetModules]Could not get modules from rest api. (url={url})");
+            }
+
+            // return false because when the api is not reachable, the user should not get asked what wlan to connect to
+            return true;
+        }
+
+        private async Task<bool> TryAddWebTokenToHeader() {
+            var settings = await SettingsManager.GetApplicationSettings();
+            if (settings.SessionAPIToken != null) {
+                // remove existing authorization header
+                if (client.DefaultRequestHeaders.Contains("Authorization")) {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.SessionAPIToken.Token}");
+                return true;
             }
 
             return false;

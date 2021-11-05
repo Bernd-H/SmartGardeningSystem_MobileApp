@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Models.Enums;
@@ -22,7 +23,9 @@ namespace MobileApp.Common.Models {
             return new ModuleInfoDto() {
                 Id = module.Id,
                 Name = module.Name,
-                Type = new ModuleTypes(module.ModuleTyp)
+                Type = new ModuleTypes(module.ModuleTyp),
+                CorrespondingValves = module.AssociatedModules,
+                InformationTimestamp = DateTime.Now
             };
         }
     }

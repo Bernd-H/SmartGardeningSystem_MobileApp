@@ -6,10 +6,19 @@ using Xamarin.Forms.Xaml;
 namespace MobileApp.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectValvePage : ContentPage {
+
+        private SelectValvePageViewModel viewModel;
+
         public SelectValvePage() {
             InitializeComponent();
+            Shell.SetTabBarIsVisible(this, false);
 
-            this.BindingContext = IoC.Get<SelectValvePageViewModel>();
+            this.BindingContext = viewModel = IoC.Get<SelectValvePageViewModel>();
+        }
+
+        protected override void OnAppearing() {
+            base.OnAppearing();
+            viewModel.OnAppearing();
         }
     }
 }

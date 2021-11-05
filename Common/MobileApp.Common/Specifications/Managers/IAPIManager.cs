@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GardeningSystem.Common.Models.DTOs;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 
@@ -27,14 +28,23 @@ namespace MobileApp.Common.Specifications.Managers {
         /// Requests all modules from rest api.
         /// </summary>
         /// <returns>Null when error</returns>
+        /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         Task<IEnumerable<ModuleInfoDto>> GetModules();
 
+        /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         Task<bool> UpdateModule(ModuleInfo updatedModule);
 
+        /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         Task<bool> AddModule(ModuleInfo newModule);
 
+        /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         Task<bool> DeleteModule(Guid moduleId);
 
         #endregion
+
+        /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
+        Task<bool> IsBasestationConnectedToWlan();
+
+        Task<IEnumerable<WlanInfo>> GetWlans();
     }
 }

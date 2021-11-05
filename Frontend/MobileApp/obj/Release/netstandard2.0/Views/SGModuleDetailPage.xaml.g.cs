@@ -23,14 +23,14 @@ namespace MobileApp.Views {
         private global::Xamarin.Forms.Slider slider;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::MobileApp.Controls.BorderlessPicker connectedToPicker;
+        private global::Xamarin.Forms.CollectionView ItemsListView;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(SGModuleDetailPage));
             stack = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.StackLayout>(this, "stack");
             slider = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Slider>(this, "slider");
-            connectedToPicker = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::MobileApp.Controls.BorderlessPicker>(this, "connectedToPicker");
+            ItemsListView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.CollectionView>(this, "ItemsListView");
         }
     }
 }

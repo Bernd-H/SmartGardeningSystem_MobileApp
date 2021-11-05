@@ -33,6 +33,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void loadLogs() {
+            LoggerService.GetLogger<LogsPageViewModel>().Info($"[loadLogs]Loading logs.");
             var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
 
             // remove button

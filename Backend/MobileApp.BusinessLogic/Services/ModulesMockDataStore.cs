@@ -8,7 +8,7 @@ using MobileApp.Common.Specifications.Services;
 
 namespace MobileApp.BusinessLogic.Services {
     public class ModulesMockDataStore : IDataStore<ModuleInfoDto> {
-        readonly List<ModuleInfoDto> items;
+        readonly List<ModuleInfoDto> modules;
 
         public ModulesMockDataStore() {
             var id1 = Guid.NewGuid();
@@ -16,7 +16,7 @@ namespace MobileApp.BusinessLogic.Services {
             var id3 = Guid.NewGuid();
             var id4 = Guid.NewGuid();
 
-            items = new List<ModuleInfoDto>()
+            modules = new List<ModuleInfoDto>()
             {
                 new ModuleInfoDto {
                     Id = Guid.NewGuid(),
@@ -59,32 +59,41 @@ namespace MobileApp.BusinessLogic.Services {
         }
 
         public async Task<bool> AddItemAsync(ModuleInfoDto item) {
-            items.Add(item);
+            modules.Add(item);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(ModuleInfoDto item) {
-            var oldItem = items.Where((ModuleInfoDto arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
+            var oldItem = modules.Where((ModuleInfoDto arg) => arg.Id == item.Id).FirstOrDefault();
+            modules.Remove(oldItem);
+            modules.Add(item);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string id) {
-            var oldItem = items.Where((ModuleInfoDto arg) => arg.Id.ToString() == id).FirstOrDefault();
-            items.Remove(oldItem);
+            var moduleToRemove = modules.Where((ModuleInfoDto arg) => arg.Id.ToString() == id).FirstOrDefault();
+            modules.Remove(moduleToRemove);
+
+            // delete entries in other modules
+            foreach (var module in modules) {
+                if (module.CorrespondingValves?.Contains(moduleToRemove.Id) ?? false) {
+                    var valvesList = module.CorrespondingValves.ToList();
+                    valvesList.Remove(moduleToRemove.Id);
+                    module.CorrespondingValves = valvesList;
+                }
+            }
 
             return await Task.FromResult(true);
         }
 
         public async Task<ModuleInfoDto> GetItemAsync(string id) {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id.ToString() == id));
+            return await Task.FromResult(modules.FirstOrDefault(s => s.Id.ToString() == id));
         }
 
         public async Task<IEnumerable<ModuleInfoDto>> GetItemsAsync(bool forceRefresh = false) {
-            return await Task.FromResult(items);
+            return await Task.FromResult(modules);
         }
     }
 }

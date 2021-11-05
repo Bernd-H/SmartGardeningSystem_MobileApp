@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
@@ -50,8 +50,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     Id = cachedData.Id;
                     Name = cachedData.Name;
                     Type = cachedData.Type;
-                    IsOnline = cachedData.IsOnline;
-                    MeasuredValue = cachedData.MeasuredValue;
                     LastUpdated = cachedData.LastUpdated;
                     IsRemoveButtonEnabled = cachedData.IsRemoveButtonEnabled;
                     IsSelectActorVisible = cachedData.IsSelectActorVisible;
@@ -81,18 +79,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
         public string Type {
             get => type;
             set => SetProperty(ref type, value);
-        }
-
-        private string isOnline;
-        public string IsOnline {
-            get => isOnline;
-            set => SetProperty(ref isOnline, value);
-        }
-
-        private string measuredValue;
-        public string MeasuredValue {
-            get => measuredValue;
-            set => SetProperty(ref measuredValue, value);
         }
 
         private string lastUpdated;
@@ -142,9 +128,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ICachePageDataService CachePageDataService;
 
-        public SGModuleDetailViewModel(IDialogService dialogService, ICachePageDataService cachePageDataService) {
+        private IDataStore<ModuleInfoDto> ModuleRepository;
+
+        public SGModuleDetailViewModel(IDialogService dialogService, ICachePageDataService cachePageDataService, IDataStore<ModuleInfoDto> moduleRepository) {
             DialogService = dialogService;
             CachePageDataService = cachePageDataService;
+            ModuleRepository = moduleRepository;
 
             Title = "Module Info";
             RemoveCommand = new Command(OnRemoveClicked);
@@ -155,14 +144,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public async void LoadItemId(string itemId) {
             try {
-                var item = await ModulesDataStore.GetItemAsync(itemId);
+                var item = await ModuleRepository.GetItemAsync(itemId);
                 Id = item.Id.ToString();
                 Name = item.Name;
                 Type = item.Type.Value;
-                //ConnectedToActor = "Test1";
-                IsOnline = item.IsOnline.ToString();
-                MeasuredValue = item.MeasuredValue;
-                LastUpdated = DateTime.Now.ToString();
+                LastUpdated = item.InformationTimestamp.ToString();
 
                 if (item.Type.Value.Equals(ModuleTypes.MAINSTATION))
                     IsRemoveButtonEnabled = false;
@@ -187,13 +173,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void FillLinkedValvesList(string itemId) {
             try {
-                var item = await ModulesDataStore.GetItemAsync(itemId);
+                var item = await ModuleRepository.GetItemAsync(itemId);
                 if (item.Type.Value.Equals(ModuleTypes.SENSOR)) {
                     var correspondingValvesIds = item.CorrespondingValves;
 
                     // fill list with valves
-                    foreach (var id in correspondingValvesIds) {
-                        LinkedValves.Add(await ModulesDataStore.GetItemAsync(id.ToString()));
+                    LinkedValves.Clear();
+                    foreach (var id in correspondingValvesIds ?? Enumerable.Empty<Guid>()) {
+                        LinkedValves.Add(await ModuleRepository.GetItemAsync(id.ToString()));
                     }
                 }
             }
@@ -205,8 +192,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void OnRemoveClicked(object obj) {
-            await ModulesDataStore.DeleteItemAsync(id);
-            await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
+            bool success = await ModuleRepository.DeleteItemAsync(id);
+            if (!success) {
+                await DialogService.ShowMessage("Error while removing module!", "Error", "Ok", null);
+            }
+
+            await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
         }
 
         async void AddCorrespondingValveTapped(object obj) {
@@ -222,28 +213,76 @@ namespace MobileApp.BusinessLogic.ViewModels {
         async void ProcessChangedCorrespondingValveList() {
             Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
 
-            // update module via api
+            // build associatedModules list
+            List<Guid> associatedModules = new List<Guid>();
+            foreach (var valve in LinkedValves) {
+                associatedModules.Add(valve.Id);
+            }
 
+            // update module via api
+            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfoDto(associatedModules));
 
             await userDialog;
+
+            // show success / fail
+            if (!success) {
+                await DialogService.ShowMessage("Updating module failed!", "Error", "Ok", null);
+                // go back to main page
+                await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+            }
         }
 
         async void RemoveValveTapped(ModuleInfoDto obj) {
             Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
 
-            // update module via api
+            // build associatedModules list without the module to remove
+            List<Guid> associatedModules = new List<Guid>();
+            foreach (var valve in LinkedValves) {
+                if (valve.Id != obj.Id) {
+                    associatedModules.Add(valve.Id);
+                }
+            }
 
-            // if success...
-            //UpdateLinkedValvesCollectionView()
+            // update module via api
+            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfoDto(associatedModules));
 
             await userDialog;
+
+            if (success) {
+                await UpdateLinkedValvesCollectionView((await ModuleRepository.GetItemAsync(itemId)).CorrespondingValves);
+                //await DialogService.ShowMessage("Module successfully updated!", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Updating module failed!", "Error", "Ok", null);
+            }
         }
 
-        void UpdateLinkedValvesCollectionView(IEnumerable<ModuleInfoDto> valves) {
+        private void UpdateLinkedValvesCollectionView(IEnumerable<ModuleInfoDto> valves) {
             LinkedValves.Clear();
             foreach (var valve in valves) {
                 LinkedValves.Add(valve);
             }
+        }
+
+        private async Task UpdateLinkedValvesCollectionView(IEnumerable<Guid> valveIds) {
+            LinkedValves.Clear();
+            foreach (var valveId in valveIds) {
+                var linkedModuleInformation = await ModuleRepository.GetItemAsync(valveId.ToString());
+                LinkedValves.Add(linkedModuleInformation);
+            }
+        }
+
+        /// <summary>
+        /// Converts all properties shown in this view into a single object
+        /// </summary>
+        /// <param name="associatedModules">LinkedValveIds</param>
+        private ModuleInfoDto ParseToModuleInfoDto(List<Guid> associatedModules) {
+            return new ModuleInfoDto {
+                Id = Guid.Parse(itemId),
+                Type = new ModuleTypes(Type),
+                Name = Name,
+                CorrespondingValves = associatedModules
+            };
         }
     }
 }

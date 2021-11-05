@@ -30,15 +30,18 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ICloseApplicationService CloseApplicationService;
 
+        private IAPIManager APIManager;
+
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         public ConnectingPageViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IAesKeyExchangeManager aesKeyExchangeManager,
-            IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager) {
+            IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager, IAPIManager _APIManager) {
             Logger = loggerService.GetLogger<ConnectingPageViewModel>();
             AesKeyExchangeManager = aesKeyExchangeManager;
             DialogService = dialogService;
             CloseApplicationService = closeApplicationService;
             BasestationFinderManager = basestationFinderManager;
+            APIManager = _APIManager;
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
 
@@ -66,8 +69,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     });
                 }
                 else {
-                    // redirect to login page
-                    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+                    //// check if basestation is connected to a wlan
+                    //if (await APIManager.IsBasestationConnectedToWlan()) {
+                        // redirect to login page
+                        await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+                    //}
+                    //else {
+                    //    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.SelectWlanPage));
+                    //}
                 }
 
             }

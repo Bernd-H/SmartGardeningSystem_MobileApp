@@ -5,6 +5,7 @@ using System.Windows.Input;
 using MobileApp.Common;
 using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
@@ -49,7 +50,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 return name;
             }
             set {
-                //name = value;
                 SetProperty(ref name, value);
             }
         }
@@ -60,7 +60,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 return addingASensor;
             }
             set {
-                //addingASensor = value;
                 SetProperty(ref addingASensor, value);
                 AddingAValve = !value;
             }
@@ -72,7 +71,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 return addingAValve;
             }
             set {
-                //addingAValve = value;
                 SetProperty(ref addingAValve, value);
             }
         }
@@ -109,9 +107,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService) {
+        private IDataStore<ModuleInfoDto> ModuleRepository;
+
+        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository) {
             CachePageData = cachePageDataService;
             DialogService = dialogService;
+            ModuleRepository = moduleRepository;
 
             SaveCommand = new Command(SaveTapped);
             AddCorrespondingValveCommand = new Command(AddLinkedValveTapped);
@@ -136,16 +137,39 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
 
             if (everythingSet) {
+                ModuleInfoDto moduleData = new ModuleInfoDto();
+
                 // process data
+                moduleData.Id = Guid.NewGuid();
+                moduleData.Name = Name;
+                moduleData.InformationTimestamp = DateTime.Now;
+                if (AddingASensor)
+                    moduleData.Type = new ModuleTypes(ModuleTypes.SENSOR);
+                else
+                    moduleData.Type = new ModuleTypes(ModuleTypes.VALVE);
+
+                // add type specific data
                 if (!AddingASensor) {
                     var wateringMethod = new Common.Models.Enums.WateringMethods(WateringMethods[WateringMethod_PickerIndex]);
+
+                    // moduleInfoDto.wateringMethod....
+                } else {
+                    var linkedValveIds = new List<Guid>();
+                    foreach (var valve in LinkedValves) {
+                        linkedValveIds.Add(valve.Id);
+                    }
+
+                    moduleData.CorrespondingValves = linkedValveIds;
                 }
 
-
                 // send data to api
+                bool success = await ModuleRepository.AddItemAsync(moduleData);
+                if (!success) {
+                    await DialogService.ShowMessage("An error accrued while adding module to repository.", "Error", "Ok", null);
+                }
 
                 // navigate
-
+                await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
             } else {
                 await DialogService.ShowMessage("Can not process data. Please make sure that everything is set properly.", "Error", "Ok", null);
             }

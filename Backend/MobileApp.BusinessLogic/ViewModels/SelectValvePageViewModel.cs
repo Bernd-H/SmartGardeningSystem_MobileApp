@@ -10,6 +10,7 @@ using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
 using MobileApp.Common.Specifications;
+using System.Collections.Generic;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(SelectValvePageViewModel.AddModulePageStorageId), nameof(AddModulePageStorageId))]
@@ -23,7 +24,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
             set {
                 addModulePageStorageId = value;
-                _ = ExecuteLoadItemsCommand();
             }
         }
 
@@ -31,15 +31,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
         /// This navigation string will be used to navigate to the next page after an element got selected.
         /// </summary>
         public string NavigationString { get; set; }
-
-        //private ModuleInfoDto _selectedItem;
-        //public ModuleInfoDto SelectedItem {
-        //    get => _selectedItem;
-        //    set {
-        //        SetProperty(ref _selectedItem, value);
-        //        OnItemSelected(value);
-        //    }
-        //}
 
 
         public ObservableCollection<ModuleInfoDto> Valves { get; }
@@ -51,12 +42,15 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ICachePageDataService CachePageDataService;
 
-        public SelectValvePageViewModel(ICachePageDataService cachePageDataService) {
+        private IDataStore<ModuleInfoDto> ModuleRepository;
+
+        public SelectValvePageViewModel(ICachePageDataService cachePageDataService, IDataStore<ModuleInfoDto> moduleRepository) {
+            CachePageDataService = cachePageDataService;
+            ModuleRepository = moduleRepository;
+
             Valves = new ObservableCollection<ModuleInfoDto>();
             ItemTapped = new Command<ModuleInfoDto>(OnItemSelected);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            CachePageDataService = cachePageDataService;
         }
 
         async Task ExecuteLoadItemsCommand() {
@@ -67,8 +61,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     var alreadyLinkedValves = (CachePageDataService.GetFromStore(Guid.Parse(AddModulePageStorageId)) as IValvesListViewModel).LinkedValves.ToList();
 
                     Valves.Clear();
-                    var items = await ModulesDataStore.GetItemsAsync(true);
-                    foreach (var item in items) {
+                    var items = await ModuleRepository.GetItemsAsync(true);
+                    foreach (var item in items ?? Enumerable.Empty<ModuleInfoDto>()) {
                         if (item.Type.Value == ModuleTypes.VALVE && alreadyLinkedValves.Find(m => m.Id == item.Id) == null) {
                             Valves.Add(item);
                         }
@@ -85,7 +79,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public void OnAppearing() {
             IsBusy = true;
-            //SelectedItem = null;
         }
 
         async void OnItemSelected(ModuleInfoDto item) {

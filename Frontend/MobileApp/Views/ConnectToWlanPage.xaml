@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic" 
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:DataType="viewmodels:ConnectToWlanPageViewModel"
+             x:Class="MobileApp.Views.ConnectToWlanPage"
+             Title="{Binding SSID_Text, Mode=OneWay}">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="15"                         >
+            <StackLayout Orientation="Vertical" Spacing="0">
+                <Label FontSize="20"
+                   Margin="25,0,0,0"
+                       HorizontalOptions="StartAndExpand"
+                       Text="Please enter the password for wlan "/>
+                <Label FontSize="20"
+                        Margin="25,0,0,0"
+                       HorizontalOptions="StartAndExpand"
+                       FontAttributes="Bold"
+                       Text="{Binding SSID_Text, Mode=OneWay}"/>
+            </StackLayout>
+
+
+            <!-- password field -->
+            <pancake:PancakeView
+                Margin="15,0,15,0"        
+                Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="15"
+                        HeightRequest="50">
+                <Entry  FontSize="20"
+                            ClearButtonVisibility="WhileEditing"
+                            TextColor="#484848"
+                            Placeholder="wlan password"
+                            IsPassword="True"
+                            Text="{Binding WlanPassword, Mode=OneWayToSource}"/>
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow BlurRadius="4"/>
+                </pancake:PancakeView.Shadow>
+            </pancake:PancakeView>
+
+            <Grid ColumnDefinitions="*,*" Margin="15,15,15,0">
+                <!-- do not connect to wlan button -->
+                <Label  Grid.Column="0"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        FontAttributes="Bold"
+                        Text="Abort"
+                        TextColor="IndianRed">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AbortCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!-- connect button -->
+                <Label  Grid.Column="1"  
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        FontAttributes="Bold"
+                        Text="Connect"
+                        TextColor="Green">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ConnectCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

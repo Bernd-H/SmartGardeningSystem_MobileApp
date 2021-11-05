@@ -26,8 +26,8 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
-            Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
-            return;
+            //Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+            //return;
 
             var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 
@@ -78,27 +78,32 @@ namespace MobileApp {
             container.Register<ISettingsManager, SettingsManager>();
             container.Register<IAesKeyExchangeManager, AesKeyExchangeManager>();
             container.Register<IBasestationFinderManager, BasestationFinderManager>();
+            container.Register<ICommandManager, CommandManager>().AsMultiInstance();
 
             // communication
             container.Register<ISslTcpClient, SslTcpClient>();
             container.Register<ILocalBasestationDiscovery, LocalBasestationDiscovery>();
             container.Register<IMulticastUdpSender, MulticastUdpSender>();
+            container.Register<IAesTcpClient, AesTcpClient>().AsMultiInstance();
 
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
-            container.Register<IDataStore<ModuleInfoDto>, ModulesMockDataStore>();
-            //container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
+            //container.Register<IDataStore<ModuleInfoDto>, ModulesMockDataStore>();
+            container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
+            container.Register<IDataStore<WlanInfoDto>, WlansDataStore>();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();
 
             // register view models
             container.Register<AccountViewModel>().AsSingleton();
             container.Register<AddModuleViewModel>().AsMultiInstance();
-            container.Register<LoginViewModel>().AsSingleton();
+            container.Register<LoginViewModel>().AsMultiInstance();
             container.Register<MainPageViewModel>().AsSingleton();
             container.Register<SGModuleDetailViewModel>().AsMultiInstance();
             container.Register<WaitingForNewModulePageViewModel>().AsSingleton();
             container.Register<SelectValvePageViewModel>().AsMultiInstance();
+            container.Register<SelectWlanPageViewModel>().AsMultiInstance();
+            container.Register<ConnectToWlanPageViewModel>().AsMultiInstance();
         }
     }
 }

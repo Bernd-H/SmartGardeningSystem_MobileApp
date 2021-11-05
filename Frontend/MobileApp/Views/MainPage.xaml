@@ -128,8 +128,8 @@
                                             <StackLayout x:DataType="model:ModuleInfoDto" VerticalOptions="CenterAndExpand">
                                                 <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="18" FontAttributes="Bold" />
                                                 <Label Text="{Binding Type.Value}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="18" />
-                                                <Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="16" />
-                                                <Label Text="{Binding InfoText}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                                                <!--<Label Text="{Binding MeasuredValue}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="16" />
+                                                <Label Text="{Binding InfoText}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />-->
                                                 <StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MobileApp.BusinessLogic.Managers;
 using MobileApp.Common;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -34,8 +36,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        public MainPageViewModel(IDialogService dialogService) {
+        private IDataStore<ModuleInfoDto> ModuleRepository;
+
+        private APIManager APIManager;
+
+        private ISettingsManager SettingsManager;
+
+        public MainPageViewModel(IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, APIManager _APIManager, ISettingsManager settingsManager) {
             DialogService = dialogService;
+            ModuleRepository = moduleRepository;
+            APIManager = _APIManager;
+            SettingsManager = settingsManager;
 
             // module items
             Items = new ObservableCollection<ModuleInfoDto>();
@@ -57,10 +68,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             try {
                 Items.Clear();
-                var items = await ModulesDataStore.GetItemsAsync(true);
+                var items = await ModuleRepository.GetItemsAsync(true);
                 foreach (var item in items) {
                     Items.Add(item);
                 }
+            }
+            catch (UnauthorizedAccessException) {
+                // stored token invalid -> login again
+                await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
             }
             catch (Exception ex) {
                 Debug.WriteLine(ex);
@@ -70,9 +85,29 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        public void OnAppearing() {
+        public async void OnAppearing() {
             IsBusy = true;
             SelectedItem = null;
+
+            if (SettingsManager.GetRuntimeVariables().LoadedMainPageFirstTime) {
+                // update runtime variable
+                SettingsManager.UpdateCurrentRuntimeVariables((rv) => {
+                    rv.LoadedMainPageFirstTime = false;
+                    return rv;
+                });
+
+                try {
+                    if (await APIManager.IsBasestationConnectedToWlan() == false) {
+                        // show page to select a wlan to connect the basestation to
+                        string navigationString = PageNames.GetNavigationString(PageNames.MainPage);
+                        await Shell.Current.GoToAsync($"{PageNames.SelectWlanPage}?{nameof(SelectWlanPageViewModel.NavigationString)}={navigationString}");
+                    }
+                }
+                catch (UnauthorizedAccessException) {
+                    // stored token invalid -> login again
+                    // login page will get called in ExecuteLoadItemsCommand() after trying to get all modules
+                }
+            }
         }
 
         public ModuleInfoDto SelectedItem {

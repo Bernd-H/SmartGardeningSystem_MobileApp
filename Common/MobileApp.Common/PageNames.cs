@@ -20,6 +20,10 @@
 
         public static readonly string SelectValvePage = "SelectValvePage";
 
+        public static readonly string SelectWlanPage = "SelectWlanPage";
+
+        public static readonly string ConnectToWlanPage = "ConnectToWlanPage";
+
         public static string GetNavigationString(string page) {
             return $"//{page}";
         }

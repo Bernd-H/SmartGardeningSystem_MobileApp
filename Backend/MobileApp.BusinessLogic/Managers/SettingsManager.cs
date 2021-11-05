@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
@@ -21,10 +22,30 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
 
+        private static GlobalRuntimeVariables globalRuntimeVariables;
+        private static SemaphoreSlim globalRuntimeVarsLOCKER = new SemaphoreSlim(1);
+
         public SettingsManager(ILoggerService logger, IFileStorage fileStorage) {
             Logger = logger.GetLogger<SettingsManager>();
             FileStorage = fileStorage;
         }
+
+        #region runtime variables
+        public GlobalRuntimeVariables GetRuntimeVariables() {
+            if (globalRuntimeVariables == null) {
+                globalRuntimeVariables = new GlobalRuntimeVariables();
+            }
+
+            return globalRuntimeVariables;
+        }
+
+        public void UpdateCurrentRuntimeVariables(Func<GlobalRuntimeVariables, GlobalRuntimeVariables> updateFunc) {
+            globalRuntimeVarsLOCKER.Wait();
+            globalRuntimeVariables = updateFunc(GetRuntimeVariables());
+            globalRuntimeVarsLOCKER.Release();
+        }
+
+        #endregion
 
         public async Task<ApplicationSettingsDto> GetApplicationSettings() {
             await LOCKER.WaitAsync();

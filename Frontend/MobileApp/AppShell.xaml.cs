@@ -25,6 +25,8 @@ namespace MobileApp
             Routing.RegisterRoute(PageNames.LogsPage, typeof(LogsPage));
             Routing.RegisterRoute(PageNames.WaitingForNewModulePage, typeof(WaitingForNewModulePage));
             Routing.RegisterRoute(PageNames.SelectValvePage, typeof(SelectValvePage));
+            Routing.RegisterRoute(PageNames.SelectWlanPage, typeof(SelectWlanPage));
+            Routing.RegisterRoute(PageNames.ConnectToWlanPage, typeof(ConnectToWlanPage));
         }
 
     }
