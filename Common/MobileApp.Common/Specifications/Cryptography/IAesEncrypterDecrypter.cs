@@ -21,7 +21,7 @@ namespace MobileApp.Common.Specifications.Cryptography {
         /// </summary>
         /// <param name="data"></param>
         /// <returns>string.Empty when data made no sense.</returns>
-        string Decrypt(byte[] data);
+        //string Decrypt(byte[] data);
 
 
         /// <summary>

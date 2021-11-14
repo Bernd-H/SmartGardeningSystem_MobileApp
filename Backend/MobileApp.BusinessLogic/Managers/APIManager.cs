@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using GardeningSystem.Common.Models.DTOs;
@@ -83,7 +84,11 @@ namespace MobileApp.BusinessLogic.Managers {
                         // add web token to request header
                         return await TryAddWebTokenToHeader();
                     }
-                } catch(Exception ex) {
+                }
+                catch (CryptographicException) {
+                    throw;
+                }
+                catch(Exception ex) {
                     Logger.Error(ex, $"[Login]Error while logging in. (api-request-url={url})");
                 }
             }

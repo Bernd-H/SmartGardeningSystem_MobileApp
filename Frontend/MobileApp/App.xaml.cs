@@ -26,15 +26,13 @@ namespace MobileApp {
         }
 
         protected override void OnStart() {
-            //Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
-            //return;
-
             var settings = IoC.Get<ISettingsManager>().GetApplicationSettings().Result;
 
             // check if basestation ip is known and available
             bool isAvailable = false;
             if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
-                isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
+                //isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
+                isAvailable = true; // for test
             }
 
             if (settings.AesKey != null && settings.AesIV != null && isAvailable) {

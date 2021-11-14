@@ -55,7 +55,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
         async Task BeginConnect() {
             // get basestation ip
             Status = "Searching for a local basestation...";
-            var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+            //var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+            var baseStationFound = true;
+            await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
+                currentSettings.BaseStationIP = "10.0.2.2";
+                return currentSettings;
+            });
 
             if (baseStationFound) {
                 Status = "Exchanging keys...";
@@ -69,14 +74,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     });
                 }
                 else {
-                    //// check if basestation is connected to a wlan
-                    //if (await APIManager.IsBasestationConnectedToWlan()) {
-                        // redirect to login page
-                        await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
-                    //}
-                    //else {
-                    //    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.SelectWlanPage));
-                    //}
+                    // redirect to login page
+                    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
                 }
 
             }

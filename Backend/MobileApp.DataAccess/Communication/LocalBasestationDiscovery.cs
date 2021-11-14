@@ -20,18 +20,18 @@ namespace MobileApp.DataAccess.Communication {
 
         private ILogger Logger;
 
-        private UdpClient listener;
+        private UdpClient client;
 
         public LocalBasestationDiscovery(IMulticastUdpSender multicastUdpSender, ILoggerService loggerService) {
             Logger = loggerService.GetLogger<LocalBasestationDiscovery>();
             MulticastUdpSender = multicastUdpSender;
 
             // setup udp listener, which listens for an answer from the basestation
-            listener = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
+            client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
         }
 
         public void Dispose() {
-            listener?.Dispose();
+            client?.Dispose();
             MulticastUdpSender?.Dispose();
         }
 
@@ -39,18 +39,18 @@ namespace MobileApp.DataAccess.Communication {
             BasestationFoundDto result = null;
 
             // start listening
-            var asyncResult = listener.BeginReceive(null, null);
+            var asyncResult = client.BeginReceive(null, null);
 
             // send message
-            int port = ((IPEndPoint)listener.Client.LocalEndPoint).Port;
-            await MulticastUdpSender.SendToMulticastGroupAsync(port);
+            int port = ((IPEndPoint)client.Client.LocalEndPoint).Port;
+            await MulticastUdpSender.SendToMulticastGroupAsync(GetLocalIPAddress(), port);
 
             // wait for an answer
             asyncResult.AsyncWaitHandle.WaitOne(ReceiveTimeOut);
             if (asyncResult.IsCompleted) {
                 try {
                     IPEndPoint remoteEP = null;
-                    var receivedData = listener.EndReceive(asyncResult, ref remoteEP);
+                    var receivedData = client.EndReceive(asyncResult, ref remoteEP);
 
                     // parse data to dto
                     result = new BasestationFoundDto() {
@@ -68,6 +68,17 @@ namespace MobileApp.DataAccess.Communication {
             }
 
             return result;
+        }
+
+        static IPAddress GetLocalIPAddress() {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList) {
+                if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                    return ip;
+                }
+            }
+
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
     }
 }

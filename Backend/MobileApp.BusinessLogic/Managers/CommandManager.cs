@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
+using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
@@ -25,9 +28,28 @@ namespace MobileApp.BusinessLogic.Managers {
         public async Task<bool> ConnectToWlan(WlanInfoDto wlanInfo) {
             var success = await StartConnection();
             if (success) {
-                throw new NotImplementedException();
+                try {
+                    success = false;
+
+                    // send command
+                    await AesTcpClient.SendData(CommunicationCodes.WlanCommand);
+
+                    // receive ack
+                    if ((await AesTcpClient.ReceiveData()).SequenceEqual(CommunicationCodes.ACK)) {
+                        // send connect information
+                        string connectInfo_json = JsonConvert.SerializeObject(wlanInfo);
+                        await AesTcpClient.SendData(Encoding.UTF8.GetBytes(connectInfo_json));
+
+                        // receive return code
+                        success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
+                    }
+                } catch (Exception ex) {
+                    success = false;
+                    Logger.Error(ex, $"[ConnectToWlan]An exception occoured while sending wlan-command-information.");
+                }
             }
 
+            AesTcpClient.Stop();
             return success;
         }
 

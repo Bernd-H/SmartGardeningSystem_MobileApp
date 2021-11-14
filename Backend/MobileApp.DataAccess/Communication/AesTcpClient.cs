@@ -43,7 +43,7 @@ namespace MobileApp.DataAccess.Communication {
         }
 
         public async Task<byte[]> ReceiveData() {
-            try {
+            //try {
                 Logger.Info($"[ReceiveData]Waiting to receive data from {tcpClient.Client.RemoteEndPoint.ToString()}.");
                 int bytes = -1;
                 int packetLength = -1;
@@ -74,37 +74,37 @@ namespace MobileApp.DataAccess.Communication {
                 byte[] decryptedPacket = AesEncrypterDecrypter.Decrypt(packet.ToArray(), AesKey, AesIV);
 
                 return decryptedPacket;
-            }
-            catch (Exception ex) {
-                Logger.Error(ex, "[ReceiveData]An error occured while receiving data.");
-            }
+            //}
+            //catch (Exception ex) {
+            //    Logger.Error(ex, "[ReceiveData]An error occured while receiving data.");
+            //}
 
-            return null;
+            //return null;
         }
 
-        public async Task<bool> SendData(byte[] msg) {
-            try {
-                Logger.Info($"[SendData] Sending data with length {msg.Length}.");
-                List<byte> packet = new List<byte>();
+        public async Task SendData(byte[] msg) {
+            //try {
+            Logger.Info($"[SendData] Sending data with length {msg.Length}.");
+            List<byte> packet = new List<byte>();
 
-                // add length of packet - 4B
-                packet.AddRange(BitConverter.GetBytes(msg.Length + 4));
+            // encrypt message
+            var encryptedMsg = AesEncrypterDecrypter.Encrypt(msg, AesKey, AesIV);
 
-                // encrypt message
-                var encryptedMsg = AesEncrypterDecrypter.Encrypt(msg, AesKey, AesIV);
+            // add length of packet - 4B
+            packet.AddRange(BitConverter.GetBytes(encryptedMsg.Length + 4));
 
-                // add content
-                packet.AddRange(encryptedMsg);
+            // add content
+            packet.AddRange(encryptedMsg);
 
-                await networkStream.WriteAsync(packet.ToArray(), 0, packet.Count);
+            await networkStream.WriteAsync(packet.ToArray(), 0, packet.Count);
 
-                return true;
-            }
-            catch (Exception ex) {
-                Logger.Error(ex, "[SendData]An error occured while sending data.");
-            }
+            //return true;
+            //}
+            //catch (Exception ex) {
+            //    Logger.Error(ex, "[SendData]An error occured while sending data.");
+            //}
 
-            return false;
+            //return false;
         }
 
         public async Task<bool> Start(IPEndPoint remoteEndPoint) {
@@ -126,6 +126,13 @@ namespace MobileApp.DataAccess.Communication {
             }
 
             return false;
+        }
+
+        public void Stop() {
+            if (IsConnected()) {
+                networkStream?.Close();
+                tcpClient?.Close();
+            }
         }
     }
 }

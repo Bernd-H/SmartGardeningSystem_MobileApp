@@ -97,38 +97,38 @@
 	.section	.rodata.map_aname.16,"aMS",@progbits,1
 	.type	.L.map_aname.16, @object
 .L.map_aname.16:
-	.asciz	"MobileApp.Android"
-	.size	.L.map_aname.16, 18
+	.asciz	"Xamarin.AndroidX.Core"
+	.size	.L.map_aname.16, 22
 
 	.section	.rodata.map_aname.17,"aMS",@progbits,1
 	.type	.L.map_aname.17, @object
 .L.map_aname.17:
-	.asciz	"Xamarin.AndroidX.Core"
-	.size	.L.map_aname.17, 22
+	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
+	.size	.L.map_aname.17, 37
 
 	.section	.rodata.map_aname.18,"aMS",@progbits,1
 	.type	.L.map_aname.18, @object
 .L.map_aname.18:
-	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
-	.size	.L.map_aname.18, 37
+	.asciz	"Xamarin.AndroidX.Legacy.Support.Core.UI"
+	.size	.L.map_aname.18, 40
 
 	.section	.rodata.map_aname.19,"aMS",@progbits,1
 	.type	.L.map_aname.19, @object
 .L.map_aname.19:
-	.asciz	"Xamarin.AndroidX.Legacy.Support.Core.UI"
-	.size	.L.map_aname.19, 40
+	.asciz	"Xamarin.AndroidX.Lifecycle.LiveData.Core"
+	.size	.L.map_aname.19, 41
 
 	.section	.rodata.map_aname.20,"aMS",@progbits,1
 	.type	.L.map_aname.20, @object
 .L.map_aname.20:
-	.asciz	"Xamarin.AndroidX.Lifecycle.LiveData.Core"
-	.size	.L.map_aname.20, 41
+	.asciz	"SkiaSharp.Views.Forms"
+	.size	.L.map_aname.20, 22
 
 	.section	.rodata.map_aname.21,"aMS",@progbits,1
 	.type	.L.map_aname.21, @object
 .L.map_aname.21:
-	.asciz	"SkiaSharp.Views.Forms"
-	.size	.L.map_aname.21, 22
+	.asciz	"MobileApp.Android"
+	.size	.L.map_aname.21, 18
 
 	.section	.rodata.map_aname.22,"aMS",@progbits,1
 	.type	.L.map_aname.22, @object

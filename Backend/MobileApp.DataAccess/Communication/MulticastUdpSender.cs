@@ -15,6 +15,7 @@ namespace MobileApp.DataAccess.Communication {
         /// <summary>
         /// The IPAddress and port of the IPV4 multicast group.
         /// </summary>
+        //static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("224.0.7.1"), 6771);
         static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("239.192.152.143"), 6771);
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace MobileApp.DataAccess.Communication {
 
             lock (Random)
                 Cookie = $"1.0.0.0-{Random.Next(1, int.MaxValue)}";
-            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}\r\nPort: {{0}}\r\ncookie: {Cookie}\r\n\r\n\r\n";
+            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}\r\nIP: {{0}}\r\nPort: {{1}}\r\ncookie: {Cookie}\r\n\r\n\r\n";
 
         }
 
@@ -57,10 +58,10 @@ namespace MobileApp.DataAccess.Communication {
             sendClient?.Dispose();
         }
 
-        public async Task SendToMulticastGroupAsync(int replyPort) {
+        public async Task SendToMulticastGroupAsync(IPAddress localIP, int replyPort) {
             var nics = NetworkInterface.GetAllNetworkInterfaces();
 
-            string message = string.Format(BaseSearchString, replyPort);
+            string message = string.Format(BaseSearchString, localIP.ToString(), replyPort);
             byte[] data = Encoding.ASCII.GetBytes(message);
 
             foreach (var nic in nics) {

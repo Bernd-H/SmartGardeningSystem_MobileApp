@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using NLog;
@@ -17,6 +19,8 @@ namespace MobileApp.BusinessLogic.Managers {
         private ISettingsManager SettingsManager;
 
         private ISslTcpClient SslTcpClient;
+
+        private IAesEncrypterDecrypter AesEncrypterDecrypter;
 
 
         public AesKeyExchangeManager(ILoggerService loggerService, ISettingsManager settingsManager, ISslTcpClient sslTcpClient) {
