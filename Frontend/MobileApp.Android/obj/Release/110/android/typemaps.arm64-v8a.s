@@ -390,6 +390,26 @@ map_modules:
 	.zero	4
 	.xword	0
 
+	/* module_uuid: 1ab027a9-071c-49e2-9721-451f4a211f2f */
+	.byte	0xa9, 0x27, 0xb0, 0x1a, 0x1c, 0x07, 0xe2, 0x49, 0x97, 0x21, 0x45, 0x1f, 0x4a, 0x21, 0x1f, 0x2f
+	/* entry_count */
+	.word	3
+	/* duplicate_count */
+	.word	0
+	/* map */
+	.xword	module18_managed_to_java
+	/* duplicate_map */
+	.xword	0
+	/* assembly_name: MobileApp.Android */
+	.xword	.L.map_aname.18
+	/* image */
+	.xword	0
+	/* java_name_width */
+	.word	0
+	/* java_map */
+	.zero	4
+	.xword	0
+
 	/* module_uuid: b3c77aaa-dde5-4b9d-a4ef-694c0bd287ea */
 	.byte	0xaa, 0x7a, 0xc7, 0xb3, 0xe5, 0xdd, 0x9d, 0x4b, 0xa4, 0xef, 0x69, 0x4c, 0x0b, 0xd2, 0x87, 0xea
 	/* entry_count */
@@ -397,11 +417,11 @@ map_modules:
 	/* duplicate_count */
 	.word	0
 	/* map */
-	.xword	module18_managed_to_java
+	.xword	module19_managed_to_java
 	/* duplicate_map */
 	.xword	0
 	/* assembly_name: Xamarin.AndroidX.Legacy.Support.Core.UI */
-	.xword	.L.map_aname.18
+	.xword	.L.map_aname.19
 	/* image */
 	.xword	0
 	/* java_name_width */
@@ -417,11 +437,11 @@ map_modules:
 	/* duplicate_count */
 	.word	2
 	/* map */
-	.xword	module19_managed_to_java
+	.xword	module20_managed_to_java
 	/* duplicate_map */
-	.xword	module19_managed_to_java_duplicates
+	.xword	module20_managed_to_java_duplicates
 	/* assembly_name: Xamarin.AndroidX.Lifecycle.LiveData.Core */
-	.xword	.L.map_aname.19
+	.xword	.L.map_aname.20
 	/* image */
 	.xword	0
 	/* java_name_width */
@@ -437,30 +457,10 @@ map_modules:
 	/* duplicate_count */
 	.word	0
 	/* map */
-	.xword	module20_managed_to_java
-	/* duplicate_map */
-	.xword	0
-	/* assembly_name: SkiaSharp.Views.Forms */
-	.xword	.L.map_aname.20
-	/* image */
-	.xword	0
-	/* java_name_width */
-	.word	0
-	/* java_map */
-	.zero	4
-	.xword	0
-
-	/* module_uuid: a2e26bbf-6b93-49f9-a2b1-484f64b6f75d */
-	.byte	0xbf, 0x6b, 0xe2, 0xa2, 0x93, 0x6b, 0xf9, 0x49, 0xa2, 0xb1, 0x48, 0x4f, 0x64, 0xb6, 0xf7, 0x5d
-	/* entry_count */
-	.word	3
-	/* duplicate_count */
-	.word	0
-	/* map */
 	.xword	module21_managed_to_java
 	/* duplicate_map */
 	.xword	0
-	/* assembly_name: MobileApp.Android */
+	/* assembly_name: SkiaSharp.Views.Forms */
 	.xword	.L.map_aname.21
 	/* image */
 	.xword	0
@@ -6121,7 +6121,7 @@ map_java:
 
 	/* #544 */
 	/* module_index */
-	.word	18
+	.word	19
 	/* type_token_id */
 	.word	33554441
 	/* java_name */
@@ -6181,7 +6181,7 @@ map_java:
 
 	/* #550 */
 	/* module_index */
-	.word	19
+	.word	20
 	/* type_token_id */
 	.word	33554441
 	/* java_name */
@@ -6191,7 +6191,7 @@ map_java:
 
 	/* #551 */
 	/* module_index */
-	.word	19
+	.word	20
 	/* type_token_id */
 	.word	0
 	/* java_name */
@@ -7241,7 +7241,7 @@ map_java:
 
 	/* #656 */
 	/* module_index */
-	.word	21
+	.word	18
 	/* type_token_id */
 	.word	33554436
 	/* java_name */
@@ -7251,7 +7251,7 @@ map_java:
 
 	/* #657 */
 	/* module_index */
-	.word	21
+	.word	18
 	/* type_token_id */
 	.word	33554437
 	/* java_name */
@@ -9501,7 +9501,7 @@ map_java:
 
 	/* #882 */
 	/* module_index */
-	.word	20
+	.word	21
 	/* type_token_id */
 	.word	33554435
 	/* java_name */
@@ -9511,7 +9511,7 @@ map_java:
 
 	/* #883 */
 	/* module_index */
-	.word	20
+	.word	21
 	/* type_token_id */
 	.word	0
 	/* java_name */
@@ -9521,7 +9521,7 @@ map_java:
 
 	/* #884 */
 	/* module_index */
-	.word	20
+	.word	21
 	/* type_token_id */
 	.word	33554436
 	/* java_name */
@@ -9531,7 +9531,7 @@ map_java:
 
 	/* #885 */
 	/* module_index */
-	.word	20
+	.word	21
 	/* type_token_id */
 	.word	0
 	/* java_name */
@@ -9541,7 +9541,7 @@ map_java:
 
 	/* #886 */
 	/* module_index */
-	.word	21
+	.word	18
 	/* type_token_id */
 	.word	33554434
 	/* java_name */

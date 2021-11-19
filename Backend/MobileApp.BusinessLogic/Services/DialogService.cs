@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
@@ -12,85 +10,81 @@ namespace MobileApp.BusinessLogic.Services {
 
         }
 
-        public async Task ShowError(string message,
-            string title,
-            string buttonText,
-            Action afterHideCallback) {
-            await Application.Current.MainPage.DisplayAlert(
+        public Task ShowError(string message, string title, string buttonText, Action afterHideCallback) {
+            return Task.Run(() => {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
                 buttonText);
-
-            if (afterHideCallback != null) {
-                afterHideCallback();
-            }
+                });
+                if (afterHideCallback != null) {
+                    afterHideCallback();
+                }
+            });
         }
 
-        public async Task ShowError(
-            Exception error,
-            string title,
-            string buttonText,
-            Action afterHideCallback) {
-            await Application.Current.MainPage.DisplayAlert(
-                title,
-                error.Message,
-                buttonText);
+        public Task ShowError(Exception error, string title, string buttonText, Action afterHideCallback) {
+            return Task.Run(() => {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Application.Current.MainPage.DisplayAlert(title, error.Message, buttonText);
+                });
 
-            if (afterHideCallback != null) {
-                afterHideCallback();
-            }
+                if (afterHideCallback != null) {
+                    afterHideCallback();
+                }
+            });
         }
 
-        public async Task ShowMessage(
-            string message,
-            string title) {
-            await Application.Current.MainPage.DisplayAlert(
-                title,
-                message,
-                "OK");
+        public Task ShowMessage(string message, string title) {
+            return Task.Run(() => {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+                });
+            });
         }
 
-        public async Task ShowMessage(
-            string message,
-            string title,
-            string buttonText,
-            Action afterHideCallback) {
-            await Application.Current.MainPage.DisplayAlert(
-                title,
-                message,
-                buttonText);
+        public Task ShowMessage(string message, string title, string buttonText, Action afterHideCallback) {
+            return Task.Run(() => {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Application.Current.MainPage.DisplayAlert(
+                    title,
+                    message,
+                    buttonText);
+                });
 
-            if (afterHideCallback != null) {
-                afterHideCallback();
-            }
+                if (afterHideCallback != null) {
+                    afterHideCallback();
+                }
+            });
         }
 
-        public async Task<bool> ShowMessage(
-            string message,
-            string title,
-            string buttonConfirmText,
-            string buttonCancelText,
-            Action<bool> afterHideCallback) {
-            var result = await Application.Current.MainPage.DisplayAlert(
-                title,
-                message,
-                buttonConfirmText,
-                buttonCancelText);
+        public Task<bool> ShowMessage(string message, string title, string buttonConfirmText, string buttonCancelText, Action<bool> afterHideCallback) {
+            return Task<bool>.Run(() => {
+                bool result = false;
+                Device.BeginInvokeOnMainThread(async () => {
+                    result = await Application.Current.MainPage.DisplayAlert(
+                    title,
+                    message,
+                    buttonConfirmText,
+                    buttonCancelText);
+                });
 
-            if (afterHideCallback != null) {
-                afterHideCallback(result);
-            }
-            return result;
+
+                if (afterHideCallback != null) {
+                    afterHideCallback(result);
+                }
+
+                return result;
+            });
         }
 
-        public async Task ShowMessageBox(
-            string message,
-            string title) {
-            await Application.Current.MainPage.DisplayAlert(
-                title,
-                message,
-                "OK");
+        public Task ShowMessageBox(string message, string title) {
+            return Task.Run(() => {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+                });
+            });
         }
     }
-
 }

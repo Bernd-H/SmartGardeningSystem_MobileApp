@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -15,8 +14,7 @@ namespace MobileApp.DataAccess.Communication {
         /// <summary>
         /// The IPAddress and port of the IPV4 multicast group.
         /// </summary>
-        //static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("224.0.7.1"), 6771);
-        static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("239.192.152.143"), 6771);
+        static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("224.20.21.18"), 6771);
 
         /// <summary>
         /// String to search for in a message received from the multicast group, indicating that this message is for a

@@ -14,7 +14,7 @@ namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\ConnectingPage.xaml")]
-    public partial class ConnectingPage : global::Xamarin.Forms.ContentPage {
+    public partial class ConnectingPage : global::Xamarin.Forms.CarouselPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {

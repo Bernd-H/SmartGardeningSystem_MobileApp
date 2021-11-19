@@ -32,7 +32,7 @@ namespace MobileApp {
             bool isAvailable = false;
             if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
                 //isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
-                isAvailable = true; // for test
+                isAvailable = false;
             }
 
             if (settings.AesKey != null && settings.AesIV != null && isAvailable) {

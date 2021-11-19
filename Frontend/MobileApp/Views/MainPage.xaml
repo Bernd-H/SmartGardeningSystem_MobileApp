@@ -7,17 +7,6 @@
              xmlns:vm="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
              xmlns:model="clr-namespace:MobileApp.Common.Models.DTOs;assembly=MobileApp.Common"
              x:DataType="vm:MainPageViewModel">
-
-    <!--<ContentPage.BindingContext>
-        <vm:MainPageViewModel />
-    </ContentPage.BindingContext>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-
-        </ResourceDictionary>
-    </ContentPage.Resources>-->
-
     <ContentPage.Content>
         <ScrollView>
             <Grid RowDefinitions="Auto,200,Auto,*,70">
@@ -41,7 +30,7 @@
                                     <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Up time" />
                                     <Label Grid.Column="0" FontSize="16" Text="10m 1w 2d 3h" />
                                 </StackLayout>
-                                
+
                                 <!-- Stop and Start button -->
                                 <StackLayout Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,0">
                                     <pancake:PancakeView
@@ -81,7 +70,7 @@
                                         </Label>
                                     </pancake:PancakeView>
                                 </StackLayout>
-                                
+
                             </StackLayout>
                         </Grid>
                         <pancake:PancakeView.Shadow>
@@ -166,7 +155,7 @@
                     </pancake:PancakeView>
                     <Label Text="Add Module" FontSize="16" FontAttributes="Italic" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
-                
+
                 <!-- statistic chart -->
                 <StackLayout Grid.Row="3">
                     <!--<Label Margin="15,0,0,-10"
@@ -176,8 +165,8 @@
                     <!--<pancake:PancakeView Margin="10,10,10,10" BackgroundColor="White" Padding="-20,10"
                                HorizontalOptions="FillAndExpand" HeightRequest="200" CornerRadius="20"> -->
 
-                            <Image Source="undraw_outdoors_amdn" Aspect="AspectFit" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="20" />
-                        <!--<pancake:PancakeView.Shadow>
+                    <Image Source="undraw_outdoors_amdn" Aspect="AspectFit" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="20" />
+                    <!--<pancake:PancakeView.Shadow>
                             <pancake:DropShadow />
                         </pancake:PancakeView.Shadow>-->
                     <!--</pancake:PancakeView>-->
@@ -203,7 +192,7 @@
                         </Image>
 
                         <!-- logs button -->
-                        <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
+                        <!--<StackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
                             <pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
                                 <Image Source="icon_logs_64" Aspect="AspectFit" Margin="7" />
                                 <pancake:PancakeView.Shadow>
@@ -217,7 +206,7 @@
                                 </pancake:PancakeView.GestureRecognizers>
                             </pancake:PancakeView>
                             <Label Text="View logs" FontSize="16"/>
-                        </StackLayout>
+                        </StackLayout>-->
 
                         <StackLayout Grid.Column="2" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Spacing="0">
                             <Label
@@ -239,5 +228,4 @@
             </Grid>
         </ScrollView>
     </ContentPage.Content>
-
 </ContentPage>

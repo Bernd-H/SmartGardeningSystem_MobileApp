@@ -6,14 +6,26 @@ using System.Windows.Input;
 using MobileApp.BusinessLogic.Managers;
 using MobileApp.Common;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using NLog;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
+        #region Log page properties (swipe left)
+
+        private string logs = "";
+        public string Logs {
+            get => logs;
+            set => SetProperty(ref logs, value);
+        }
+
+        #endregion
         public ICommand OpenWebCommand { get; }
         public ICommand HelpCommand { get; }
         public ICommand StartCommand { get; }
@@ -34,6 +46,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
         public Command<ModuleInfoDto> ItemTapped { get; }
 
 
+        private ILogger Logger;
+
+        private ILoggerService LoggerService;
+
         private IDialogService DialogService;
 
         private IDataStore<ModuleInfoDto> ModuleRepository;
@@ -42,11 +58,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ISettingsManager SettingsManager;
 
-        public MainPageViewModel(IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, APIManager _APIManager, ISettingsManager settingsManager) {
+        private IFileStorage FileStorage;
+
+        public MainPageViewModel(ILoggerService loggerService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, APIManager _APIManager,
+            ISettingsManager settingsManager, IFileStorage fileStorage) {
+            Logger = loggerService.GetLogger<MainPageViewModel>();
+            LoggerService = loggerService;
             DialogService = dialogService;
             ModuleRepository = moduleRepository;
             APIManager = _APIManager;
             SettingsManager = settingsManager;
+            FileStorage = fileStorage;
 
             // module items
             Items = new ObservableCollection<ModuleInfoDto>();
@@ -61,6 +83,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
             StopCommand = new Command(OnStopTapped);
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
             ViewLogsPageCommand = new Command(OnViewLogsPageTapped);
+        }
+
+        public Task LoadLogs() {
+            return Task.Run(async () => {
+                Logger.Info($"[LoadLogs]Loading logs.");
+                var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
+
+                // show logs
+                Logs = logs;
+            });
         }
 
         async Task ExecuteLoadItemsCommand() {

@@ -5,14 +5,15 @@ using Xamarin.Forms;
 
 namespace MobileApp.Views {
     public partial class MainPage : ContentPage {
-        MainPageViewModel _viewModel;
+
+        private MainPageViewModel _viewModel;
+
+        private bool connectingPageSelected = true;
 
         public MainPage() {
             InitializeComponent();
             Shell.SetTabBarIsVisible(this, false);
             Shell.SetNavBarIsVisible(this, false);
-            //this.BindingContext = new MainPageViewModel();
-            //BindingContext = _viewModel = new MainPageViewModel();
             BindingContext = _viewModel = IoC.Get<MainPageViewModel>();
         }
 
@@ -20,5 +21,16 @@ namespace MobileApp.Views {
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
+        //protected override void OnCurrentPageChanged() {
+        //    if (_viewModel != null) {
+        //        connectingPageSelected = !connectingPageSelected;
+
+        //        if (!connectingPageSelected) {
+        //            // load logs...
+        //            _ = _viewModel.LoadLogs();
+        //        }
+        //    }
+        //}
     }
 }
