@@ -20,13 +20,18 @@ namespace MobileApp.DataAccess.Communication {
         public bool RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback) {
             bool result = false;
             TcpClient client = null;
+            SslStream sslStream = null;
+
             try {
                 client = new TcpClient();
+                client.ReceiveTimeout = 1000; // 1s
+                client.SendTimeout = 1000;
+                client.Client.Blocking = true;
                 client.Connect(endPoint);
                 Logger.Info($"[RunClient]Connected to server {endPoint.ToString()}.");
 
                 // Create an SSL stream that will close the client's stream.
-                SslStream sslStream = new SslStream(
+                sslStream = new SslStream(
                     client.GetStream(),
                     false,
                     new RemoteCertificateValidationCallback(ValidateServerCertificate),
@@ -38,32 +43,24 @@ namespace MobileApp.DataAccess.Communication {
                 result = true;
             }
             catch (Exception ex) {
-                Logger.Debug(ex, $"[RunClient]Exception while connecting to server.");
+                Logger.Error(ex, $"[RunClient]An exception occured.");
             }
             finally {
-                // Close the client connection.
+                sslStream?.Close();
                 client?.Close();
             }
 
             return result;
         }
 
-        // The following method is invoked by the RemoteCertificateValidationDelegate.
         private bool ValidateServerCertificate(
               object sender,
               X509Certificate certificate,
               X509Chain chain,
               SslPolicyErrors sslPolicyErrors) {
 
-            //if (sslPolicyErrors == SslPolicyErrors.None)
-            //    return true;
-
-            //Logger.Warn("[ValidateServerCertificate]Certificate error: {0}", sslPolicyErrors);
-
-            //// Do not allow this client to communicate with unauthenticated servers.
-            //return false;
-
-            return true; // because it's a self signed certificate
+            // because it's a self signed certificate
+            return true; 
         }
 
         public static byte[] ReadMessage(SslStream sslStream) {

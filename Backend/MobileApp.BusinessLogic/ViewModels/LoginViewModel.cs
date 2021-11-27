@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using MobileApp.Common;
@@ -12,6 +13,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }
+
+        public Command SignUpCommand { get; }
 
 
         private string email;
@@ -57,6 +60,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
             SettingsManager = settingsManager;
 
             LoginCommand = new Command(OnLoginClicked);
+            SignUpCommand = new Command(OnSignUpClicked);
+        }
+
+        private async void OnSignUpClicked(object obj) {
+            // redirect to sign up page
+            await Shell.Current.GoToAsync(PageNames.SignUpPage);
         }
 
         private async void OnLoginClicked(object obj)

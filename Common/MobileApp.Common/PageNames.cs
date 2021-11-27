@@ -24,6 +24,8 @@
 
         public static readonly string ConnectToWlanPage = "ConnectToWlanPage";
 
+        public static readonly string SignUpPage = "SignUpPage";
+
         public static string GetNavigationString(string page) {
             return $"//{page}";
         }

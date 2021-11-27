@@ -9,6 +9,8 @@ namespace MobileApp.Common.Models.Entities.Configuration {
 
         public string API_URL_Login { get; set; }
 
+        public string API_URL_Register { get; set; }
+
         public string API_URL_Modules { get; set; }
 
         public string API_URL_Wlan { get; set; }

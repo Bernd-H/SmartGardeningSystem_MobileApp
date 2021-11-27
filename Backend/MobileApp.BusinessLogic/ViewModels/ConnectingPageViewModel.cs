@@ -125,8 +125,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     ConnectingPageLogger.Info("Could not find a basestation in the local network!");
                     ActivityIndicatorIsVisible = false;
                     await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
-                        //CloseApplicationService.CloseApplication();
                         Status = "Find a basestation failed! Please restart the application.";
+                        //CloseApplicationService.CloseApplication();
                     });
                 }
             });

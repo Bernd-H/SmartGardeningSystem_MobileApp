@@ -18,6 +18,15 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<bool> Login(string email, string password);
 
         /// <summary>
+        /// Registers a new user.
+        /// Does not request an token. Login must be called in order to being able to access fully the api.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>True when the registration was successful.</returns>
+        Task<bool> Register(string email, string password);
+
+        /// <summary>
         /// Clears stored session information 
         /// </summary>
         void Logout();

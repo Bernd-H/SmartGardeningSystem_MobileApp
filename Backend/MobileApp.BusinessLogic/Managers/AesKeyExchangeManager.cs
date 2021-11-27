@@ -44,7 +44,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         private void sslStreamOpenCallback(SslStream openStream) {
-            Logger.Info($"[sslStreamOpenCallback]Waiting to receive aes key.");
+            Logger.Info($"[sslStreamOpenCallback]Waiting to receive aes key and iv.");
 
             // receive key
             var key = DataAccess.Communication.SslTcpClient.ReadMessage(openStream);

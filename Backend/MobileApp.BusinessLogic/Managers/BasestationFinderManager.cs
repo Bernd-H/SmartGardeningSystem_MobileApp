@@ -35,10 +35,10 @@ namespace MobileApp.BusinessLogic.Managers {
 
         public async Task<bool> FindLocalBaseStation() {
             BasestationFoundDto baseStationInfo = null;
-            int attempts = 5;
+            int attempts = 3;
 
             do {
-                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {5 - attempts}.");
+                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {3 - attempts}.");
                 baseStationInfo = await LocalBasestationDiscovery.TryFindBasestation();
 
                 attempts--;

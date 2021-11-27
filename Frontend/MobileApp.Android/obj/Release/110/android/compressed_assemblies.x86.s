@@ -106,7 +106,7 @@
 
 	/* 11: MobileApp.BusinessLogic.dll */
 	/* uncompressed_file_size */
-	.long	105472
+	.long	110080
 	/* loaded */
 	.byte	0
 	/* data */
@@ -124,7 +124,7 @@
 
 	/* 13: MobileApp.DataAccess.dll */
 	/* uncompressed_file_size */
-	.long	18432
+	.long	18944
 	/* loaded */
 	.byte	0
 	/* data */
@@ -133,7 +133,7 @@
 
 	/* 14: MobileApp.dll */
 	/* uncompressed_file_size */
-	.long	146944
+	.long	158208
 	/* loaded */
 	.byte	0
 	/* data */

@@ -103,6 +103,44 @@ namespace MobileApp.BusinessLogic.Managers {
             }
         }
 
+        public async Task<bool> Register(string email, string password) {
+            var settings = await SettingsManager.GetApplicationSettings();
+            string url = "";
+
+            if (settings.AesIV != null && settings.AesKey != null) {
+                try {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = string.Format(config.ConnectionSettings.API_URL_Register, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                    // prepare data to send
+                    var userData = new UserDto() {
+                        Id = Guid.NewGuid(),
+                        AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
+                        AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                    };
+                    string json = JsonConvert.SerializeObject(userData);
+
+                    // setup the body of the request
+                    StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(url, data);
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                        return true;
+                    }
+                }
+                catch (CryptographicException) {
+                    throw;
+                }
+                catch (Exception ex) {
+                    Logger.Error(ex, $"[Register]Error while user registration. (api-request-url={url})");
+                }
+            }
+
+            return false;
+        }
+
         #region Module requests
 
         public async Task<IEnumerable<ModuleInfoDto>> GetModules() {

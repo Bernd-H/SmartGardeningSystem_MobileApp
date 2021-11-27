@@ -14,7 +14,7 @@ namespace MobileApp.DataAccess.Communication {
         /// Maximum time to await an answer after the message to the multicast group got sent.
         /// (Set to 3 seconds)
         /// </summary>
-        static TimeSpan ReceiveTimeOut = new TimeSpan(0, 0, 3);
+        static TimeSpan ReceiveTimeOut = new TimeSpan(0, 0, 5);
 
         private IMulticastUdpSender MulticastUdpSender;
 
@@ -51,6 +51,8 @@ namespace MobileApp.DataAccess.Communication {
                 try {
                     IPEndPoint remoteEP = null;
                     var receivedData = client.EndReceive(asyncResult, ref remoteEP);
+
+                    Logger.Info($"[TryFindBasestation]Received an answer from {remoteEP}.");
 
                     // parse data to dto
                     result = new BasestationFoundDto() {
