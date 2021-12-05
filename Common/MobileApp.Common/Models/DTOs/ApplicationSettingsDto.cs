@@ -22,11 +22,14 @@ namespace MobileApp.Common.Models.DTOs {
 
         public string BaseStationIP { get; set; }
 
+        public Guid BasestationId { get; set; }
+
         public Jwt SessionAPIToken { get; set; }
 
         public static ApplicationSettingsDto GetStandardSettings() {
             return new ApplicationSettingsDto() {
                 Id = Guid.NewGuid(),
+                BasestationId = Guid.Empty,
                 BaseStationIP = string.Empty,
                 //BaseStationIP = "10.0.2.2",
                 //BaseStationIP = "192.168.1.48",

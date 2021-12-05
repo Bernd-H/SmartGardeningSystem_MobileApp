@@ -39,5 +39,9 @@ namespace MobileApp.Common.Configuration {
             //#endregion
             //config = JsonConvert.DeserializeObject<MobileApp.Common.Models.Entities.Configuration.Configuration>(jsonString);
         }
+
+        public static void ChangeConfig(IConfiguration newConfig) {
+            config = newConfig;
+        }
     }
 }

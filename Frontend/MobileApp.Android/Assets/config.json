@@ -15,6 +15,9 @@
     "ConfigurationWiFi_ServerIP": "10.0.2.2",
     "ConfigurationWiFi_KeyExchangeListenPort": "52143",
 
-    "CommandsListener_Port": "52240"
+    "CommandsListener_Port": "52240",
+
+    "ExternalServer_Domain": "nas.djcodex.com",
+    "ExternalServer_RelayPort": "5040"
   }
 }

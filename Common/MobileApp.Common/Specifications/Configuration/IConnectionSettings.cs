@@ -26,5 +26,10 @@
         /// Port on which the command service is listening on the basestation
         /// </summary>
         int CommandsListener_Port { get; set; }
+
+
+        string ExternalServer_Domain { get; set; }
+
+        int ExternalServer_RelayPort { get; set; }
     }
 }

@@ -64,16 +64,25 @@ namespace MobileApp.BusinessLogic.Managers {
         private async Task<bool> StartConnection() {
             if (!AesTcpClient.IsConnected()) {
                 // get ipendpoint to connect to
-                var settings = await SettingsManager.GetApplicationSettings();
-                if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
+                var basestationIP = await GetBasestationIP();
+                if (!string.IsNullOrEmpty(basestationIP)) {
                     int port = ConfigurationStore.GetConfig().ConnectionSettings.CommandsListener_Port;
-                    return await AesTcpClient.Start(new IPEndPoint(IPAddress.Parse(settings.BaseStationIP), port));
+                    return await AesTcpClient.Start(new IPEndPoint(IPAddress.Parse(basestationIP), port));
                 }
 
                 return false;
             }
 
             return true;
+        }
+
+        private async Task<string> GetBasestationIP() {
+            if (SettingsManager.GetRuntimeVariables().RelayModeActive) {
+                return "127.0.0.1";
+            }
+            else {
+                return (await SettingsManager.GetApplicationSettings()).BaseStationIP;
+            }
         }
     }
 }

@@ -55,7 +55,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 try {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Login, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url = string.Format(config.ConnectionSettings.API_URL_Login, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
 
                     // prepare data to send
                     var userData = new UserDto() {
@@ -111,7 +111,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 try {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Register, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url = string.Format(config.ConnectionSettings.API_URL_Register, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
 
                     // prepare data to send
                     var userData = new UserDto() {
@@ -151,7 +151,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
 
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
@@ -182,7 +182,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
                 url += $"{updatedModule.Id.ToString()}"; // add id to url
 
                 // prepare data to send
@@ -221,7 +221,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
 
                 // prepare data to send
                 //var moduleDto = newModule.ToDto();
@@ -259,7 +259,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
                 url += $"{moduleId}";
 
                 var response = await client.DeleteAsync(url);
@@ -298,7 +298,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
 
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
@@ -328,7 +328,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
                     url += "isConnected";
 
                     var response = await client.GetAsync(url);
@@ -365,6 +365,15 @@ namespace MobileApp.BusinessLogic.Managers {
             }
 
             return false;
+        }
+
+        private async Task<string> GetBasestationIP() {
+            if (SettingsManager.GetRuntimeVariables().RelayModeActive) {
+                return "127.0.0.1";
+            }
+            else {
+                return (await SettingsManager.GetApplicationSettings()).BaseStationIP;
+            }
         }
     }
 }

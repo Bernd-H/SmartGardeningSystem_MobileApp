@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using NLog;
@@ -11,23 +12,29 @@ using NLog;
 namespace MobileApp.DataAccess.Communication {
     public class SslTcpClient : ISslTcpClient {
 
+        private bool _validateCertificate;
+
+
         private ILogger Logger;
 
         public SslTcpClient(ILoggerService loggerService) {
             Logger = loggerService.GetLogger<SslTcpClient>();
         }
 
-        public bool RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback) {
+        public async Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true,
+            bool closeConnectionAfterCallback = true) {
             bool result = false;
             TcpClient client = null;
             SslStream sslStream = null;
+
+            _validateCertificate = !selfSignedCertificate;
 
             try {
                 client = new TcpClient();
                 client.ReceiveTimeout = 1000; // 1s
                 client.SendTimeout = 1000;
                 client.Client.Blocking = true;
-                client.Connect(endPoint);
+                await client.ConnectAsync(endPoint.Address, endPoint.Port);
                 Logger.Info($"[RunClient]Connected to server {endPoint.ToString()}.");
 
                 // Create an SSL stream that will close the client's stream.
@@ -44,10 +51,13 @@ namespace MobileApp.DataAccess.Communication {
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[RunClient]An exception occured.");
-            }
-            finally {
                 sslStream?.Close();
                 client?.Close();
+            }
+            finally {
+                if (closeConnectionAfterCallback) {
+                    sslStream?.Close();
+                }
             }
 
             return result;
@@ -59,8 +69,16 @@ namespace MobileApp.DataAccess.Communication {
               X509Chain chain,
               SslPolicyErrors sslPolicyErrors) {
 
-            // because it's a self signed certificate
-            return true; 
+            if (_validateCertificate) {
+                if (sslPolicyErrors == SslPolicyErrors.None)
+                    return true;
+
+                return false;
+            }
+            else {
+                // because it's a self signed certificate
+                return true;
+            }
         }
 
         public static byte[] ReadMessage(SslStream sslStream) {

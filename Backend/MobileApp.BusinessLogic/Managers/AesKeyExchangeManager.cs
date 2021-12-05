@@ -39,7 +39,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 Logger.Info($"[Start]No aes key stored. Trying to connect to server {endPoint.ToString()}.");
 
-                return SslTcpClient.RunClient(endPoint, sslStreamOpenCallback);
+                return await SslTcpClient.RunClient(endPoint, sslStreamOpenCallback);
             }, token);
         }
 

@@ -27,5 +27,10 @@ namespace MobileApp.Common.Models.Entities.Configuration {
         /// Port on which the command service is listening on the basestation
         /// </summary>
         public int CommandsListener_Port { get; set; }
+
+
+        public string ExternalServer_Domain { get; set; }
+
+        public int ExternalServer_RelayPort { get; set; }
     }
 }

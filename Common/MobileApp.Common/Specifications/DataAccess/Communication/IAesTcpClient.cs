@@ -3,11 +3,11 @@ using System.Net;
 using System.Threading.Tasks;
 
 namespace MobileApp.Common.Specifications.DataAccess.Communication {
-    public interface IAesTcpClient : IDisposable {
+    public interface IAesTcpClient : IDisposable, IEncryptedTunnel {
 
-        Task SendData(byte[] msg);
-
-        Task<byte[]> ReceiveData();
+        // IEncryptedTunnel contains the following methods:
+        //Task SendData(byte[] msg);
+        //Task<byte[]> ReceiveData();
 
         Task<bool> Start(IPEndPoint remoteEndPoint);
 

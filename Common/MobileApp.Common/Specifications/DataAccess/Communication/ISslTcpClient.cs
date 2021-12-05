@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Security;
+using System.Threading.Tasks;
 
 namespace MobileApp.Common.Specifications.DataAccess.Communication {
 
@@ -7,6 +8,6 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
 
     public interface ISslTcpClient {
 
-        bool RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback);
+        Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true, bool closeConnectionAfterCallback = true);
     }
 }

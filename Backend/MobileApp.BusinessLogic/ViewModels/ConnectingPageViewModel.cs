@@ -54,11 +54,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IFileStorage FileStorage;
 
+        private ISettingsManager SettingsManager;
+
+        private IRelayManager RelayManager;
+
+
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         public ConnectingPageViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IAesKeyExchangeManager aesKeyExchangeManager,
             IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager, IAPIManager _APIManager,
-            IFileStorage fileStorage) {
+            IFileStorage fileStorage, IRelayManager relayManager) {
             LoggerService = loggerService;
             ConnectingPageLogger = loggerService.GetLogger<ConnectingPageViewModel>();
             AesKeyExchangeManager = aesKeyExchangeManager;
@@ -67,6 +72,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             BasestationFinderManager = basestationFinderManager;
             APIManager = _APIManager;
             FileStorage = fileStorage;
+            SettingsManager = settingsManager;
+            RelayManager = relayManager;
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
 
@@ -103,10 +110,25 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 //    return currentSettings;
                 //});
 
+                if (!baseStationFound) {
+                    // try to establish a connection over the external server
+                    Status = "Trying to connect to the basestation over the external server...";
+                    baseStationFound = await RelayManager.ConnectToTheBasestation(CancellationToken.None);
+                }
+
                 if (baseStationFound) {
-                    Status = "Exchanging keys...";
-                    ConnectingPageLogger.Info($"[BeginConnect]Trying to get aes key from server.");
-                    var success = await AesKeyExchangeManager.Start(cancellationToken.Token);
+                    bool success = false;
+                    var settings = await SettingsManager.GetApplicationSettings();
+                    if (settings.AesKey == null || settings.AesIV == null) {
+                        // perform key exchange
+                        Status = "Exchanging keys...";
+                        ConnectingPageLogger.Info($"[BeginConnect]Trying to get aes key from server.");
+                        success = await AesKeyExchangeManager.Start(cancellationToken.Token);
+                    }
+                    else {
+                        // key already exchanged and available
+                        success = true;
+                    }
 
                     if (!success) {
                         ActivityIndicatorIsVisible = false;
@@ -119,7 +141,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                         // redirect to login page
                         await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
                     }
-
                 }
                 else {
                     ConnectingPageLogger.Info("Could not find a basestation in the local network!");

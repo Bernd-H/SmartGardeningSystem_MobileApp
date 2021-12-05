@@ -10,7 +10,7 @@ using MobileApp.Common.Specifications.Managers;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
-    public class AesTcpClient : IAesTcpClient, IDisposable {
+    public class AesTcpClient : IAesTcpClient, IDisposable, IEncryptedTunnel {
 
         private TcpClient tcpClient;
 
