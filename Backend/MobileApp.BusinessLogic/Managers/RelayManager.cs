@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.DataObjects;
 using MobileApp.Common.Specifications.Managers;
@@ -14,28 +16,6 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
-
-    internal class SslStreamTunnel : IEncryptedTunnel {
-
-        private SslStream _sslStream;
-
-        public SslStreamTunnel(SslStream sslStream) {
-            _sslStream = sslStream;
-        }
-
-        public Task<byte[]> ReceiveData() {
-            return Task.Run(() => {
-                return DataAccess.Communication.SslTcpClient.ReadMessage(_sslStream);
-            });
-        }
-
-        public Task SendData(byte[] msg) {
-            return Task.Run(() => {
-                DataAccess.Communication.SslTcpClient.SendMessage(_sslStream, msg);
-            });
-        }
-    }
-
     public class RelayManager : IRelayManager {
 
         private SslStream _externalServerStream;
@@ -49,6 +29,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private IAesTcpClient AesTcpClient;
 
+        private IAesTunnelInSslStream AesTunnelInSslStream;
+
         private IApiRequestsRelayServer ApiRequestsRelayServer;
 
         private ICommandsRelayServer CommandsRelayServer;
@@ -56,18 +38,21 @@ namespace MobileApp.BusinessLogic.Managers {
         private ILogger Logger;
 
         public RelayManager(ILoggerService loggerService, ISslTcpClient sslTcpClient, ISettingsManager settingsManager, IAesTcpClient aesTcpClient, 
-            IApiRequestsRelayServer apiRequestsRelayServer, ICommandsRelayServer commandsRelayServer) {
+            IApiRequestsRelayServer apiRequestsRelayServer, ICommandsRelayServer commandsRelayServer, IAesTunnelInSslStream aesTunnelInSslStream) {
             Logger = loggerService.GetLogger<RelayManager>();
             SslTcpClient = sslTcpClient;
             SettingsManager = settingsManager;
             AesTcpClient = aesTcpClient;
             ApiRequestsRelayServer = apiRequestsRelayServer;
             CommandsRelayServer = commandsRelayServer;
+            AesTunnelInSslStream = aesTunnelInSslStream;
         }
 
         public async Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken) {
             bool success = false;
             var settings = await SettingsManager.GetApplicationSettings();
+
+            string targetHost = ConfigurationStore.GetConfig().ConnectionSettings.ExternalServer_Domain;
 
             // client must have been connected to the basestation at least one time before
             if (settings.BasestationId != Guid.Empty && settings.AesKey != null && settings.AesIV != null) {
@@ -80,7 +65,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
                         // receive relay request result
                         var rrrBytes = DataAccess.Communication.SslTcpClient.ReadMessage(sslStream);
-                        var requestResult = JsonConvert.DeserializeObject<IRelayRequestResult>(Encoding.UTF8.GetString(rrrBytes));
+                        var requestResult = JsonConvert.DeserializeObject<RelayRequestResult>(Encoding.UTF8.GetString(rrrBytes));
 
                         _peerToPeerEndpoint = requestResult.BasestaionEndPoint;
 
@@ -95,7 +80,10 @@ namespace MobileApp.BusinessLogic.Managers {
                             sslStream?.Close();
                         }
 
-                    }, selfSignedCertificate: false, closeConnectionAfterCallback: false);
+                    }, selfSignedCertificate: false, closeConnectionAfterCallback: false, targetHost);
+                }
+                else {
+                    Logger.Error($"[ConnectToTheBasestation]Could not resolve domain {config.ConnectionSettings.ExternalServer_Domain}.");
                 }
             }
 
@@ -108,8 +96,8 @@ namespace MobileApp.BusinessLogic.Managers {
                     }
                 } else {
                     // use existing connection to relay messages to the basestation
-                    var sslStreamTunnel = new SslStreamTunnel(_externalServerStream);
-                    success = await InitiateRelayingOutgoingPackages(sslStreamTunnel, cancellationToken);
+                    AesTunnelInSslStream.Init(_externalServerStream);
+                    success = await InitiateRelayingOutgoingPackages(AesTunnelInSslStream, cancellationToken);
                 }
             }
 

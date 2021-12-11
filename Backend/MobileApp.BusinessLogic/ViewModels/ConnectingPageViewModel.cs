@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
@@ -104,6 +105,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 Status = "Searching for a local basestation...";
                 var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
                 //ConnectingPageLogger.Warn("[BeginConnect]Mocking BasestationIP for test reasons.");
+                //var baseStationFound = false;
                 //var baseStationFound = true;
                 //await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
                 //    currentSettings.BaseStationIP = "10.0.2.2";

@@ -64,6 +64,10 @@
             "NLog": {
               "target": "Package",
               "version": "[4.7.11, )"
+            },
+            "SSH.NET": {
+              "target": "Package",
+              "version": "[2020.0.1, )"
             }
           },
           "imports": [

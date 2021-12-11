@@ -32,8 +32,10 @@ namespace MobileApp.BusinessLogic.Managers {
             AesEncrypterDecrypter = aesEncrypterDecrypter;
 
             var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.AutomaticDecompression = System.Net.DecompressionMethods.None;
             httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
             client = new HttpClient(httpClientHandler);
+            
 
             // add json web token to header if a token exists
             TryAddWebTokenToHeader().Wait();
@@ -55,7 +57,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 try {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Login, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                    url = getUrl(config.ConnectionSettings.API_URL_Login, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                     // prepare data to send
                     var userData = new UserDto() {
@@ -111,7 +113,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 try {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Register, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                    url = getUrl(config.ConnectionSettings.API_URL_Register, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                     // prepare data to send
                     var userData = new UserDto() {
@@ -151,7 +153,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                    url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
@@ -182,7 +184,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
                 url += $"{updatedModule.Id.ToString()}"; // add id to url
 
                 // prepare data to send
@@ -221,7 +223,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                 // prepare data to send
                 //var moduleDto = newModule.ToDto();
@@ -259,7 +261,7 @@ namespace MobileApp.BusinessLogic.Managers {
             try {
                 // build url
                 var config = ConfigurationStore.GetConfig();
-                url = string.Format(config.ConnectionSettings.API_URL_Modules, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
                 url += $"{moduleId}";
 
                 var response = await client.DeleteAsync(url);
@@ -298,7 +300,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                    url = getUrl(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
@@ -328,7 +330,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (settings.SessionAPIToken != null) {
                     // build url
                     var config = ConfigurationStore.GetConfig();
-                    url = string.Format(config.ConnectionSettings.API_URL_Wlan, (await GetBasestationIP()), config.ConnectionSettings.API_Port);
+                    url = getUrl(config.ConnectionSettings.API_URL_Wlan, settings.BaseStationIP, config.ConnectionSettings.API_Port);
                     url += "isConnected";
 
                     var response = await client.GetAsync(url);
@@ -367,13 +369,18 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
-        private async Task<string> GetBasestationIP() {
+        private string getUrl(string url, string ip, int port, params object[] otherArgs) {
             if (SettingsManager.GetRuntimeVariables().RelayModeActive) {
-                return "127.0.0.1";
+                // modify url to relay all requests to a local server
+                ip = "127.0.0.1";
+                port = 5000;
+
+                if (url.Contains("https")) {
+                    url = url.Replace("https", "http");
+                }
             }
-            else {
-                return (await SettingsManager.GetApplicationSettings()).BaseStationIP;
-            }
+
+            return string.Format(url, ip, port, otherArgs);
         }
     }
 }

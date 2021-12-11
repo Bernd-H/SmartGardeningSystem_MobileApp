@@ -36,34 +36,34 @@ module1_managed_to_java:
 	.type	module2_managed_to_java, @object
 	.p2align	2
 module2_managed_to_java:
-	.long	33554434
-	.long	886
-	.long	33554436
-	.long	656
-	.long	33554437
-	.long	657
-	.size	module2_managed_to_java, 24
+	.long	33554443
+	.long	639
+	.long	33554445
+	.long	640
+	.size	module2_managed_to_java, 16
 
 	.section	.rodata.module3_managed_to_java,"a",@progbits
 	.type	module3_managed_to_java, @object
 	.p2align	2
 module3_managed_to_java:
-	.long	33554443
-	.long	639
-	.long	33554445
-	.long	640
-	.size	module3_managed_to_java, 16
-
-	.section	.rodata.module4_managed_to_java,"a",@progbits
-	.type	module4_managed_to_java, @object
-	.p2align	2
-module4_managed_to_java:
 	.long	33554436
 	.long	887
 	.long	33554445
 	.long	890
 	.long	33554452
 	.long	888
+	.size	module3_managed_to_java, 24
+
+	.section	.rodata.module4_managed_to_java,"a",@progbits
+	.type	module4_managed_to_java, @object
+	.p2align	2
+module4_managed_to_java:
+	.long	33554434
+	.long	886
+	.long	33554436
+	.long	656
+	.long	33554437
+	.long	657
 	.size	module4_managed_to_java, 24
 
 	.section	.rodata.module5_managed_to_java,"a",@progbits

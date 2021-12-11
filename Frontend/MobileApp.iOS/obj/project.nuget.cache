@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "opC1kBGMBCI+QVIpWQbehKVDbvQrld/U7UO/1DbvMXXvl5zxfxs4cmocdJqGILaTt4MRUxlIhyGZqLMbkaeXfQ==",
+  "dgSpecHash": "1yo6s4cyBk1R4OtgFL4pSqyd6lHvCgP41HAnqkR5Tf7MzXspqIHCoqkqAR8XhlX6e3DE/UWqzLwrQCF/o3lcbQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Frontend\\MobileApp.iOS\\MobileApp.iOS.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,8 @@
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\ssh.net\\2020.0.1\\ssh.net.2020.0.1.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\sshnet.security.cryptography\\1.3.0\\sshnet.security.cryptography.1.3.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",

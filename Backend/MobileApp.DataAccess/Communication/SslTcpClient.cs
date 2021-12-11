@@ -22,7 +22,7 @@ namespace MobileApp.DataAccess.Communication {
         }
 
         public async Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true,
-            bool closeConnectionAfterCallback = true) {
+            bool closeConnectionAfterCallback = true, string targetHost = "server") {
             bool result = false;
             TcpClient client = null;
             SslStream sslStream = null;
@@ -31,8 +31,8 @@ namespace MobileApp.DataAccess.Communication {
 
             try {
                 client = new TcpClient();
-                client.ReceiveTimeout = 1000; // 1s
-                client.SendTimeout = 1000;
+                //client.ReceiveTimeout = 5000; // 5s
+                client.SendTimeout = 5000;
                 client.Client.Blocking = true;
                 await client.ConnectAsync(endPoint.Address, endPoint.Port);
                 Logger.Info($"[RunClient]Connected to server {endPoint.ToString()}.");
@@ -44,7 +44,10 @@ namespace MobileApp.DataAccess.Communication {
                     new RemoteCertificateValidationCallback(ValidateServerCertificate),
                     null);
 
-                sslStream.AuthenticateAsClient("server");
+                //sslStream.ReadTimeout = 5000;
+                sslStream.WriteTimeout = 5000;
+
+                sslStream.AuthenticateAsClient(targetHost);
 
                 sslStreamOpenCallback.Invoke(sslStream);
                 result = true;

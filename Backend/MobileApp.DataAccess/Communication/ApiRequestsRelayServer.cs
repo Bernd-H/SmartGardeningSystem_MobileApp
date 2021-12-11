@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MobileApp.Common.Configuration;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
+using MobileApp.Common.Specifications.DataObjects;
+using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
@@ -12,8 +19,10 @@ namespace MobileApp.DataAccess.Communication {
 
         private static ManualResetEvent _tcpClientConnected = new ManualResetEvent(false);
 
-        private IEncryptedTunnel _relayTunnel;
+        private CancellationToken _cancellationToken;
 
+
+        private IEncryptedTunnel _relayTunnel;
 
         private ILogger Logger;
 
@@ -24,81 +33,128 @@ namespace MobileApp.DataAccess.Communication {
         public Task<bool> Start(IEncryptedTunnel relayTunnel, CancellationToken cancellationToken) {
             bool success = false;
             _relayTunnel = relayTunnel;
+            _cancellationToken = cancellationToken;
 
             try {
-                TcpListener listener = new TcpListener(IPAddress.Any, 5035);
+                // start listening on the same port as the API listens on the basestation
+                //int port = ConfigurationStore.GetConfig().ConnectionSettings.API_Port;
+                int port = 5000;
+                TcpListener listener = new TcpListener(IPAddress.Loopback, port);
+                listener.Server.Blocking = true;
                 listener.Start();
 
-                Console.WriteLine($"Listening on {listener.Server.LocalEndPoint.ToString()}...");
+                cancellationToken.Register(() => listener.Stop());
 
-                // Set the event to nonsignaled state.
-                _tcpClientConnected.Reset();
+                Task.Run(() => {
+                    while (true) {
+                        _tcpClientConnected.Reset();
 
-                // Start to listen for connections from a client.
-                Console.WriteLine("Waiting for a connection...");
+                        listener.BeginAcceptTcpClient(new AsyncCallback(AcceptTcpClientCallback), listener);
 
-                // Accept the connection.
-                // BeginAcceptSocket() creates the accepted socket.
-                listener.BeginAcceptTcpClient(
-                    new AsyncCallback(DoAcceptTcpClientCallback),
-                    listener);
+                        _tcpClientConnected.WaitOne();
+                    }
+                }, cancellationToken);
 
-                // Wait until a connection is made and processed before
-                // continuing.
-                _tcpClientConnected.WaitOne();
+                success = true;
             }
             catch (Exception ex) {
                 Logger.Fatal(ex, $"[Start]An error orrued while starting API-relay-server.");
             }
 
-            return success;
+            return Task.FromResult(success);
         }
 
-        public static void DoAcceptTcpClientCallback(IAsyncResult ar) {
-            TcpListener listener = (TcpListener)ar.AsyncState;
+        private async void AcceptTcpClientCallback(IAsyncResult ar) {
+            TcpClient client = null;
+            NetworkStream networkStream = null;
 
-            TcpClient client = listener.EndAcceptTcpClient(ar);
+            try {
+                TcpListener listener = (TcpListener)ar.AsyncState;
 
-            Console.WriteLine($"Client with endpoint={client.Client.RemoteEndPoint.ToString()} accepted.");
+                client = listener.EndAcceptTcpClient(ar);
+                client.Client.Blocking = true;
 
-            // Signal the calling thread to continue.
-            _tcpClientConnected.Set();
+                // Signal the calling thread to continue.
+                _tcpClientConnected.Set();
 
-            var networkStream = client.GetStream();
+                networkStream = client.GetStream();
 
+                // get all data
+                //while (!_cancellationToken.IsCancellationRequested) {
+                    byte[] data = await Receive(networkStream);
+                    //byte[] data = GetRequestOrAnswer(networkStream);
 
-            // send to external server
-            using (var sendToAPIClient = new TcpClient()) {
-                sendToAPIClient.Connect(IPAddress.Parse("127.0.0.1"), 5000);
-                var sendToAPIClient_NS = sendToAPIClient.GetStream();
+                    var a = Encoding.UTF8.GetString(data);
+                    Console.WriteLine($"Sent to server:\n{a}\n----END----");
 
-                string reqAndHeader, content;
-                Console.WriteLine("Get request");
-                (reqAndHeader, content) = GetRequestOrAnswer(networkStream);
-                Console.WriteLine(reqAndHeader);
-                Console.WriteLine(content);
-                Console.WriteLine("forward request");
-                WriteRequest(sendToAPIClient_NS, reqAndHeader, content);
-                sendToAPIClient_NS.Flush();
+                    // pack data to an object
+                    IWanPackage wanPackage = new WanPackage() {
+                        Package = data,
+                        PackageType = PackageType.Relay,
+                        ServiceDetails = new ServiceDetails() {
+                            //Port = ConfigurationStore.GetConfig().ConnectionSettings.API_Port,
+                            Port = 5000,
+                            Type = ServiceType.API
+                        }
+                    };
+                    var wanPackageJson = JsonConvert.SerializeObject(wanPackage);
 
+                // tunnel data threw tunnel and wait for answer
+                //await _relayTunnel.SendData(Encoding.UTF8.GetBytes(wanPackageJson));
+                //byte[] answer = await _relayTunnel.ReceiveData();
+                byte[] answer = await _relayTunnel.SendAndReceiveData(Encoding.UTF8.GetBytes(wanPackageJson));
 
-                // get answer and send it back to request maker
-                Console.WriteLine("Receiving answer");
-                (reqAndHeader, content) = GetRequestOrAnswer(sendToAPIClient_NS);
-                Console.WriteLine(reqAndHeader);
-                Console.WriteLine(content);
-                Console.WriteLine("Sending answer");
-                WriteRequest(networkStream, reqAndHeader, content);
-                networkStream.Flush();
+                    // deserialize wan package
+                    var answerWanPackage = JsonConvert.DeserializeObject<WanPackage>(Encoding.UTF8.GetString(answer));
 
-                Console.WriteLine("Finished.");
+                    var b = Encoding.UTF8.GetString(answerWanPackage.Package);
+                    Console.WriteLine($"Got form server:\n{b}\n----END----");
 
-                client.Close();
+                //b += "0\r\n\r\n";
+
+                //answerWanPackage.Package = Encoding.UTF8.GetBytes(b);
+
+                    // send answer back to request maker
+                    await Send(answerWanPackage.Package, networkStream);
+                //}
+            } catch(Exception ex) {
+                Logger.Fatal(ex, $"[AcceptTcpClientCallback]An error occured in api relay server.");
+            }
+            finally {
+                //Console.WriteLine("Closing connection.");
+                //networkStream?.Close();
+                //client?.Close();
             }
         }
 
+        private async Task<byte[]> Receive(NetworkStream networkStream) {
+            List<byte> packet = new List<byte>();
+            byte[] buffer = new byte[1024];
+            int readBytes = 0;
+            while (true) {
+                readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, _cancellationToken);
 
-        private static (string, string) GetRequestOrAnswer(Stream inputStream) {
+                if (readBytes < buffer.Length) {
+                    var tmp = new List<byte>(buffer);
+                    packet.AddRange(tmp.GetRange(0, readBytes));
+                    break;
+                }
+                else {
+                    packet.AddRange(buffer);
+                }
+            }
+
+            return packet.ToArray();
+        }
+
+        private async Task Send(byte[] msg, NetworkStream networkStream) {
+            await networkStream.WriteAsync(msg, 0, msg.Length, _cancellationToken);
+            networkStream.Flush();
+        }
+
+        #region old
+
+        private static byte[] GetRequestOrAnswer(Stream inputStream) {
             //Read Request Line
             string request = Readline(inputStream);
 
@@ -152,12 +208,23 @@ namespace MobileApp.DataAccess.Communication {
                 content = Encoding.ASCII.GetString(bytes);
             }
 
-            return (allheaders, content);
+            //return (allheaders, content);
+            return MergeRequestHeaderAndContent(allheaders, content);
         }
 
         private static void WriteRequest(Stream stream, string requestAndHeader, string content) {
-            Write(stream, requestAndHeader + "\r\n");
-            Write(stream, content);
+            //Write(stream, requestAndHeader + "\r\n");
+            //Write(stream, content);
+            var bytes = MergeRequestHeaderAndContent(requestAndHeader, content);
+            stream.Write(bytes, 0, bytes.Length);
+        }
+
+        private static void WriteRequest(Stream stream, byte[] bytes) {
+            stream.Write(bytes, 0, bytes.Length);
+        }
+
+        private static byte[] MergeRequestHeaderAndContent(string requestAndHeader, string content) {
+            return Encoding.UTF8.GetBytes(requestAndHeader + "\r\n" + content);
         }
 
         private static string Readline(Stream stream) {
@@ -177,5 +244,7 @@ namespace MobileApp.DataAccess.Communication {
             byte[] bytes = Encoding.UTF8.GetBytes(text);
             stream.Write(bytes, 0, bytes.Length);
         }
+
+        #endregion
     }
 }

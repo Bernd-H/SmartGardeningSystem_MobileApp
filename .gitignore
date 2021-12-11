@@ -1,0 +1,7 @@
+﻿################################################################################
+# Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
+################################################################################
+
+/Backend/MobileApp.DataAccess/MailClient.cs
+/Backend/MobileApp.DataAccess/rsa_piKeys.ppk
+/Frontend/MobileApp.Android/bin/Debug/rsa_piKeys.ppk

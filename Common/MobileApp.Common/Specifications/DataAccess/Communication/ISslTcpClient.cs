@@ -8,6 +8,7 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
 
     public interface ISslTcpClient {
 
-        Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true, bool closeConnectionAfterCallback = true);
+        Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true, bool closeConnectionAfterCallback = true,
+            string targetHost = "server");
     }
 }

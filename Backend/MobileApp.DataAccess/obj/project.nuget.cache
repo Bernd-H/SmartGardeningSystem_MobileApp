@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fZqN0dPyG+pSSZJqtF4xZjglsnEl7ZuIY/uh+9l36Yd9geKm0ZCahdcDfBxtZ4JsmGCA2hP8Vony9CL8uJLqRg==",
+  "dgSpecHash": "t7CVPDGIlCsMRs2yRGCTzTN/Mti89Y9IHk4gABWV4nxjpzgsBv7g+85qNMBTzqmU4dzLcxZvXH+Q8Jjpl8zHCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Backend\\MobileApp.DataAccess\\MobileApp.DataAccess.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\bernd\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\ssh.net\\2020.0.1\\ssh.net.2020.0.1.nupkg.sha512",
+    "C:\\Users\\bernd\\.nuget\\packages\\sshnet.security.cryptography\\1.3.0\\sshnet.security.cryptography.1.3.0.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\bernd\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",

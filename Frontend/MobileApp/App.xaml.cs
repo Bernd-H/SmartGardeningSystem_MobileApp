@@ -1,4 +1,7 @@
-﻿using MobileApp.BusinessLogic;
+﻿using System;
+using System.IO;
+using System.Text;
+using MobileApp.BusinessLogic;
 using MobileApp.BusinessLogic.Cryptography;
 using MobileApp.BusinessLogic.Managers;
 using MobileApp.BusinessLogic.Services;
@@ -8,9 +11,11 @@ using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
+using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.DataAccess;
 using MobileApp.DataAccess.Communication;
 using TinyIoC;
 using Xamarin.Forms;
@@ -18,7 +23,11 @@ using Xamarin.Forms;
 namespace MobileApp {
     public partial class App : Application {
 
-        public App() {
+        private Stream _sftpPrivateKeyStream;
+
+        public App(Stream sftpPrivateKeyStream) {
+            _sftpPrivateKeyStream = sftpPrivateKeyStream;
+
             InitializeComponent();
             RegisterDependencies();
 
@@ -35,7 +44,7 @@ namespace MobileApp {
                 isAvailable = false;
             }
 
-            if (settings.AesKey != null && settings.AesIV != null && isAvailable) {
+            if (settings.AesKey != null && settings.AesIV != null && isAvailable && settings.BasestationId != Guid.Empty) {
                 if (settings.SessionAPIToken == null) {
                     // login credentials will get encrypted with the aes server key after "login" gets pressed
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
@@ -77,12 +86,15 @@ namespace MobileApp {
             container.Register<IAesKeyExchangeManager, AesKeyExchangeManager>();
             container.Register<IBasestationFinderManager, BasestationFinderManager>();
             container.Register<ICommandManager, CommandManager>().AsMultiInstance();
+            container.Register<IRelayManager, RelayManager>().AsMultiInstance();
 
             // communication
             container.Register<ISslTcpClient, SslTcpClient>();
             container.Register<ILocalBasestationDiscovery, LocalBasestationDiscovery>();
             container.Register<IMulticastUdpSender, MulticastUdpSender>();
             container.Register<IAesTcpClient, AesTcpClient>().AsMultiInstance();
+            container.Register<IApiRequestsRelayServer, ApiRequestsRelayServer>().AsMultiInstance();
+            container.Register<ICommandsRelayServer, CommandsRelayServer>().AsMultiInstance();
 
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
@@ -91,6 +103,10 @@ namespace MobileApp {
             container.Register<IDataStore<WlanInfoDto>, WlansDataStore>();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();
+            container.Register<IAesTunnelInSslStream, AesTunnelInSslStream>();
+
+            container.Register<IMailClient, MailClient>();
+            container.Register<ISftpClient, SftpClient>();
 
             // register view models
             container.Register<AccountViewModel>().AsSingleton();

@@ -35,19 +35,20 @@ namespace MobileApp.BusinessLogic.Managers {
 
         public async Task<bool> FindLocalBaseStation() {
             BasestationFoundDto baseStationInfo = null;
-            int attempts = 3;
+            int attempts = 1;
 
             do {
-                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {3 - attempts}.");
+                Logger.Info($"[FindLocalBaseStation]Trying to find basestation attempt {1 - attempts}.");
                 baseStationInfo = await LocalBasestationDiscovery.TryFindBasestation();
 
                 attempts--;
             } while (attempts >= 0 && baseStationInfo == null);
 
             if (baseStationInfo != null) {
-                // store basestation ip address
+                // store basestation ip address and id
                 await SettingsManager.UpdateCurrentSettings(currentSettings => {
                     currentSettings.BaseStationIP = baseStationInfo.RemoteEndPoint.Address.ToString();
+                    currentSettings.BasestationId = baseStationInfo.Id;
                     return currentSettings;
                 });
             }

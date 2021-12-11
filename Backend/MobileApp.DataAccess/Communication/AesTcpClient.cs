@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
@@ -11,6 +12,9 @@ using NLog;
 
 namespace MobileApp.DataAccess.Communication {
     public class AesTcpClient : IAesTcpClient, IDisposable, IEncryptedTunnel {
+
+        private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
+
 
         private TcpClient tcpClient;
 
@@ -80,6 +84,16 @@ namespace MobileApp.DataAccess.Communication {
             //}
 
             //return null;
+        }
+
+        public async Task<byte[]> SendAndReceiveData(byte[] msg) {
+            await LOCKER.WaitAsync();
+
+            await SendData(msg);
+            var received = await ReceiveData();
+
+            LOCKER.Release();
+            return received;
         }
 
         public async Task SendData(byte[] msg) {
