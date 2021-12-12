@@ -35,6 +35,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref activityIndicatorIsVisible, value);
         }
 
+        private bool updateViewProperty;
+        /// <summary>
+        /// To fix a bug. When an element in the main content page gets updated, then
+        /// the second content page (CarouselPage) gets also updated...
+        /// (Used in LoadLogs())
+        /// </summary>
+        public bool UpdateViewProperty {
+            get { return updateViewProperty; }
+            set { SetProperty(ref updateViewProperty, value); }
+        }
+
 
         public ICommand ViewLogsPageCommand { get; }
 
@@ -62,6 +73,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
+        private Task beginConnectTask = null;
+
         public ConnectingPageViewModel(ILoggerService loggerService, ISettingsManager settingsManager, IAesKeyExchangeManager aesKeyExchangeManager,
             IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager, IAPIManager _APIManager,
             IFileStorage fileStorage, IRelayManager relayManager) {
@@ -78,28 +91,31 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
 
-            _ = BeginConnect();
+            if (beginConnectTask == null) {
+                beginConnectTask = BeginConnect();
+            }
         }
 
         ~ConnectingPageViewModel() {
             cancellationToken.Cancel();
         }
 
-        public Task LoadLogs() {
-            return Task.Run(async () => {
-                ConnectingPageLogger.Trace($"[LoadLogs]Thread: {Thread.CurrentThread.ManagedThreadId}.");
-                LoggerService.GetLogger<LogsPageViewModel>().Info($"[LoadLogs]Loading logs.");
-                var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
+        public async void LoadLogs() {
+            ConnectingPageLogger.Trace($"[LoadLogs]Thread: {Thread.CurrentThread.ManagedThreadId}.");
+            LoggerService.GetLogger<LogsPageViewModel>().Info($"[LoadLogs]Loading logs.");
+            var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
 
-                // show logs
-                Logs = logs;
-            });
+            // show logs
+            Logs = logs;
+
+            // to update the view...
+            UpdateViewProperty = !UpdateViewProperty;
         }
 
 
         Task BeginConnect() {
             return Task.Run(async () => {
-                ConnectingPageLogger.Trace($"[BeginConnect]Thread: {Thread.CurrentThread.ManagedThreadId}.");
+                ConnectingPageLogger.Debug($"[BeginConnect]Thread: {Thread.CurrentThread.ManagedThreadId}.");
 
                 // get basestation ip
                 Status = "Searching for a local basestation...";

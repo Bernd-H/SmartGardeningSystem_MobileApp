@@ -13,20 +13,20 @@
 	.section	.rodata.map_aname.2,"aMS",%progbits,1
 	.type	.L.map_aname.2, %object
 .L.map_aname.2:
-	.asciz	"FormsViewGroup"
-	.size	.L.map_aname.2, 15
+	.asciz	"MobileApp.Android"
+	.size	.L.map_aname.2, 18
 
 	.section	.rodata.map_aname.3,"aMS",%progbits,1
 	.type	.L.map_aname.3, %object
 .L.map_aname.3:
-	.asciz	"GalaSoft.MvvmLight.Platform"
-	.size	.L.map_aname.3, 28
+	.asciz	"FormsViewGroup"
+	.size	.L.map_aname.3, 15
 
 	.section	.rodata.map_aname.4,"aMS",%progbits,1
 	.type	.L.map_aname.4, %object
 .L.map_aname.4:
-	.asciz	"MobileApp.Android"
-	.size	.L.map_aname.4, 18
+	.asciz	"GalaSoft.MvvmLight.Platform"
+	.size	.L.map_aname.4, 28
 
 	.section	.rodata.map_aname.5,"aMS",%progbits,1
 	.type	.L.map_aname.5, %object

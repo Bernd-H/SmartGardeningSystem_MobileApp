@@ -26,20 +26,10 @@
 
             <!-- logs button -->
             <StackLayout Grid.Row="3" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand">
-                <!--<pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
-                    <Image Source="icon_logs_64" Aspect="AspectFit" Margin="7" />
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer
-                                NumberOfTapsRequired="1"
-                                Command="{Binding ViewLogsPageCommand}">
-                        </TapGestureRecognizer>
-                    </pancake:PancakeView.GestureRecognizers>
-                </pancake:PancakeView>
-                <Label Text="View logs" FontSize="16"/>-->
-                <Label Text="Swipe left to see more details." HorizontalOptions="CenterAndExpand" FontSize="16"/>
+                <Grid ColumnDefinitions="Auto, *">
+                    <Label Grid.Column="0" Text="Swipe left to see more details." HorizontalOptions="CenterAndExpand" FontSize="16"/>
+                    <Label Grid.Column="1" Text="" IsVisible="{Binding UpdateViewProperty, Mode=OneWay}" FontSize="0" Margin="0"/>
+                </Grid>
             </StackLayout>
         </Grid>
     </ContentPage>

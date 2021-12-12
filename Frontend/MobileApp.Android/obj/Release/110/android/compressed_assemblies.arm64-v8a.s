@@ -107,7 +107,7 @@
 
 	/* 11: MobileApp.BusinessLogic.dll */
 	/* uncompressed_file_size */
-	.word	117760
+	.word	118784
 	/* loaded */
 	.byte	0
 	/* data */
@@ -125,7 +125,7 @@
 
 	/* 13: MobileApp.DataAccess.dll */
 	/* uncompressed_file_size */
-	.word	31232
+	.word	32256
 	/* loaded */
 	.byte	0
 	/* data */
@@ -584,7 +584,7 @@
 
 	/* 64: mscorlib.dll */
 	/* uncompressed_file_size */
-	.word	2159616
+	.word	2160128
 	/* loaded */
 	.byte	0
 	/* data */

@@ -59,7 +59,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 var config = ConfigurationStore.GetConfig();
                 var ip = Dns.GetHostAddresses(config.ConnectionSettings.ExternalServer_Domain).FirstOrDefault();
                 if (ip != null) {
-                    success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream) => {
+                    success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream) => {                        
                         // send basestation id
                         DataAccess.Communication.SslTcpClient.SendMessage(sslStream, settings.BasestationId.ToByteArray());
 
