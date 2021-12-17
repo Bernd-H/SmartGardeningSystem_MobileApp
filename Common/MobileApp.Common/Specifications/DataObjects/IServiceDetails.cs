@@ -12,5 +12,10 @@
         int Port { get; set; }
 
         ServiceType Type { get; set; }
+
+        /// <summary>
+        /// True, to hold the connection from the LocalRelayManager in the Project GardeningSystem to the specified Service (ServiceType, Port) in Gardeningsystem open
+        /// </summary>
+        bool HoldConnectionOpen { get; set; }
     }
 }

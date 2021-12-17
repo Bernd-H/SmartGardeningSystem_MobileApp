@@ -111,7 +111,7 @@ namespace MobileApp.DataAccess.Communication {
             packet.AddRange(encryptedMsg);
 
             await networkStream.WriteAsync(packet.ToArray(), 0, packet.Count);
-
+            await networkStream.FlushAsync();
             //return true;
             //}
             //catch (Exception ex) {

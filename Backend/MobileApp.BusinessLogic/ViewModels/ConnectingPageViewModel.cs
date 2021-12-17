@@ -101,8 +101,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         public async void LoadLogs() {
-            ConnectingPageLogger.Trace($"[LoadLogs]Thread: {Thread.CurrentThread.ManagedThreadId}.");
-            LoggerService.GetLogger<LogsPageViewModel>().Info($"[LoadLogs]Loading logs.");
+            LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
             var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
 
             // show logs

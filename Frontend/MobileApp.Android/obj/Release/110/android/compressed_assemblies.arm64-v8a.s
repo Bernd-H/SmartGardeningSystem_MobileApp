@@ -134,7 +134,7 @@
 
 	/* 14: MobileApp.dll */
 	/* uncompressed_file_size */
-	.word	158720
+	.word	159744
 	/* loaded */
 	.byte	0
 	/* data */

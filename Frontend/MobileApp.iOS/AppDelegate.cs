@@ -26,7 +26,7 @@ namespace MobileApp.iOS {
             RegisterPlatformSpecificDependencies();
 
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(null));
 
             return base.FinishedLaunching(app, options);
         }

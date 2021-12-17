@@ -133,7 +133,7 @@
 
 	/* 14: MobileApp.dll */
 	/* uncompressed_file_size */
-	.long	158720
+	.long	159744
 	/* loaded */
 	.byte	0
 	/* data */
