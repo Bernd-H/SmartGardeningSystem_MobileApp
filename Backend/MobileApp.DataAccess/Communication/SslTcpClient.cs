@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
+using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
@@ -31,7 +32,7 @@ namespace MobileApp.DataAccess.Communication {
 
             try {
                 client = new TcpClient();
-                //client.ReceiveTimeout = 5000; // 5s
+                client.ReceiveTimeout = 20000; // 20s
                 client.SendTimeout = 5000;
                 client.Client.Blocking = true;
                 await client.ConnectAsync(endPoint.Address, endPoint.Port);
@@ -45,6 +46,7 @@ namespace MobileApp.DataAccess.Communication {
                     null);
 
                 //sslStream.ReadTimeout = 5000;
+                sslStream.ReadTimeout = 20000;
                 sslStream.WriteTimeout = 5000;
 
                 sslStream.AuthenticateAsClient(targetHost);
@@ -84,46 +86,12 @@ namespace MobileApp.DataAccess.Communication {
             }
         }
 
-        public static byte[] ReadMessage(SslStream sslStream) {
-            int bytes = -1;
-            int packetLength = -1;
-            int readBytes = 0;
-            List<byte> packet = new List<byte>();
-
-            do {
-                byte[] buffer = new byte[2048];
-                bytes = sslStream.Read(buffer, 0, buffer.Length);
-
-                // get length
-                if (packetLength == -1) {
-                    byte[] length = new byte[4];
-                    Array.Copy(buffer, 0, length, 0, 4);
-                    packetLength = BitConverter.ToInt32(length, 0);
-                }
-
-                readBytes += bytes;
-                packet.AddRange(buffer);
-
-            } while (bytes != 0 && packetLength - readBytes > 0);
-
-            // remove length information and attached bytes
-            packet.RemoveRange(packetLength, packet.Count - packetLength);
-            packet.RemoveRange(0, 4);
-
-            return packet.ToArray();
+        public byte[] ReadMessage(SslStream sslStream) {
+            return CommunicationUtils.Receive(Logger, sslStream);
         }
 
-        public static void SendMessage(SslStream sslStream, byte[] msg) {
-            List<byte> packet = new List<byte>();
-
-            // add length of packet - 4B
-            packet.AddRange(BitConverter.GetBytes(msg.Length + 4));
-
-            // add content
-            packet.AddRange(msg);
-
-            sslStream.Write(packet.ToArray());
-            sslStream.Flush();
+        public void SendMessage(SslStream sslStream, byte[] msg) {
+            CommunicationUtils.Send(Logger, msg, sslStream);
         }
     }
 }

@@ -61,16 +61,16 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (ip != null) {
                     success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream) => {                        
                         // send basestation id
-                        DataAccess.Communication.SslTcpClient.SendMessage(sslStream, settings.BasestationId.ToByteArray());
+                        SslTcpClient.SendMessage(sslStream, settings.BasestationId.ToByteArray());
 
                         // receive relay request result
-                        var rrrBytes = DataAccess.Communication.SslTcpClient.ReadMessage(sslStream);
+                        var rrrBytes = SslTcpClient.ReadMessage(sslStream);
                         var requestResult = JsonConvert.DeserializeObject<RelayRequestResult>(Encoding.UTF8.GetString(rrrBytes));
 
                         _peerToPeerEndpoint = requestResult.BasestaionEndPoint;
 
                         // send back ack
-                        DataAccess.Communication.SslTcpClient.SendMessage(sslStream, CommunicationCodes.ACK);
+                        SslTcpClient.SendMessage(sslStream, CommunicationCodes.ACK);
 
                         if (!requestResult.BasestationNotReachable && requestResult.BasestaionEndPoint == null) {
                             // packages will get relayed over the external server

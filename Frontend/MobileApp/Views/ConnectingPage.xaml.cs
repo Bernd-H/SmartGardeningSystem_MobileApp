@@ -22,7 +22,7 @@ namespace MobileApp.Views {
 
                 if (!connectingPageSelected) {
                     // load logs...
-                   ((ConnectingPageViewModel)BindingContext).LoadLogs();
+                   ((ConnectingPageViewModel)BindingContext).LoadLogs(null, null);
                 }
             }
         }

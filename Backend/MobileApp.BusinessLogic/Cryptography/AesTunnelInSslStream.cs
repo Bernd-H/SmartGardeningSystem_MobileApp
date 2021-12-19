@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.Managers;
+using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Cryptography {
@@ -31,7 +32,7 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
         public async Task<byte[]> ReceiveData() {
             Logger.Trace($"[ReceiveData]Waiting to receive encrypted data.");
-            byte[] encryped = DataAccess.Communication.SslTcpClient.ReadMessage(_sslSteram);
+            byte[] encryped = CommunicationUtils.Receive(null, _sslSteram);
 
             var settings = await SettingsManager.GetApplicationSettings();
 
@@ -54,7 +55,7 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
             byte[] encrypedMessage = AesEncrypterDecrypter.Encrypt(msg, settings.AesKey, settings.AesIV);
 
-            DataAccess.Communication.SslTcpClient.SendMessage(_sslSteram, encrypedMessage);
+            CommunicationUtils.Send(null, encrypedMessage, _sslSteram);
         }
     }
 }

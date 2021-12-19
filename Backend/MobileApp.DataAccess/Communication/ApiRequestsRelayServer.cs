@@ -11,6 +11,7 @@ using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.DataObjects;
+using MobileApp.Common.Utilities;
 using Newtonsoft.Json;
 using NLog;
 
@@ -128,28 +129,11 @@ namespace MobileApp.DataAccess.Communication {
         }
 
         private async Task<byte[]> Receive(NetworkStream networkStream) {
-            List<byte> packet = new List<byte>();
-            byte[] buffer = new byte[1024];
-            int readBytes = 0;
-            while (true) {
-                readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, _cancellationToken);
-
-                if (readBytes < buffer.Length) {
-                    var tmp = new List<byte>(buffer);
-                    packet.AddRange(tmp.GetRange(0, readBytes));
-                    break;
-                }
-                else {
-                    packet.AddRange(buffer);
-                }
-            }
-
-            return packet.ToArray();
+            return await CommunicationUtils.ReceiveAsync(Logger, networkStream);
         }
 
         private async Task Send(byte[] msg, NetworkStream networkStream) {
-            await networkStream.WriteAsync(msg, 0, msg.Length, _cancellationToken);
-            networkStream.Flush();
+            await CommunicationUtils.SendAsync(Logger, msg, networkStream);
         }
 
         #region old

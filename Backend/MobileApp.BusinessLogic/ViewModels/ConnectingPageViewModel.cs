@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -91,6 +92,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
 
+            LoggerService.AddEventHandler(new EventHandler(LoadLogs));
+
             if (beginConnectTask == null) {
                 beginConnectTask = BeginConnect();
             }
@@ -100,8 +103,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             cancellationToken.Cancel();
         }
 
-        public async void LoadLogs() {
-            LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
+        public async void LoadLogs(object sender, EventArgs eventArgs) {
+            //LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
             var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
 
             // show logs
@@ -163,7 +166,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     ConnectingPageLogger.Info("Could not find a basestation in the local network!");
                     ActivityIndicatorIsVisible = false;
                     await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
-                        Status = "Find a basestation failed! Please restart the application.";
+                        Status = "No basestation found! Please restart the application.";
                         //CloseApplicationService.CloseApplication();
                     });
                 }

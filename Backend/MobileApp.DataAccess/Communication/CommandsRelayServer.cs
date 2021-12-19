@@ -12,6 +12,7 @@ using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.DataObjects;
+using MobileApp.Common.Utilities;
 using Newtonsoft.Json;
 using NLog;
 
@@ -84,13 +85,7 @@ namespace MobileApp.DataAccess.Communication {
                 Guid serviceSessionId = Guid.Empty;
                 try {
                     while (!_cancellationToken.IsCancellationRequested) {
-                        Console.WriteLine("111111111111111111111111111111111111");
                         byte[] data = await Receive(networkStream, networkStreamId);
-
-                        var d = Encoding.UTF8.GetString(data);
-                        Console.WriteLine("############################ Sending: ###############################");
-                        Console.WriteLine(d);
-                        Console.WriteLine("############################ End-Sending: ###############################");
 
                         IServicePackage dataPackage = new ServicePackage() {
                             Data = data,
@@ -121,11 +116,6 @@ namespace MobileApp.DataAccess.Communication {
                             serviceSessionId = answerPackage.SessionId;
                         }
 
-                        var d2 = Encoding.UTF8.GetString(answerPackage.Data);
-                        Console.WriteLine("############################ Received: ###############################");
-                        Console.WriteLine(d2);
-                        Console.WriteLine("############################ End-Endreceived: ###############################");
-
                         // send answer back to request maker
                         await Send(answerPackage.Data, networkStream);
                     }
@@ -135,7 +125,10 @@ namespace MobileApp.DataAccess.Communication {
                             // relaytunnel connection still open, the local connection to this relay server got closed
                             // send close connection request for the relayserver at the project GardeningSystem
                             IWanPackage wanPackage = new WanPackage() {
-                                Package = new byte[0],
+                                Package = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new ServicePackage() {
+                                    Data = new byte[0],
+                                    SessionId = serviceSessionId
+                                })),
                                 PackageType = PackageType.Relay,
                                 ServiceDetails = new ServiceDetails() {
                                     Port = ConfigurationStore.GetConfig().ConnectionSettings.CommandsListener_Port,
@@ -196,33 +189,7 @@ namespace MobileApp.DataAccess.Communication {
         //}
 
         private async Task<byte[]> Receive(NetworkStream networkStream, Guid networkStreamId) {
-            try {
-                List<byte> packet = new List<byte>();
-                byte[] buffer = new byte[1024];
-                int readBytes = 0;
-                while (true) {
-                    readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, _cancellationToken);
-
-                    if (readBytes == 0) {
-                        throw new ConnectionClosedException(networkStreamId);
-                    }
-                    if (readBytes < buffer.Length) {
-                        var tmp = new List<byte>(buffer);
-                        packet.AddRange(tmp.GetRange(0, readBytes));
-                        break;
-                    }
-                    else {
-                        packet.AddRange(buffer);
-                    }
-                }
-
-                packet.RemoveRange(0, 4); // remove length header...
-
-                return packet.ToArray();
-            }
-            catch (ObjectDisposedException) {
-                throw new ConnectionClosedException(networkStreamId);
-            }
+            return await CommunicationUtils.ReceiveAsync(Logger, networkStream, networkStreamId);
         }
 
         //private async Task Send(byte[] msg, NetworkStream networkStream) {
@@ -232,19 +199,8 @@ namespace MobileApp.DataAccess.Communication {
 
         public async Task Send(byte[] msg, NetworkStream networkStream) {
             Logger.Info($"[SendData] Sending data with length {msg.Length}.");
-            List<byte> packet = new List<byte>();
 
-            // encrypt message
-            var encryptedMsg = AesEncrypterDecrypter.Encrypt(Encoding.UTF8.GetString(msg));
-
-            // add length of packet - 4B
-            packet.AddRange(BitConverter.GetBytes(encryptedMsg.Length + 4));
-
-            // add content
-            packet.AddRange(encryptedMsg);
-
-            await networkStream.WriteAsync(packet.ToArray(), 0, packet.Count);
-            await networkStream.FlushAsync();
+            await CommunicationUtils.SendAsync(Logger, msg, networkStream);
         }
     }
 }

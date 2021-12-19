@@ -85,5 +85,31 @@ namespace MobileApp.BusinessLogic {
         private static string clearFileNamePathFromApostrophs(string fileNameOrPath) {
             return fileNameOrPath.Replace("'", string.Empty);
         }
+
+        public void AddEventHandler(EventHandler eventHandler) {
+            LoggingEventTarget.NLogFileChangedEventHandlers.Remove(eventHandler);
+            LoggingEventTarget.NLogFileChangedEventHandlers.Add(eventHandler);
+        }
+
+        public bool RemoveEventHandler(EventHandler eventHandler) {
+            return LoggingEventTarget.NLogFileChangedEventHandlers.Remove(eventHandler);
+        }
+    }
+
+    [Target("LoggingEvent")]
+    public sealed class LoggingEventTarget : Target {
+
+        public static List<EventHandler> NLogFileChangedEventHandlers = new List<EventHandler>();
+
+        public LoggingEventTarget() {
+
+        }
+
+        protected override void Write(LogEventInfo logEvent) {
+            // raise events
+            foreach (var eventHandler in NLogFileChangedEventHandlers) {
+                eventHandler?.Invoke(this, null);
+            }
+        }
     }
 }

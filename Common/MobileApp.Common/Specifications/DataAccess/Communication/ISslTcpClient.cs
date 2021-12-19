@@ -10,5 +10,9 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
 
         Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true, bool closeConnectionAfterCallback = true,
             string targetHost = "server");
+
+        byte[] ReadMessage(SslStream sslStream);
+
+        void SendMessage(SslStream sslStream, byte[] msg);
     }
 }

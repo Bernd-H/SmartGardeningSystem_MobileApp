@@ -47,16 +47,16 @@ namespace MobileApp.BusinessLogic.Managers {
             Logger.Info($"[sslStreamOpenCallback]Waiting to receive aes key and iv.");
 
             // receive key
-            var key = DataAccess.Communication.SslTcpClient.ReadMessage(openStream);
+            var key = SslTcpClient.ReadMessage(openStream);
 
             // send ack
-            DataAccess.Communication.SslTcpClient.SendMessage(openStream, CommunicationCodes.ACK);
+            SslTcpClient.SendMessage(openStream, CommunicationCodes.ACK);
 
             // receive iv
-            var iv = DataAccess.Communication.SslTcpClient.ReadMessage(openStream);
+            var iv = SslTcpClient.ReadMessage(openStream);
 
             // send ack
-            DataAccess.Communication.SslTcpClient.SendMessage(openStream, CommunicationCodes.ACK);
+            SslTcpClient.SendMessage(openStream, CommunicationCodes.ACK);
 
             // save the received key information
             Logger.Info($"[sslStreamOpenCallback]Saving the received aes key information.");
