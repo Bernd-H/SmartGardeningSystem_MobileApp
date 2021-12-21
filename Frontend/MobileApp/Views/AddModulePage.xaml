@@ -8,6 +8,9 @@
              x:DataType="viewmodels:AddModuleViewModel"
              x:Class="MobileApp.Views.AddModulePage"
              Title="Configure the new module">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ScrollView>
         <Grid RowDefinitions="Auto,*,Auto">
             <Grid Grid.Row="0" RowDefinitions="100, Auto, Auto">

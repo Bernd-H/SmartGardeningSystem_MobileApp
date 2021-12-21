@@ -41,7 +41,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public Command AddItemCommand { get; }
 
-        public Command AccountCommand { get; }
+        public Command SettingsCommand { get; }
 
         public Command<ModuleInfoDto> ItemTapped { get; }
 
@@ -77,7 +77,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             AddItemCommand = new Command(OnAddItem);
 
             // other commands
-            AccountCommand = new Command(OnAccountTapped);
+            SettingsCommand = new Command(OnSettingsTapped);
             HelpCommand = new Command(OnHelpTapped);
             StartCommand = new Command(OnStartTapped);
             StopCommand = new Command(OnStopTapped);
@@ -158,8 +158,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             await Shell.Current.GoToAsync(PageNames.HelpPage);
         }
 
-        async void OnAccountTapped(object obj) {
-            await Shell.Current.GoToAsync(PageNames.AccountPage);
+        async void OnSettingsTapped(object obj) {
+            await Shell.Current.GoToAsync(PageNames.SettingsPage);
         }
 
         async void OnStartTapped(object obj) {

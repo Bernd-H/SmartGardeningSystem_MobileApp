@@ -85,3 +85,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\ConnectToWlanPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\SelectWlanPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\SignUpPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\Views\SettingsPage.xaml.g.cs

@@ -177,3 +177,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\TinyIoc.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Configuration\NLog.config
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\NLog.config
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Renci.SshNet.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\SshNet.Security.Cryptography.dll

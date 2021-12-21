@@ -121,14 +121,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
                 // get basestation ip
                 Status = "Searching for a local basestation...";
-                var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+                //var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
                 //ConnectingPageLogger.Warn("[BeginConnect]Mocking BasestationIP for test reasons.");
                 //var baseStationFound = false;
-                //var baseStationFound = true;
-                //await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
-                //    currentSettings.BaseStationIP = "10.0.2.2";
-                //    return currentSettings;
-                //});
+                var baseStationFound = true;
+                await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
+                    currentSettings.BaseStationIP = "10.0.2.2";
+                    return currentSettings;
+                });
 
                 if (!baseStationFound) {
                     // try to establish a connection over the external server
@@ -159,7 +159,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     }
                     else {
                         // redirect to login page
-                        await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
+                        await Shell.Current.GoToAsync(PageNames.LoginPage);
                     }
                 }
                 else {

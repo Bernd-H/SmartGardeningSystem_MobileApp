@@ -76,7 +76,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             try {
                 bool success = await APIManager.Login(email, password);
                 if (success) {
-                    await Shell.Current.GoToAsync($"//{PageNames.MainPage}");
+                    await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
                 }
                 else {
                     SnackBar_IsOpen = false;

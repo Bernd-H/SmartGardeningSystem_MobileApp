@@ -6,6 +6,9 @@
              x:DataType="viewmodels:AccountViewModel"
              x:Class="MobileApp.Views.AccountPage"
              Title="Account">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <ScrollView>
             <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="20">

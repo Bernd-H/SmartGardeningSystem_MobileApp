@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="MobileApp.Views.SettingsPage"
+             Title="Settings">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
+    <ContentPage.Content>
+        <Grid Margin="15, 0, 15, 15" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+            <!-- Manuel control -->
+            <!-- Separator (Line) -->
+            <BoxView Grid.Row="0" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" IsVisible="false" />
+            <!-- Button -->
+            <pancake:PancakeView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Label Text="Manual control" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ManualControlCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+            </pancake:PancakeView>
+
+            <!-- Account settings -->
+            <BoxView Grid.Row="2"  HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="3"  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Label Text="Account settings" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AccountSettingsCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+            </pancake:PancakeView>
+            
+            <!-- More settings -->
+            <BoxView Grid.Row="4" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="5" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Label Text="More settings" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding MoreSettingsCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+            </pancake:PancakeView>
+            
+            <!-- Separator (Line) -->
+            <BoxView Grid.Row="6" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -29,6 +29,8 @@ namespace MobileApp {
             _sftpPrivateKeyStream = sftpPrivateKeyStream;
 
             InitializeComponent();
+
+            BusinessLogic.LoggerService.AddCustomLogTargets();
             RegisterDependencies();
 
             MainPage = new AppShell();
@@ -118,6 +120,7 @@ namespace MobileApp {
             container.Register<SelectValvePageViewModel>().AsMultiInstance();
             container.Register<SelectWlanPageViewModel>().AsMultiInstance();
             container.Register<ConnectToWlanPageViewModel>().AsMultiInstance();
+            container.Register<SettingsPageViewModel>().AsSingleton();
         }
     }
 }

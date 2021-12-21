@@ -1,4 +1,6 @@
-﻿namespace MobileApp.Common {
+﻿using System.Threading.Tasks;
+
+namespace MobileApp.Common {
     public static class PageNames {
         public static readonly string LoginPage = "LoginPage";
 
@@ -25,6 +27,8 @@
         public static readonly string ConnectToWlanPage = "ConnectToWlanPage";
 
         public static readonly string SignUpPage = "SignUpPage";
+
+        public static readonly string SettingsPage = "SettingsPage";
 
         public static string GetNavigationString(string page) {
             return $"//{page}";

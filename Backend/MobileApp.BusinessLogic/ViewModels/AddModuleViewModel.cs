@@ -75,12 +75,13 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        public Command SaveCommand { get; }
-
         public string AddModuleImagePath {
             get { return "undraw_Mind_map_re_nlb6"; }
         }
 
+        public ICommand SaveCommand { get; }
+
+        public ICommand BackCommand { get; }
 
         #region properties concerning adding a sensor
 
@@ -115,12 +116,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
             ModuleRepository = moduleRepository;
 
             SaveCommand = new Command(SaveTapped);
+            BackCommand = new Command(BackTapped);
             AddCorrespondingValveCommand = new Command(AddLinkedValveTapped);
             RemoveValveFromModuleCommand = new Command<ModuleInfoDto>(RemoveValveTapped);
             LinkedValves = new ObservableCollection<ModuleInfoDto>();
             WateringSetting_SliderValue = 0;
             WateringMethod_PickerIndex = -1;
             WateringMethods = new List<string>() { Common.Models.Enums.WateringMethods.DROPBYDROP, Common.Models.Enums.WateringMethods.SPRINKLER };
+        }
+
+        async void BackTapped(object obj) {
+            await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
         }
 
         async void SaveTapped(object obj) {

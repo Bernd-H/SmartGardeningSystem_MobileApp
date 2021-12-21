@@ -41,6 +41,7 @@
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
         <ShellContent Route="ConnectingPage" ContentTemplate="{DataTemplate local:ConnectingPage}" />
         <!--<ShellContent Route="WaitingForNewModulePage" ContentTemplate="{DataTemplate local:WaitingForNewModulePage}" />-->
+        <!--<ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}" />-->
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </TabBar>
 

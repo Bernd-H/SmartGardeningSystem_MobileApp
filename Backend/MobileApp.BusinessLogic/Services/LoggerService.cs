@@ -94,6 +94,10 @@ namespace MobileApp.BusinessLogic {
         public bool RemoveEventHandler(EventHandler eventHandler) {
             return LoggingEventTarget.NLogFileChangedEventHandlers.Remove(eventHandler);
         }
+
+        public static void AddCustomLogTargets() {
+            Target.Register<LoggingEventTarget>("LoggingEvent");
+        }
     }
 
     [Target("LoggingEvent")]
