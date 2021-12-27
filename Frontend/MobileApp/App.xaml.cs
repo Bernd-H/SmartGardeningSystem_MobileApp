@@ -15,6 +15,7 @@ using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
 using MobileApp.DataAccess;
 using MobileApp.DataAccess.Communication;
 using TinyIoC;
@@ -42,7 +43,7 @@ namespace MobileApp {
             // check if basestation ip is known and available
             bool isAvailable = false;
             if (!string.IsNullOrEmpty(settings.BaseStationIP)) {
-                //isAvailable = BasestationFinderManager.IsHostAvailable(settings.BaseStationIP);
+                //isAvailable = IpUtils.IsHostAvailable(settings.BaseStationIP);
                 isAvailable = false;
             }
 

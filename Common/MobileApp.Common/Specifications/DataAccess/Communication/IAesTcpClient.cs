@@ -9,7 +9,7 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
         //Task SendData(byte[] msg);
         //Task<byte[]> ReceiveData();
 
-        Task<bool> Start(IPEndPoint remoteEndPoint);
+        Task<bool> Start(IPEndPoint remoteEndPoint, int receiveTimeout);
 
         void Stop();
 

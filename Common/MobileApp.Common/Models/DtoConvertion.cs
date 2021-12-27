@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Models.Enums;
+using MobileApp.Common.Utilities;
 
 namespace MobileApp.Common.Models {
     public static class DtoConvertion {
@@ -26,6 +28,20 @@ namespace MobileApp.Common.Models {
                 Type = new ModuleTypes(module.ModuleTyp),
                 CorrespondingValves = module.AssociatedModules,
                 InformationTimestamp = DateTime.Now
+            };
+        }
+
+        public static ConnectRequestDto ToDto(this ConnectRequest connectRequest) {
+            return new ConnectRequestDto() {
+                BasestationId = connectRequest.BasestationId.ToByteArray(),
+                ForceRelay = connectRequest.ForceRelay
+            };
+        }
+
+        public static ConnectRequestResult FromDto(this ConnectRequestResultDto relayRequestResultDto) {
+            return new ConnectRequestResult() {
+                BasestationNotReachable = relayRequestResultDto.BasestationNotReachable,
+                BasestaionEndPoint = IpUtils.IPEndPoint_TryParse(relayRequestResultDto.BasestaionEndPoint)
             };
         }
     }

@@ -9,4 +9,3 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\Mo
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.Common\obj\Release\netstandard2.0\MobileApp.Common.csproj.CoreCompileInputs.cache
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.Common\obj\Release\netstandard2.0\MobileApp.Common.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.Common\obj\Release\netstandard2.0\MobileApp.Common.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.Common\obj\Release\netstandard2.0\MobileApp.Common.csproj.AssemblyReference.cache

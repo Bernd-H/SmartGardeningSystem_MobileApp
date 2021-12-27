@@ -55,26 +55,5 @@ namespace MobileApp.BusinessLogic.Managers {
 
             return baseStationInfo != null;
         }
-
-        public static bool IsHostAvailable(string ipAddress) {
-            bool pingable = false;
-            Ping pinger = null;
-
-            try {
-                pinger = new Ping();
-                PingReply reply = pinger.Send(ipAddress);
-                pingable = reply.Status == IPStatus.Success;
-            }
-            catch (PingException) {
-                // Discard PingExceptions and return false;
-            }
-            finally {
-                if (pinger != null) {
-                    pinger.Dispose();
-                }
-            }
-
-            return pingable;
-        }
     }
 }

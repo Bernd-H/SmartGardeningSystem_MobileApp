@@ -24,24 +24,24 @@ module0_managed_to_java_duplicates:
 	.type	module1_managed_to_java, %object
 	.p2align	2
 module1_managed_to_java:
-	.long	33554465
-	.long	895
-	.long	33554467
-	.long	896
-	.long	33554469
-	.long	897
-	.size	module1_managed_to_java, 24
-
-	.section	.rodata.module2_managed_to_java,"a",%progbits
-	.type	module2_managed_to_java, %object
-	.p2align	2
-module2_managed_to_java:
 	.long	33554434
 	.long	886
 	.long	33554436
 	.long	656
 	.long	33554437
 	.long	657
+	.size	module1_managed_to_java, 24
+
+	.section	.rodata.module2_managed_to_java,"a",%progbits
+	.type	module2_managed_to_java, %object
+	.p2align	2
+module2_managed_to_java:
+	.long	33554465
+	.long	895
+	.long	33554467
+	.long	896
+	.long	33554469
+	.long	897
 	.size	module2_managed_to_java, 24
 
 	.section	.rodata.module3_managed_to_java,"a",%progbits

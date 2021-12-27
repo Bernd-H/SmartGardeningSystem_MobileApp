@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,144 +8,145 @@
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:views="clr-namespace:MobileApp.Views"
              BackgroundColor="White">
-    <!--<ContentPage.Content>
+    <ContentPage>
+        <!--<ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>-->
+        <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
 
-    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+                <!-- background color -->
+                <StackLayout Grid.Row="0" Grid.RowSpan="4" BackgroundColor="#2aa361"/>
 
-            <!-- background color -->
-            <StackLayout Grid.Row="0" Grid.RowSpan="4" BackgroundColor="#2aa361"/>
-
-            <Image Grid.Row="0" Margin="15,20,20,15"
+                <Image Grid.Row="0" Margin="15,20,20,15"
                     HeightRequest="27"
                     HorizontalOptions="End"
                     Source="info"
                     VerticalOptions="Start"
                     WidthRequest="27" />
 
-            <!--<abstractions:SvgImage Grid.Row="1" SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LoginSvgPath}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />-->
-            <Image Grid.Row="1" Source="{Binding LoginImagePath}" WidthRequest="200" VerticalOptions="Start" />
+                <!--<abstractions:SvgImage Grid.Row="1" SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LoginSvgPath}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />-->
+                <Image Grid.Row="1" Source="{Binding LoginImagePath}" WidthRequest="200" VerticalOptions="Start" />
 
-            <Label Grid.Row="2"
+                <Label Grid.Row="2"
                     Margin="15,15,0,15"
                     FontAttributes="Bold"
                     FontSize="24"
                     Text="Sign up to your account"
                     TextColor="White"
                     VerticalOptions="EndAndExpand" />
-            <pancake:PancakeView
+                <pancake:PancakeView
                     Grid.Row="3"
             Margin="0,0,0,0"
             Padding="15,30,15,15"
             BackgroundColor="White"
             CornerRadius="30,30,0,0"
             VerticalOptions="FillAndExpand">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" VerticalOptions="FillAndExpand" RowSpacing="20">
-                    <StackLayout Grid.Row="0" Spacing="5">
-                        <Label
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" VerticalOptions="FillAndExpand" RowSpacing="20">
+                        <StackLayout Grid.Row="0" Spacing="5">
+                            <Label
                         Margin="10,0,0,0"
                         FontSize="20"
                         Text="Email"
                         TextColor="#99A1B3" />
-                        <pancake:PancakeView
+                            <pancake:PancakeView
                             Margin="5,0,5,0"
                         Padding="10,0,10,0"
                         BackgroundColor="White"
                         CornerRadius="15"
                         HeightRequest="50">
-                            <Entry
+                                <Entry
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             Keyboard="Email"
                             TextColor="#484848"
                             Text="{Binding Email, Mode=OneWayToSource}" />
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow BlurRadius="4" />
-                            </pancake:PancakeView.Shadow>
-                        </pancake:PancakeView>
-                    </StackLayout>
-                    <StackLayout Grid.Row="1" Spacing="5">
-                        <Label
+                                <pancake:PancakeView.Shadow>
+                                    <pancake:DropShadow BlurRadius="4" />
+                                </pancake:PancakeView.Shadow>
+                            </pancake:PancakeView>
+                        </StackLayout>
+                        <StackLayout Grid.Row="1" Spacing="5">
+                            <Label
                         Margin="10,0,0,0"
                         FontSize="20"
                         Text="Password"
                         TextColor="#99A1B3" />
-                        <pancake:PancakeView
+                            <pancake:PancakeView
                             Margin="5,0,5,0"
                         Padding="10,0,10,0"
                         BackgroundColor="White"
                         CornerRadius="15"
                         HeightRequest="50">
-                            <Entry
+                                <Entry
                             FontSize="25"
                              ClearButtonVisibility="WhileEditing"
                             IsPassword="True"
                             TextColor="#484848"
                             Text="{Binding Password, Mode=OneWayToSource}" />
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow BlurRadius="4" />
-                            </pancake:PancakeView.Shadow>
-                        </pancake:PancakeView>
-                    </StackLayout>
-                    <Label Grid.Row="2"
+                                <pancake:PancakeView.Shadow>
+                                    <pancake:DropShadow BlurRadius="4" />
+                                </pancake:PancakeView.Shadow>
+                            </pancake:PancakeView>
+                        </StackLayout>
+                        <Label Grid.Row="2"
                         Margin="0,0,10,10"
                     FontAttributes="None"
                     FontSize="15"
                     HorizontalOptions="EndAndExpand"
                     Text="Forget Password?"
                     TextColor="#99A1B3" />
-                    <pancake:PancakeView
+                        <pancake:PancakeView
                         Grid.Row="3"
                     BackgroundColor="#2f7545"
                     CornerRadius="25"
                     HeightRequest="45"
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="150">
-                        <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
-                        </pancake:PancakeView.GestureRecognizers>
-                        <Label
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                            </pancake:PancakeView.GestureRecognizers>
+                            <Label
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="CenterAndExpand"
                         Text="Login"
                         TextColor="White"
                         VerticalOptions="CenterAndExpand">
-                        </Label>
-                    </pancake:PancakeView>
-                    <Label Grid.Row="4"
+                            </Label>
+                        </pancake:PancakeView>
+                        <Label Grid.Row="4"
                     FontAttributes="None"
                     FontSize="20"
                     HorizontalOptions="CenterAndExpand"
                     Text="Or"
                     TextColor="#99A1B3" />
-                    <Label
+                        <Label
                         Grid.Row="5"
                         FontAttributes="None"
                         FontSize="18"
                         HorizontalOptions="CenterAndExpand"
                         TextColor="#99A1B3"
                         VerticalOptions="CenterAndExpand" >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Don't have an account? " ></Span>
-                                <Span TextColor="#2f7545" Text="Sign Up" ></Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SignUpCommand}"></TapGestureRecognizer>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
-            </pancake:PancakeView>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Don't have an account? " ></Span>
+                                    <Span TextColor="#2f7545" Text="Sign Up" ></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SignUpCommand}"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </pancake:PancakeView>
 
-            <!-- Snack Bar -->
-            <StackLayout Grid.Row="4">
-                <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
+                <!-- Snack Bar -->
+                <StackLayout Grid.Row="4">
+                    <Label Text="" IsVisible="{Binding UpdateViewProperty, Mode=OneWay}" FontSize="0" Margin="0"/>
+                    <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
                              BackgroundColor="#323232" 
                              TextColor="White"
                              IsOpen="{Binding SnackBar_IsOpen, Mode=OneWay}"
@@ -153,8 +154,18 @@
                              Message="{Binding SnackBarMessage, Mode=OneWay}"
                              ButtonTextColor="Orange"
                              CloseButtonText="Exit"/>
-            </StackLayout>
+                </StackLayout>
 
-        </Grid>
-    </ScrollView>
-</ContentPage>
+            </Grid>
+        </ScrollView>
+    </ContentPage>
+
+    <ContentPage>
+        <ScrollView>
+            <Label Text="{Binding Logs, Mode=OneWay}"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand"
+                FontSize="18"/>
+        </ScrollView>
+    </ContentPage>
+</CarouselPage>

@@ -24,24 +24,24 @@ module0_managed_to_java_duplicates:
 	.type	module1_managed_to_java, @object
 	.p2align	2
 module1_managed_to_java:
-	.word	33554465
-	.word	895
-	.word	33554467
-	.word	896
-	.word	33554469
-	.word	897
-	.size	module1_managed_to_java, 24
-
-	.section	.rodata.module2_managed_to_java,"a",@progbits
-	.type	module2_managed_to_java, @object
-	.p2align	2
-module2_managed_to_java:
 	.word	33554434
 	.word	886
 	.word	33554436
 	.word	656
 	.word	33554437
 	.word	657
+	.size	module1_managed_to_java, 24
+
+	.section	.rodata.module2_managed_to_java,"a",@progbits
+	.type	module2_managed_to_java, @object
+	.p2align	2
+module2_managed_to_java:
+	.word	33554465
+	.word	895
+	.word	33554467
+	.word	896
+	.word	33554469
+	.word	897
 	.size	module2_managed_to_java, 24
 
 	.section	.rodata.module3_managed_to_java,"a",@progbits

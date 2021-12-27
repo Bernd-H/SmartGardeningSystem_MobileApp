@@ -14,7 +14,7 @@ namespace MobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\LoginPage.xaml")]
-    public partial class LoginPage : global::Xamarin.Forms.ContentPage {
+    public partial class LoginPage : global::Xamarin.Forms.CarouselPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::MobileApp.Views.SnackBar SnackB;

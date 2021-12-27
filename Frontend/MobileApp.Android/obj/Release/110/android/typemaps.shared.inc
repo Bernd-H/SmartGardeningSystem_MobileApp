@@ -7,14 +7,14 @@
 	.section	.rodata.map_aname.1,"aMS",@progbits,1
 	.type	.L.map_aname.1, @object
 .L.map_aname.1:
-	.asciz	"Xamarin.Forms.PancakeView"
-	.size	.L.map_aname.1, 26
+	.asciz	"MobileApp.Android"
+	.size	.L.map_aname.1, 18
 
 	.section	.rodata.map_aname.2,"aMS",@progbits,1
 	.type	.L.map_aname.2, @object
 .L.map_aname.2:
-	.asciz	"MobileApp.Android"
-	.size	.L.map_aname.2, 18
+	.asciz	"Xamarin.Forms.PancakeView"
+	.size	.L.map_aname.2, 26
 
 	.section	.rodata.map_aname.3,"aMS",@progbits,1
 	.type	.L.map_aname.3, @object

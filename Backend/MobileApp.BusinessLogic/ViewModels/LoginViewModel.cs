@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using MobileApp.Common;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
 using NLog;
@@ -45,19 +47,43 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         #endregion
 
-        private IAPIManager APIManager;
+        #region Show logs content page properties
+
+        private string logs;
+        public string Logs {
+            get => logs;
+            set => SetProperty(ref logs, value);
+        }
+
+
+        private bool updateViewProperty;
+        public bool UpdateViewProperty {
+            get { return updateViewProperty; }
+            set { SetProperty(ref updateViewProperty, value); }
+        }
+
+        #endregion
 
         private ILogger Logger;
+
+        private ILoggerService LoggerService;
+
+        private IAPIManager APIManager;
 
         private IDialogService DialogService;
 
         private ISettingsManager SettingsManager;
 
-        public LoginViewModel(IAPIManager _APIManager, ILoggerService loggerService, IDialogService dialogService, ISettingsManager settingsManager) {
+        private IFileStorage FileStorage;
+
+        public LoginViewModel(ILoggerService loggerService, IAPIManager _APIManager, IDialogService dialogService, ISettingsManager settingsManager,
+            IFileStorage fileStorage) {
             Logger = loggerService.GetLogger<LoginViewModel>();
+            LoggerService = loggerService;
             APIManager = _APIManager;
             DialogService = dialogService;
             SettingsManager = settingsManager;
+            FileStorage = fileStorage;
 
             LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
@@ -99,6 +125,23 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public string LoginImagePath {
             get { return "undraw_authentication_fsn5"; }
+        }
+
+        public async void LoadLogs(object sender, EventArgs eventArgs) {
+            var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
+            string logs;
+            if (File.Exists(logsFilePath)) {
+                //LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
+                logs = await FileStorage.ReadAsString(logsFilePath);
+            }else {
+                logs = "No log file found.";
+            }
+
+            // show logs
+            Logs = logs;
+
+            // to update the view...
+            UpdateViewProperty = !UpdateViewProperty;
         }
     }
 }

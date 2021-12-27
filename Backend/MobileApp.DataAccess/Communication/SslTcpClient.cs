@@ -55,7 +55,7 @@ namespace MobileApp.DataAccess.Communication {
                 result = true;
             }
             catch (Exception ex) {
-                Logger.Error(ex, $"[RunClient]An exception occured.");
+                Logger.Error(ex, $"[RunClient]An exception occured (ep={endPoint.ToString()}).");
                 sslStream?.Close();
                 client?.Close();
             }

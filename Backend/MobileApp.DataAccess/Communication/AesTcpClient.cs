@@ -77,7 +77,7 @@ namespace MobileApp.DataAccess.Communication {
             await CommunicationUtils.SendAsync(Logger, encryptedPacket, networkStream);
         }
 
-        public async Task<bool> Start(IPEndPoint remoteEndPoint) {
+        public async Task<bool> Start(IPEndPoint remoteEndPoint, int receiveTimeout) {
             try {
                 // get aes key + iv
                 var settings = await SettingsManager.GetApplicationSettings();
@@ -86,7 +86,10 @@ namespace MobileApp.DataAccess.Communication {
 
                 tcpClient = new TcpClient();
                 tcpClient.SendTimeout = 1000; // 1s
-                tcpClient.Connect(remoteEndPoint);
+                tcpClient.ReceiveTimeout = receiveTimeout;
+                tcpClient.Client.Blocking = true;
+                //await tcpClient.ConnectAsync(remoteEndPoint.Address, remoteEndPoint.Port);
+                CommunicationUtils.ConnectWithTimout(tcpClient.Client, remoteEndPoint, millisecondsTimeout: 2000);
                 networkStream = tcpClient.GetStream();
 
                 return true;

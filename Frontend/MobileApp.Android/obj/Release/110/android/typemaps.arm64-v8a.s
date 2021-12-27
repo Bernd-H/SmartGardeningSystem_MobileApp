@@ -50,8 +50,8 @@ map_modules:
 	.zero	4
 	.xword	0
 
-	/* module_uuid: dda7950b-8592-4722-a0cf-41c59c2dade4 */
-	.byte	0x0b, 0x95, 0xa7, 0xdd, 0x92, 0x85, 0x22, 0x47, 0xa0, 0xcf, 0x41, 0xc5, 0x9c, 0x2d, 0xad, 0xe4
+	/* module_uuid: 490bb70a-81e8-46eb-8a6b-c08e37d0b041 */
+	.byte	0x0a, 0xb7, 0x0b, 0x49, 0xe8, 0x81, 0xeb, 0x46, 0x8a, 0x6b, 0xc0, 0x8e, 0x37, 0xd0, 0xb0, 0x41
 	/* entry_count */
 	.word	3
 	/* duplicate_count */
@@ -60,7 +60,7 @@ map_modules:
 	.xword	module1_managed_to_java
 	/* duplicate_map */
 	.xword	0
-	/* assembly_name: Xamarin.Forms.PancakeView */
+	/* assembly_name: MobileApp.Android */
 	.xword	.L.map_aname.1
 	/* image */
 	.xword	0
@@ -70,8 +70,8 @@ map_modules:
 	.zero	4
 	.xword	0
 
-	/* module_uuid: 09a08110-13c8-47dc-b6d2-20d692298767 */
-	.byte	0x10, 0x81, 0xa0, 0x09, 0xc8, 0x13, 0xdc, 0x47, 0xb6, 0xd2, 0x20, 0xd6, 0x92, 0x29, 0x87, 0x67
+	/* module_uuid: dda7950b-8592-4722-a0cf-41c59c2dade4 */
+	.byte	0x0b, 0x95, 0xa7, 0xdd, 0x92, 0x85, 0x22, 0x47, 0xa0, 0xcf, 0x41, 0xc5, 0x9c, 0x2d, 0xad, 0xe4
 	/* entry_count */
 	.word	3
 	/* duplicate_count */
@@ -80,7 +80,7 @@ map_modules:
 	.xword	module2_managed_to_java
 	/* duplicate_map */
 	.xword	0
-	/* assembly_name: MobileApp.Android */
+	/* assembly_name: Xamarin.Forms.PancakeView */
 	.xword	.L.map_aname.2
 	/* image */
 	.xword	0
@@ -7241,7 +7241,7 @@ map_java:
 
 	/* #656 */
 	/* module_index */
-	.word	2
+	.word	1
 	/* type_token_id */
 	.word	33554436
 	/* java_name */
@@ -7251,7 +7251,7 @@ map_java:
 
 	/* #657 */
 	/* module_index */
-	.word	2
+	.word	1
 	/* type_token_id */
 	.word	33554437
 	/* java_name */
@@ -9541,7 +9541,7 @@ map_java:
 
 	/* #886 */
 	/* module_index */
-	.word	2
+	.word	1
 	/* type_token_id */
 	.word	33554434
 	/* java_name */
@@ -9631,7 +9631,7 @@ map_java:
 
 	/* #895 */
 	/* module_index */
-	.word	1
+	.word	2
 	/* type_token_id */
 	.word	33554465
 	/* java_name */
@@ -9641,7 +9641,7 @@ map_java:
 
 	/* #896 */
 	/* module_index */
-	.word	1
+	.word	2
 	/* type_token_id */
 	.word	33554467
 	/* java_name */
@@ -9651,7 +9651,7 @@ map_java:
 
 	/* #897 */
 	/* module_index */
-	.word	1
+	.word	2
 	/* type_token_id */
 	.word	33554469
 	/* java_name */

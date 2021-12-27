@@ -17,6 +17,8 @@ namespace MobileApp.Views {
         }
 
         protected override void OnCurrentPageChanged() {
+            base.OnCurrentPageChanged();
+
             if (BindingContext != null) {
                 connectingPageSelected = !connectingPageSelected;
 

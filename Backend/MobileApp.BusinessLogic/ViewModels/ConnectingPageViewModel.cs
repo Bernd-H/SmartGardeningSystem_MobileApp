@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -104,8 +105,15 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         public async void LoadLogs(object sender, EventArgs eventArgs) {
-            //LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
-            var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
+            var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
+            string logs;
+            if (File.Exists(logsFilePath)) {
+                //LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
+                logs = await FileStorage.ReadAsString(logsFilePath);
+            }
+            else {
+                logs = "No log file found.";
+            }
 
             // show logs
             Logs = logs;
@@ -121,14 +129,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
                 // get basestation ip
                 Status = "Searching for a local basestation...";
-                //var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+                var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
                 //ConnectingPageLogger.Warn("[BeginConnect]Mocking BasestationIP for test reasons.");
                 //var baseStationFound = false;
-                var baseStationFound = true;
-                await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
-                    currentSettings.BaseStationIP = "10.0.2.2";
-                    return currentSettings;
-                });
+                //var baseStationFound = true;
+                //await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
+                //    currentSettings.BaseStationIP = "10.0.2.2";
+                //    return currentSettings;
+                //});
 
                 if (!baseStationFound) {
                     // try to establish a connection over the external server
@@ -159,11 +167,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     }
                     else {
                         // redirect to login page
-                        await Shell.Current.GoToAsync(PageNames.LoginPage);
+                        await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
                     }
                 }
                 else {
-                    ConnectingPageLogger.Info("Could not find a basestation in the local network!");
+                    ConnectingPageLogger.Info("Finding a basestation failed!");
                     ActivityIndicatorIsVisible = false;
                     await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
                         Status = "No basestation found! Please restart the application.";

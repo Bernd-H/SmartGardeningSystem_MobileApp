@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
@@ -33,8 +34,15 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void loadLogs() {
-            LoggerService.GetLogger<LogsPageViewModel>().Info($"[loadLogs]Loading logs.");
-            var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
+            var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
+            string logs;
+            if (File.Exists(logsFilePath)) {
+                //LoggerService.GetLogger<LogsPageViewModel>().Trace($"[LoadLogs]Loading logs.");
+                logs = await FileStorage.ReadAsString(logsFilePath);
+            }
+            else {
+                logs = "No log file found.";
+            }
 
             // remove button
             IsButtonVisible = false;
