@@ -26,7 +26,7 @@ namespace MobileApp.Common.Utilities {
                     readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
 
                     if (readBytes == 0) {
-                        //throw new ConnectionClosedException(networkStreamId);
+                        throw new ConnectionClosedException();
                     }
                     if (readBytes < buffer.Length) {
                         var tmp = new List<byte>(buffer);
@@ -41,10 +41,8 @@ namespace MobileApp.Common.Utilities {
                 return packet.ToArray();
             }
             catch (ObjectDisposedException) {
-                //throw new ConnectionClosedException(networkStreamId);
+                throw new ConnectionClosedException();
             }
-
-            return new byte[0];
         }
 
 

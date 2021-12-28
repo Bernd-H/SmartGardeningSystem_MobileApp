@@ -9,7 +9,9 @@
              x:DataType="viewmodels:SGModuleDetailViewModel"
              Title="{Binding Title}"
              BackgroundColor="WhiteSmoke">
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto">
             <pancake:PancakeView Grid.Row="0" Grid.RowSpan="2" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">

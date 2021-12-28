@@ -12,7 +12,7 @@ namespace MobileApp.DataAccess.Communication {
 
         /// <summary>
         /// Maximum time to await an answer after the message to the multicast group got sent.
-        /// (Set to 3 seconds)
+        /// (Set to 5 seconds)
         /// </summary>
         static TimeSpan ReceiveTimeOut = new TimeSpan(0, 0, 5);
 

@@ -13,7 +13,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(SelectWlanPageViewModel.NavigationString), nameof(NavigationString))]
     public class SelectWlanPageViewModel : BaseViewModel {
 
+        /// <summary>
+        /// String to navigate to a specific page after the wlan selection + connection process is completed 
+        /// </summary>
         public string NavigationString { get; set; }
+
 
         public ObservableCollection<WlanInfoDto> Wlans { get; }
 
@@ -22,6 +26,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
         public ICommand LoadItemsCommand { get; }
 
         public ICommand NoWlanCommand { get; }
+
+        public ICommand BackCommand { get; }
 
 
         private ICachePageDataService CachePageDataService;
@@ -36,6 +42,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             ItemTapped = new Command<WlanInfoDto>(OnItemSelected);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             NoWlanCommand = new Command(NoWlanTapped);
+            BackCommand = new Command(OnBackTapped);
         }
 
         async Task ExecuteLoadItemsCommand() {
@@ -78,6 +85,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
 
             await Shell.Current.GoToAsync(NavigationString);
+        }
+
+        void OnBackTapped(object obj) {
+            NoWlanTapped();
         }
     }
 }

@@ -29,12 +29,12 @@
                 </pancake:PancakeView.GestureRecognizers>
             </pancake:PancakeView>
             
-            <!-- More settings -->
+            <!-- Change wlan -->
             <BoxView Grid.Row="4" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
             <pancake:PancakeView Grid.Row="5" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-                <Label Text="More settings" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <Label Text="Change WLAN" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding MoreSettingsCommand}"></TapGestureRecognizer>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeWlanCommand}"></TapGestureRecognizer>
                 </pancake:PancakeView.GestureRecognizers>
             </pancake:PancakeView>
             

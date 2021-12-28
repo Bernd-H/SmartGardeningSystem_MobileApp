@@ -26,7 +26,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public string NavigationString { get; set; }
 
-
+        #region page elements
         public ICommand AbortCommand { get; }
         public ICommand ConnectCommand { get; }
 
@@ -50,7 +50,27 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        private WlanInfoDto wlanInfo;
+        #region Snack bar elements
+
+        private string snackBarMessage;
+        public string SnackBarMessage {
+            get => snackBarMessage;
+            set => SetProperty(ref snackBarMessage, value);
+        }
+
+        private bool snackBar_IsOpen;
+        public bool SnackBar_IsOpen {
+            get => snackBar_IsOpen;
+            set => SetProperty(ref snackBar_IsOpen, value);
+        }
+
+        #endregion
+        #endregion
+
+
+        private WlanInfoDto _wlanInfo;
+
+        private bool _connecting;
 
 
         private ICachePageDataService CachePageDataService;
@@ -73,40 +93,58 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             AbortCommand = new Command(OnAbortTapped);
             ConnectCommand = new Command(async () => await OnConnectTapped());
+
+            _connecting = false;
         }
 
         async Task OnConnectTapped() {
-            if (string.IsNullOrEmpty(NavigationString)) {
-                NavigationString = PageNames.LoginPage;
-            }
+            if (!_connecting) {
+                try {
+                    _connecting = true;
+                    SnackBarMessage = "Please wait. Connecting...";
+                    SnackBar_IsOpen = true;
 
-            if (string.IsNullOrEmpty(SelectedWlan_CacheId) || wlanInfo == null) {
-                await DialogService.ShowMessage("Selected wlan did not get passed to this page!", "ERROR", "Ok", null);
-                await Shell.Current.GoToAsync(NavigationString);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(WlanPassword)) {
-                await DialogService.ShowMessage("Please enter a valid password first!", "ERROR", "Ok", null);
-                return;
-            }
+                    if (string.IsNullOrEmpty(NavigationString)) {
+                        NavigationString = PageNames.LoginPage;
+                    }
+                    if (string.IsNullOrEmpty(SelectedWlan_CacheId) || _wlanInfo == null) {
+                        await DialogService.ShowMessage("Selected wlan did not get passed to this page!", "ERROR", "Ok", null);
+                        await Shell.Current.GoToAsync(NavigationString);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(WlanPassword)) {
+                        await DialogService.ShowMessage("Please enter a valid password first!", "ERROR", "Ok", null);
+                        return;
+                    }
 
-            // encrypt password
-            var settings = await SettingsManager.GetApplicationSettings();
-            if (settings.AesIV != null && settings.AesKey != null) {
-                wlanInfo.EncryptedPassword = AesEncrypterDecrypter.Encrypt(WlanPassword);
+                    // encrypt password
+                    var settings = await SettingsManager.GetApplicationSettings();
+                    if (settings.AesIV != null && settings.AesKey != null) {
+                        _wlanInfo.EncryptedPassword = AesEncrypterDecrypter.Encrypt(WlanPassword);
 
-                // pass the information to the basestation
-                var success = await CommandManager.ConnectToWlan(wlanInfo);
-                if (success) {
-                    await DialogService.ShowMessage($"Successfully connected basestation to wlan {wlanInfo.Ssid}!", "Info", "Ok", null);
-                    await Shell.Current.GoToAsync(NavigationString);
-                } else {
-                    await DialogService.ShowMessage("Could not connect to wlan.", "Error", "Ok", null);
+                        // pass the information to the basestation
+                        var success = await CommandManager.ConnectToWlan(_wlanInfo);
+                        if (success) {
+                            await DialogService.ShowMessage($"Successfully connected basestation to wlan {_wlanInfo.Ssid}!\n" +
+                                $"Please restart the app and reconnect to your basestation.", "Info", "Ok", null);
+                            await Shell.Current.GoToAsync(NavigationString);
+                        }
+                        else {
+                            await DialogService.ShowMessage("Could not connect to wlan.", "Error", "Ok", null);
+                        }
+                    }
+                    else {
+                        await DialogService.ShowMessage("No keys got exchanged with the server.", "Error", "Ok", null);
+                        await Shell.Current.GoToAsync(NavigationString);
+                    }
+                }
+                finally {
+                    SnackBar_IsOpen = false;
+                    _connecting = false;
                 }
             }
             else {
-                await DialogService.ShowMessage("No keys got exchanged with the server.", "Error", "Ok", null);
-                await Shell.Current.GoToAsync(NavigationString);
+                await DialogService.ShowMessage("Already connecting...\nPlease wait.", "Info", "Ok", null);
             }
         }
 
@@ -120,10 +158,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         void loadWlanInfo() {
             // get object to store the connect information in (ssid, password)
-            wlanInfo = CachePageDataService.RemoveFromStore(Guid.Parse(SelectedWlan_CacheId)) as WlanInfoDto;
+            _wlanInfo = CachePageDataService.RemoveFromStore(Guid.Parse(SelectedWlan_CacheId)) as WlanInfoDto;
 
             // display ssid
-            SSID_Text = $"{wlanInfo.Ssid}:";
+            SSID_Text = $"{_wlanInfo.Ssid}:";
         }
     }
 }

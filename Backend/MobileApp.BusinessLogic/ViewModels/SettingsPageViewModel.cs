@@ -11,7 +11,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public ICommand AccountSettingsCommand { get; set; }
 
-        public ICommand MoreSettingsCommand { get; set; }
+        public ICommand ChangeWlanCommand { get; set; }
 
         public ICommand BackCommand { get; set; }
 
@@ -24,7 +24,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             ManualControlCommand = new Command(ManualControlTapped);
             AccountSettingsCommand = new Command(AccountSettingsTapped);
-            MoreSettingsCommand = new Command(MoreSettingsTapped);
+            ChangeWlanCommand = new Command(ChangeWlanTapped);
             BackCommand = new Command(OnBackTapped);
         }
 
@@ -32,8 +32,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
         }
 
-        private async void MoreSettingsTapped(object obj) {
-            //await Shell.Current.GoToAsync(PageNames.)
+        private async void ChangeWlanTapped(object obj) {
+            await Shell.Current.GoToAsync($"{PageNames.SelectWlanPage}?{nameof(SelectWlanPageViewModel.NavigationString)}={PageNames.SettingsPage}");
         }
 
         private async void AccountSettingsTapped(object obj) {

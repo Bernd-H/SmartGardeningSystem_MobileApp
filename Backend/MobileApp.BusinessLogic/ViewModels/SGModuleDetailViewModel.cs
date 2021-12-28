@@ -109,7 +109,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
             get { return "undraw_tabs"; }
         }
 
-        public Command RemoveCommand { get; }
+        public ICommand RemoveCommand { get; }
+
+        public ICommand BackCommand { get; }
 
         #endregion
 
@@ -137,6 +139,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             Title = "Module Info";
             RemoveCommand = new Command(OnRemoveClicked);
+            BackCommand = new Command(OnBackTapped);
             LinkedValves = new ObservableCollection<ModuleInfoDto>();
             AddCorrespondingValveCommand = new Command(AddCorrespondingValveTapped);
             RemoveValveFromModuleCommand = new Command<ModuleInfoDto>(RemoveValveTapped);
@@ -197,6 +200,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 await DialogService.ShowMessage("Error while removing module!", "Error", "Ok", null);
             }
 
+            await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+        }
+
+        async void OnBackTapped(object obj) {
             await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
         }
 

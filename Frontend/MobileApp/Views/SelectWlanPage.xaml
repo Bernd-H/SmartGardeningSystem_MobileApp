@@ -7,6 +7,9 @@
              x:DataType="viewmodels:SelectWlanPageViewModel"
              x:Class="MobileApp.Views.SelectWlanPage"
              Title="Select a available wifi">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <Grid RowDefinitions="2*">
             <!-- list available wlans -->

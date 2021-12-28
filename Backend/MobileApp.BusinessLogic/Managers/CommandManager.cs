@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Exceptions;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
@@ -41,7 +42,12 @@ namespace MobileApp.BusinessLogic.Managers {
                         await AesTcpClient.SendData(Encoding.UTF8.GetBytes(connectInfo_json));
 
                         // receive return code
-                        success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
+                        try {
+                            success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
+                        } catch (ConnectionClosedException) {
+                            // return code won't get received if CommandServer connected to another wlan successfully
+                            success = true;
+                        }
                     }
                 } catch (Exception ex) {
                     success = false;
