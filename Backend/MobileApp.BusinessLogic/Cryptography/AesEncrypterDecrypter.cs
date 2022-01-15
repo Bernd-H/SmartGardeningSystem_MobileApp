@@ -21,7 +21,7 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
         public byte[] Decrypt(byte[] data, byte[] key, byte[] iv) {
             try {
-                Logger.Info($"[Decrypt]Decrypting byte array with length={data.Length}.");
+                Logger.Trace($"[Decrypt]Decrypting byte array with length={data.Length}.");
                 return DecryptByteArray(data, key, iv);
             }
             catch (Exception ex) {
@@ -32,7 +32,7 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
         public byte[] Encrypt(string data) {
             try {
-                Logger.Info($"[Encrypt]Encrypting string with length={data.Length}.");
+                Logger.Trace($"[Encrypt]Encrypting string with length={data.Length}.");
                 var settings = SettingsManager.GetApplicationSettings().Result;
                 return EncryptByteArray(Encoding.UTF8.GetBytes(data), settings.AesKey, settings.AesIV);
             }
@@ -40,14 +40,14 @@ namespace MobileApp.BusinessLogic.Cryptography {
                 throw; // wrong key size for example
             }
             catch (Exception ex) {
-                Logger.Fatal(ex, $"[Encrypt]Error while encrypting data.");
+                Logger.Error(ex, $"[Encrypt]Error while encrypting data.");
                 throw;
             }
         }
 
         public byte[] Encrypt(byte[] data, byte[] key, byte[] iv) {
             try {
-                Logger.Info($"[Encrypt]Encrypting byte array with length={data.Length}.");
+                Logger.Trace($"[Encrypt]Encrypting byte array with length={data.Length}.");
                 return EncryptByteArray(data, key, iv);
             }
             catch (Exception ex) {
@@ -56,8 +56,8 @@ namespace MobileApp.BusinessLogic.Cryptography {
             }
         }
 
-        private void GenerateAndStoreSymmetricKey() {
-            Logger.Info($"[GenerateAndStoreSymmetricKey]Generating and storing an aes key.");
+        private void generateAndStoreSymmetricKey() {
+            Logger.Info($"[generateAndStoreSymmetricKey]Generating and storing an aes key.");
             using (var myRijndael = new RijndaelManaged()) {
                 myRijndael.GenerateKey();
                 myRijndael.GenerateIV();

@@ -30,32 +30,36 @@ namespace MobileApp.BusinessLogic.Cryptography {
             _sslSteram = sslStream;
         }
 
-        public async Task<byte[]> ReceiveData() {
+        public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
             Logger.Trace($"[ReceiveData]Waiting to receive encrypted data.");
-            byte[] encryped = CommunicationUtils.Receive(null, _sslSteram);
+            byte[] encryped = await CommunicationUtils.ReceiveAsync(null, _sslSteram, cancellationToken);
+            if (cancellationToken.IsCancellationRequested) {
+                return null;
+            }
 
             var settings = await SettingsManager.GetApplicationSettings();
 
             return AesEncrypterDecrypter.Decrypt(encryped, settings.AesKey, settings.AesIV);
         }
 
-        public async Task<byte[]> SendAndReceiveData(byte[] msg) {
+        public async Task<byte[]> SendAndReceiveData(byte[] msg, CancellationToken cancellationToken = default) {
             await LOCKER.WaitAsync();
 
-            await SendData(msg);
-            var received = await ReceiveData();
+            await SendData(msg, cancellationToken);
+            var received = await ReceiveData(cancellationToken);
 
             LOCKER.Release();
             return received;
         }
 
-        public async Task SendData(byte[] msg) {
+        public async Task SendData(byte[] msg, CancellationToken cancellationToken = default) {
             Logger.Trace($"[SendData]Sending {msg.Length} bytes encrypted.");
             var settings = await SettingsManager.GetApplicationSettings();
 
             byte[] encrypedMessage = AesEncrypterDecrypter.Encrypt(msg, settings.AesKey, settings.AesIV);
 
-            CommunicationUtils.Send(null, encrypedMessage, _sslSteram);
+            //CommunicationUtils.Send(null, encrypedMessage, _sslSteram);
+            await CommunicationUtils.SendAsync(null, encrypedMessage, _sslSteram, cancellationToken);
         }
     }
 }

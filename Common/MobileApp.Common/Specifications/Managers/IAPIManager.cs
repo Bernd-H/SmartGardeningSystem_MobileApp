@@ -55,5 +55,7 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<bool> IsBasestationConnectedToWlan();
 
         Task<IEnumerable<WlanInfo>> GetWlans();
+
+        Task<SystemStatus> GetSystemStatus();
     }
 }

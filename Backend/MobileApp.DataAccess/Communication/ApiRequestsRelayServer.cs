@@ -22,6 +22,8 @@ namespace MobileApp.DataAccess.Communication {
 
         private CancellationToken _cancellationToken;
 
+        private SemaphoreSlim _locker = new SemaphoreSlim(1);
+
 
         private IEncryptedTunnel _relayTunnel;
 
@@ -83,10 +85,13 @@ namespace MobileApp.DataAccess.Communication {
                 // get all data
                 //while (!_cancellationToken.IsCancellationRequested) {
                     byte[] data = await Receive(networkStream);
+
+                //try {
+                    //await _locker.WaitAsync();
                     //byte[] data = GetRequestOrAnswer(networkStream);
 
-                    var a = Encoding.UTF8.GetString(data);
-                    Console.WriteLine($"Sent to server:\n{a}\n----END----");
+                    //var a = Encoding.UTF8.GetString(data);
+                    //Console.WriteLine($"Sent to server:\n{a}\n----END----");
 
                     // pack data to an object
                     IWanPackage wanPackage = new WanPackage() {
@@ -100,10 +105,10 @@ namespace MobileApp.DataAccess.Communication {
                     };
                     var wanPackageJson = JsonConvert.SerializeObject(wanPackage);
 
-                // tunnel data threw tunnel and wait for answer
-                //await _relayTunnel.SendData(Encoding.UTF8.GetBytes(wanPackageJson));
-                //byte[] answer = await _relayTunnel.ReceiveData();
-                byte[] answer = await _relayTunnel.SendAndReceiveData(Encoding.UTF8.GetBytes(wanPackageJson));
+                    // tunnel data threw tunnel and wait for answer
+                    //await _relayTunnel.SendData(Encoding.UTF8.GetBytes(wanPackageJson));
+                    //byte[] answer = await _relayTunnel.ReceiveData();
+                    byte[] answer = await _relayTunnel.SendAndReceiveData(Encoding.UTF8.GetBytes(wanPackageJson));
 
                     // deserialize wan package
                     var answerWanPackage = JsonConvert.DeserializeObject<WanPackage>(Encoding.UTF8.GetString(answer));
@@ -111,12 +116,16 @@ namespace MobileApp.DataAccess.Communication {
                     var b = Encoding.UTF8.GetString(answerWanPackage.Package);
                     Console.WriteLine($"Got form server:\n{b}\n----END----");
 
-                //b += "0\r\n\r\n";
+                    //b += "0\r\n\r\n";
 
-                //answerWanPackage.Package = Encoding.UTF8.GetBytes(b);
+                    //answerWanPackage.Package = Encoding.UTF8.GetBytes(b);
 
                     // send answer back to request maker
                     await Send(answerWanPackage.Package, networkStream);
+                    //}
+                //}
+                //finally {
+                //    _locker?.Release();
                 //}
             } catch(Exception ex) {
                 Logger.Fatal(ex, $"[AcceptTcpClientCallback]An error occured in api relay server.");

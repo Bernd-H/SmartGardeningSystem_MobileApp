@@ -2,9 +2,10 @@
 
 namespace MobileApp.Common.Models.Entities.Configuration {
     public class ConnectionSettings : IConnectionSettings {
-        public int LocalPeerDiscovery_port { get; set; }
 
-        public string LocalPeerDiscovery_multicastIP { get; set; }
+        //public int LocalPeerDiscovery_port { get; set; }
+
+        //public string LocalPeerDiscovery_multicastIP { get; set; }
 
 
         public string API_URL_Login { get; set; }
@@ -14,6 +15,8 @@ namespace MobileApp.Common.Models.Entities.Configuration {
         public string API_URL_Modules { get; set; }
 
         public string API_URL_Wlan { get; set; }
+
+        public string API_URL_SystemStatus { get; set; }
 
         public int API_Port { get; set; }
 

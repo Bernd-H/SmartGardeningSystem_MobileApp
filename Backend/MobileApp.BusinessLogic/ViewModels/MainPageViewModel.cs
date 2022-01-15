@@ -45,6 +45,23 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public Command<ModuleInfoDto> ItemTapped { get; }
 
+        private string status = "-";
+        public string Status {
+            get => status;
+            set => SetProperty(ref status, value);
+        }
+
+        private string temperature = "-";
+        public string Temperature {
+            get => temperature;
+            set => SetProperty(ref temperature, value);
+        }
+
+        private string systemUpTime = "-";
+        public string SystemUpTime {
+            get => systemUpTime;
+            set => SetProperty(ref systemUpTime, value);
+        }
 
         private ILogger Logger;
 
@@ -54,13 +71,13 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDataStore<ModuleInfoDto> ModuleRepository;
 
-        private APIManager APIManager;
+        private IAPIManager APIManager;
 
         private ISettingsManager SettingsManager;
 
         private IFileStorage FileStorage;
 
-        public MainPageViewModel(ILoggerService loggerService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, APIManager _APIManager,
+        public MainPageViewModel(ILoggerService loggerService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, IAPIManager _APIManager,
             ISettingsManager settingsManager, IFileStorage fileStorage) {
             Logger = loggerService.GetLogger<MainPageViewModel>();
             LoggerService = loggerService;
@@ -85,20 +102,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
             ViewLogsPageCommand = new Command(OnViewLogsPageTapped);
         }
 
-        public Task LoadLogs() {
-            return Task.Run(async () => {
-                Logger.Info($"[LoadLogs]Loading logs.");
-                var logs = await FileStorage.ReadAsString(LoggerService.GetLogFilePath(allLogsFile: false));
-
-                // show logs
-                Logs = logs;
-            });
-        }
-
         async Task ExecuteLoadItemsCommand() {
             IsBusy = true;
 
             try {
+                // load system status info
+                var sysStatus = await APIManager.GetSystemStatus();
+                Status = sysStatus.WateringStatus;
+                Temperature = sysStatus.Temperature.ToString() + "°C";
+                SystemUpTime = sysStatus.SystemUpTime;
+
+                // load modules
                 Items.Clear();
                 var items = await ModuleRepository.GetItemsAsync(true);
                 foreach (var item in items) {
@@ -110,7 +124,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
             }
             catch (Exception ex) {
-                Debug.WriteLine(ex);
+                Logger.Error(ex, $"[ExecuteLoadItemsCommand]An error occured while getting modules.");
             }
             finally {
                 IsBusy = false;
@@ -121,25 +135,29 @@ namespace MobileApp.BusinessLogic.ViewModels {
             IsBusy = true;
             SelectedItem = null;
 
-            if (SettingsManager.GetRuntimeVariables().LoadedMainPageFirstTime) {
-                // update runtime variable
-                SettingsManager.UpdateCurrentRuntimeVariables((rv) => {
-                    rv.LoadedMainPageFirstTime = false;
-                    return rv;
-                });
+            #region Show connect to wlan page
 
-                try {
-                    if (await APIManager.IsBasestationConnectedToWlan() == false) {
-                        // show page to select a wlan to connect the basestation to
-                        string navigationString = PageNames.GetNavigationString(PageNames.MainPage);
-                        await Shell.Current.GoToAsync($"{PageNames.SelectWlanPage}?{nameof(SelectWlanPageViewModel.NavigationString)}={navigationString}");
-                    }
-                }
-                catch (UnauthorizedAccessException) {
-                    // stored token invalid -> login again
-                    // login page will get called in ExecuteLoadItemsCommand() after trying to get all modules
-                }
-            }
+            //if (SettingsManager.GetRuntimeVariables().LoadedMainPageFirstTime) {
+            //    // update runtime variable
+            //    SettingsManager.UpdateCurrentRuntimeVariables((rv) => {
+            //        rv.LoadedMainPageFirstTime = false;
+            //        return rv;
+            //    });
+
+            //    try {
+            //        if (await APIManager.IsBasestationConnectedToWlan() == false) {
+            //            // show page to select a wlan to connect the basestation to
+            //            string navigationString = PageNames.GetNavigationString(PageNames.MainPage);
+            //            await Shell.Current.GoToAsync($"{PageNames.SelectWlanPage}?{nameof(SelectWlanPageViewModel.NavigationString)}={navigationString}");
+            //        }
+            //    }
+            //    catch (UnauthorizedAccessException) {
+            //        // stored token invalid -> login again
+            //        // login page will get called in ExecuteLoadItemsCommand() after trying to get all modules
+            //    }
+            //}
+
+            #endregion
         }
 
         public ModuleInfoDto SelectedItem {

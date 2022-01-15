@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Models.Enums;
@@ -38,10 +39,44 @@ namespace MobileApp.Common.Models {
             };
         }
 
+        public static ApplicationSettingsDto ToDto(this ApplicationSettings applicationSettings) {
+            return new ApplicationSettingsDto() {
+                AesIV = applicationSettings.AesIV,
+                AesKey = applicationSettings.AesKey,
+                BasestationCert = (applicationSettings.BasestationCert != null) ? new X509Certificate(applicationSettings.BasestationCert) : null,
+                BasestationId = applicationSettings.BasestationId,
+                BaseStationIP = applicationSettings.BaseStationIP,
+                Id = applicationSettings.Id,
+                SessionAPIToken = applicationSettings.SessionAPIToken
+            };
+        }
+
         public static ConnectRequestResult FromDto(this ConnectRequestResultDto relayRequestResultDto) {
             return new ConnectRequestResult() {
                 BasestationNotReachable = relayRequestResultDto.BasestationNotReachable,
                 BasestaionEndPoint = IpUtils.IPEndPoint_TryParse(relayRequestResultDto.BasestaionEndPoint)
+            };
+        }
+
+        public static SystemStatus FromDto(this SystemStatusDto systemStatusDto) {
+            string wateringStatus = nameof(systemStatusDto.WateringStatus);
+
+            return new SystemStatus {
+                SystemUpTime = TimeSpan.FromMinutes(systemStatusDto.SystemUpMinutes).ToString(),
+                Temperature = systemStatusDto.Temperature,
+                WateringStatus = wateringStatus
+            };
+        }
+
+        public static ApplicationSettings FromDto(this ApplicationSettingsDto applicationSettingsDto) {
+            return new ApplicationSettings() {
+                AesIV = applicationSettingsDto.AesIV,
+                AesKey = applicationSettingsDto.AesKey,
+                BasestationCert = (applicationSettingsDto.BasestationCert != null) ? applicationSettingsDto.BasestationCert.GetRawCertData() : null,
+                BasestationId = applicationSettingsDto.BasestationId,
+                BaseStationIP = applicationSettingsDto.BaseStationIP,
+                Id = applicationSettingsDto.Id,
+                SessionAPIToken = applicationSettingsDto.SessionAPIToken
             };
         }
     }

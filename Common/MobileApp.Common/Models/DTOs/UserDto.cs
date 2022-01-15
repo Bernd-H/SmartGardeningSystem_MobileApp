@@ -4,11 +4,10 @@ using System.Text;
 using MobileApp.Common.Specifications.DataObjects;
 
 namespace MobileApp.Common.Models.DTOs {
-    public class UserDto : IDO {
-        public Guid Id { get; set; }
+    public class UserDto { 
 
-        public byte[] AesEncryptedEmail { get; set; }
+        public string Username { get; set; }
 
-        public byte[] AesEncryptedPassword { get; set; }
+        public string Password { get; set; }
     }
 }

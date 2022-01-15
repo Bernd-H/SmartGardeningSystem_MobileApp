@@ -47,10 +47,13 @@ namespace MobileApp.DataAccess.Communication {
             return tcpClient?.Connected ?? false;
         }
 
-        public async Task<byte[]> ReceiveData() {
+        public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
             Logger.Info($"[ReceiveData]Waiting to receive data from {tcpClient.Client.RemoteEndPoint.ToString()}.");
 
-            byte[] packet = await CommunicationUtils.ReceiveAsync(Logger, networkStream);
+            byte[] packet = await CommunicationUtils.ReceiveAsync(Logger, networkStream, cancellationToken);
+            if (cancellationToken.IsCancellationRequested) {
+                return null;
+            }
 
             // decrypt message
             byte[] decryptedPacket = AesEncrypterDecrypter.Decrypt(packet, AesKey, AesIV);
@@ -58,23 +61,23 @@ namespace MobileApp.DataAccess.Communication {
             return decryptedPacket;
         }
 
-        public async Task<byte[]> SendAndReceiveData(byte[] msg) {
+        public async Task<byte[]> SendAndReceiveData(byte[] msg, CancellationToken cancellationToken = default) {
             await LOCKER.WaitAsync();
 
-            await SendData(msg);
-            var received = await ReceiveData();
+            await SendData(msg, cancellationToken);
+            var received = await ReceiveData(cancellationToken);
 
             LOCKER.Release();
             return received;
         }
 
-        public async Task SendData(byte[] msg) {
+        public async Task SendData(byte[] msg, CancellationToken cancellationToken = default) {
             Logger.Info($"[SendData] Sending data with length {msg.Length}.");
 
             // encrypt message
             byte[] encryptedPacket = AesEncrypterDecrypter.Encrypt(msg, AesKey, AesIV);
 
-            await CommunicationUtils.SendAsync(Logger, encryptedPacket, networkStream);
+            await CommunicationUtils.SendAsync(Logger, encryptedPacket, networkStream, cancellationToken);
         }
 
         public async Task<bool> Start(IPEndPoint remoteEndPoint, int receiveTimeout) {

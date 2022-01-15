@@ -73,7 +73,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 var basestationIP = await GetBasestationIP();
                 if (!string.IsNullOrEmpty(basestationIP)) {
                     int port = ConfigurationStore.GetConfig().ConnectionSettings.CommandsListener_Port;
-                    return await AesTcpClient.Start(new IPEndPoint(IPAddress.Parse(basestationIP), port), receiveTimeout: 10000);
+                    return await AesTcpClient.Start(new IPEndPoint(IPAddress.Parse(basestationIP), port), receiveTimeout: 3*60*1000);
                 }
 
                 return false;

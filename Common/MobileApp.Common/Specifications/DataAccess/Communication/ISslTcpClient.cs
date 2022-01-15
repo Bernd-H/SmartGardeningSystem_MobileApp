@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MobileApp.Common.Specifications.DataAccess.Communication {
 
-    public delegate void SslStreamOpenCallback(SslStream openStream);
+    public delegate void SslStreamOpenCallback(SslStream openStream, X509Certificate x509Certificate);
 
     public interface ISslTcpClient {
 

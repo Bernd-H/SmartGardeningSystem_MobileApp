@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
@@ -22,11 +23,14 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private IAesEncrypterDecrypter AesEncrypterDecrypter;
 
+        private IAPIManager APIManager;
 
-        public AesKeyExchangeManager(ILoggerService loggerService, ISettingsManager settingsManager, ISslTcpClient sslTcpClient) {
+        public AesKeyExchangeManager(ILoggerService loggerService, ISettingsManager settingsManager, ISslTcpClient sslTcpClient, 
+            IAPIManager apiManager) {
             Logger = loggerService.GetLogger<AesKeyExchangeManager>();
             SettingsManager = settingsManager;
             SslTcpClient = sslTcpClient;
+            APIManager = apiManager;
         }
 
         public Task<bool> Start(CancellationToken token) {
@@ -43,8 +47,14 @@ namespace MobileApp.BusinessLogic.Managers {
             }, token);
         }
 
-        private void sslStreamOpenCallback(SslStream openStream) {
-            Logger.Info($"[sslStreamOpenCallback]Waiting to receive aes key and iv.");
+        private void sslStreamOpenCallback(SslStream openStream, X509Certificate serverCert) {
+            // how do we know if we are connected to the accesspoint of the basestation?
+            //if (APIManager.IsBasestationConnectedToWlan().Result) {
+            //    Logger.Warn($"[sslStreamOpenCallback]Key exchange aborted. This key exchanges is only allowed when connected to the access point of the basestation directly.");
+            //    return;
+            //}
+
+            Logger.Info($"[sslStreamOpenCallback]Waiting to receive aes key, iv and the certificate for the server.");
 
             // receive key
             var key = SslTcpClient.ReadMessage(openStream);
@@ -63,6 +73,7 @@ namespace MobileApp.BusinessLogic.Managers {
             SettingsManager.UpdateCurrentSettings(currentSettings => {
                 currentSettings.AesKey = key;
                 currentSettings.AesIV = iv;
+                currentSettings.BasestationCert = serverCert;
                 return currentSettings;
             });
         }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
@@ -32,6 +33,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         #region runtime variables
         public GlobalRuntimeVariables GetRuntimeVariables() {
+            Logger.Trace($"[GetRuntimeVariables]Requested GlobalRuntimeVariables.");
             if (globalRuntimeVariables == null) {
                 globalRuntimeVariables = new GlobalRuntimeVariables();
             }
@@ -41,6 +43,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         public void UpdateCurrentRuntimeVariables(Func<GlobalRuntimeVariables, GlobalRuntimeVariables> updateFunc) {
             globalRuntimeVarsLOCKER.Wait();
+            Logger.Trace($"[UpdateCurrentRuntimeVariables]Updating GlobalRuntimeVariables.");
             globalRuntimeVariables = updateFunc(GetRuntimeVariables());
             globalRuntimeVarsLOCKER.Release();
         }
@@ -50,6 +53,7 @@ namespace MobileApp.BusinessLogic.Managers {
         public async Task<ApplicationSettingsDto> GetApplicationSettings() {
             await LOCKER.WaitAsync();
 
+            Logger.Trace($"[GetApplicationSettings]Requested application settings.");
             var settings = await getApplicationSettings();
 
             LOCKER.Release();
@@ -59,32 +63,31 @@ namespace MobileApp.BusinessLogic.Managers {
         public async Task UpdateCurrentSettings(Func<ApplicationSettingsDto, ApplicationSettingsDto> updateFunc) {
             await LOCKER.WaitAsync();
 
+            Logger.Trace($"[UpdateCurrentSettings]Updateing current application settings.");
             await updateSettings(updateFunc(await getApplicationSettings()));
 
             LOCKER.Release();
         }
 
         private async Task<ApplicationSettingsDto> getApplicationSettings() {
-            Logger.Trace("[GetApplicationSettings]Loading application settings.");
+            Logger.Trace("[getApplicationSettings]Loading application settings.");
             setFilePathIfEmpty();
             await createDefaultSettingsByMissingFile();
 
             var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
-            var settings = JsonConvert.DeserializeObject<ApplicationSettingsDto>(settingsRaw);
+            var settings = JsonConvert.DeserializeObject<ApplicationSettings>(settingsRaw);
 
-            return settings;
+            return settings.ToDto();
         }
 
         private async Task updateSettings(ApplicationSettingsDto newSettings) {
-            Logger.Trace("[UpdateSettings]Writing to application settings.");
-
-            var jsonSettings = JsonConvert.SerializeObject(newSettings);
+            var jsonSettings = JsonConvert.SerializeObject(newSettings.FromDto());
             await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
         }
 
         private async Task createDefaultSettingsByMissingFile() {
             if (!File.Exists(settingsFilePath)) {
-                Logger.Info("[SettingsManager]Creating default settings file.");
+                Logger.Info("[createDefaultSettingsByMissingFile]Creating default settings file.");
 
                 // create default settings file
                 await updateSettings(ApplicationSettingsDto.GetStandardSettings());

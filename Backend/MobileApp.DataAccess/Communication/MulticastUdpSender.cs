@@ -14,7 +14,7 @@ namespace MobileApp.DataAccess.Communication {
         /// <summary>
         /// The IPAddress and port of the IPV4 multicast group.
         /// </summary>
-        static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("224.20.21.18"), 6771);
+        static readonly IPEndPoint MulticastAddressV4 = new IPEndPoint(IPAddress.Parse("239.192.20.21"), 6777);
 
         /// <summary>
         /// String to search for in a message received from the multicast group, indicating that this message is for a
@@ -32,11 +32,6 @@ namespace MobileApp.DataAccess.Communication {
         /// </summary>
         string BaseSearchString { get; }
 
-        /// <summary>
-        /// A random identifier used to detect our own Announces so we can ignore them.
-        /// </summary>
-        string Cookie { get; }
-
 
         private ILogger Logger;
 
@@ -46,10 +41,7 @@ namespace MobileApp.DataAccess.Communication {
             Logger = loggerService.GetLogger<MulticastUdpSender>();
             sendClient = new UdpClient();
 
-            lock (Random)
-                Cookie = $"1.0.0.0-{Random.Next(1, int.MaxValue)}";
-            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}\r\nIP: {{0}}\r\nPort: {{1}}\r\ncookie: {Cookie}\r\n\r\n\r\n";
-
+            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}\r\nIP: {{0}}\r\nPort: {{1}}\r\n\r\n\r\n";
         }
 
         public void Dispose() {

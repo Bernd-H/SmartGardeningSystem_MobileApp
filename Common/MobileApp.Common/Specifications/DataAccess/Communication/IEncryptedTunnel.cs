@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobileApp.Common.Specifications.DataAccess.Communication {
     public interface IEncryptedTunnel {
 
-        Task<byte[]> ReceiveData();
+        Task<byte[]> ReceiveData(CancellationToken cancellationToken = default);
 
-        Task SendData(byte[] msg);
+        Task SendData(byte[] msg, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Calls first SendData() and then ReceiveData().
@@ -13,6 +14,6 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        Task<byte[]> SendAndReceiveData(byte[] msg);
+        Task<byte[]> SendAndReceiveData(byte[] msg, CancellationToken cancellationToken = default);
     }
 }

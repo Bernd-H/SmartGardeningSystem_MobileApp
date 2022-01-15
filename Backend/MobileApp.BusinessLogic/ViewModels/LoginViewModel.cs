@@ -91,6 +91,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private async void OnSignUpClicked(object obj) {
             // redirect to sign up page
+            Logger.Info($"[OnSignUpClicked]Loading sign up page.");
             await Shell.Current.GoToAsync(PageNames.SignUpPage);
         }
 
@@ -101,14 +102,18 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             try {
                 bool success = await APIManager.Login(email, password);
+                SnackBar_IsOpen = false;
+
                 if (success) {
+                    Logger.Info($"[OnLoginClicked]Loading main page.");
                     await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
                 }
                 else {
-                    SnackBar_IsOpen = false;
                     await DialogService.ShowMessage("Wrong login credentials!", "Access denied", "Ok", null);
                 }
             } catch (CryptographicException) {
+                SnackBar_IsOpen = false;
+
                 // delete stored aes key
                 await SettingsManager.UpdateCurrentSettings(currentSettings => {
                     currentSettings.AesKey = null;
@@ -119,6 +124,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 await DialogService.ShowMessage("An error occured. Reconnecting to basestation...", "Info", "Ok", null);
 
                 // exchange keys again
+                Logger.Info($"[OnLoginClicked]Loading connecting page, to exchange important keys again.");
                 await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.ConnectingPage));
             }
         }
@@ -127,6 +133,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
             get { return "undraw_authentication_fsn5"; }
         }
 
+        /// <summary>
+        /// Logging in this method is not allowed.
+        /// (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+        /// someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+        /// </summary>
         public async void LoadLogs(object sender, EventArgs eventArgs) {
             var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
             string logs;

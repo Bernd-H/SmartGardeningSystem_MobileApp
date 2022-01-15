@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Security;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GardeningSystem.Common.Models.DTOs;
 using MobileApp.Common.Configuration;
@@ -20,6 +24,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private readonly HttpClient client;
 
+        private X509Certificate basestationCert;
+
         private ISettingsManager SettingsManager;
 
         private IAesEncrypterDecrypter AesEncrypterDecrypter;
@@ -31,14 +37,16 @@ namespace MobileApp.BusinessLogic.Managers {
             SettingsManager = settingsManager;
             AesEncrypterDecrypter = aesEncrypterDecrypter;
 
+            basestationCert = SettingsManager.GetApplicationSettings().Result.BasestationCert;
+
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.AutomaticDecompression = System.Net.DecompressionMethods.None;
-            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+            httpClientHandler.ServerCertificateCustomValidationCallback = serverCertificateValidationCallback;
             client = new HttpClient(httpClientHandler);
-            
+            client.Timeout = TimeSpan.FromMilliseconds(5000);
 
             // add json web token to header if a token exists
-            TryAddWebTokenToHeader().Wait();
+            tryAddWebTokenToHeader().Wait();
         }
 
         ~APIManager() {
@@ -50,6 +58,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> Login(string email, string password) {
+            Logger.Info($"[Login]Login process initiated.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
@@ -61,9 +70,10 @@ namespace MobileApp.BusinessLogic.Managers {
 
                     // prepare data to send
                     var userData = new UserDto() {
-                        Id = settings.Id,
-                        AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
-                        AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                        //AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
+                        //AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                        Username = email,
+                        Password = password
                     };
                     string json = JsonConvert.SerializeObject(userData);
 
@@ -84,7 +94,7 @@ namespace MobileApp.BusinessLogic.Managers {
                         });
 
                         // add web token to request header
-                        return await TryAddWebTokenToHeader();
+                        return await tryAddWebTokenToHeader();
                     }
                 }
                 catch (CryptographicException) {
@@ -99,6 +109,8 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public void Logout() {
+            Logger.Trace($"[Logout]Removing authorization header from http client.");
+
             // remove json web token from header
             if (client?.DefaultRequestHeaders.Contains("Authorization") ?? false) {
                 client.DefaultRequestHeaders.Remove("Authorization");
@@ -106,6 +118,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> Register(string email, string password) {
+            Logger.Info($"[Register]Sending registration data.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
@@ -117,9 +130,11 @@ namespace MobileApp.BusinessLogic.Managers {
 
                     // prepare data to send
                     var userData = new UserDto() {
-                        Id = Guid.NewGuid(),
-                        AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
-                        AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                        //Id = Guid.NewGuid(),
+                        //AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
+                        //AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+                        Username = email,
+                        Password = password
                     };
                     string json = JsonConvert.SerializeObject(userData);
 
@@ -146,6 +161,7 @@ namespace MobileApp.BusinessLogic.Managers {
         #region Module requests
 
         public async Task<IEnumerable<ModuleInfoDto>> GetModules() {
+            Logger.Info($"[GetModules]Requesting all modules.");
             var settings = await SettingsManager.GetApplicationSettings();
 
             string url = "";
@@ -178,6 +194,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> UpdateModule(ModuleInfo updatedModule) {
+            Logger.Info($"[UpdateModule]Sending updated module configuration data.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
@@ -217,6 +234,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> AddModule(ModuleInfo newModule) {
+            Logger.Info($"[AddModule]Sending a new module configuration.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
@@ -255,6 +273,7 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         public async Task<bool> DeleteModule(Guid moduleId) {
+            Logger.Info($"[DeleteModule]Sending remove module request.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
@@ -293,6 +312,7 @@ namespace MobileApp.BusinessLogic.Managers {
         #endregion
 
         public async Task<IEnumerable<WlanInfo>> GetWlans() {
+            Logger.Info($"[GetWlans]Requesting all reachable wlans.");
             var settings = await SettingsManager.GetApplicationSettings();
 
             string url = "";
@@ -322,7 +342,39 @@ namespace MobileApp.BusinessLogic.Managers {
             return null;
         }
 
+        public async Task<SystemStatus> GetSystemStatus() {
+            Logger.Info($"[GetSystemStatus]Requesting the system status.");
+            var settings = await SettingsManager.GetApplicationSettings();
+
+            string url = "";
+            try {
+                if (settings.SessionAPIToken != null) {
+                    // build url
+                    var config = ConfigurationStore.GetConfig();
+                    url = getUrl(config.ConnectionSettings.API_URL_SystemStatus, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+                    var response = await client.GetAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                        throw new UnauthorizedAccessException();
+                    }
+                    string result = await response.Content.ReadAsStringAsync();
+
+                    var systemStatusDto = JsonConvert.DeserializeObject<SystemStatusDto>(result);
+                    return systemStatusDto.FromDto();
+                }
+            }
+            catch (UnauthorizedAccessException) {
+                throw;
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[GetSystemStatus]Could not get system status from rest api. (url={url})");
+            }
+
+            return null;
+        }
+
         public async Task<bool> IsBasestationConnectedToWlan() {
+            Logger.Info($"[IsBasestationConnectedToWlan]Requesting information, if the basestation is currently connected to a wlan.");
             var settings = await SettingsManager.GetApplicationSettings();
 
             string url = "";
@@ -347,16 +399,39 @@ namespace MobileApp.BusinessLogic.Managers {
                 throw;
             }
             catch (Exception ex) {
-                Logger.Error(ex, $"[GetModules]Could not get modules from rest api. (url={url})");
+                Logger.Error(ex, $"[IsBasestationConnectedToWlan]Failed to get the wlan status of the basestation from the rest api. (url={url})");
             }
 
             // return false because when the api is not reachable, the user should not get asked what wlan to connect to
             return true;
         }
 
-        private async Task<bool> TryAddWebTokenToHeader() {
+        /// <summary>
+        /// Validates the server certificate.
+        /// </summary>
+        /// <returns>True, when <paramref name="serverCert"/> got verified.</returns>
+        private bool serverCertificateValidationCallback(HttpRequestMessage arg1, X509Certificate2 serverCert, X509Chain arg3, SslPolicyErrors arg4) {
+            if (basestationCert != null) {
+                bool storedCertExpired = DateTime.Parse(basestationCert.GetExpirationDateString()).CompareTo(DateTime.Now) <= 0;
+                
+                if (storedCertExpired) {
+                    Logger.Info($"[serverCertificateValidationCallback]Stored server cert expired. Forbidding connection.");
+                }
+                // check if basestation is the right one
+                else if (serverCert.GetCertHash().SequenceEqual(basestationCert.GetCertHash())) {
+                    // certificate verified
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private async Task<bool> tryAddWebTokenToHeader() {
             var settings = await SettingsManager.GetApplicationSettings();
             if (settings.SessionAPIToken != null) {
+                Logger.Info($"[tryAddWebTokenToHeader]Adding a authorization token to the api-client-header.");
+
                 // remove existing authorization header
                 if (client.DefaultRequestHeaders.Contains("Authorization")) {
                     client.DefaultRequestHeaders.Remove("Authorization");

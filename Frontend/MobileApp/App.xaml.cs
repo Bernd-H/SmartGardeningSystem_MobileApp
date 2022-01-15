@@ -18,11 +18,14 @@ using MobileApp.Common.Specifications.Services;
 using MobileApp.Common.Utilities;
 using MobileApp.DataAccess;
 using MobileApp.DataAccess.Communication;
+using NLog;
 using TinyIoC;
 using Xamarin.Forms;
 
 namespace MobileApp {
     public partial class App : Application {
+
+        private ILogger Logger;
 
         private Stream _sftpPrivateKeyStream;
 
@@ -33,6 +36,8 @@ namespace MobileApp {
 
             BusinessLogic.LoggerService.AddCustomLogTargets();
             RegisterDependencies();
+
+            Logger = IoC.Get<ILoggerService>().GetLogger<App>();
 
             MainPage = new AppShell();
         }
@@ -47,27 +52,37 @@ namespace MobileApp {
                 isAvailable = false;
             }
 
-            if (settings.AesKey != null && settings.AesIV != null && isAvailable && settings.BasestationId != Guid.Empty) {
+            bool storedServerCertValid = false;
+            if (settings.BasestationCert != null) {
+                storedServerCertValid = (DateTime.Parse(settings.BasestationCert.GetExpirationDateString()) - DateTime.Now).TotalDays > 0;
+            }
+
+            if (settings.AesKey != null && settings.AesIV != null && storedServerCertValid && isAvailable && settings.BasestationId != Guid.Empty) {
                 if (settings.SessionAPIToken == null) {
                     // login credentials will get encrypted with the aes server key after "login" gets pressed
+                    Logger?.Info($"[OnStart]Loading login page.");
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));
                 }
                 else {
                     // already logged in
                     // go to main page
+                    Logger?.Info($"[OnStart]Loading main page.");
                     Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
                 }
             }
             else {
                 // to get ip and aes key from basestation (server)
+                Logger?.Info($"[OnStart]Loading connecting page.");
                 Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.ConnectingPage));
             }
         }
 
         protected override void OnSleep() {
+            Logger?.Info($"[OnSleep]Entering sleep mode.");
         }
 
         protected override void OnResume() {
+            Logger?.Info($"[OnResume]...");
         }
 
         /// <summary>

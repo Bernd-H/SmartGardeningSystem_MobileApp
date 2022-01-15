@@ -1,9 +1,9 @@
 ﻿namespace MobileApp.Common.Specifications.Configuration {
     public interface IConnectionSettings {
 
-        int LocalPeerDiscovery_port { get; set; }
+        //int LocalPeerDiscovery_port { get; set; }
 
-        string LocalPeerDiscovery_multicastIP { get; set; }
+        //string LocalPeerDiscovery_multicastIP { get; set; }
 
 
 
@@ -14,6 +14,8 @@
         string API_URL_Modules { get; set; }
 
         string API_URL_Wlan { get; set; }
+
+        string API_URL_SystemStatus { get; set; }
 
         int API_Port { get; set; }
 

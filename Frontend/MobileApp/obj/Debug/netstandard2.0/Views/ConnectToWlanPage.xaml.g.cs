@@ -17,8 +17,12 @@ namespace MobileApp.Views {
     public partial class ConnectToWlanPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::MobileApp.Views.SnackBar SnackB;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(ConnectToWlanPage));
+            SnackB = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::MobileApp.Views.SnackBar>(this, "SnackB");
         }
     }
 }

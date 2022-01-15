@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications.DataObjects;
 
@@ -19,6 +20,10 @@ namespace MobileApp.Common.Models.DTOs {
         /// </summary>
         public byte[] AesIV { get; set; }
 
+        /// <summary>
+        /// Certificate of the basestation
+        /// </summary>
+        public X509Certificate BasestationCert { get; set; }
 
         public string BaseStationIP { get; set; }
 

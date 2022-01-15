@@ -61,7 +61,7 @@ namespace MobileApp.BusinessLogic.Managers {
             if (settings.BasestationId != Guid.Empty && settings.AesKey != null && settings.AesIV != null) {
                 var ip = IpUtils.GetHostAddress(config.ConnectionSettings.ExternalServer_Domain, 5000);
                 if (ip != null) {
-                    success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream) => {
+                    success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream, remoteCert) => {
                         connectedCallback(sslStream, settings.BasestationId, forceRelay);
                     }, selfSignedCertificate: false, closeConnectionAfterCallback: false, targetHost);
                 }

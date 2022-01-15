@@ -54,7 +54,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ILoggerService LoggerService;
 
-        private ILogger ConnectingPageLogger;
+        private ILogger Logger;
 
         private IBasestationFinderManager BasestationFinderManager;
 
@@ -81,7 +81,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             IDialogService dialogService, ICloseApplicationService closeApplicationService, IBasestationFinderManager basestationFinderManager, IAPIManager _APIManager,
             IFileStorage fileStorage, IRelayManager relayManager) {
             LoggerService = loggerService;
-            ConnectingPageLogger = loggerService.GetLogger<ConnectingPageViewModel>();
+            Logger = loggerService.GetLogger<ConnectingPageViewModel>();
             AesKeyExchangeManager = aesKeyExchangeManager;
             DialogService = dialogService;
             CloseApplicationService = closeApplicationService;
@@ -104,6 +104,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
             cancellationToken.Cancel();
         }
 
+        /// <summary>
+        /// Logging in this method is not allowed.
+        /// (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+        /// someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+        /// </summary>
         public async void LoadLogs(object sender, EventArgs eventArgs) {
             var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
             string logs;
@@ -125,18 +130,22 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         Task BeginConnect() {
             return Task.Run(async () => {
-                ConnectingPageLogger.Debug($"[BeginConnect]Thread: {Thread.CurrentThread.ManagedThreadId}.");
+                Logger.Debug($"[BeginConnect]Thread: {Thread.CurrentThread.ManagedThreadId}.");
 
                 // get basestation ip
                 Status = "Searching for a local basestation...";
-                //var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
-                //ConnectingPageLogger.Warn("[BeginConnect]Mocking BasestationIP for test reasons.");
+                var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+                //Logger.Warn("[BeginConnect]Mocking BasestationIP for test reasons.");
                 //var baseStationFound = false;
-                var baseStationFound = true;
-                await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
-                    currentSettings.BaseStationIP = "10.0.2.2";
-                    return currentSettings;
-                });
+                //var baseStationFound = true;
+                //await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
+                //    currentSettings.BaseStationIP = "10.0.2.2";
+                //    return currentSettings;
+                //});
+                //await Common.Configuration.IoC.Get<ISettingsManager>().UpdateCurrentSettings(currentSettings => {
+                //    currentSettings.AesKey = null;
+                //    return currentSettings;
+                //});
 
                 if (!baseStationFound) {
                     // try to establish a connection over the external server
@@ -150,7 +159,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     if (settings.AesKey == null || settings.AesIV == null) {
                         // perform key exchange
                         Status = "Exchanging keys...";
-                        ConnectingPageLogger.Info($"[BeginConnect]Trying to get aes key from server.");
+                        Logger.Info($"[BeginConnect]Trying to get aes key from server.");
                         success = await AesKeyExchangeManager.Start(cancellationToken.Token);
                     }
                     else {
@@ -171,7 +180,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     }
                 }
                 else {
-                    ConnectingPageLogger.Info("Finding a basestation failed!");
+                    Logger.Info("Finding a basestation failed!");
                     ActivityIndicatorIsVisible = false;
                     await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
                         Status = "No basestation found! Please restart the application.";

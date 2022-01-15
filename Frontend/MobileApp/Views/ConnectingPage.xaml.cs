@@ -1,4 +1,5 @@
-﻿using MobileApp.BusinessLogic.ViewModels;
+﻿using System.Threading.Tasks;
+using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common.Configuration;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

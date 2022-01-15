@@ -20,15 +20,15 @@
                             <StackLayout Spacing="10">
                                 <StackLayout Grid.Row="0" Spacing="0">
                                     <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Status" />
-                                    <Label Grid.Column="0" TextColor="Green" FontSize="16" Text="online - aktive" />
+                                    <Label Grid.Column="0" TextColor="Green" FontSize="16" Text="{Binding Status}" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="1" Spacing="0">
-                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Temperatur" />
-                                    <Label Grid.Column="0" FontSize="16" Text="20°C" />
+                                    <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Temperature" />
+                                    <Label Grid.Column="0" FontSize="16" Text="{Binding Temperature}" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="2" Spacing="0">
                                     <Label Grid.Column="0" FontAttributes="Bold" FontSize="18" Text="Up time" />
-                                    <Label Grid.Column="0" FontSize="16" Text="10m 1w 2d 3h" />
+                                    <Label Grid.Column="0" FontSize="16" Text="{Binding SystemUpTime}" />
                                 </StackLayout>
 
                                 <!-- Stop and Start button -->
