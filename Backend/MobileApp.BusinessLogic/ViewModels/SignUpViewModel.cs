@@ -76,7 +76,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             SnackBar_IsOpen = true;
 
             try {
-                bool success = await APIManager.Register(email, password);
+                //bool success = await APIManager.Register(email, password);
+                bool success = false; // there is no longer a registration necessary
                 if (success) {
                     await DialogService.ShowMessage("Your account creation was successful.", "Info", "Ok", null);
                     await Shell.Current.GoToAsync($"//{PageNames.LoginPage}");

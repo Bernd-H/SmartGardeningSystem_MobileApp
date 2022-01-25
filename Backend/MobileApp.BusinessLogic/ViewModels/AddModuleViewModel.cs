@@ -5,9 +5,11 @@ using System.Windows.Input;
 using MobileApp.Common;
 using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
@@ -108,9 +110,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        private IDataStore<ModuleInfoDto> ModuleRepository;
+        private IDataStore<ModuleInfo> ModuleRepository;
 
-        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository) {
+        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService, IDataStore<ModuleInfo> moduleRepository) {
             CachePageData = cachePageDataService;
             DialogService = dialogService;
             ModuleRepository = moduleRepository;
@@ -146,13 +148,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 ModuleInfoDto moduleData = new ModuleInfoDto();
 
                 // process data
-                moduleData.Id = Guid.NewGuid();
+                //moduleData.Id = Guid.NewGuid();
+                throw new NotImplementedException();
                 moduleData.Name = Name;
                 moduleData.InformationTimestamp = DateTime.Now;
                 if (AddingASensor)
-                    moduleData.Type = new ModuleTypes(ModuleTypes.SENSOR);
+                    moduleData.ModuleTypeName = ModuleTypeNames.SENSOR;
                 else
-                    moduleData.Type = new ModuleTypes(ModuleTypes.VALVE);
+                    moduleData.ModuleTypeName = ModuleTypeNames.VALVE;
 
                 // add type specific data
                 if (!AddingASensor) {
@@ -160,16 +163,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
                     // moduleInfoDto.wateringMethod....
                 } else {
-                    var linkedValveIds = new List<Guid>();
+                    var linkedValveIds = new List<byte>();
                     foreach (var valve in LinkedValves) {
-                        linkedValveIds.Add(valve.Id);
+                        linkedValveIds.Add(Utils.ConvertHexToByte(valve.ModuleId));
                     }
 
-                    moduleData.CorrespondingValves = linkedValveIds;
+                    moduleData.AssociatedModules = linkedValveIds;
                 }
 
                 // send data to api
-                bool success = await ModuleRepository.AddItemAsync(moduleData);
+                bool success = await ModuleRepository.AddItemAsync(moduleData.FromDto());
                 if (!success) {
                     await DialogService.ShowMessage("An error accrued while adding module to repository.", "Error", "Ok", null);
                 }

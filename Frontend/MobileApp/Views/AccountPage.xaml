@@ -11,10 +11,10 @@
     </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <ScrollView>
-            <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="20">
-                <!-- Change email dialog -->
+            <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="20" RowSpacing="20">
+                <!-- Current login information dialog -->
                 <StackLayout Grid.Row="0" Spacing="15">
-                    <Label Text="Change email" FontAttributes="Bold" FontSize="24" />
+                    <Label Text="Here you can change your login information" FontAttributes="Bold" FontSize="24" />
                     <pancake:PancakeView
                             Margin="5,0,5,0"
                         Padding="10,0,10,0"
@@ -25,7 +25,8 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
-                    Placeholder="your email"/>
+                            Placeholder="Current username"
+                            Text="{Binding CurrentUsername}"/>
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="4" />
                         </pancake:PancakeView.Shadow>
@@ -40,21 +41,23 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
-                    Placeholder="confirm email"/>
+                            Placeholder="Current password"
+                            IsPassword="True"
+                            Text="{Binding CurrentPassword}"/>
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="4" />
                         </pancake:PancakeView.Shadow>
                     </pancake:PancakeView>
 
                     <!-- Save button -->
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                     BackgroundColor="#084ebf"
                     CornerRadius="25"
                     HeightRequest="45"
                     HorizontalOptions="EndAndExpand"
                     WidthRequest="150">
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeEmailCommand}"></TapGestureRecognizer>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeUsernameCommand}"></TapGestureRecognizer>
                         </pancake:PancakeView.GestureRecognizers>
                         <Label
                         FontAttributes="Bold"
@@ -64,12 +67,12 @@
                         TextColor="White"
                         VerticalOptions="CenterAndExpand">
                         </Label>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </StackLayout>
 
-                <!-- Change password dialog -->
+                <!-- New login information dialog -->
                 <StackLayout Grid.Row="1" Spacing="15">
-                    <Label Text="Change password" FontAttributes="Bold" FontSize="24" />
+                    <Label Text="New login information:" FontSize="20" />
                     <pancake:PancakeView
                             Margin="5,0,5,0"
                         Padding="10,0,10,0"
@@ -80,7 +83,8 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
-                    Placeholder="old password"/>
+                            Placeholder="New username"
+                            Text="{Binding NewUsername}"/>
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="4" />
                         </pancake:PancakeView.Shadow>
@@ -95,7 +99,9 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
-                    Placeholder="new password"/>
+                            Placeholder="New password"
+                            IsPassword="True"
+                            Text="{Binding NewPassword}"/>
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="4" />
                         </pancake:PancakeView.Shadow>
@@ -110,35 +116,38 @@
                             FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
-                    Placeholder="confirm new password"/>
+                            Placeholder="Confirm new password"
+                            IsPassword="True"
+                            Text="{Binding ConfirmNewPassword}"/>
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="4" />
                         </pancake:PancakeView.Shadow>
                     </pancake:PancakeView>
+                </StackLayout>
 
-                    <!-- Save button -->
-                    <pancake:PancakeView
+                <!-- Save button -->
+                <pancake:PancakeView
+                    Grid.Row="2"
                     BackgroundColor="#084ebf"
                     CornerRadius="25"
                     HeightRequest="45"
                     HorizontalOptions="EndAndExpand"
                     WidthRequest="150">
-                        <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangePasswordCommand}"></TapGestureRecognizer>
-                        </pancake:PancakeView.GestureRecognizers>
-                        <Label
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SaveCommand}"></TapGestureRecognizer>
+                    </pancake:PancakeView.GestureRecognizers>
+                    <Label
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="CenterAndExpand"
                         Text="Save"
                         TextColor="White"
                         VerticalOptions="CenterAndExpand">
-                        </Label>
-                    </pancake:PancakeView>
-                </StackLayout>
-                
+                    </Label>
+                </pancake:PancakeView>
+
                 <!-- Loggout -->
-                <Label Grid.Row="2"
+                <Label Grid.Row="3"
                         FontSize="22"
                         Margin="0,15,0,0"
                         HorizontalOptions="CenterAndExpand"

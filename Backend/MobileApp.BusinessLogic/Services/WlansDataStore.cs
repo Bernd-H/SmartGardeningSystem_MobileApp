@@ -46,15 +46,15 @@ namespace MobileApp.BusinessLogic.Services {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteItemAsync(string id) {
-            throw new NotImplementedException();
-        }
-
-        public Task<WlanInfoDto> GetItemAsync(string id) {
-            throw new NotImplementedException();
-        }
-
         public Task<bool> UpdateItemAsync(WlanInfoDto item) {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteItemAsync<T1>(T1 id) where T1 : struct {
+            throw new NotImplementedException();
+        }
+
+        public Task<WlanInfoDto> GetItemAsync<T1>(T1 id) where T1 : struct {
             throw new NotImplementedException();
         }
 

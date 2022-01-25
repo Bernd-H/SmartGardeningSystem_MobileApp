@@ -13,7 +13,7 @@
         <BackButtonBehavior Command="{Binding BackCommand}"/>
     </Shell.BackButtonBehavior>
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto">
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto, Auto,*,Auto">
             <pancake:PancakeView Grid.Row="0" Grid.RowSpan="2" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Frame BackgroundColor="#084ebf" />
                 <pancake:PancakeView.Shadow>
@@ -88,8 +88,16 @@
                 </pancake:PancakeView>
             </StackLayout>
 
+            <!-- enabled for manual irrigation check box-->
+            <StackLayout Grid.Row="5" Margin="15, 0, 0, 15" IsVisible="{Binding IsAValve, Mode=OneWay}">
+                <Grid ColumnDefinitions="Auto, *">
+                    <CheckBox Grid.Column="0" VerticalOptions="CenterAndExpand" CheckedChanged="OnCheckBoxCheckedChanged" IsChecked="{Binding ManualIrrigationEnabled}" />
+                    <Label Grid.Column="1" VerticalOptions="CenterAndExpand" Text="Enabled for manual irrigation" FontSize="18"></Label>
+                </Grid>
+            </StackLayout>
+
             <!-- remove button -->
-            <Label Grid.Row="5"
+            <Label Grid.Row="6"
                         FontSize="20"
                         Margin="0,0,0,20"
                         HorizontalOptions="CenterAndExpand"

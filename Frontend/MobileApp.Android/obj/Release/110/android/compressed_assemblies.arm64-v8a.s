@@ -107,7 +107,7 @@
 
 	/* 11: MobileApp.BusinessLogic.dll */
 	/* uncompressed_file_size */
-	.word	130560
+	.word	138240
 	/* loaded */
 	.byte	0
 	/* data */
@@ -116,7 +116,7 @@
 
 	/* 12: MobileApp.Common.dll */
 	/* uncompressed_file_size */
-	.word	77824
+	.word	80896
 	/* loaded */
 	.byte	0
 	/* data */
@@ -134,7 +134,7 @@
 
 	/* 14: MobileApp.dll */
 	/* uncompressed_file_size */
-	.word	170496
+	.word	174080
 	/* loaded */
 	.byte	0
 	/* data */
@@ -584,7 +584,7 @@
 
 	/* 64: mscorlib.dll */
 	/* uncompressed_file_size */
-	.word	2160128
+	.word	2160640
 	/* loaded */
 	.byte	0
 	/* data */

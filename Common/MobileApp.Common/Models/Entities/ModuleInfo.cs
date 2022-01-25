@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using MobileApp.Common.Models.Enums;
 
 namespace MobileApp.Common.Models.Entities {
     public class ModuleInfo {
-        public Guid Id { get; set; }
+
+        public byte ModuleId { get; set; }
 
         public string Name { get; set; }
 
-        public IEnumerable<Guid> AssociatedModules { get; set; }
+        public ModuleType ModuleType { get; set; }
 
-        public string ModuleTyp { get; set; }
+        public IEnumerable<byte> AssociatedModules { get; set; }
 
         public IEnumerable<DateTime> LastWaterings { get; set; }
+
+        public bool EnabledForManualIrrigation { get; set; }
+
+        /// <summary>
+        /// Time when the information got requested from the server
+        /// </summary>
+        public DateTime InformationTimestamp { get; set; }
     }
 }

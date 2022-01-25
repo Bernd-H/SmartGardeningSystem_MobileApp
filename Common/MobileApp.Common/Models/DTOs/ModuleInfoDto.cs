@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using MobileApp.Common.Models.Enums;
-using MobileApp.Common.Specifications.DataObjects;
 
 namespace MobileApp.Common.Models.DTOs {
-    public class ModuleInfoDto : IDO {
-        public Guid Id { get; set; }
+    public class ModuleInfoDto {
+
+        public string ModuleId { get; set; }
 
         public string Name { get; set; }
 
-        public ModuleTypes Type { get; set; }
+        public string ModuleTypeName { get; set; }
 
-        public IEnumerable<Guid> CorrespondingValves { get; set; }
+        public IEnumerable<byte> AssociatedModules { get; set; }
+
+        public IEnumerable<DateTime> LastWaterings { get; set; }
+
+        public bool EnabledForManualIrrigation { get; set; }
 
         /// <summary>
         /// Time when the information got requested from the server

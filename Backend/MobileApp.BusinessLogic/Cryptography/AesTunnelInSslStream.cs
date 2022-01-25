@@ -43,13 +43,17 @@ namespace MobileApp.BusinessLogic.Cryptography {
         }
 
         public async Task<byte[]> SendAndReceiveData(byte[] msg, CancellationToken cancellationToken = default) {
-            await LOCKER.WaitAsync();
+            try {
+                await LOCKER.WaitAsync();
 
-            await SendData(msg, cancellationToken);
-            var received = await ReceiveData(cancellationToken);
+                await SendData(msg, cancellationToken);
+                var received = await ReceiveData(cancellationToken);
 
-            LOCKER.Release();
-            return received;
+                return received;
+            }
+            finally {
+                LOCKER.Release();
+            }
         }
 
         public async Task SendData(byte[] msg, CancellationToken cancellationToken = default) {

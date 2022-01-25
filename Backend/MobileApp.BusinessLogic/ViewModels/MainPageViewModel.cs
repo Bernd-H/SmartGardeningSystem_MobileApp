@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.BusinessLogic.Managers;
 using MobileApp.Common;
+using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
 using NLog;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -69,7 +72,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        private IDataStore<ModuleInfoDto> ModuleRepository;
+        private IDataStore<ModuleInfo> ModuleRepository;
 
         private IAPIManager APIManager;
 
@@ -77,8 +80,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IFileStorage FileStorage;
 
-        public MainPageViewModel(ILoggerService loggerService, IDialogService dialogService, IDataStore<ModuleInfoDto> moduleRepository, IAPIManager _APIManager,
-            ISettingsManager settingsManager, IFileStorage fileStorage) {
+        private ICommandManager CommandManager;
+
+        public MainPageViewModel(ILoggerService loggerService, IDialogService dialogService, IDataStore<ModuleInfo> moduleRepository, IAPIManager _APIManager,
+            ISettingsManager settingsManager, IFileStorage fileStorage, ICommandManager commandManager) {
             Logger = loggerService.GetLogger<MainPageViewModel>();
             LoggerService = loggerService;
             DialogService = dialogService;
@@ -86,6 +91,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             APIManager = _APIManager;
             SettingsManager = settingsManager;
             FileStorage = fileStorage;
+            CommandManager = commandManager;
 
             // module items
             Items = new ObservableCollection<ModuleInfoDto>();
@@ -114,7 +120,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
                 // load modules
                 Items.Clear();
-                var items = await ModuleRepository.GetItemsAsync(true);
+                var items = (await ModuleRepository.GetItemsAsync(true)).ToDtos();
                 foreach (var item in items) {
                     Items.Add(item);
                 }
@@ -169,34 +175,52 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void OnAddItem(object obj) {
+            Logger.Info($"[OnAddItem]Loading WaitingForNewModulePage...");
             await Shell.Current.GoToAsync(PageNames.WaitingForNewModulePage);
         }
 
         async void OnHelpTapped(object obj) {
+            Logger.Info($"[OnHelpTapped]Loading help page...");
             await Shell.Current.GoToAsync(PageNames.HelpPage);
         }
 
         async void OnSettingsTapped(object obj) {
+            Logger.Info($"[OnSettingsTapped]Loading settings page...");
             await Shell.Current.GoToAsync(PageNames.SettingsPage);
         }
 
         async void OnStartTapped(object obj) {
-            await DialogService.ShowMessage("Start tapped.", "Info", "Ok", null);
+            bool success = await CommandManager.StartAutomaticIrrigation();
+            if (success) {
+                await DialogService.ShowMessage("Successfully started the automatic irrigation.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Something went wrong while trying to start the automatic irrigation.", "Error", "Ok", null);
+            }
         }
 
         async void OnStopTapped(object obj) {
-            await DialogService.ShowMessage("Stop tapped.", "Info", "Ok", null);
+            bool success = await CommandManager.StopAutomaticIrrigation();
+            if (success) {
+                await DialogService.ShowMessage("Successfully stopped the automatic irrigation.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Something went wrong while trying to stop the automatic irrigation.", "Error", "Ok", null);
+            }
         }
 
         async void OnItemSelected(ModuleInfoDto item) {
             if (item == null)
                 return;
 
+            Logger.Info($"[OnItemSelected]Loading detail page for module with id {item.ModuleId}...");
+
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{PageNames.SGModuleDetailPage}?{nameof(SGModuleDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{PageNames.SGModuleDetailPage}?{nameof(SGModuleDetailViewModel.ItemId)}={item.ModuleId}");
         }
 
         async void OnViewLogsPageTapped(object obj) {
+            Logger.Info($"[OnViewLogsPageTapped]Loading logs page...");
             await Shell.Current.GoToAsync(PageNames.LogsPage);
         }
     }

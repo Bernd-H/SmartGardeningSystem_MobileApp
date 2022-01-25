@@ -8,5 +8,15 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <param name="wlanInfo">wlan login data</param>
         /// <returns>If the operation was successfull</returns>
         Task<bool> ConnectToWlan(WlanInfoDto wlanInfo);
+
+        Task<bool> DisconnectFromWlan();
+
+        Task<bool> StartAutomaticIrrigation();
+
+        Task<bool> StopAutomaticIrrigation();
+
+        Task<bool> StartManualIrrigation(TimeSpan timeSpan);
+
+        Task<bool> StopManualIrrigation();
     }
 }

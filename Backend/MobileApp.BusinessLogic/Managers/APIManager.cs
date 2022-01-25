@@ -16,6 +16,7 @@ using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.Managers;
+using MobileApp.Common.Utilities;
 using Newtonsoft.Json;
 using NLog;
 
@@ -23,8 +24,6 @@ namespace MobileApp.BusinessLogic.Managers {
     public class APIManager : IAPIManager, IDisposable {
 
         private readonly HttpClient client;
-
-        private X509Certificate basestationCert;
 
         private ISettingsManager SettingsManager;
 
@@ -36,8 +35,6 @@ namespace MobileApp.BusinessLogic.Managers {
             Logger = loggerService.GetLogger<APIManager>();
             SettingsManager = settingsManager;
             AesEncrypterDecrypter = aesEncrypterDecrypter;
-
-            basestationCert = SettingsManager.GetApplicationSettings().Result.BasestationCert;
 
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.AutomaticDecompression = System.Net.DecompressionMethods.None;
@@ -56,6 +53,8 @@ namespace MobileApp.BusinessLogic.Managers {
         public void Dispose() {
             client.Dispose();
         }
+
+        #region User-Account methods
 
         public async Task<bool> Login(string email, string password) {
             Logger.Info($"[Login]Login process initiated.");
@@ -117,50 +116,81 @@ namespace MobileApp.BusinessLogic.Managers {
             }
         }
 
-        public async Task<bool> Register(string email, string password) {
-            Logger.Info($"[Register]Sending registration data.");
+        public async Task<bool> ChangeLoginInfo(UpdateUserDto updateUserDto) {
+            Logger.Info($"[ChangeLoginInfo]Sending update user data.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
 
-            if (settings.AesIV != null && settings.AesKey != null) {
-                try {
-                    // build url
-                    var config = ConfigurationStore.GetConfig();
-                    url = getUrl(config.ConnectionSettings.API_URL_Register, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+            try {
+                // build url
+                var config = ConfigurationStore.GetConfig();
+                url = getUrl(config.ConnectionSettings.API_URL_Login, settings.BaseStationIP, config.ConnectionSettings.API_Port);
 
-                    // prepare data to send
-                    var userData = new UserDto() {
-                        //Id = Guid.NewGuid(),
-                        //AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
-                        //AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
-                        Username = email,
-                        Password = password
-                    };
-                    string json = JsonConvert.SerializeObject(userData);
+                // prepare data to send
+                string json = JsonConvert.SerializeObject(updateUserDto);
 
-                    // setup the body of the request
-                    StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+                // setup the body of the request
+                StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await client.PostAsync(url, data);
+                var response = await client.PutAsync(url, data);
 
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                        return true;
-                    }
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    return true;
                 }
-                catch (CryptographicException) {
-                    throw;
-                }
-                catch (Exception ex) {
-                    Logger.Error(ex, $"[Register]Error while user registration. (api-request-url={url})");
-                }
+            }
+            catch (Exception ex) {
+                Logger.Error(ex, $"[ChangeLoginInfo]An error occured while updateing the login data (api-request-url={url})");
             }
 
             return false;
         }
 
+        //public async Task<bool> Register(string email, string password) {
+        //    Logger.Info($"[Register]Sending registration data.");
+        //    var settings = await SettingsManager.GetApplicationSettings();
+        //    string url = "";
+
+        //    if (settings.AesIV != null && settings.AesKey != null) {
+        //        try {
+        //            // build url
+        //            var config = ConfigurationStore.GetConfig();
+        //            url = getUrl(config.ConnectionSettings.API_URL_Register, settings.BaseStationIP, config.ConnectionSettings.API_Port);
+
+        //            // prepare data to send
+        //            var userData = new UserDto() {
+        //                //Id = Guid.NewGuid(),
+        //                //AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
+        //                //AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
+        //                Username = email,
+        //                Password = password
+        //            };
+        //            string json = JsonConvert.SerializeObject(userData);
+
+        //            // setup the body of the request
+        //            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //            var response = await client.PostAsync(url, data);
+
+        //            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+        //                return true;
+        //            }
+        //        }
+        //        catch (CryptographicException) {
+        //            throw;
+        //        }
+        //        catch (Exception ex) {
+        //            Logger.Error(ex, $"[Register]Error while user registration. (api-request-url={url})");
+        //        }
+        //    }
+
+        //    return false;
+        //}
+
+        #endregion
+
         #region Module requests
 
-        public async Task<IEnumerable<ModuleInfoDto>> GetModules() {
+        public async Task<IEnumerable<ModuleInfo>> GetModules() {
             Logger.Info($"[GetModules]Requesting all modules.");
             var settings = await SettingsManager.GetApplicationSettings();
 
@@ -180,7 +210,12 @@ namespace MobileApp.BusinessLogic.Managers {
 
                     var modules = JsonConvert.DeserializeObject<List<ModuleInfo>>(result);
 
-                    return modules.ToDtos();
+                    // set timestamp
+                    foreach (var module in modules) {
+                        module.InformationTimestamp = DateTime.Now;
+                    }
+
+                    return modules;
                 }
             }
             catch (UnauthorizedAccessException) {
@@ -202,7 +237,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 // build url
                 var config = ConfigurationStore.GetConfig();
                 url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
-                url += $"{updatedModule.Id.ToString()}"; // add id to url
+                url += $"{Utils.ConvertByteToHex(updatedModule.ModuleId)}"; // add id to url
 
                 // prepare data to send
                 //var moduleDto = updatedModule.ToDto();
@@ -272,7 +307,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
-        public async Task<bool> DeleteModule(Guid moduleId) {
+        public async Task<bool> DeleteModule(byte moduleId) {
             Logger.Info($"[DeleteModule]Sending remove module request.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
@@ -281,7 +316,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 // build url
                 var config = ConfigurationStore.GetConfig();
                 url = getUrl(config.ConnectionSettings.API_URL_Modules, settings.BaseStationIP, config.ConnectionSettings.API_Port);
-                url += $"{moduleId}";
+                url += $"{Utils.ConvertByteToHex(moduleId)}";
 
                 var response = await client.DeleteAsync(url);
 
@@ -411,6 +446,8 @@ namespace MobileApp.BusinessLogic.Managers {
         /// </summary>
         /// <returns>True, when <paramref name="serverCert"/> got verified.</returns>
         private bool serverCertificateValidationCallback(HttpRequestMessage arg1, X509Certificate2 serverCert, X509Chain arg3, SslPolicyErrors arg4) {
+            var basestationCert = SettingsManager.GetApplicationSettings().Result.BasestationCert;
+
             if (basestationCert != null) {
                 bool storedCertExpired = DateTime.Parse(basestationCert.GetExpirationDateString()).CompareTo(DateTime.Now) <= 0;
                 

@@ -34,7 +34,7 @@
                     Margin="15,15,0,15"
                     FontAttributes="Bold"
                     FontSize="24"
-                    Text="Sign up to your account"
+                    Text="Sign up to your basestation"
                     TextColor="White"
                     VerticalOptions="EndAndExpand" />
                 <pancake:PancakeView
@@ -49,7 +49,7 @@
                             <Label
                         Margin="10,0,0,0"
                         FontSize="20"
-                        Text="Email"
+                        Text="Username"
                         TextColor="#99A1B3" />
                             <pancake:PancakeView
                             Margin="5,0,5,0"
@@ -117,13 +117,13 @@
                         VerticalOptions="CenterAndExpand">
                             </Label>
                         </pancake:PancakeView>
-                        <Label Grid.Row="4"
+                        <!--<Label Grid.Row="4"
                     FontAttributes="None"
                     FontSize="20"
                     HorizontalOptions="CenterAndExpand"
                     Text="Or"
-                    TextColor="#99A1B3" />
-                        <Label
+                    TextColor="#99A1B3" />-->
+                        <!--<Label
                         Grid.Row="5"
                         FontAttributes="None"
                         FontSize="18"
@@ -139,7 +139,7 @@
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SignUpCommand}"></TapGestureRecognizer>
                             </Label.GestureRecognizers>
-                        </Label>
+                        </Label>-->
                     </Grid>
                 </pancake:PancakeView>
 

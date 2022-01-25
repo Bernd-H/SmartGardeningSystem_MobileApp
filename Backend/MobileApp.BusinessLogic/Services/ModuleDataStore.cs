@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Services {
-    public class ModuleDataStore : IDataStore<ModuleInfoDto> {
+    public class ModuleDataStore : IDataStore<ModuleInfo> {
 
-        private List<ModuleInfoDto> modules;
+        private List<ModuleInfo> modules;
 
 
         private ILogger Logger;
@@ -22,17 +23,14 @@ namespace MobileApp.BusinessLogic.Services {
             Logger = loggerService.GetLogger<ModuleDataStore>();
             APIManager = apiManager;
 
-            modules = new List<ModuleInfoDto>();
+            modules = new List<ModuleInfo>();
         }
 
-        public async Task<bool> AddItemAsync(ModuleInfoDto item) {
+        public async Task<bool> AddItemAsync(ModuleInfo item) {
+            Logger.Info($"[AddItemAsync]Trying to add a new module.");
+
             // update api
-            bool success = await APIManager.AddModule(new Common.Models.Entities.ModuleInfo {
-                Id = item.Id,
-                ModuleTyp = item.Type.Value,
-                Name = item.Name,
-                AssociatedModules = item.CorrespondingValves
-            });
+            bool success = await APIManager.AddModule(item);
 
             if (success) {
                 modules.Add(item);
@@ -41,20 +39,24 @@ namespace MobileApp.BusinessLogic.Services {
             return success;
         }
 
-        public async Task<bool> DeleteItemAsync(string id) {
-            var moduleToDelete = modules.Find(m => m.Id.ToString() == id);
+        public async Task<bool> DeleteItemAsync<T1>(T1 id) where T1 : struct {
+            Logger.Info($"[DeleteItemAsync]Deleting module with id={id}.");
+
+            byte moduleId = Utils.ConvertValue<byte, T1>(id);
+
+            var moduleToDelete = modules.Find(m => m.ModuleId == moduleId);
             if (moduleToDelete != null) {
                 // update api
-                bool success = await APIManager.DeleteModule(moduleToDelete.Id);
+                bool success = await APIManager.DeleteModule(moduleToDelete.ModuleId);
 
                 // remove local version and remove all linked entries in other modules
                 if (success) {
                     modules.Remove(moduleToDelete);
                     foreach (var module in modules) {
-                        if (module.CorrespondingValves?.Contains(moduleToDelete.Id) ?? false) {
-                            var valvesList = module.CorrespondingValves.ToList();
-                            valvesList.Remove(moduleToDelete.Id);
-                            module.CorrespondingValves = valvesList;
+                        if (module.AssociatedModules?.Contains(moduleToDelete.ModuleId) ?? false) {
+                            var valvesList = module.AssociatedModules.ToList();
+                            valvesList.Remove(moduleToDelete.ModuleId);
+                            module.AssociatedModules = valvesList;
                         }
                     }
                 }
@@ -65,34 +67,38 @@ namespace MobileApp.BusinessLogic.Services {
             return false;
         }
 
-        public Task<ModuleInfoDto> GetItemAsync(string id) {
-            var module = modules.Find(m => m.Id.ToString() == id);
+        public Task<ModuleInfo> GetItemAsync<T1>(T1 id) where T1 : struct {
+            byte moduleId = Utils.ConvertValue<byte, T1>(id);
+
+            Logger.Info($"[GetItemAsync]Requested module with id={Utils.ConvertByteToHex(moduleId)} from local memory.");
+            var module = modules.Find(m => m.ModuleId == moduleId);
 
             return Task.FromResult(module);
         }
 
-        public async Task<IEnumerable<ModuleInfoDto>> GetItemsAsync(bool forceRefresh = false) {
+        public async Task<IEnumerable<ModuleInfo>> GetItemsAsync(bool forceRefresh = false) {
             if (forceRefresh || modules.Count == 0) {
+                Logger.Info($"[GetItemsAsync]Requesting all modules from basestation.");
+
                 // request modules
                 var _modules = await APIManager.GetModules();
                 if (_modules != null)
                     modules = _modules.ToList();
             }
+            else {
+                Logger.Trace($"[GetItemsAsync]Returning modules from local cache.");
+            }
 
             return modules;
         }
 
-        public async Task<bool> UpdateItemAsync(ModuleInfoDto item) {
-            bool success = await APIManager.UpdateModule(new Common.Models.Entities.ModuleInfo {
-                Id =  item.Id,
-                ModuleTyp = item.Type.Value,
-                Name = item.Name,
-                AssociatedModules = item.CorrespondingValves
-            });
+        public async Task<bool> UpdateItemAsync(ModuleInfo item) {
+            Logger.Info($"[UpdateItemAsync]Updating module with id={Utils.ConvertByteToHex(item.ModuleId)}.");
+            bool success = await APIManager.UpdateModule(item);
 
             // update stored version
             if (success) {
-                modules.Remove(modules.Find(m => m.Id == item.Id));
+                modules.Remove(modules.Find(m => m.ModuleId == item.ModuleId));
                 modules.Add(item);
             }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
@@ -24,11 +23,24 @@ namespace MobileApp.Common.Models {
 
         public static ModuleInfoDto ToDto(this ModuleInfo module) {
             return new ModuleInfoDto() {
-                Id = module.Id,
-                Name = module.Name,
-                Type = new ModuleTypes(module.ModuleTyp),
-                CorrespondingValves = module.AssociatedModules,
-                InformationTimestamp = DateTime.Now
+                ModuleId = Utils.ConvertByteToHex(module.ModuleId),
+                Name = module.Name, 
+                ModuleTypeName = (module.ModuleType == ModuleType.Sensor) ? ModuleTypeNames.SENSOR : ModuleTypeNames.VALVE,
+                AssociatedModules = module.AssociatedModules,
+                InformationTimestamp = module.InformationTimestamp,
+                EnabledForManualIrrigation = module.EnabledForManualIrrigation
+            };
+        }
+
+        public static ModuleInfo FromDto(this ModuleInfoDto moduleInfoDto) {
+            return new ModuleInfo {
+                ModuleId = Utils.ConvertHexToByte(moduleInfoDto.ModuleId),
+                AssociatedModules = moduleInfoDto.AssociatedModules,
+                InformationTimestamp = moduleInfoDto.InformationTimestamp,
+                LastWaterings = moduleInfoDto.LastWaterings,
+                ModuleType = (moduleInfoDto.ModuleTypeName == ModuleTypeNames.SENSOR) ? ModuleType.Sensor : ModuleType.Valve,
+                Name = moduleInfoDto.Name,
+                EnabledForManualIrrigation = moduleInfoDto.EnabledForManualIrrigation
             };
         }
 
@@ -59,10 +71,10 @@ namespace MobileApp.Common.Models {
         }
 
         public static SystemStatus FromDto(this SystemStatusDto systemStatusDto) {
-            string wateringStatus = nameof(systemStatusDto.WateringStatus);
+            string wateringStatus = Enum.GetName(systemStatusDto.WateringStatus.GetType(), systemStatusDto.WateringStatus);
 
             return new SystemStatus {
-                SystemUpTime = TimeSpan.FromMinutes(systemStatusDto.SystemUpMinutes).ToString(),
+                SystemUpTime = TimeSpan.FromMinutes(systemStatusDto.SystemUpMinutes).ToReadableString(),
                 Temperature = systemStatusDto.Temperature,
                 WateringStatus = wateringStatus
             };

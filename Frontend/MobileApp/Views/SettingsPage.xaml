@@ -8,7 +8,7 @@
         <BackButtonBehavior Command="{Binding BackCommand}"/>
     </Shell.BackButtonBehavior>
     <ContentPage.Content>
-        <Grid Margin="15, 0, 15, 15" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+        <Grid Margin="15, 0, 15, 15" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
             <!-- Manuel control -->
             <!-- Separator (Line) -->
             <BoxView Grid.Row="0" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" IsVisible="false" />
@@ -37,9 +37,18 @@
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeWlanCommand}"></TapGestureRecognizer>
                 </pancake:PancakeView.GestureRecognizers>
             </pancake:PancakeView>
-            
-            <!-- Separator (Line) -->
+
+            <!-- Disconnect from wlan -->
             <BoxView Grid.Row="6" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="7" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Label Text="Disconnect from WLAN" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding DisconnectFromWlanCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+            </pancake:PancakeView>
+
+            <!-- Separator (Line) -->
+            <BoxView Grid.Row="8" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

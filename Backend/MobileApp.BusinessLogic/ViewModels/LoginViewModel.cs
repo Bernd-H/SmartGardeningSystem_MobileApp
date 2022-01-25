@@ -64,6 +64,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         #endregion
 
+        private bool _loggingIn = false;
+
         private ILogger Logger;
 
         private ILoggerService LoggerService;
@@ -100,7 +102,13 @@ namespace MobileApp.BusinessLogic.ViewModels {
             SnackBarMessage = "Please wait. Logging in...";
             SnackBar_IsOpen = true;
 
+            if (_loggingIn) {
+                await DialogService.ShowMessage("Please wait. Logging in...", "Info", "Ok", null);
+                return;
+            }
+
             try {
+                _loggingIn = true;
                 bool success = await APIManager.Login(email, password);
                 SnackBar_IsOpen = false;
 
@@ -126,6 +134,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 // exchange keys again
                 Logger.Info($"[OnLoginClicked]Loading connecting page, to exchange important keys again.");
                 await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.ConnectingPage));
+            }
+            finally {
+                _loggingIn = false;
             }
         }
 

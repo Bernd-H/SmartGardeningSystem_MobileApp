@@ -27,6 +27,10 @@ namespace MobileApp.Views {
             };
         }
 
+        async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e) {
+            await ((SGModuleDetailViewModel)this.BindingContext).SetManualIrrigationSettings(e.Value);
+        }
+
         private void BuildSlider() {
 
             // slider, help from https://ahorasomos.izertis.com/solidgear/en/xamarin-diaries-stepped-slider/

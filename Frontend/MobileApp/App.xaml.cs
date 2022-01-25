@@ -9,6 +9,7 @@ using MobileApp.BusinessLogic.ViewModels;
 using MobileApp.Common;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess;
@@ -117,7 +118,7 @@ namespace MobileApp {
             // other
             // warning: asSingleton only needed by ModulesMockDataStore, because new fake ids would get created every time it gets created.
             //container.Register<IDataStore<ModuleInfoDto>, ModulesMockDataStore>();
-            container.Register<IDataStore<ModuleInfoDto>, ModuleDataStore>();
+            container.Register<IDataStore<ModuleInfo>, ModuleDataStore>();
             container.Register<IDataStore<WlanInfoDto>, WlansDataStore>();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();

@@ -24,7 +24,9 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns>True when the registration was successful.</returns>
-        Task<bool> Register(string email, string password);
+        //Task<bool> Register(string email, string password);
+
+        Task<bool> ChangeLoginInfo(UpdateUserDto updateUserDto);
 
         /// <summary>
         /// Clears stored session information 
@@ -38,7 +40,7 @@ namespace MobileApp.Common.Specifications.Managers {
         /// </summary>
         /// <returns>Null when error</returns>
         /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
-        Task<IEnumerable<ModuleInfoDto>> GetModules();
+        Task<IEnumerable<ModuleInfo>> GetModules();
 
         /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         Task<bool> UpdateModule(ModuleInfo updatedModule);
@@ -47,7 +49,7 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<bool> AddModule(ModuleInfo newModule);
 
         /// <exception cref="UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
-        Task<bool> DeleteModule(Guid moduleId);
+        Task<bool> DeleteModule(byte moduleId);
 
         #endregion
 

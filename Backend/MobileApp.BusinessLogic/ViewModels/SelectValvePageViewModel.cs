@@ -11,6 +11,9 @@ using MobileApp.Common.Specifications.Services;
 using Xamarin.Forms;
 using MobileApp.Common.Specifications;
 using System.Collections.Generic;
+using MobileApp.Common.Models.Entities;
+using MobileApp.Common.Models;
+using MobileApp.Common.Utilities;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty(nameof(SelectValvePageViewModel.AddModulePageStorageId), nameof(AddModulePageStorageId))]
@@ -42,9 +45,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ICachePageDataService CachePageDataService;
 
-        private IDataStore<ModuleInfoDto> ModuleRepository;
+        private IDataStore<ModuleInfo> ModuleRepository;
 
-        public SelectValvePageViewModel(ICachePageDataService cachePageDataService, IDataStore<ModuleInfoDto> moduleRepository) {
+        public SelectValvePageViewModel(ICachePageDataService cachePageDataService, IDataStore<ModuleInfo> moduleRepository) {
             CachePageDataService = cachePageDataService;
             ModuleRepository = moduleRepository;
 
@@ -62,9 +65,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
                     Valves.Clear();
                     var items = await ModuleRepository.GetItemsAsync(true);
-                    foreach (var item in items ?? Enumerable.Empty<ModuleInfoDto>()) {
-                        if (item.Type.Value == ModuleTypes.VALVE && alreadyLinkedValves.Find(m => m.Id == item.Id) == null) {
-                            Valves.Add(item);
+                    foreach (var item in items ?? Enumerable.Empty<ModuleInfo>()) {
+                        if (item.ModuleType == ModuleType.Valve && alreadyLinkedValves.Find(m => m.ModuleId == Utils.ConvertByteToHex(item.ModuleId)) == null) {
+                            Valves.Add(item.ToDto());
                         }
                     }
                 }

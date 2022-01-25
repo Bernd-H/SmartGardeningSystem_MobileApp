@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
+using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
+using NLog;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
@@ -26,10 +33,13 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
             set {
                 itemId = value;
+                moduleId = Utils.ConvertHexToByte(itemId);
                 LoadItemId(value);
-                FillLinkedValvesList(value);
+                FillLinkedValvesList();
             }
         }
+
+        private byte moduleId;
 
         /// <summary>
         /// Query property. Defines under what id SGModuleDetailViewModel properties got stored.
@@ -87,19 +97,19 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref lastUpdated, value);
         }
 
-        private bool isRemoveButtonEnabled;
+        private bool isRemoveButtonEnabled = false;
         public bool IsRemoveButtonEnabled {
             get => isRemoveButtonEnabled;
             set => SetProperty(ref isRemoveButtonEnabled, value);
         }
 
-        private bool isSelectActorVisible;
+        private bool isSelectActorVisible = false;
         public bool IsSelectActorVisible {
             get => isSelectActorVisible;
             set => SetProperty(ref isSelectActorVisible, value);
         }
 
-        private bool isWateringSettingVisible;
+        private bool isWateringSettingVisible = false;
         public bool IsWateringSettingVisible {
             get => isWateringSettingVisible;
             set => SetProperty(ref isWateringSettingVisible, value);
@@ -107,6 +117,21 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public string ModuleImagePath {
             get { return "undraw_tabs"; }
+        }
+
+
+        private bool manualIrrigationEnabled;
+
+        public bool ManualIrrigationEnabled {
+            get => manualIrrigationEnabled;
+            set => SetProperty(ref manualIrrigationEnabled, value);
+        }
+
+        private bool isAValve = false;
+
+        public bool IsAValve {
+            get => isAValve;
+            set => SetProperty(ref isAValve, value);
         }
 
         public ICommand RemoveCommand { get; }
@@ -126,16 +151,23 @@ namespace MobileApp.BusinessLogic.ViewModels {
         #endregion
 
 
+        private ILogger Logger;
+
         private IDialogService DialogService;
 
         private ICachePageDataService CachePageDataService;
 
-        private IDataStore<ModuleInfoDto> ModuleRepository;
+        private IDataStore<ModuleInfo> ModuleRepository;
 
-        public SGModuleDetailViewModel(IDialogService dialogService, ICachePageDataService cachePageDataService, IDataStore<ModuleInfoDto> moduleRepository) {
+        private IAPIManager APIManager;
+
+        public SGModuleDetailViewModel(LoggerService loggerService, IDialogService dialogService, ICachePageDataService cachePageDataService,
+            IDataStore<ModuleInfo> moduleRepository, IAPIManager _APIManager) {
+            Logger = loggerService.GetLogger<SGModuleDetailViewModel>();
             DialogService = dialogService;
             CachePageDataService = cachePageDataService;
             ModuleRepository = moduleRepository;
+            APIManager = _APIManager;
 
             Title = "Module Info";
             RemoveCommand = new Command(OnRemoveClicked);
@@ -147,22 +179,25 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public async void LoadItemId(string itemId) {
             try {
-                var item = await ModuleRepository.GetItemAsync(itemId);
-                Id = item.Id.ToString();
+                var item = (await ModuleRepository.GetItemAsync(moduleId))?.ToDto();
+                Id = item.ModuleId;
                 Name = item.Name;
-                Type = item.Type.Value;
+                Type = item.ModuleTypeName;
                 LastUpdated = item.InformationTimestamp.ToString();
+                ManualIrrigationEnabled = item.EnabledForManualIrrigation;
 
-                if (item.Type.Value.Equals(ModuleTypes.MAINSTATION))
-                    IsRemoveButtonEnabled = false;
-                else
+                if (item.ModuleTypeName == ModuleTypeNames.VALVE) {
                     IsRemoveButtonEnabled = true;
-
-                if (item.Type.Value.Equals(ModuleTypes.SENSOR)) {
+                    IsAValve = true;
+                }
+                else if (item.ModuleTypeName == ModuleTypeNames.SENSOR) {
                     IsSelectActorVisible = true;
                     IsWateringSettingVisible = true;
+                    IsRemoveButtonEnabled = true;
                 }
                 else {
+                    IsRemoveButtonEnabled = false;
+                    IsAValve = false;
                     IsSelectActorVisible = false;
                     IsWateringSettingVisible = false;
                 }
@@ -174,16 +209,37 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        async void FillLinkedValvesList(string itemId) {
+        public async Task SetManualIrrigationSettings(bool enabled) {
+            var m = await ModuleRepository.GetItemAsync(moduleId);
+            if (ManualIrrigationEnabled == m.EnabledForManualIrrigation) {
+                // this event got called when LoadItemId set the ManualIrrigationEnabled checkbox
+                return;
+            }
+
+            Logger.Info($"[SetManualIrrigationSettings]Settings manual irrigation setting to {enabled} for module with id={ItemId}.");
+            var module = ParseToModuleInfo(associatedModules: null); // null because it's a valve not a sensor
+            
+            bool success = await APIManager.UpdateModule(module);
+            if (success) {
+                await DialogService.ShowMessage("Module successfully updated.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("An error occured while trying to update this setting.", "Error", "Ok", null);
+                m = await ModuleRepository.GetItemAsync(moduleId);
+                ManualIrrigationEnabled = m.EnabledForManualIrrigation;
+            }
+        }
+
+        async void FillLinkedValvesList() {
             try {
-                var item = await ModuleRepository.GetItemAsync(itemId);
-                if (item.Type.Value.Equals(ModuleTypes.SENSOR)) {
-                    var correspondingValvesIds = item.CorrespondingValves;
+                var item = await ModuleRepository.GetItemAsync(moduleId);
+                if (item.ModuleType == ModuleType.Sensor) {
+                    var correspondingValvesIds = item.AssociatedModules;
 
                     // fill list with valves
                     LinkedValves.Clear();
-                    foreach (var id in correspondingValvesIds ?? Enumerable.Empty<Guid>()) {
-                        LinkedValves.Add(await ModuleRepository.GetItemAsync(id.ToString()));
+                    foreach (var id in correspondingValvesIds ?? Enumerable.Empty<byte>()) {
+                        LinkedValves.Add((await ModuleRepository.GetItemAsync(id))?.ToDto());
                     }
                 }
             }
@@ -195,7 +251,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void OnRemoveClicked(object obj) {
-            bool success = await ModuleRepository.DeleteItemAsync(id);
+            bool success = await ModuleRepository.DeleteItemAsync(moduleId);
             if (!success) {
                 await DialogService.ShowMessage("Error while removing module!", "Error", "Ok", null);
             }
@@ -221,13 +277,13 @@ namespace MobileApp.BusinessLogic.ViewModels {
             Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
 
             // build associatedModules list
-            List<Guid> associatedModules = new List<Guid>();
+            var associatedModules = new List<byte>();
             foreach (var valve in LinkedValves) {
-                associatedModules.Add(valve.Id);
+                associatedModules.Add(Utils.ConvertHexToByte(valve.ModuleId));
             }
 
             // update module via api
-            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfoDto(associatedModules));
+            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfo(associatedModules));
 
             await userDialog;
 
@@ -243,20 +299,20 @@ namespace MobileApp.BusinessLogic.ViewModels {
             Task userDialog = DialogService.ShowMessage("Updating module. Please wait...", "Info", "Ok", null);
 
             // build associatedModules list without the module to remove
-            List<Guid> associatedModules = new List<Guid>();
+            var associatedModules = new List<byte>();
             foreach (var valve in LinkedValves) {
-                if (valve.Id != obj.Id) {
-                    associatedModules.Add(valve.Id);
+                if (valve.ModuleId != obj.ModuleId) {
+                    associatedModules.Add(Utils.ConvertHexToByte(valve.ModuleId));
                 }
             }
 
             // update module via api
-            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfoDto(associatedModules));
+            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfo(associatedModules));
 
             await userDialog;
 
             if (success) {
-                await UpdateLinkedValvesCollectionView((await ModuleRepository.GetItemAsync(itemId)).CorrespondingValves);
+                await UpdateLinkedValvesCollectionView((await ModuleRepository.GetItemAsync(moduleId)).AssociatedModules);
                 //await DialogService.ShowMessage("Module successfully updated!", "Info", "Ok", null);
             }
             else {
@@ -271,10 +327,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        private async Task UpdateLinkedValvesCollectionView(IEnumerable<Guid> valveIds) {
+        private async Task UpdateLinkedValvesCollectionView(IEnumerable<byte> valveIds) {
             LinkedValves.Clear();
             foreach (var valveId in valveIds) {
-                var linkedModuleInformation = await ModuleRepository.GetItemAsync(valveId.ToString());
+                var linkedModuleInformation = (await ModuleRepository.GetItemAsync(valveId))?.ToDto();
                 LinkedValves.Add(linkedModuleInformation);
             }
         }
@@ -283,13 +339,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
         /// Converts all properties shown in this view into a single object
         /// </summary>
         /// <param name="associatedModules">LinkedValveIds</param>
-        private ModuleInfoDto ParseToModuleInfoDto(List<Guid> associatedModules) {
-            return new ModuleInfoDto {
-                Id = Guid.Parse(itemId),
-                Type = new ModuleTypes(Type),
+        private ModuleInfo ParseToModuleInfo(List<byte> associatedModules) {
+            Logger.Info($"[ParseToModuleInfo]Parsing displayed module data to an ModuleInfo object.");
+            var m = new ModuleInfoDto {
+                ModuleId = ItemId,
+                ModuleTypeName = Type,
                 Name = Name,
-                CorrespondingValves = associatedModules
+                AssociatedModules = associatedModules,
+                EnabledForManualIrrigation = ManualIrrigationEnabled
             };
+
+            return m.FromDto();
         }
     }
 }
