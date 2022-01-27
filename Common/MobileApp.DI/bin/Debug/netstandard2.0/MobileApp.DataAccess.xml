@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MobileApp.DataAccess</name>
+    </assembly>
+    <members>
+        <member name="F:MobileApp.DataAccess.Communication.LocalBasestationDiscovery.ReceiveTimeOut">
+            <summary>
+            Maximum time to await an answer after the message to the multicast group got sent.
+            (Set to 5 seconds)
+            </summary>
+        </member>
+        <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.MulticastAddressV4">
+            <summary>
+            The IPAddress and port of the IPV4 multicast group.
+            </summary>
+        </member>
+        <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.GardeningSystemIdentificationString">
+            <summary>
+            String to search for in a message received from the multicast group, indicating that this message is for a
+            gardening system.
+            </summary>
+        </member>
+        <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.Random">
+            <summary>
+            Used to generate a unique identifier for this client instance.
+            </summary>
+        </member>
+        <member name="P:MobileApp.DataAccess.Communication.MulticastUdpSender.BaseSearchString">
+            <summary>
+            When we send Announce we should embed the current <see cref="!:EngineSettings.ListenPort"/> as it is dynamic.
+            </summary>
+        </member>
+    </members>
+</doc>

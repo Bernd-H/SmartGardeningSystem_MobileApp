@@ -14,5 +14,7 @@
         public static byte[] StartAutomaticIrrigationCommand = new byte[] { 153 };
 
         public static byte[] StopAutomaticIrrigationCommand = new byte[] { 154 };
+
+        public static byte[] DiscoverNewModuleCommand = new byte[] { 155 };
     }
 }

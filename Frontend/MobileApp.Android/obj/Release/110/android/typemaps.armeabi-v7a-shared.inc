@@ -151,26 +151,26 @@
 	.section	.rodata.map_aname.25,"aMS",%progbits,1
 	.type	.L.map_aname.25, %object
 .L.map_aname.25:
-	.asciz	"MobileApp.Android"
-	.size	.L.map_aname.25, 18
+	.asciz	"Xamarin.Google.Guava.ListenableFuture"
+	.size	.L.map_aname.25, 38
 
 	.section	.rodata.map_aname.26,"aMS",%progbits,1
 	.type	.L.map_aname.26, %object
 .L.map_aname.26:
-	.asciz	"Xamarin.Google.Guava.ListenableFuture"
-	.size	.L.map_aname.26, 38
+	.asciz	"Xamarin.AndroidX.AppCompat"
+	.size	.L.map_aname.26, 27
 
 	.section	.rodata.map_aname.27,"aMS",%progbits,1
 	.type	.L.map_aname.27, %object
 .L.map_aname.27:
-	.asciz	"Xamarin.AndroidX.AppCompat"
-	.size	.L.map_aname.27, 27
+	.asciz	"Xamarin.AndroidX.SwipeRefreshLayout"
+	.size	.L.map_aname.27, 36
 
 	.section	.rodata.map_aname.28,"aMS",%progbits,1
 	.type	.L.map_aname.28, %object
 .L.map_aname.28:
-	.asciz	"Xamarin.AndroidX.SwipeRefreshLayout"
-	.size	.L.map_aname.28, 36
+	.asciz	"MobileApp.Android"
+	.size	.L.map_aname.28, 18
 
 	.section	.rodata.map_aname.29,"aMS",%progbits,1
 	.type	.L.map_aname.29, %object

@@ -398,6 +398,21 @@
         "runtime": {
           "bin/placeholder/MobileApp.DataAccess.dll": {}
         }
+      },
+      "MobileApp.DI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "MobileApp.BusinessLogic": "1.0.0",
+          "MobileApp.Common": "1.0.0",
+          "MobileApp.DataAccess": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MobileApp.DI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MobileApp.DI.dll": {}
+        }
       }
     }
   },
@@ -1754,6 +1769,11 @@
       "type": "project",
       "path": "../../Backend/MobileApp.DataAccess/MobileApp.DataAccess.csproj",
       "msbuildProject": "../../Backend/MobileApp.DataAccess/MobileApp.DataAccess.csproj"
+    },
+    "MobileApp.DI/1.0.0": {
+      "type": "project",
+      "path": "../../Common/MobileApp.DI/MobileApp.DI.csproj",
+      "msbuildProject": "../../Common/MobileApp.DI/MobileApp.DI.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1762,6 +1782,7 @@
       "Microcharts.Forms >= 0.9.5.9",
       "MobileApp.BusinessLogic >= 1.0.0",
       "MobileApp.Common >= 1.0.0",
+      "MobileApp.DI >= 1.0.0",
       "MvvmLight >= 5.4.1.1",
       "NETStandard.Library >= 2.0.3",
       "NLog >= 4.7.11",
@@ -1813,6 +1834,9 @@
             },
             "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Common\\MobileApp.Common\\MobileApp.Common.csproj": {
               "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Common\\MobileApp.Common\\MobileApp.Common.csproj"
+            },
+            "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Common\\MobileApp.DI\\MobileApp.DI.csproj": {
+              "projectPath": "C:\\Users\\bernd\\Documents\\Schule\\Diplomarbeit\\GardeningSystem_MobileApp\\Common\\MobileApp.DI\\MobileApp.DI.csproj"
             }
           }
         }

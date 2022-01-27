@@ -5,6 +5,7 @@ using MobileApp.Common;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
+using MobileApp.Common.Utilities;
 using NLog;
 using Xamarin.Forms;
 
@@ -26,14 +27,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDialogService DialogService;
 
-        private IAPIManager APIManager;
+        private ICommandManager CommandManager;
 
-        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+        private CancellationTokenSource cancellationTS = new CancellationTokenSource();
 
-        public WaitingForNewModulePageViewModel(ILoggerService loggerService, IDialogService dialogService, IAPIManager _APIManager) {
+        public WaitingForNewModulePageViewModel(ILoggerService loggerService, IDialogService dialogService, ICommandManager commandManager) {
             Logger = loggerService.GetLogger<WaitingForNewModulePageViewModel>();
             DialogService = dialogService;
-            APIManager = _APIManager;
+            CommandManager = commandManager;
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
             AbortCommand = new Command(OnAbortTapped);
@@ -42,13 +43,18 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         ~WaitingForNewModulePageViewModel() {
-            cancellationToken.Cancel();
+            cancellationTS.Cancel();
         }
 
         async Task BeginSearch() {
-            await Task.Delay(1000);
-            bool addingASensor = true;
-            await Shell.Current.GoToAsync($"{PageNames.AddModulePage}?{nameof(AddModuleViewModel.AddingASensor)}={addingASensor}");
+            byte? moduleId = await CommandManager.DiscoverNewModule(cancellationTS.Token);
+
+            if (!moduleId.HasValue) {
+                await DialogService.ShowMessage("Found no new module.", "Info", "Ok", null);
+            }
+            else if (!cancellationTS.IsCancellationRequested) {
+                await Shell.Current.GoToAsync($"{PageNames.AddModulePage}?{nameof(AddModuleViewModel.ModuleId)}={Utils.ConvertByteToHex(moduleId.Value)}");
+            }
         }
 
         async void OnViewLogsTapped(object obj) {
@@ -57,7 +63,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void OnAbortTapped(object obj) {
             // abort searching
-
+            cancellationTS.Cancel();
 
             // navigate back to home page
             await Shell.Current.GoToAsync(PageNames.MainPage);

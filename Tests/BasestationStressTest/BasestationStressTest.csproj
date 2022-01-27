@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\..\Backend\MobileApp.DataAccess\MobileApp.DataAccess.csproj" />
+    <ProjectReference Include="..\..\Common\MobileApp.Common\MobileApp.Common.csproj" />
+    <ProjectReference Include="..\..\Common\MobileApp.DI\MobileApp.DI.csproj" />
+  </ItemGroup>
+
+</Project>

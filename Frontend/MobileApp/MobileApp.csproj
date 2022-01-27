@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj" />
     <ProjectReference Include="..\..\Common\MobileApp.Common\MobileApp.Common.csproj" />
+    <ProjectReference Include="..\..\Common\MobileApp.DI\MobileApp.DI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

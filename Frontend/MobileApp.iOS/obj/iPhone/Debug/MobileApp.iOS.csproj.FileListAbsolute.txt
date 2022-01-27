@@ -179,3 +179,6 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp.iOS.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.exe
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DataAccess.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.Common.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.xml

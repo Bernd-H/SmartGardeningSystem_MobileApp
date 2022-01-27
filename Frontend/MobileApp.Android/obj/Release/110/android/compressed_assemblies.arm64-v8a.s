@@ -107,7 +107,7 @@
 
 	/* 11: MobileApp.BusinessLogic.dll */
 	/* uncompressed_file_size */
-	.word	138240
+	.word	142848
 	/* loaded */
 	.byte	0
 	/* data */

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 
 namespace MobileApp.Common.Specifications.Managers {
     public interface ICommandManager : IDisposable {
@@ -18,5 +20,7 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<bool> StartManualIrrigation(TimeSpan timeSpan);
 
         Task<bool> StopManualIrrigation();
+
+        Task<byte?> DiscoverNewModule(CancellationToken cancellationToken);
     }
 }

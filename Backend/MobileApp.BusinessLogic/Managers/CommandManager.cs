@@ -3,10 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
 using MobileApp.Common.Exceptions;
 using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
@@ -107,16 +109,40 @@ namespace MobileApp.BusinessLogic.Managers {
 
         public Task<bool> StartManualIrrigation(TimeSpan timeSpan) {
             Logger.Info($"[StartManualIrrigation]Sending start manual irrigation command.");
-            return sendCommand(CommunicationCodes.StartManualIrrigationCommand, openConnectionAction: () => {
+            return sendCommand(CommunicationCodes.StartManualIrrigationCommand, openConnectionAction: new Func<Task>(async () => {
                 // send TimeSpan
                 var timeSpanMinutes = BitConverter.GetBytes(timeSpan.TotalMinutes);
-                AesTcpClient.SendData(timeSpanMinutes);
-            });
+                await AesTcpClient.SendData(timeSpanMinutes);
+            }));
         }
 
         public Task<bool> StopManualIrrigation() {
             Logger.Info($"[StopManualIrrigation]Sending stop manual irrigation command.");
             return sendCommand(CommunicationCodes.StopManualIrrigationCommand);
+        }
+
+        public async Task<byte?> DiscoverNewModule(CancellationToken cancellationToken) {
+            Logger.Info($"[DiscoverNewModule]Sending discover module command.");
+
+            byte[] moduleInfoBytes = null;
+
+            var success = await sendCommand(CommunicationCodes.DiscoverNewModuleCommand, openConnectionAction: new Func<Task>(async () => {
+                // receive Module info
+                moduleInfoBytes = await AesTcpClient.ReceiveData(cancellationToken);
+            }));
+
+            if (success && !cancellationToken.IsCancellationRequested) {
+                try {
+                    return CommunicationUtils.DeserializeObject<ModuleInfo>(moduleInfoBytes).ModuleId;
+                }
+                catch (Exception ex) {
+                    Logger.Error(ex, $"[DiscoverNewModule]An error occured while deserializing the ModuleInfo object of the newly discovered module.");
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
         }
 
         public void Dispose() {
@@ -129,26 +155,31 @@ namespace MobileApp.BusinessLogic.Managers {
         /// <param name="command">Command from CommunicationsCodes</param>
         /// <param name="openConnectionAction">To send additional information if neccessary</param>
         /// <returns>True, when success</returns>
-        private async Task<bool> sendCommand(byte[] command, Action openConnectionAction = null) {
+        private async Task<bool> sendCommand(byte[] command, Func<Task> openConnectionAction = null, CancellationToken token = default) {
             var success = await StartConnection();
             if (success) {
                 try {
                     success = false;
 
                     // send command
-                    await AesTcpClient.SendData(command);
+                    await AesTcpClient.SendData(command, token);
 
                     // receive ack
-                    if ((await AesTcpClient.ReceiveData()).SequenceEqual(CommunicationCodes.ACK)) {
-                        openConnectionAction?.Invoke();
+                    if ((await AesTcpClient.ReceiveData(token)).SequenceEqual(CommunicationCodes.ACK)) {
+                        await openConnectionAction?.Invoke();
 
                         // receive return code
-                        success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
+                        success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(token), 0);
                     }
                 }
                 catch (Exception ex) {
                     success = false;
-                    Logger.Error(ex, $"[sendCommand]An exception occoured while sending command {Utils.ConvertByteArrayToHex(command)}.");
+                    if (token.IsCancellationRequested) {
+                        Logger.Info($"[sendCommand]Cancellation got requested.");
+                    }
+                    else {
+                        Logger.Error(ex, $"[sendCommand]An exception occoured while sending command {Utils.ConvertByteArrayToHex(command)}.");
+                    }
                 }
             }
 

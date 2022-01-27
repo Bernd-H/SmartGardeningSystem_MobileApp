@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\..\Backend\MobileApp.DataAccess\MobileApp.DataAccess.csproj" />
+    <ProjectReference Include="..\MobileApp.Common\MobileApp.Common.csproj" />
+  </ItemGroup>
+
+</Project>

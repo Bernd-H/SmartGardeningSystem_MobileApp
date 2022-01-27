@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     [QueryProperty("DataInCacheId", nameof(DataInCacheId))]
-    [QueryProperty(nameof(AddModuleViewModel.AddingASensor), nameof(AddingASensor))]
+    [QueryProperty(nameof(AddModuleViewModel.ModuleId), nameof(ModuleId))]
     public class AddModuleViewModel : BaseViewModel, IValvesListViewModel {
         /// <summary>
         /// Query property. Defines under what id AddModuleViewModel properties got stored.
@@ -35,7 +35,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     // set properties
                     Name = storedData.Name;
 
-                    AddingASensor = storedData.AddingASensor;
+                    ModuleId = storedData.ModuleId; // will also set booleans AddingASensor and AddingAValve
                     WateringSetting_SliderValue = storedData.WateringSetting_SliderValue;
                     UpdateLinkedValvesCollectionView(storedData.LinkedValves);
 
@@ -44,6 +44,20 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Query property. Used to update the right module, after Name, Valves and so on got set.
+        /// </summary>
+        private string moduleId = string.Empty;
+        public string ModuleId {
+            get {
+                return moduleId;
+            }
+            set {
+                moduleId = value;
+                var m = ModuleRepository.GetItemAsync(Utils.ConvertHexToByte(moduleId)).Result;
+                AddingASensor = m.ModuleType == ModuleType.Sensor;
+            }
+        }
 
 
         private string name;
@@ -132,55 +146,49 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void SaveTapped(object obj) {
-            // check if everything is set
-            bool everythingSet = true;
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrWhiteSpace(Name))
-                everythingSet = false;
-            if (AddingASensor) {
-                if (LinkedValves.Count == 0)
-                    everythingSet = false;
-            } else {
-                if (WateringMethod_PickerIndex == -1)
-                    everythingSet = false;
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrWhiteSpace(Name) || (AddingASensor && LinkedValves.Count == 0) ||
+                (!AddingASensor && WateringMethod_PickerIndex == -1)) {
+                await DialogService.ShowMessage("Can not process data. Please make sure that everything is set properly.", "Error", "Ok", null);
+                return;
             }
 
-            if (everythingSet) {
-                ModuleInfoDto moduleData = new ModuleInfoDto();
+            if (string.IsNullOrWhiteSpace(ModuleId)) {
+                await DialogService.ShowMessage("Fatal error! ModuleId did not get set in background.\nRestart the application and try again.", "Error", "Ok", null);
+                return;
+            }
 
-                // process data
-                //moduleData.Id = Guid.NewGuid();
-                throw new NotImplementedException();
-                moduleData.Name = Name;
-                moduleData.InformationTimestamp = DateTime.Now;
-                if (AddingASensor)
-                    moduleData.ModuleTypeName = ModuleTypeNames.SENSOR;
-                else
-                    moduleData.ModuleTypeName = ModuleTypeNames.VALVE;
+            var m = await ModuleRepository.GetItemAsync<byte>(Utils.ConvertHexToByte(ModuleId));
 
-                // add type specific data
-                if (!AddingASensor) {
-                    var wateringMethod = new Common.Models.Enums.WateringMethods(WateringMethods[WateringMethod_PickerIndex]);
 
-                    // moduleInfoDto.wateringMethod....
-                } else {
-                    var linkedValveIds = new List<byte>();
-                    foreach (var valve in LinkedValves) {
-                        linkedValveIds.Add(Utils.ConvertHexToByte(valve.ModuleId));
-                    }
+            // process data
+            m.Name = Name;
+            m.ModuleType = AddingASensor ? ModuleType.Sensor : ModuleType.Valve;
 
-                    moduleData.AssociatedModules = linkedValveIds;
+            // add type specific data
+            if (!AddingASensor) {
+                var wateringMethod = new Common.Models.Enums.WateringMethods(WateringMethods[WateringMethod_PickerIndex]);
+
+                // moduleInfo.wateringMethod....
+            }
+            else {
+                var linkedValveIds = new List<byte>();
+                foreach (var valve in LinkedValves) {
+                    linkedValveIds.Add(Utils.ConvertHexToByte(valve.ModuleId));
                 }
 
-                // send data to api
-                bool success = await ModuleRepository.AddItemAsync(moduleData.FromDto());
-                if (!success) {
-                    await DialogService.ShowMessage("An error accrued while adding module to repository.", "Error", "Ok", null);
-                }
+                m.AssociatedModules = linkedValveIds;
+            }
+
+            // send data to api
+            bool success = await ModuleRepository.UpdateItemAsync(m);
+            if (!success) {
+                await DialogService.ShowMessage("An error accrued while updating the module.", "Error", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Successfully added the new module.", "Info", "Ok", null);
 
                 // navigate
                 await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
-            } else {
-                await DialogService.ShowMessage("Can not process data. Please make sure that everything is set properly.", "Error", "Ok", null);
             }
         }
 

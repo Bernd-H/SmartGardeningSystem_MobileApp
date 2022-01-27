@@ -79,3 +79,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\M
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Debug\netstandard2.0\MobileApp.DataAccess.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Debug\netstandard2.0\MobileApp.DataAccess.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Debug\netstandard2.0\MobileApp.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\bin\Debug\netstandard2.0\MobileApp.DataAccess.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\bin\Debug\netstandard2.0\MobileApp.Common.xml
