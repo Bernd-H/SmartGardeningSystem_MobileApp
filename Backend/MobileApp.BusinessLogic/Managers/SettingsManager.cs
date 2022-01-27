@@ -11,9 +11,13 @@ using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using Newtonsoft.Json;
 using NLog;
+using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.Managers {
     public class SettingsManager : ISettingsManager {
+
+        public static bool PLATFORM_IS_WINDOWS = false;
+
 
         private ILogger Logger;
 
@@ -97,8 +101,13 @@ namespace MobileApp.BusinessLogic.Managers {
         private void setFilePathIfEmpty() {
             if (string.IsNullOrEmpty(settingsFilePath)) {
                 var configuration = ConfigurationStore.GetConfig();
-                settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configuration.FileNames.SettingsFileName);
-                //settingsFilePath = configuration.FileNames.SettingsFileName;
+                if (PLATFORM_IS_WINDOWS) {
+                    // -> Tests folder
+                    settingsFilePath = configuration.FileNames.SettingsFileName;
+                }
+                else {
+                    settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configuration.FileNames.SettingsFileName);
+                }
             }
         }
     }

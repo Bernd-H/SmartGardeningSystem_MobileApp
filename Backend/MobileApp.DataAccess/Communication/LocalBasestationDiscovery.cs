@@ -73,6 +73,29 @@ namespace MobileApp.DataAccess.Communication {
         }
 
         static IPAddress GetLocalIPAddress() {
+            string localIP = string.Empty;
+            try {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0)) {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    localIP = endPoint.Address.ToString();
+                }
+            }
+            catch {
+                localIP = string.Empty;
+            }
+
+            IPAddress ip;
+            if (IPAddress.TryParse(localIP, out ip)) {
+                return ip;
+            }
+            else {
+                throw new Exception("[GetLocalIPAddress]Error while trying to identify the local ip address.");
+            }
+        }
+
+        [Obsolete]
+        static IPAddress GetLocalIPAddress_old() {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList) {
                 if (ip.AddressFamily == AddressFamily.InterNetwork) {

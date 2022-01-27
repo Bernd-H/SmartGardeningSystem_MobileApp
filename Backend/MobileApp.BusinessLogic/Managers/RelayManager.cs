@@ -25,6 +25,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private IPEndPoint _peerToPeerEndpoint;
 
+        private bool _test = false;
+
 
         private ISslTcpClient SslTcpClient;
 
@@ -51,7 +53,8 @@ namespace MobileApp.BusinessLogic.Managers {
             AesTunnelInSslStream = aesTunnelInSslStream;
         }
 
-        public async Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken, bool forceRelay = false) {
+        public async Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken, bool forceRelay = false, bool test = false) {
+            _test = test;
             bool success = false;
             var settings = await SettingsManager.GetApplicationSettings();
             var config = ConfigurationStore.GetConfig();
@@ -70,7 +73,28 @@ namespace MobileApp.BusinessLogic.Managers {
                 }
             }
 
-            if (success) {
+            if (success && _test) {
+                IEncryptedTunnel tunnel = null;
+
+                if (_externalServerStream == null) {
+                    // peer to peer connection
+                    success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
+                    Logger.Info($"[ConnectToTheBasestation-Test]Established a peer to peer connection: {success}");
+                    tunnel = AesTcpClient;
+                }
+                else {
+                    AesTunnelInSslStream.Init(_externalServerStream);
+                    tunnel = AesTunnelInSslStream;
+                }
+
+                // performing a connection test
+                success = await testConnection(tunnel, cancellationToken, packageLength: 5 * 1024);
+
+                // close the connection
+                _externalServerStream?.Close();
+                AesTcpClient.Stop();
+            }
+            else if (success) {
                 if (_externalServerStream == null) {
                     // connect to the basestation with the given endpoint
                     success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
@@ -131,6 +155,43 @@ namespace MobileApp.BusinessLogic.Managers {
             });
 
             return apiServerStarted && commandServerStarted;
+        }
+
+        /// <summary>
+        /// Sends a package signed as RelayTest to the baseation and waits for it to return.
+        /// </summary>
+        /// <param name="encryptedTunnel">Tunnel to the basestation.</param>
+        /// <param name="cancellationToken">Cancellation token to abort the test</param>
+        /// <param name="packageLength">Length of the random bytes to send.</param>
+        /// <returns>True when the test was successful.</returns>
+        private async Task<bool> testConnection(IEncryptedTunnel encryptedTunnel, CancellationToken cancellationToken, int packageLength = 100) {
+            bool success = false;
+            
+            try {
+                // make a new wan package
+                byte[] package = new byte[packageLength];
+                new Random((int)DateTime.Now.Ticks).NextBytes(package);
+                IWanPackage wanPackage = new WanPackage() {
+                    Package = package,
+                    PackageType = PackageType.RelayTest,
+                    ServiceDetails = null
+                };
+
+                var recievedPackage = await encryptedTunnel.SendAndReceiveData(CommunicationUtils.SerializeObject(wanPackage), cancellationToken);
+
+                // extract package
+                var receivedWanPackage = CommunicationUtils.DeserializeObject<WanPackage>(recievedPackage);
+
+                // compare rebound
+                if (receivedWanPackage != null && receivedWanPackage.Package.SequenceEqual(package)) {
+                    success = true;
+                }
+            }
+            catch {
+                Logger.Error($"[testConnection]Something went wrong while testing the connection.");
+            }
+
+            return success;
         }
     }
 }

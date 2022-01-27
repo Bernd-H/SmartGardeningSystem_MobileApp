@@ -42,7 +42,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 baseStationInfo = await LocalBasestationDiscovery.TryFindBasestation();
 
                 attempts--;
-            } while (attempts >= 0 && baseStationInfo == null);
+            } while (attempts > 0 && baseStationInfo == null);
 
             if (baseStationInfo != null) {
                 // store basestation ip address and id

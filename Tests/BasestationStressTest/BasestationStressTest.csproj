@@ -6,6 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Backend\MobileApp.BusinessLogic\MobileApp.BusinessLogic.csproj" />
     <ProjectReference Include="..\..\Backend\MobileApp.DataAccess\MobileApp.DataAccess.csproj" />
     <ProjectReference Include="..\..\Common\MobileApp.Common\MobileApp.Common.csproj" />

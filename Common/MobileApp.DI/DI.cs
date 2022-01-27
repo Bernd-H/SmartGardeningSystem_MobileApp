@@ -35,21 +35,21 @@ namespace MobileApp.DI
 
             // services
             container.Register<IDialogService, DialogService>();
-            container.Register<ILoggerService, LoggerService>();
+            container.Register<ILoggerService, LoggerService>().AsMultiInstance();
             container.Register<ICachePageDataService, CachePageDataService>();
 
             // managers
-            container.Register<IAPIManager, APIManager>();
+            container.Register<IAPIManager, APIManager>().AsMultiInstance();
             container.Register<ISettingsManager, SettingsManager>();
-            container.Register<IAesKeyExchangeManager, AesKeyExchangeManager>();
-            container.Register<IBasestationFinderManager, BasestationFinderManager>();
+            container.Register<IAesKeyExchangeManager, AesKeyExchangeManager>().AsMultiInstance();
+            container.Register<IBasestationFinderManager, BasestationFinderManager>().AsMultiInstance();
             container.Register<ICommandManager, CommandManager>().AsMultiInstance();
             container.Register<IRelayManager, RelayManager>().AsMultiInstance();
 
             // communication
-            container.Register<ISslTcpClient, SslTcpClient>();
-            container.Register<ILocalBasestationDiscovery, LocalBasestationDiscovery>();
-            container.Register<IMulticastUdpSender, MulticastUdpSender>();
+            container.Register<ISslTcpClient, SslTcpClient>().AsMultiInstance();
+            container.Register<ILocalBasestationDiscovery, LocalBasestationDiscovery>().AsMultiInstance();
+            container.Register<IMulticastUdpSender, MulticastUdpSender>().AsMultiInstance();
             container.Register<IAesTcpClient, AesTcpClient>().AsMultiInstance();
             container.Register<IApiRequestsRelayServer, ApiRequestsRelayServer>().AsMultiInstance();
             container.Register<ICommandsRelayServer, CommandsRelayServer>().AsMultiInstance();
@@ -60,8 +60,8 @@ namespace MobileApp.DI
             container.Register<IDataStore<ModuleInfo>, ModuleDataStore>();
             container.Register<IDataStore<WlanInfoDto>, WlansDataStore>();
 
-            container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>();
-            container.Register<IAesTunnelInSslStream, AesTunnelInSslStream>();
+            container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>().AsMultiInstance();
+            container.Register<IAesTunnelInSslStream, AesTunnelInSslStream>().AsMultiInstance();
 
             container.Register<IMailClient, MailClient>();
             container.Register<ISftpClient, SftpClient>();

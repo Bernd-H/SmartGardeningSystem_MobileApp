@@ -3,7 +3,8 @@
 namespace MobileApp.Common.Specifications.DataObjects {
     public enum PackageType {
         Init = 0,
-        Relay = 1
+        Relay = 1,
+        RelayTest = 5
     }
 
     public interface IWanPackage {

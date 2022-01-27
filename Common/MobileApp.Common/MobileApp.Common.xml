@@ -1317,13 +1317,14 @@
             <param name="wlanInfo">wlan login data</param>
             <returns>If the operation was successfull</returns>
         </member>
-        <member name="M:MobileApp.Common.Specifications.Managers.IRelayManager.ConnectToTheBasestation(System.Threading.CancellationToken,System.Boolean)">
+        <member name="M:MobileApp.Common.Specifications.Managers.IRelayManager.ConnectToTheBasestation(System.Threading.CancellationToken,System.Boolean,System.Boolean)">
             <summary>
             Tells the external server to connect it to the basestation.
             Changes the endpoints of all clients to a local relay server, if the connection with the basestation was successful.
             </summary>
             <param name="cancellationToken">To close all open connections and stop relaying api requests or commands.</param>
             <param name="forceRelay">True, to redirect all traffic over the external server and not directly to the basestation.</param>
+            <param name="test">True when the the connection is only for a relay test.</param>
             <returns>True, when a connection got esablished.</returns>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.ISettingsManager.UpdateCurrentSettings(System.Func{MobileApp.Common.Models.DTOs.ApplicationSettingsDto,MobileApp.Common.Models.DTOs.ApplicationSettingsDto})">

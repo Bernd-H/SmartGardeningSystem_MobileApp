@@ -10,7 +10,8 @@ namespace MobileApp.Common.Specifications.Managers {
         /// </summary>
         /// <param name="cancellationToken">To close all open connections and stop relaying api requests or commands.</param>
         /// <param name="forceRelay">True, to redirect all traffic over the external server and not directly to the basestation.</param>
+        /// <param name="test">True when the the connection is only for a relay test.</param>
         /// <returns>True, when a connection got esablished.</returns>
-        Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken, bool forceRelay = false);
+        Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken, bool forceRelay = false, bool test = false);
     }
 }
