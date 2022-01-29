@@ -37,7 +37,7 @@ namespace BasestationStressTest {
 
                 var init = test.ExchangeAllNeccessaryKeys().Result;
                 if (init) {
-                    var testTask = test.Start();
+                    var testTask = test.Start(amountOfConcurrentTests: 10, forceRelay: true);
 
                     Console.WriteLine("Press enter to stop the test.");
                     Console.ReadLine();
@@ -85,11 +85,18 @@ namespace BasestationStressTest {
             SettingsManager = settingsManager;
         }
 
-        public Task Start() {
+        /// <summary>
+        /// Starts establishing <paramref name="amountOfConcurrentTests"/> connections at the same time 
+        /// and performs a packet ping-pong test on all connections.
+        /// </summary>
+        /// <param name="amountOfConcurrentTests">Amount of concurrent connections.</param>
+        /// <param name="forceRelay">True when all traffic should get relayed over the external server (Forbidds peer to peer connections).</param>
+        /// <returns>A Task on which the Test runs.</returns>
+        public Task Start(int amountOfConcurrentTests = 10, bool forceRelay = true) {
             return Task.Run(() => {
-                Parallel.For(0, 10, i => {
+                Parallel.For(0, amountOfConcurrentTests, i => {
                     var relayManager = IoC.Get<IRelayManager>();
-                    var success = relayManager.ConnectToTheBasestation(_cts.Token, forceRelay: true, test: true).Result;
+                    var success = relayManager.ConnectToTheBasestation(_cts.Token, forceRelay: forceRelay, test: true).Result;
                     Logger.Info($"[Start]Test result {i}: {success}.");
                 });
 
@@ -97,6 +104,12 @@ namespace BasestationStressTest {
             });
         }
 
+        /// <summary>
+        /// Exchanges an aes key when there is not already one.
+        /// </summary>
+        /// <remarks>This aes key is needed to connect to the basestation over the internet.</remarks>
+        /// <returns>A Task that reprecents an asynchronous operation. The value of the TResult parameter contains a boolean indicating whether
+        /// the operation was a success or not.</returns>
         public async Task<bool> ExchangeAllNeccessaryKeys() {
             bool success = false;
             var settings = await SettingsManager.GetApplicationSettings();
@@ -123,6 +136,9 @@ namespace BasestationStressTest {
             return success;
         }
 
+        /// <summary>
+        /// Stops the test and closes all currently opend connections.
+        /// </summary>
         public void Stop() {
             Logger.Info($"[Stop]Closeing all connections...");
             _cts.Cancel();

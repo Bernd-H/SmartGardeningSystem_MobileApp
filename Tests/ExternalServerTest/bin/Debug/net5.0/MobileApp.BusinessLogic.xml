@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MobileApp.BusinessLogic</name>
+    </assembly>
+    <members>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.serverCertificateValidationCallback(System.Net.Http.HttpRequestMessage,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            Validates the server certificate.
+            </summary>
+            <returns>True, when <paramref name="serverCert"/> got verified.</returns>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.sendCommand(System.Byte[],System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="command">Command from CommunicationsCodes</param>
+            <param name="openConnectionAction">To send additional information if neccessary</param>
+            <returns>True, when success</returns>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.StartConnection">
+            <summary>
+            initiates the connection with the server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.RelayManager.testConnection(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Sends a package signed as RelayTest to the baseation and waits for it to return.
+            </summary>
+            <param name="encryptedTunnel">Tunnel to the basestation.</param>
+            <param name="cancellationToken">Cancellation token to abort the test</param>
+            <param name="packageLength">Length of the random bytes to send.</param>
+            <returns>True when the test was successful.</returns>
+        </member>
+        <member name="F:MobileApp.BusinessLogic.ViewModels.AddModuleViewModel.dataInCacheId">
+            <summary>
+            Query property. Defines under what id AddModuleViewModel properties got stored.
+            </summary>
+        </member>
+        <member name="F:MobileApp.BusinessLogic.ViewModels.AddModuleViewModel.moduleId">
+            <summary>
+            Query property. Used to update the right module, after Name, Valves and so on got set.
+            </summary>
+        </member>
+        <member name="P:MobileApp.BusinessLogic.ViewModels.ConnectingPageViewModel.UpdateViewProperty">
+            <summary>
+            To fix a bug. When an element in the main content page gets updated, then
+            the second content page (CarouselPage) gets also updated...
+            (Used in LoadLogs())
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.ViewModels.ConnectingPageViewModel.LoadLogs(System.Object,System.EventArgs)">
+            <summary>
+            Logging in this method is not allowed.
+            (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+            someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.ViewModels.LoginViewModel.LoadLogs(System.Object,System.EventArgs)">
+            <summary>
+            Logging in this method is not allowed.
+            (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+            someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+            </summary>
+        </member>
+        <member name="P:MobileApp.BusinessLogic.ViewModels.SelectValvePageViewModel.NavigationString">
+            <summary>
+            This navigation string will be used to navigate to the next page after an element got selected.
+            </summary>
+        </member>
+        <member name="P:MobileApp.BusinessLogic.ViewModels.SelectWlanPageViewModel.NavigationString">
+            <summary>
+            String to navigate to a specific page after the wlan selection + connection process is completed 
+            </summary>
+        </member>
+        <member name="F:MobileApp.BusinessLogic.ViewModels.SGModuleDetailViewModel.itemId">
+            <summary>
+            Query property. Defines what module should get displayed.
+            </summary>
+        </member>
+        <member name="F:MobileApp.BusinessLogic.ViewModels.SGModuleDetailViewModel.dataInCacheId">
+            <summary>
+            Query property. Defines under what id SGModuleDetailViewModel properties got stored.
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.ViewModels.SGModuleDetailViewModel.ParseToModuleInfo(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Converts all properties shown in this view into a single object
+            </summary>
+            <param name="associatedModules">LinkedValveIds</param>
+        </member>
+    </members>
+</doc>

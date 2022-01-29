@@ -89,6 +89,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 // performing a connection test
                 success = await testConnection(tunnel, cancellationToken, packageLength: 5 * 1024);
+                //await Task.Delay(5000);
 
                 // close the connection
                 _externalServerStream?.Close();

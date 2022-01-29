@@ -40,6 +40,19 @@ namespace MobileApp.Common.Utilities {
 
                 return packet.ToArray();
             }
+            catch (IOException ioex) {
+                if (ioex.InnerException != null) {
+                    if (ioex.InnerException.GetType() == typeof(SocketException)) {
+                        var socketE = (SocketException)ioex.InnerException;
+                        if (socketE.SocketErrorCode == SocketError.ConnectionReset) {
+                            // peer closed the connection
+                            throw new ConnectionClosedException();
+                        }
+                    }
+                }
+
+                throw;
+            }
             catch (ObjectDisposedException) {
                 throw new ConnectionClosedException();
             }
@@ -68,6 +81,19 @@ namespace MobileApp.Common.Utilities {
                 }
 
                 return packet.ToArray();
+            }
+            catch (IOException ioex) {
+                if (ioex.InnerException != null) {
+                    if (ioex.InnerException.GetType() == typeof(SocketException)) {
+                        var socketE = (SocketException)ioex.InnerException;
+                        if (socketE.SocketErrorCode == SocketError.ConnectionReset) {
+                            // peer closed the connection
+                            throw new ConnectionClosedException(networkStreamId);
+                        }
+                    }
+                }
+
+                throw;
             }
             catch (ObjectDisposedException) {
                 throw new ConnectionClosedException(networkStreamId);
