@@ -24,6 +24,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.RelayManager.testConnection(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Sends a package signed as RelayTest to the baseation and waits for it to return.
+            </summary>
+            <param name="encryptedTunnel">Tunnel to the basestation.</param>
+            <param name="cancellationToken">Cancellation token to abort the test</param>
+            <param name="packageLength">Length of the random bytes to send.</param>
+            <returns>True when the test was successful.</returns>
+        </member>
         <member name="F:MobileApp.BusinessLogic.ViewModels.AddModuleViewModel.dataInCacheId">
             <summary>
             Query property. Defines under what id AddModuleViewModel properties got stored.

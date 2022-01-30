@@ -32,7 +32,7 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
         public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
             Logger.Trace($"[ReceiveData]Waiting to receive encrypted data.");
-            byte[] encryped = await CommunicationUtils.ReceiveAsync(null, _sslSteram, cancellationToken);
+            byte[] encryped = await CommunicationUtils.ReceiveAsync(null, _sslSteram, cancellationToken: cancellationToken);
             if (cancellationToken.IsCancellationRequested) {
                 return null;
             }

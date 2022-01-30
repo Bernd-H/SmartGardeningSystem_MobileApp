@@ -24,6 +24,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="F:MobileApp.BusinessLogic.Managers.RelayManager.TEST_PACKET_LENGTH_KB">
+            <summary>
+            Size of the test package in KB.
+            </summary>
+        </member>
         <member name="M:MobileApp.BusinessLogic.Managers.RelayManager.testConnection(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken,System.Int32)">
             <summary>
             Sends a package signed as RelayTest to the baseation and waits for it to return.

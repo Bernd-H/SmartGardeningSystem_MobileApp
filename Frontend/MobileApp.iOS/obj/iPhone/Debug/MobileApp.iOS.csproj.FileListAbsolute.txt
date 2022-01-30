@@ -182,3 +182,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DataAccess.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.Common.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.pdb

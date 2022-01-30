@@ -1470,3 +1470,7 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\bin\Debug\MobileApp.DataAccess.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\bin\Debug\MobileApp.Common.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\bin\Debug\MobileApp.BusinessLogic.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\bin\Debug\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\bin\Debug\MobileApp.DI.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\android\assets\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Debug\110\android\assets\MobileApp.DI.pdb

@@ -15,30 +15,9 @@ namespace MobileApp.Common.Utilities {
 
         #region Send/Receive Methods
 
-        #region Async-Methods
-
-        public static async Task<byte[]> ReceiveAsync(ILogger logger, Stream networkStream, CancellationToken cancellationToken = default) {
+        public static async Task<byte[]> ReceiveAsync(ILogger logger, Stream networkStream, Guid? networkStreamId = null, CancellationToken cancellationToken = default) {
             try {
-                List<byte> packet = new List<byte>();
-                byte[] buffer = new byte[1024];
-                int readBytes = 0;
-                while (true) {
-                    readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
-
-                    if (readBytes == 0) {
-                        throw new ConnectionClosedException();
-                    }
-                    if (readBytes < buffer.Length) {
-                        var tmp = new List<byte>(buffer);
-                        packet.AddRange(tmp.GetRange(0, readBytes));
-                        break;
-                    }
-                    else {
-                        packet.AddRange(buffer);
-                    }
-                }
-
-                return packet.ToArray();
+                return await receiveAsyncWithHeader(networkStream, networkStreamId, cancellationToken);
             }
             catch (IOException ioex) {
                 if (ioex.InnerException != null) {
@@ -46,7 +25,7 @@ namespace MobileApp.Common.Utilities {
                         var socketE = (SocketException)ioex.InnerException;
                         if (socketE.SocketErrorCode == SocketError.ConnectionReset) {
                             // peer closed the connection
-                            throw new ConnectionClosedException();
+                            throw new ConnectionClosedException(networkStreamId);
                         }
                     }
                 }
@@ -54,33 +33,13 @@ namespace MobileApp.Common.Utilities {
                 throw;
             }
             catch (ObjectDisposedException) {
-                throw new ConnectionClosedException();
+                throw new ConnectionClosedException(networkStreamId);
             }
         }
 
-
-        public static async Task<byte[]> ReceiveAsync(ILogger logger, Stream networkStream, Guid networkStreamId, CancellationToken cancellationToken = default) {
+        public static byte[] Receive(ILogger logger, Stream networkStream, Guid? networkStreamId = null) {
             try {
-                List<byte> packet = new List<byte>();
-                byte[] buffer = new byte[1024];
-                int readBytes = 0;
-                while (true) {
-                    readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
-
-                    if (readBytes == 0) {
-                        throw new ConnectionClosedException(networkStreamId);
-                    }
-                    if (readBytes < buffer.Length) {
-                        var tmp = new List<byte>(buffer);
-                        packet.AddRange(tmp.GetRange(0, readBytes));
-                        break;
-                    }
-                    else {
-                        packet.AddRange(buffer);
-                    }
-                }
-
-                return packet.ToArray();
+                return receiveWithHeader(networkStream, networkStreamId);
             }
             catch (IOException ioex) {
                 if (ioex.InnerException != null) {
@@ -101,56 +60,115 @@ namespace MobileApp.Common.Utilities {
         }
 
         public static async Task SendAsync(ILogger logger, byte[] msg, Stream networkStream, CancellationToken cancellationToken = default) {
+            await sendAsyncWithHeader(msg, networkStream, cancellationToken);
+        }
+
+        public static async Task Send(ILogger logger, byte[] msg, Stream networkStream) {
+            sendWithHeader(msg, networkStream);
+        }
+
+
+        #region withOUT header
+
+        private static async Task<byte[]> receiveAsyncWithoutHeader(Stream networkStream, Guid? networkStreamId = null, CancellationToken cancellationToken = default) {
+            List<byte> packet = new List<byte>();
+            byte[] buffer = new byte[1024];
+            int readBytes = 0;
+            while (true) {
+                readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
+
+                if (readBytes == 0) {
+                    throw new ConnectionClosedException(networkStreamId);
+                }
+                if (readBytes < buffer.Length) {
+                    var tmp = new List<byte>(buffer);
+                    packet.AddRange(tmp.GetRange(0, readBytes));
+                    break;
+                }
+                else {
+                    packet.AddRange(buffer);
+                }
+            }
+
+            return packet.ToArray();
+        }
+
+        private static byte[] receiveWithoutHeader(Stream networkStream, Guid? networkStreamId = null) {
+            List<byte> packet = new List<byte>();
+            byte[] buffer = new byte[1024];
+            int readBytes = 0;
+            while (true) {
+                readBytes = networkStream.Read(buffer, 0, buffer.Length);
+
+                if (readBytes == 0) {
+                    throw new ConnectionClosedException(networkStreamId);
+                }
+                if (readBytes < buffer.Length) {
+                    var tmp = new List<byte>(buffer);
+                    packet.AddRange(tmp.GetRange(0, readBytes));
+                    break;
+                }
+                else {
+                    packet.AddRange(buffer);
+                }
+            }
+
+            return packet.ToArray();
+        }
+
+        private static async Task sendAsyncWithoutHeader(byte[] msg, Stream networkStream, CancellationToken cancellationToken = default) {
             await networkStream.WriteAsync(msg, 0, msg.Length, cancellationToken);
             await networkStream.FlushAsync();
         }
 
-        #endregion
-
-        #region Sync-Methods
-
-        public static byte[] Receive(ILogger logger, Stream networkStream) {
-            try {
-                List<byte> packet = new List<byte>();
-                byte[] buffer = new byte[1024];
-                int readBytes = 0;
-                while (true) {
-                    readBytes = networkStream.Read(buffer, 0, buffer.Length);
-
-                    if (readBytes == 0) {
-                        //throw new ConnectionClosedException(networkStreamId);
-                        throw new Exception();
-                    }
-                    if (readBytes < buffer.Length) {
-                        var tmp = new List<byte>(buffer);
-                        packet.AddRange(tmp.GetRange(0, readBytes));
-                        break;
-                    }
-                    else {
-                        packet.AddRange(buffer);
-                    }
-                }
-
-                return packet.ToArray();
-            }
-            catch (ObjectDisposedException) {
-                //throw new ConnectionClosedException(networkStreamId);
-            }
-
-            return new byte[0];
-        }
-
-        public static void Send(ILogger logger, byte[] msg, Stream networkStream) {
+        private static void sendWithoutHeader(byte[] msg, Stream networkStream) {
             networkStream.Write(msg, 0, msg.Length);
             networkStream.Flush();
         }
 
         #endregion
 
-        #region Obsolete methods
+        #region with header
 
-        [Obsolete]
-        public static byte[] ReceiveDataWithHeader(Stream networkStream) {
+        private static async Task<byte[]> receiveAsyncWithHeader(Stream networkStream, Guid? networkStreamId = null, CancellationToken cancellationToken = default) {
+            int bytes = -1;
+            int packetLength = -1;
+            int readBytes = 0;
+            List<byte> packet = new List<byte>();
+
+            do {
+                byte[] buffer = new byte[2048];
+                bytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
+
+                // get length
+                if (packetLength == -1) {
+                    byte[] length = new byte[4];
+                    Array.Copy(buffer, 0, length, 0, 4);
+                    packetLength = BitConverter.ToInt32(length, 0);
+                }
+
+                // add received bytes to the list
+                if (bytes != buffer.Length) {
+                    readBytes += bytes;
+                    byte[] dataToAdd = new byte[bytes];
+                    Array.Copy(buffer, 0, dataToAdd, 0, bytes);
+                    packet.AddRange(dataToAdd);
+                }
+                else {
+                    readBytes += bytes;
+                    packet.AddRange(buffer);
+                }
+
+            } while (bytes != 0 && packetLength - readBytes > 0);
+
+            // remove length information and attached bytes
+            packet.RemoveRange(packetLength, packet.Count - packetLength);
+            packet.RemoveRange(0, 4);
+
+            return packet.ToArray();
+        }
+
+        private static byte[] receiveWithHeader(Stream networkStream, Guid? networkStreamId = null) {
             int bytes = -1;
             int packetLength = -1;
             int readBytes = 0;
@@ -167,8 +185,17 @@ namespace MobileApp.Common.Utilities {
                     packetLength = BitConverter.ToInt32(length, 0);
                 }
 
-                readBytes += bytes;
-                packet.AddRange(buffer);
+                // add received bytes to the list
+                if (bytes != buffer.Length) {
+                    readBytes += bytes;
+                    byte[] dataToAdd = new byte[bytes];
+                    Array.Copy(buffer, 0, dataToAdd, 0, bytes);
+                    packet.AddRange(dataToAdd);
+                }
+                else {
+                    readBytes += bytes;
+                    packet.AddRange(buffer);
+                }
 
             } while (bytes != 0 && packetLength - readBytes > 0);
 
@@ -179,8 +206,20 @@ namespace MobileApp.Common.Utilities {
             return packet.ToArray();
         }
 
-        [Obsolete]
-        public static void SendDataWithHeader(byte[] msg, Stream networkStream) {
+        private static async Task sendAsyncWithHeader(byte[] msg, Stream networkStream, CancellationToken cancellationToken = default) {
+            List<byte> packet = new List<byte>();
+
+            // add length of packet - 4B
+            packet.AddRange(BitConverter.GetBytes(msg.Length + 4));
+
+            // add content
+            packet.AddRange(msg);
+
+            await networkStream.WriteAsync(packet.ToArray(), 0, packet.Count, cancellationToken);
+            networkStream.Flush();
+        }
+
+        private static void sendWithHeader(byte[] msg, Stream networkStream) {
             List<byte> packet = new List<byte>();
 
             // add length of packet - 4B

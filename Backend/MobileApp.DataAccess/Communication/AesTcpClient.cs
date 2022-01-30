@@ -50,7 +50,7 @@ namespace MobileApp.DataAccess.Communication {
         public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
             Logger.Info($"[ReceiveData]Waiting to receive data from {tcpClient.Client.RemoteEndPoint.ToString()}.");
 
-            byte[] packet = await CommunicationUtils.ReceiveAsync(Logger, networkStream, cancellationToken);
+            byte[] packet = await CommunicationUtils.ReceiveAsync(Logger, networkStream, cancellationToken: cancellationToken);
             if (cancellationToken.IsCancellationRequested) {
                 return null;
             }

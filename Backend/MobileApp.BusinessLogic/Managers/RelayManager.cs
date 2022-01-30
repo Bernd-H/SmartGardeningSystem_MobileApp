@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
@@ -20,6 +21,12 @@ using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
     public class RelayManager : IRelayManager {
+
+        /// <summary>
+        /// Size of the test package in KB.
+        /// </summary>
+        public static int TEST_PACKET_LENGTH_KB = 100;
+
 
         private SslStream _externalServerStream;
 
@@ -88,7 +95,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 }
 
                 // performing a connection test
-                success = await testConnection(tunnel, cancellationToken, packageLength: 5 * 1024);
+                success = await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
                 //await Task.Delay(5000);
 
                 // close the connection
@@ -178,7 +185,21 @@ namespace MobileApp.BusinessLogic.Managers {
                     ServiceDetails = null
                 };
 
-                var recievedPackage = await encryptedTunnel.SendAndReceiveData(CommunicationUtils.SerializeObject(wanPackage), cancellationToken);
+                byte[] wanPackageBytes = CommunicationUtils.SerializeObject(wanPackage);
+
+
+                // store the bytes that will be sent in a file for debugging reasons...
+                Logger.Info($"[testConnection]Total wan package size: {wanPackageBytes.Length}.");
+                var settings = await SettingsManager.GetApplicationSettings();
+                byte[] encrypedMessage = IoC.Get<IAesEncrypterDecrypter>().Encrypt(wanPackageBytes, settings.AesKey, settings.AesIV);
+                if (!File.Exists("MobileAppTest_sentMsg.bin")) {
+                    // store only the first package sent with testConnection
+                    Logger.Info($"[testConnection]Storing sent package in MobileAppTest_sentMsg.bin");
+                    File.WriteAllBytes("MobileAppTest_sentMsg.bin", encrypedMessage);
+                }
+
+
+                var recievedPackage = await encryptedTunnel.SendAndReceiveData(wanPackageBytes, cancellationToken);
 
                 // extract package
                 var receivedWanPackage = CommunicationUtils.DeserializeObject<WanPackage>(recievedPackage);

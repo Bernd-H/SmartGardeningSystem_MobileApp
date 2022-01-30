@@ -89,3 +89,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.Common.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DataAccess.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.pdb

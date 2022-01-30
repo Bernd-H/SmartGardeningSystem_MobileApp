@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -78,11 +79,28 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
                 // Create a decryptor to perform the stream transform.
                 ICryptoTransform encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
+                rijAlg.Padding = PaddingMode.Zeros;
 
                 // Create the streams used for encryption. 
                 using (MemoryStream msEncrypt = new MemoryStream()) {
                     using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write)) {
-                        csEncrypt.Write(data, 0, data.Length);
+                        int chunkSize = 1024;
+
+                        for (int i = 0; i < data.Length; i += chunkSize) {
+                            byte[] buffer = new byte[chunkSize];
+
+                            // copy data into the buffer
+                            if (i + chunkSize >= data.Length) {
+                                Array.Copy(data, i, buffer, 0, data.Length - i);
+                            }
+                            else {
+                                Array.Copy(data, i, buffer, 0, chunkSize);
+                            }
+
+                            csEncrypt.Write(buffer, 0, buffer.Length);
+                        }
+
+                        csEncrypt.Flush();
                         csEncrypt.FlushFinalBlock();
                         return msEncrypt.ToArray().Prepend(BitConverter.GetBytes(data.Length));
                     }
@@ -101,14 +119,34 @@ namespace MobileApp.BusinessLogic.Cryptography {
 
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform decryptor = rijAlg.CreateDecryptor(rijAlg.Key, rijAlg.IV);
+                rijAlg.Padding = PaddingMode.Zeros;
 
                 // Create the streams used for decryption. 
                 using (MemoryStream mstream = new MemoryStream(encryptedData)) {
                     using (CryptoStream cryptoStream = new CryptoStream(mstream, decryptor, CryptoStreamMode.Read)) {
-                        byte[] decryptedData = new byte[length];
-                        cryptoStream.Read(decryptedData, 0, length);
-                        cryptoStream.Flush();
-                        return decryptedData;
+                        //byte[] decryptedData = new byte[length];
+                        //cryptoStream.Read(decryptedData, 0, length);
+                        //cryptoStream.Flush();
+                        //return decryptedData;
+
+                        int bytes = -1;
+                        int readBytes = 0;
+                        List<byte> decryptedData = new List<byte>();
+
+                        do {
+                            byte[] buffer = new byte[1024];
+
+                            bytes = cryptoStream.Read(buffer, 0, buffer.Length);
+
+                            readBytes += bytes;
+                            decryptedData.AddRange(buffer);
+
+                        } while (bytes != 0 && length - readBytes > 0);
+
+                        // remove length information and attached bytes
+                        decryptedData.RemoveRange(length, decryptedData.Count - length);
+
+                        return decryptedData.ToArray();
                     }
                 }
             }

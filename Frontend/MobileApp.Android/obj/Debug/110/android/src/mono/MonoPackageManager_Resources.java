@@ -4,6 +4,7 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "MobileApp.Android.dll" comes first in this list. */
 		"MobileApp.Android.dll",
 		"MobileApp.BusinessLogic.dll",
+		"MobileApp.DI.dll",
 		"Autofac.dll",
 		"CommonServiceLocator.dll",
 		"FormsViewGroup.dll",
