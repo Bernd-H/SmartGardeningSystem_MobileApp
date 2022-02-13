@@ -96,7 +96,9 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 // performing a connection test
                 success = await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
-                //await Task.Delay(5000);
+                for (int i = 0; i < 5; i++) {
+                    success &= await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
+                }
 
                 // close the connection
                 _externalServerStream?.Close();
@@ -106,6 +108,7 @@ namespace MobileApp.BusinessLogic.Managers {
                 if (_externalServerStream == null) {
                     // connect to the basestation with the given endpoint
                     success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
+
                     if (success) {
                         success = await initiateRelayingOutgoingPackages(AesTcpClient, cancellationToken);
                     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
+using MobileApp.Common.Specifications.Managers;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
@@ -30,18 +31,19 @@ namespace MobileApp.DataAccess.Communication {
         /// <summary>
         /// When we send Announce we should embed the current <see cref="EngineSettings.ListenPort"/> as it is dynamic.
         /// </summary>
-        string BaseSearchString { get; }
+        private string BaseSearchString;
+
+        private UdpClient sendClient;
 
 
         private ILogger Logger;
 
-        private UdpClient sendClient;
+        private ISettingsManager SettingsManager;
 
-        public MulticastUdpSender(ILoggerService loggerService) {
+        public MulticastUdpSender(ILoggerService loggerService, ISettingsManager settingsManager) {
             Logger = loggerService.GetLogger<MulticastUdpSender>();
+            SettingsManager = settingsManager;
             sendClient = new UdpClient();
-
-            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}\r\nIP: {{0}}\r\nPort: {{1}}\r\n\r\n\r\n";
         }
 
         public void Dispose() {
@@ -50,6 +52,8 @@ namespace MobileApp.DataAccess.Communication {
 
         public async Task SendToMulticastGroupAsync(IPAddress localIP, int replyPort) {
             var nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            await buildBaseSearchString();
 
             string message = string.Format(BaseSearchString, localIP.ToString(), replyPort);
             byte[] data = Encoding.ASCII.GetBytes(message);
@@ -63,6 +67,18 @@ namespace MobileApp.DataAccess.Communication {
                     Logger.Trace(ex, "[SendToMulticastGroupAsync]Error while sending data to multicast group.");
                 }
             }
+        }
+
+        /// <summary>
+        /// Builds the base search string for the local basestation discovery.
+        /// The basestationId can also be Guid.Empty. In this case all basestations in the network will answer.
+        /// </summary>
+        /// <returns></returns>
+        private async Task buildBaseSearchString() {
+            var settigns = await SettingsManager.GetApplicationSettings();
+            var basestationGuid = settigns.BasestationId;
+            BaseSearchString = $"GS-SEARCH * HTTP/1.1 {GardeningSystemIdentificationString} {basestationGuid}\r\nHost: {MulticastAddressV4.Address}:{MulticastAddressV4.Port}" +
+                $"\r\nIP: {{0}}\r\nPort: {{1}}\r\n\r\n\r\n";
         }
     }
 }

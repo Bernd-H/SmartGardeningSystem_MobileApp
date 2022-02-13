@@ -45,8 +45,8 @@ namespace BasestationStressTest {
 
                 var init = test.ExchangeAllNeccessaryKeys().Result;
                 if (init) {
-                    RelayManager.TEST_PACKET_LENGTH_KB = 100000;
-                    var testTask = test.Start(amountOfConcurrentTests: 1, forceRelay: true);
+                    RelayManager.TEST_PACKET_LENGTH_KB = 100;
+                    var testTask = test.Start(amountOfConcurrentTests: 10, forceRelay: true);
 
                     Console.WriteLine("Press enter to stop the test.");
                     Console.ReadLine();

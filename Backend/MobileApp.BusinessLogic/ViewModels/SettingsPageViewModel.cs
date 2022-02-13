@@ -19,6 +19,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public ICommand DisconnectFromWlanCommand { get; set; }
 
+        public ICommand OpenLogsPageCommand { get; set; }
+
 
         private IDialogService DialogService;
 
@@ -36,6 +38,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             ChangeWlanCommand = new Command(ChangeWlanTapped);
             BackCommand = new Command(OnBackTapped);
             DisconnectFromWlanCommand = new Command(OnDisconnectFromWlanTapped);
+            OpenLogsPageCommand = new Command(OnOpenLogsPageTapped);
         }
 
         private async void OnBackTapped(object obj) {
@@ -68,6 +71,11 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private async void ManualControlTapped(object obj) {
             //await Shell.Current.GoToAsync(PageNames.)
+        }
+
+        private async void OnOpenLogsPageTapped(object obj) {
+            Logger.Info($"[OnOpenLogsPageTapped]Loading logs page.");
+            await Shell.Current.GoToAsync(PageNames.LogsPage);
         }
     }
 }

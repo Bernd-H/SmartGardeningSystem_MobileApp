@@ -22,5 +22,7 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<bool> StopManualIrrigation();
 
         Task<byte?> DiscoverNewModule(CancellationToken cancellationToken);
+
+        Task<bool> Test();
     }
 }

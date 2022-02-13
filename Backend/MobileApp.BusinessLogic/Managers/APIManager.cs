@@ -8,8 +8,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using GardeningSystem.Common.Models.DTOs;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Exceptions;
 using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
@@ -56,7 +56,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         #region User-Account methods
 
-        public async Task<bool> Login(string email, string password) {
+        public async Task<bool> Login(string email, string password, byte[] keyValidationBytes) {
             Logger.Info($"[Login]Login process initiated.");
             var settings = await SettingsManager.GetApplicationSettings();
             string url = "";
@@ -69,10 +69,9 @@ namespace MobileApp.BusinessLogic.Managers {
 
                     // prepare data to send
                     var userData = new UserDto() {
-                        //AesEncryptedEmail = AesEncrypterDecrypter.Encrypt(email),
-                        //AesEncryptedPassword = AesEncrypterDecrypter.Encrypt(password)
                         Username = email,
-                        Password = password
+                        Password = password,
+                        KeyValidationBytes = keyValidationBytes
                     };
                     string json = JsonConvert.SerializeObject(userData);
 
@@ -82,7 +81,10 @@ namespace MobileApp.BusinessLogic.Managers {
                     var response = await client.PostAsync(url, data);
                     string result = await response.Content.ReadAsStringAsync();
 
-                    if (result.Contains("token")) {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Conflict) {
+                        throw new WrongAesKeyException();
+                    }
+                    else if (result.Contains("token")) {
                         var jwt = JsonConvert.DeserializeObject<Jwt>(result);
                         jwt.CreationDate = DateTime.UtcNow;
 
@@ -467,7 +469,7 @@ namespace MobileApp.BusinessLogic.Managers {
         private async Task<bool> tryAddWebTokenToHeader() {
             var settings = await SettingsManager.GetApplicationSettings();
             if (settings.SessionAPIToken != null) {
-                Logger.Info($"[tryAddWebTokenToHeader]Adding a authorization token to the api-client-header.");
+                Logger.Trace($"[tryAddWebTokenToHeader]Adding a authorization token to the api-client-header.");
 
                 // remove existing authorization header
                 if (client.DefaultRequestHeaders.Contains("Authorization")) {

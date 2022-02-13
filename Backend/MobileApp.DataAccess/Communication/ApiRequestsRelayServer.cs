@@ -70,6 +70,7 @@ namespace MobileApp.DataAccess.Communication {
         private async void AcceptTcpClientCallback(IAsyncResult ar) {
             TcpClient client = null;
             NetworkStream networkStream = null;
+            bool resetEventSet = false;
 
             try {
                 TcpListener listener = (TcpListener)ar.AsyncState;
@@ -79,6 +80,7 @@ namespace MobileApp.DataAccess.Communication {
 
                 // Signal the calling thread to continue.
                 _tcpClientConnected.Set();
+                resetEventSet = true;
 
                 networkStream = client.GetStream();
 
@@ -134,15 +136,19 @@ namespace MobileApp.DataAccess.Communication {
                 //Console.WriteLine("Closing connection.");
                 //networkStream?.Close();
                 //client?.Close();
+
+                if (!resetEventSet) {
+                    _tcpClientConnected.Set();
+                }
             }
         }
 
         private async Task<byte[]> Receive(NetworkStream networkStream) {
-            return await CommunicationUtils.ReceiveAsync(Logger, networkStream);
+            return await CommunicationUtils.ReceiveAsyncWithoutHeader(Logger, networkStream);
         }
 
         private async Task Send(byte[] msg, NetworkStream networkStream) {
-            await CommunicationUtils.SendAsync(Logger, msg, networkStream);
+            await CommunicationUtils.SendAsyncWithoutHeader(Logger, msg, networkStream);
         }
 
         #region old

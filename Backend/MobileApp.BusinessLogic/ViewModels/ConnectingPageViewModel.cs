@@ -174,6 +174,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
                             //CloseApplicationService.CloseApplication();
                         });
                     }
+                    else if (settings.SessionAPIToken?.IsTokenValid() ?? false) {
+                        // redirect to main page
+                        await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+                    }
                     else {
                         // redirect to login page
                         await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.LoginPage));

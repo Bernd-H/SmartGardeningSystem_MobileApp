@@ -41,3 +41,5 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Release\netstandard2.0\Views\SelectWlanPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Release\netstandard2.0\Views\SignUpPage.xaml.g.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Release\netstandard2.0\Views\SettingsPage.xaml.g.cs
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Release\netstandard2.0\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Release\netstandard2.0\MobileApp.DI.pdb

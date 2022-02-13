@@ -14,6 +14,8 @@ namespace MobileApp.Common.Specifications.Cryptography {
         /// <returns>Encrypted data.</returns>
         byte[] Encrypt(string data);
 
+        byte[] Encrypt(byte[] data);
+
         /// <summary>
         /// Encryptes data with given key and iv.
         /// </summary>

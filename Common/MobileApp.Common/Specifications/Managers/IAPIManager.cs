@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GardeningSystem.Common.Models.DTOs;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 
@@ -11,11 +10,17 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <summary>
         /// Performs a login and stores a Json Web Token (JwT) in the SettingsManager. 
         /// This token will be used by all following api requests/posts.
+        /// Checks if the stored aes keys are valid.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="keyValidationBytes">
+        /// Aes encrypted byte array that contains a specific code and a salt.
+        /// Will get decrypted by the basestation and checked if the decrypted data makes sense.
+        /// </param>
         /// <returns>True when login was successfully</returns>
-        Task<bool> Login(string email, string password);
+        /// <exception cref="MobileApp.Common.Exceptions.WrongAesKeyException">Gets thrown when the basestation could not decrypt the keyValidationBytes.</exception>
+        Task<bool> Login(string email, string password, byte[] keyValidationBytes = null);
 
         /// <summary>
         /// Registers a new user.

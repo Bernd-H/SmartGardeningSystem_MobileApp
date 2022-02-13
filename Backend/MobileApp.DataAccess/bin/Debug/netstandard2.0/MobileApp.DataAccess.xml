@@ -26,10 +26,17 @@
             Used to generate a unique identifier for this client instance.
             </summary>
         </member>
-        <member name="P:MobileApp.DataAccess.Communication.MulticastUdpSender.BaseSearchString">
+        <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.BaseSearchString">
             <summary>
             When we send Announce we should embed the current <see cref="!:EngineSettings.ListenPort"/> as it is dynamic.
             </summary>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.MulticastUdpSender.buildBaseSearchString">
+            <summary>
+            Builds the base search string for the local basestation discovery.
+            The basestationId can also be Guid.Empty. In this case all basestations in the network will answer.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

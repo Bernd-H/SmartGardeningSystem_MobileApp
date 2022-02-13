@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using MobileApp.Common;
+using MobileApp.Common.Exceptions;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess;
+using MobileApp.Common.Specifications.DataAccess.Communication;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
 using NLog;
@@ -78,14 +83,17 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IFileStorage FileStorage;
 
+        private IAesEncrypterDecrypter AesEncrypterDecrypter;
+
         public LoginViewModel(ILoggerService loggerService, IAPIManager _APIManager, IDialogService dialogService, ISettingsManager settingsManager,
-            IFileStorage fileStorage) {
+            IFileStorage fileStorage, IAesEncrypterDecrypter aesEncrypterDecrypter) {
             Logger = loggerService.GetLogger<LoginViewModel>();
             LoggerService = loggerService;
             APIManager = _APIManager;
             DialogService = dialogService;
             SettingsManager = settingsManager;
             FileStorage = fileStorage;
+            AesEncrypterDecrypter = aesEncrypterDecrypter;
 
             LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
@@ -109,7 +117,18 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             try {
                 _loggingIn = true;
-                bool success = await APIManager.Login(email, password);
+
+                // assemble the key validation bytes
+                var random = new Random((int)DateTime.Now.Ticks);
+                var randomSalt = new byte[10];
+                random.NextBytes(randomSalt);
+                IEnumerable<byte> keyValidationBytes = CommunicationCodes.KeyValidationMessage;
+                keyValidationBytes = keyValidationBytes.Concat(randomSalt);
+
+                // encrypt the key validation bytes
+                var encryptedKeyValidationBytes = AesEncrypterDecrypter.Encrypt(keyValidationBytes.ToArray());
+
+                bool success = await APIManager.Login(email, password, encryptedKeyValidationBytes);
                 SnackBar_IsOpen = false;
 
                 if (success) {
@@ -119,7 +138,19 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 else {
                     await DialogService.ShowMessage("Wrong login credentials!", "Access denied", "Ok", null);
                 }
-            } catch (CryptographicException) {
+            } 
+            catch (WrongAesKeyException) {
+                // delete the stored aes key
+                await SettingsManager.UpdateCurrentSettings((currentSettings) => {
+                    currentSettings.AesKey = null;
+                    currentSettings.AesIV = null;
+                    return currentSettings;
+                });
+
+                await DialogService.ShowMessage("The stored aes key is wrong.\n" +
+                    "Please restart the application to exchange a new aes key with the basestation.", "Info", "Ok", null);
+            }
+            catch (CryptographicException) {
                 SnackBar_IsOpen = false;
 
                 // delete stored aes key

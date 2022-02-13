@@ -55,6 +55,9 @@ namespace MobileApp.DataAccess.Communication {
                 sslStreamOpenCallback.Invoke(sslStream, sslStream.RemoteCertificate);
                 result = true;
             }
+            catch (SocketException) {
+                Logger.Error($"[RunClient]Could not connect to {endPoint}.");
+            }
             catch (Exception ex) {
                 Logger.Error(ex, $"[RunClient]An exception occured (ep={endPoint.ToString()}).");
                 sslStream?.Close();

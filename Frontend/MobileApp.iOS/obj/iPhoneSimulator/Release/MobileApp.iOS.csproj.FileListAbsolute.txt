@@ -88,3 +88,10 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhoneSimulator\Release\MobileApp_Try2.iOS.exe
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\Renci.SshNet.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\SshNet.Security.Cryptography.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\MobileApp.DI.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\MobileApp.DI.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\Microsoft.IdentityModel.Logging.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\Microsoft.IdentityModel.Tokens.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhoneSimulator\Release\System.Security.Cryptography.Cng.dll

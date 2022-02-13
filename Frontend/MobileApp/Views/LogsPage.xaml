@@ -12,7 +12,7 @@
                 <Label Text="{Binding Logs, Mode=OneWay}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="StartAndExpand"
-                FontSize="20"/>
+                FontSize="18"/>
             </ScrollView>
 
             <!-- Load button -->

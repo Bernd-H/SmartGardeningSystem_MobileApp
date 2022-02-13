@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,15 +45,19 @@ namespace MobileApp.BusinessLogic.Managers {
                     // receive ack
                     if ((await AesTcpClient.ReceiveData()).SequenceEqual(CommunicationCodes.ACK)) {
                         // send connect information
-                        string connectInfo_json = JsonConvert.SerializeObject(wlanInfo);
-                        await AesTcpClient.SendData(Encoding.UTF8.GetBytes(connectInfo_json));
+                        await AesTcpClient.SendData(CommunicationUtils.SerializeObject(wlanInfo));
 
                         // receive return code
                         try {
                             success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
-                        } catch (ConnectionClosedException) {
-                            // return code won't get received if CommandServer connected to another wlan successfully
-                            success = true;
+                        } catch (Exception rrc_ex) {
+                            if (rrc_ex.GetType() == typeof(ConnectionClosedException) || rrc_ex.GetType() == typeof(SocketException)) {
+                                // return code won't get received if CommandServer connected to another wlan successfully
+                                success = true;
+                            }
+                            else {
+                                throw;
+                            }
                         }
                     }
                 } catch (Exception ex) {
@@ -145,6 +150,11 @@ namespace MobileApp.BusinessLogic.Managers {
             }
         }
 
+        public Task<bool> Test() {
+            Logger.Info($"[Test]Sending the test command.");
+            return sendCommand(CommunicationCodes.Test);
+        }
+
         public void Dispose() {
             AesTcpClient.Dispose();
         }
@@ -166,7 +176,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
                     // receive ack
                     if ((await AesTcpClient.ReceiveData(token)).SequenceEqual(CommunicationCodes.ACK)) {
-                        await openConnectionAction?.Invoke();
+                        await (openConnectionAction?.Invoke() ?? Task.CompletedTask);
 
                         // receive return code
                         success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(token), 0);

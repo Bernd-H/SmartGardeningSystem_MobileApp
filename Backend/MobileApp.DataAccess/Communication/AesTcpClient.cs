@@ -97,6 +97,14 @@ namespace MobileApp.DataAccess.Communication {
 
                 return true;
             }
+            catch (ArgumentNullException anex) {
+                if (anex.ParamName == nameof(remoteEndPoint)) {
+                    Logger.Error($"[Start]Remote end point was null.");
+                }
+                else {
+                    Logger.Error(anex, $"[Start]Error while connecting to remote end point.");
+                }
+            }
             catch (Exception ex) {
                 Logger.Error(ex, "[Start]Error while connecting to remote end point.");
             }

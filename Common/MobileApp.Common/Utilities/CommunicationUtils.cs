@@ -67,6 +67,32 @@ namespace MobileApp.Common.Utilities {
             sendWithHeader(msg, networkStream);
         }
 
+        public static async Task<byte[]> ReceiveAsyncWithoutHeader(ILogger logger, Stream networkStream, Guid? networkStreamId = null, CancellationToken cancellationToken = default) {
+            try {
+                return await receiveAsyncWithoutHeader(networkStream, networkStreamId, cancellationToken);
+            }
+            catch (IOException ioex) {
+                if (ioex.InnerException != null) {
+                    if (ioex.InnerException.GetType() == typeof(SocketException)) {
+                        var socketE = (SocketException)ioex.InnerException;
+                        if (socketE.SocketErrorCode == SocketError.ConnectionReset) {
+                            // peer closed the connection
+                            throw new ConnectionClosedException(networkStreamId);
+                        }
+                    }
+                }
+
+                throw;
+            }
+            catch (ObjectDisposedException) {
+                throw new ConnectionClosedException(networkStreamId);
+            }
+        }
+
+
+        public static async Task SendAsyncWithoutHeader(ILogger logger, byte[] msg, Stream networkStream, CancellationToken cancellationToken = default) {
+            await sendAsyncWithoutHeader(msg, networkStream, cancellationToken);
+        }
 
         #region withOUT header
 

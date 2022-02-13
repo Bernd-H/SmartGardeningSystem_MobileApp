@@ -4,6 +4,18 @@
         <name>MobileApp.BusinessLogic</name>
     </assembly>
     <members>
+        <member name="T:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Decrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Encrypt(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Encrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.BusinessLogic.Managers.APIManager.serverCertificateValidationCallback(System.Net.Http.HttpRequestMessage,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
             <summary>
             Validates the server certificate.
@@ -63,6 +75,13 @@
             </summary>
         </member>
         <member name="M:MobileApp.BusinessLogic.ViewModels.LoginViewModel.LoadLogs(System.Object,System.EventArgs)">
+            <summary>
+            Logging in this method is not allowed.
+            (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+            someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.ViewModels.LogsPageViewModel.loadLogs">
             <summary>
             Logging in this method is not allowed.
             (Would create an infinite loop, because LoadLogs() gets called automatically, when 
