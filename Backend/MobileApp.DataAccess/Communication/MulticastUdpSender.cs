@@ -10,6 +10,8 @@ using MobileApp.Common.Specifications.Managers;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class MulticastUdpSender : IMulticastUdpSender, IDisposable {
 
         /// <summary>
@@ -46,10 +48,12 @@ namespace MobileApp.DataAccess.Communication {
             sendClient = new UdpClient();
         }
 
+        /// <inheritdoc/>
         public void Dispose() {
             sendClient?.Dispose();
         }
 
+        /// <inheritdoc/>
         public async Task SendToMulticastGroupAsync(IPAddress localIP, int replyPort) {
             var nics = NetworkInterface.GetAllNetworkInterfaces();
 

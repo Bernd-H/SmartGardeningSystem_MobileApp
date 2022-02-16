@@ -20,6 +20,8 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
+
+    /// <inheritdoc/>
     public class RelayManager : IRelayManager {
 
         /// <summary>
@@ -60,95 +62,110 @@ namespace MobileApp.BusinessLogic.Managers {
             AesTunnelInSslStream = aesTunnelInSslStream;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> ConnectToTheBasestation(CancellationToken cancellationToken, bool forceRelay = false, bool test = false) {
-            _test = test;
             bool success = false;
-            var settings = await SettingsManager.GetApplicationSettings();
-            var config = ConfigurationStore.GetConfig();
-            string targetHost = config.ConnectionSettings.ExternalServer_Domain;
 
-            // client must have been connected to the basestation at least one time before
-            if (settings.BasestationId != Guid.Empty && settings.AesKey != null && settings.AesIV != null) {
-                var ip = IpUtils.GetHostAddress(config.ConnectionSettings.ExternalServer_Domain, 5000);
-                if (ip != null) {
-                    success = await SslTcpClient.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (sslStream, remoteCert) => {
-                        connectedCallback(sslStream, settings.BasestationId, forceRelay);
-                    }, selfSignedCertificate: false, closeConnectionAfterCallback: false, targetHost);
-                }
-                else {
-                    Logger.Error($"[ConnectToTheBasestation]Could not resolve domain {config.ConnectionSettings.ExternalServer_Domain}.");
+            try {
+                _test = test;
+                var settings = await SettingsManager.GetApplicationSettings();
+                var config = ConfigurationStore.GetConfig();
+                string targetHost = config.ConnectionSettings.ExternalServer_Domain;
+
+                cancellationToken.Register(() => SslTcpClient.Stop());
+
+                // client must have been connected to the basestation at least one time before
+                if (settings.BasestationId != Guid.Empty && settings.AesKey != null && settings.AesIV != null) {
+                    var ip = IpUtils.GetHostAddress(config.ConnectionSettings.ExternalServer_Domain, 5000);
+                    if (ip != null) {
+                        success = await SslTcpClient.Start(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)),
+                            selfSignedCertificate: false, targetHost);
+
+                        if (success) {
+                            await connectedCallback(settings.BasestationId, forceRelay);
+
+                            if (_test) {
+                                IEncryptedTunnel tunnel = null;
+
+                                if (_externalServerStream == null) {
+                                    // peer to peer connection
+                                    success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
+                                    Logger.Info($"[ConnectToTheBasestation-Test]Established a peer to peer connection: {success}");
+                                    tunnel = AesTcpClient;
+                                }
+                                else {
+                                    AesTunnelInSslStream.Init(_externalServerStream);
+                                    tunnel = AesTunnelInSslStream;
+                                }
+
+                                // performing a connection test
+                                success = await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
+                                for (int i = 0; i < 5; i++) {
+                                    success &= await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
+                                }
+
+                                // close the connection
+                                _externalServerStream?.Close();
+                                AesTcpClient.Stop();
+                            }
+                            else {
+                                if (_externalServerStream == null) {
+                                    // connect to the basestation with the given endpoint
+                                    success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
+
+                                    if (success) {
+                                        success = await initiateRelayingOutgoingPackages(AesTcpClient, cancellationToken);
+                                    }
+                                    else if (forceRelay == false) {
+                                        // peer to peer connection didn't work.
+                                        // tell the external server to relay all traffic
+                                        return await ConnectToTheBasestation(cancellationToken, forceRelay: true);
+                                    }
+                                }
+                                else {
+                                    // use existing connection to relay messages to the basestation
+                                    AesTunnelInSslStream.Init(_externalServerStream);
+                                    success = await initiateRelayingOutgoingPackages(AesTunnelInSslStream, cancellationToken);
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        Logger.Error($"[ConnectToTheBasestation]Could not resolve domain {config.ConnectionSettings.ExternalServer_Domain}.");
+                    }
                 }
             }
-
-            if (success && _test) {
-                IEncryptedTunnel tunnel = null;
-
-                if (_externalServerStream == null) {
-                    // peer to peer connection
-                    success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
-                    Logger.Info($"[ConnectToTheBasestation-Test]Established a peer to peer connection: {success}");
-                    tunnel = AesTcpClient;
-                }
-                else {
-                    AesTunnelInSslStream.Init(_externalServerStream);
-                    tunnel = AesTunnelInSslStream;
-                }
-
-                // performing a connection test
-                success = await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
-                for (int i = 0; i < 5; i++) {
-                    success &= await testConnection(tunnel, cancellationToken, packageLength: TEST_PACKET_LENGTH_KB * 1024);
-                }
-
-                // close the connection
-                _externalServerStream?.Close();
-                AesTcpClient.Stop();
-            }
-            else if (success) {
-                if (_externalServerStream == null) {
-                    // connect to the basestation with the given endpoint
-                    success = await AesTcpClient.Start(_peerToPeerEndpoint, 5000);
-
-                    if (success) {
-                        success = await initiateRelayingOutgoingPackages(AesTcpClient, cancellationToken);
-                    }
-                    else if (forceRelay == false) {
-                        // peer to peer connection didn't work.
-                        // tell the external server to relay all traffic
-                        return await ConnectToTheBasestation(cancellationToken, forceRelay: true);
-                    }
-                } else {
-                    // use existing connection to relay messages to the basestation
-                    AesTunnelInSslStream.Init(_externalServerStream);
-                    success = await initiateRelayingOutgoingPackages(AesTunnelInSslStream, cancellationToken);
-                }
+            catch (Exception ex) {
+                Logger.Error(ex, "[ConnectToTheBasestation]An error occured.");
+                SslTcpClient.Stop();
+                success = false;
             }
 
             return success;
         }
 
-        private void connectedCallback(SslStream sslStream, Guid basestationId, bool forceRelay) {
+        private async Task connectedCallback(Guid basestationId, bool forceRelay) {
             // send basestation id
-            SslTcpClient.SendMessage(sslStream, CommunicationUtils.SerializeObject<ConnectRequestDto>(new ConnectRequest {
+            await SslTcpClient.SendData(CommunicationUtils.SerializeObject<ConnectRequestDto>(new ConnectRequest {
                 BasestationId = basestationId,
                 ForceRelay = forceRelay
             }.ToDto()));
 
             // receive relay request result
-            var rrrBytes = SslTcpClient.ReadMessage(sslStream);
+            var rrrBytes = await SslTcpClient.ReceiveData();
             var requestResult = CommunicationUtils.DeserializeObject<ConnectRequestResultDto>(rrrBytes).FromDto();
 
             _peerToPeerEndpoint = requestResult.BasestaionEndPoint;
 
             // send back ack
-            SslTcpClient.SendMessage(sslStream, CommunicationCodes.ACK);
+            await SslTcpClient.SendData(CommunicationCodes.ACK);
 
             if (!requestResult.BasestationNotReachable && requestResult.BasestaionEndPoint == null) {
                 // packages will get relayed over the external server
-                _externalServerStream = sslStream;
+                _externalServerStream = SslTcpClient.SslStream;
             }
             else {
-                sslStream?.Close();
+                SslTcpClient.Stop();
             }
         }
 
@@ -193,8 +210,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
                 // store the bytes that will be sent in a file for debugging reasons...
                 Logger.Info($"[testConnection]Total wan package size: {wanPackageBytes.Length}.");
-                var settings = await SettingsManager.GetApplicationSettings();
-                byte[] encrypedMessage = IoC.Get<IAesEncrypterDecrypter>().Encrypt(wanPackageBytes, settings.AesKey, settings.AesIV);
+                byte[] encrypedMessage = IoC.Get<IAesEncrypterDecrypter>().Encrypt(wanPackageBytes);
                 if (!File.Exists("MobileAppTest_sentMsg.bin")) {
                     // store only the first package sent with testConnection
                     Logger.Info($"[testConnection]Storing sent package in MobileAppTest_sentMsg.bin");

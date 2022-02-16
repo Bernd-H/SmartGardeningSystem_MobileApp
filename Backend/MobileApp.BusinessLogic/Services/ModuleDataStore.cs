@@ -10,6 +10,8 @@ using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Services {
+
+    /// <inheritdoc/>
     public class ModuleDataStore : IDataStore<ModuleInfo> {
 
         private List<ModuleInfo> modules;
@@ -26,6 +28,7 @@ namespace MobileApp.BusinessLogic.Services {
             modules = new List<ModuleInfo>();
         }
 
+        /// <inheritdoc/>
         public async Task<bool> AddItemAsync(ModuleInfo item) {
             Logger.Info($"[AddItemAsync]Trying to add a new module.");
 
@@ -39,6 +42,7 @@ namespace MobileApp.BusinessLogic.Services {
             return success;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteItemAsync<T1>(T1 id) where T1 : struct {
             Logger.Info($"[DeleteItemAsync]Deleting module with id={id}.");
 
@@ -67,6 +71,7 @@ namespace MobileApp.BusinessLogic.Services {
             return false;
         }
 
+        /// <inheritdoc/>
         public Task<ModuleInfo> GetItemAsync<T1>(T1 id) where T1 : struct {
             byte moduleId = Utils.ConvertValue<byte, T1>(id);
 
@@ -76,6 +81,7 @@ namespace MobileApp.BusinessLogic.Services {
             return Task.FromResult(module);
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ModuleInfo>> GetItemsAsync(bool forceRefresh = false) {
             if (forceRefresh || modules.Count == 0) {
                 Logger.Info($"[GetItemsAsync]Requesting all modules from basestation.");
@@ -92,6 +98,7 @@ namespace MobileApp.BusinessLogic.Services {
             return modules;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateItemAsync(ModuleInfo item) {
             Logger.Info($"[UpdateItemAsync]Updating module with id={Utils.ConvertByteToHex(item.ModuleId)}.");
             bool success = await APIManager.UpdateModule(item);

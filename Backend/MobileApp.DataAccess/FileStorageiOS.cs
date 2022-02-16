@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using MobileApp.Common.Specifications.DataAccess;
 
 namespace MobileApp.DataAccess {
+
+    /// <inheritdoc/>
     public class FileStorageiOS : IFileStorage {
 
+        /// <inheritdoc/>
         public async Task<string> ReadAsString(string filePath) {
             var data = await ReadAsBytes(filePath);
 
@@ -17,6 +20,7 @@ namespace MobileApp.DataAccess {
             return System.Text.Encoding.UTF8.GetString(data);
         }
 
+        /// <inheritdoc/>
         public async Task WriteAllText(string filePath, string text) {
             var data = System.Text.Encoding.UTF8.GetBytes(text);
             await WriteAsBytes(filePath, data);   

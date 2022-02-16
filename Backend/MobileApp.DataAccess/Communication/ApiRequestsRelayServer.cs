@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class ApiRequestsRelayServer : IApiRequestsRelayServer {
 
         private static ManualResetEvent _tcpClientConnected = new ManualResetEvent(false);
@@ -33,6 +35,7 @@ namespace MobileApp.DataAccess.Communication {
             Logger = loggerService.GetLogger<ApiRequestsRelayServer>();
         }
 
+        /// <inheritdoc/>
         public Task<bool> Start(IEncryptedTunnel relayTunnel, CancellationToken cancellationToken) {
             bool success = false;
             _relayTunnel = relayTunnel;

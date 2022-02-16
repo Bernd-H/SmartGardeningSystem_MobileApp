@@ -10,6 +10,8 @@ using NLog.Config;
 using NLog.Targets;
 
 namespace MobileApp.BusinessLogic {
+
+    /// <inheritdoc/>
     public class LoggerService : ILoggerService {
 
         private Dictionary<Type, ILogger> logger; // to allow to return new logger instances for different classes
@@ -19,6 +21,7 @@ namespace MobileApp.BusinessLogic {
             LoadConfig();
         }
 
+        /// <inheritdoc/>
         public ILogger GetLogger<T>() where T : class {
             if (!logger.ContainsKey(typeof(T))) {
                 logger.Add(typeof(T), LogManager.GetLogger(typeof(T).Name));
@@ -27,6 +30,7 @@ namespace MobileApp.BusinessLogic {
             return logger[typeof(T)];
         }
 
+        /// <inheritdoc/>
         public string GetLogFilePath(bool allLogsFile) {
             LogEventInfo logEventInfo;
 
@@ -39,11 +43,6 @@ namespace MobileApp.BusinessLogic {
             } else {
                 return clearFileNamePathFromApostrophs(((FileTarget)LogManager.Configuration.FindTargetByName("logFile")).FileName.Render(logEventInfo));
             }
-        }
-
-        public string GetInternalLogFilePath() {
-            //LogManager.Configuration.
-            throw new NotImplementedException();
         }
 
         private static Stream GetEmbeddedResourceStream(Assembly assembly, string resourceFileName) {

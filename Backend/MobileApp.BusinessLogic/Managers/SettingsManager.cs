@@ -14,6 +14,8 @@ using NLog;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.Managers {
+
+    /// <inheritdoc/>
     public class SettingsManager : ISettingsManager {
 
         public static bool PLATFORM_IS_WINDOWS = false;
@@ -36,6 +38,8 @@ namespace MobileApp.BusinessLogic.Managers {
         }
 
         #region runtime variables
+
+        /// <inheritdoc/>
         public GlobalRuntimeVariables GetRuntimeVariables() {
             Logger.Trace($"[GetRuntimeVariables]Requested GlobalRuntimeVariables.");
             if (globalRuntimeVariables == null) {
@@ -45,6 +49,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return globalRuntimeVariables;
         }
 
+        /// <inheritdoc/>
         public void UpdateCurrentRuntimeVariables(Func<GlobalRuntimeVariables, GlobalRuntimeVariables> updateFunc) {
             globalRuntimeVarsLOCKER.Wait();
             Logger.Trace($"[UpdateCurrentRuntimeVariables]Updating GlobalRuntimeVariables.");
@@ -54,6 +59,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         #endregion
 
+        /// <inheritdoc/>
         public async Task<ApplicationSettingsDto> GetApplicationSettings() {
             await LOCKER.WaitAsync();
 
@@ -64,6 +70,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return settings;
         }
 
+        /// <inheritdoc/>
         public async Task UpdateCurrentSettings(Func<ApplicationSettingsDto, ApplicationSettingsDto> updateFunc) {
             await LOCKER.WaitAsync();
 

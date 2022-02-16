@@ -12,6 +12,8 @@ using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class AesTcpClient : IAesTcpClient, IDisposable, IEncryptedTunnel {
 
         private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
@@ -21,20 +23,13 @@ namespace MobileApp.DataAccess.Communication {
 
         private NetworkStream networkStream;
 
-        private byte[] AesIV;
-
-        private byte[] AesKey;
-
 
         private ILogger Logger;
 
-        private ISettingsManager SettingsManager;
-
         private IAesEncrypterDecrypter AesEncrypterDecrypter;
 
-        public AesTcpClient(ILoggerService loggerService, ISettingsManager settingsManager, IAesEncrypterDecrypter aesEncrypterDecrypter) {
+        public AesTcpClient(ILoggerService loggerService, IAesEncrypterDecrypter aesEncrypterDecrypter) {
             Logger = loggerService.GetLogger<AesTcpClient>();
-            SettingsManager = settingsManager;
             AesEncrypterDecrypter = aesEncrypterDecrypter;
         }
 
@@ -43,10 +38,12 @@ namespace MobileApp.DataAccess.Communication {
             tcpClient?.Close();
         }
 
+        /// <inheritdoc/>
         public bool IsConnected() {
             return tcpClient?.Connected ?? false;
         }
 
+        /// <inheritdoc/>
         public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
             Logger.Info($"[ReceiveData]Waiting to receive data from {tcpClient.Client.RemoteEndPoint.ToString()}.");
 
@@ -56,37 +53,35 @@ namespace MobileApp.DataAccess.Communication {
             }
 
             // decrypt message
-            byte[] decryptedPacket = AesEncrypterDecrypter.Decrypt(packet, AesKey, AesIV);
+            byte[] decryptedPacket = AesEncrypterDecrypter.Decrypt(packet);
 
             return decryptedPacket;
         }
 
-        public async Task<byte[]> SendAndReceiveData(byte[] msg, CancellationToken cancellationToken = default) {
+        /// <inheritdoc/>
+        public async Task<byte[]> SendAndReceiveData(byte[] data, CancellationToken cancellationToken = default) {
             await LOCKER.WaitAsync();
 
-            await SendData(msg, cancellationToken);
+            await SendData(data, cancellationToken);
             var received = await ReceiveData(cancellationToken);
 
             LOCKER.Release();
             return received;
         }
 
-        public async Task SendData(byte[] msg, CancellationToken cancellationToken = default) {
-            Logger.Info($"[SendData] Sending data with length {msg.Length}.");
+        /// <inheritdoc/>
+        public async Task SendData(byte[] data, CancellationToken cancellationToken = default) {
+            Logger.Info($"[SendData] Sending data with length {data.Length}.");
 
             // encrypt message
-            byte[] encryptedPacket = AesEncrypterDecrypter.Encrypt(msg, AesKey, AesIV);
+            byte[] encryptedPacket = AesEncrypterDecrypter.Encrypt(data);
 
             await CommunicationUtils.SendAsync(Logger, encryptedPacket, networkStream, cancellationToken);
         }
 
+        /// <inheritdoc/>
         public async Task<bool> Start(IPEndPoint remoteEndPoint, int receiveTimeout) {
             try {
-                // get aes key + iv
-                var settings = await SettingsManager.GetApplicationSettings();
-                AesIV = settings.AesIV;
-                AesKey = settings.AesKey;
-
                 tcpClient = new TcpClient();
                 tcpClient.SendTimeout = 1000; // 1s
                 tcpClient.ReceiveTimeout = receiveTimeout;
@@ -112,6 +107,7 @@ namespace MobileApp.DataAccess.Communication {
             return false;
         }
 
+        /// <inheritdoc/>
         public void Stop() {
             if (IsConnected()) {
                 networkStream?.Close();

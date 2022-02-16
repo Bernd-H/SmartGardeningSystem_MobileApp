@@ -8,6 +8,8 @@ using MobileApp.Common.Specifications.DataAccess.Communication;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class LocalBasestationDiscovery : ILocalBasestationDiscovery, IDisposable {
 
         /// <summary>
@@ -30,11 +32,13 @@ namespace MobileApp.DataAccess.Communication {
             client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
         }
 
+        /// <inheritdoc/>
         public void Dispose() {
             client?.Dispose();
             MulticastUdpSender?.Dispose();
         }
 
+        /// <inheritdoc/>
         public async Task<BasestationFoundDto> TryFindBasestation() {
             BasestationFoundDto result = null;
 

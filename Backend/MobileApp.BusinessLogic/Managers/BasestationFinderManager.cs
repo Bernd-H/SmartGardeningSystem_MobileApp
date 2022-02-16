@@ -11,6 +11,8 @@ using MobileApp.Common.Specifications.Managers;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
+
+    /// <inheritdoc/>
     public class BasestationFinderManager : IBasestationFinderManager, IDisposable {
 
         private ILocalBasestationDiscovery LocalBasestationDiscovery;
@@ -29,10 +31,12 @@ namespace MobileApp.BusinessLogic.Managers {
             Dispose();
         }
 
+        /// <inheritdoc/>
         public void Dispose() {
             LocalBasestationDiscovery.Dispose();
         }
 
+        /// <inheritdoc/>
         public async Task<bool> FindLocalBaseStation() {
             BasestationFoundDto baseStationInfo = null;
             int attempts = 1;

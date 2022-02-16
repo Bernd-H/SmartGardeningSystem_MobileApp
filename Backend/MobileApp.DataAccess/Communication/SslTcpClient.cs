@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess.Communication;
@@ -11,10 +12,17 @@ using MobileApp.Common.Utilities;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class SslTcpClient : ISslTcpClient {
+
+        public SslStream SslStream { get; private set; }
 
         private bool _validateCertificate;
 
+        private SemaphoreSlim _locker = new SemaphoreSlim(1);
+
+        private Socket _client;
 
         private ILogger Logger;
 
@@ -22,37 +30,31 @@ namespace MobileApp.DataAccess.Communication {
             Logger = loggerService.GetLogger<SslTcpClient>();
         }
 
-        public async Task<bool> RunClient(IPEndPoint endPoint, SslStreamOpenCallback sslStreamOpenCallback, bool selfSignedCertificate = true,
-            bool closeConnectionAfterCallback = true, string targetHost = "server") {
+        /// <inheritdoc/>
+        public async Task<bool> Start(IPEndPoint endPoint, bool selfSignedCertificate = true, string targetHost = "server") {
             bool result = false;
-            Socket client = null;
-            SslStream sslStream = null;
-
             _validateCertificate = !selfSignedCertificate;
 
             try {
-                client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                client.ReceiveTimeout = 20000; // 20s
-                client.SendTimeout = 5000;
-                client.Blocking = true;
-                await client.ConnectAsync(endPoint.Address, endPoint.Port);
+                _client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _client.ReceiveTimeout = 20000; // 20s
+                _client.SendTimeout = 5000;
+                _client.Blocking = true;
+                await _client.ConnectAsync(endPoint.Address, endPoint.Port);
                 Logger.Info($"[RunClient]Connected to server {endPoint.ToString()}.");
 
                 // Create an SSL stream that will close the client's stream.
-                sslStream = new SslStream(
-                    new NetworkStream(client),
+                SslStream = new SslStream(
+                    new NetworkStream(_client),
                     false,
                     new RemoteCertificateValidationCallback(ValidateServerCertificate),
                     null);
 
-                //sslStream.ReadTimeout = 5000;
-                sslStream.ReadTimeout = 20000;
-                sslStream.WriteTimeout = 5000;
+                SslStream.ReadTimeout = 20000;
+                SslStream.WriteTimeout = 5000;
 
-                sslStream.AuthenticateAsClient(targetHost);
+                SslStream.AuthenticateAsClient(targetHost);
 
-                
-                sslStreamOpenCallback.Invoke(sslStream, sslStream.RemoteCertificate);
                 result = true;
             }
             catch (SocketException) {
@@ -60,16 +62,45 @@ namespace MobileApp.DataAccess.Communication {
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[RunClient]An exception occured (ep={endPoint.ToString()}).");
-                sslStream?.Close();
-                client?.Close();
-            }
-            finally {
-                if (closeConnectionAfterCallback) {
-                    sslStream?.Close();
-                }
+                SslStream?.Close();
+                _client?.Close();
             }
 
             return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<byte[]> ReceiveData(CancellationToken cancellationToken = default) {
+            Logger.Info($"[ReceiveData]Waiting to receive data from {_client.RemoteEndPoint.ToString()}.");
+            return await CommunicationUtils.ReceiveAsync(Logger, SslStream, cancellationToken: cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public async Task<byte[]> SendAndReceiveData(byte[] data, CancellationToken cancellationToken = default) {
+            await _locker.WaitAsync();
+
+            await SendData(data, cancellationToken);
+            var received = await ReceiveData(cancellationToken);
+
+            _locker.Release();
+            return received;
+        }
+
+        /// <inheritdoc/>
+        public async Task SendData(byte[] data, CancellationToken cancellationToken = default) {
+            Logger.Info($"[SendData] Sending data with length {data.Length}.");
+            await CommunicationUtils.SendAsync(Logger, data, SslStream, cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public X509Certificate GetServerCert() {
+            return SslStream?.RemoteCertificate;
+        }
+
+        /// <inheritdoc/>
+        public void Stop() {
+            SslStream?.Close();
+            _client?.Close();
         }
 
         private bool ValidateServerCertificate(
@@ -88,14 +119,6 @@ namespace MobileApp.DataAccess.Communication {
                 // because it's a self signed certificate
                 return true;
             }
-        }
-
-        public byte[] ReadMessage(SslStream sslStream) {
-            return CommunicationUtils.Receive(Logger, sslStream);
-        }
-
-        public void SendMessage(SslStream sslStream, byte[] msg) {
-            CommunicationUtils.Send(Logger, msg, sslStream);
         }
     }
 }

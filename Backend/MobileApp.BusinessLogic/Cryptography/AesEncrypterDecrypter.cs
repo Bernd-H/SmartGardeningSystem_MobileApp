@@ -23,14 +23,15 @@ namespace MobileApp.BusinessLogic.Cryptography {
         }
 
         /// <inheritdoc/>
-        public byte[] Decrypt(byte[] data, byte[] key, byte[] iv) {
+        public byte[] Decrypt(byte[] data) {
             try {
                 Logger.Trace($"[Decrypt]Decrypting byte array with length={data.Length}.");
-                return DecryptByteArray(data, key, iv);
+                var settings = SettingsManager.GetApplicationSettings().Result;
+                return DecryptByteArray(data, settings.AesKey, settings.AesIV);
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[Decrypt]Failed to decrypt data.");
-                return null;
+                throw;
             }
         }
 
@@ -40,9 +41,6 @@ namespace MobileApp.BusinessLogic.Cryptography {
                 Logger.Trace($"[Encrypt]Encrypting string with length={data.Length}.");
                 var settings = SettingsManager.GetApplicationSettings().Result;
                 return EncryptByteArray(Encoding.UTF8.GetBytes(data), settings.AesKey, settings.AesIV);
-            }
-            catch (CryptographicException) {
-                throw; // wrong key size for example
             }
             catch (Exception ex) {
                 Logger.Error(ex, $"[Encrypt]Error while encrypting data.");
@@ -57,39 +55,9 @@ namespace MobileApp.BusinessLogic.Cryptography {
                 var settings = SettingsManager.GetApplicationSettings().Result;
                 return EncryptByteArray(data, settings.AesKey, settings.AesIV);
             }
-            catch (CryptographicException) {
-                throw; // wrong key size for example
-            }
             catch (Exception ex) {
                 Logger.Error(ex, $"[Encrypt]Error while encrypting data.");
                 throw;
-            }
-        }
-
-        /// <inheritdoc/>
-        public byte[] Encrypt(byte[] data, byte[] key, byte[] iv) {
-            try {
-                Logger.Trace($"[Encrypt]Encrypting byte array with length={data.Length}.");
-                return EncryptByteArray(data, key, iv);
-            }
-            catch (Exception ex) {
-                Logger.Error(ex, $"[Encrypt]Failed to encrypt data.");
-                return null;
-            }
-        }
-
-        private void generateAndStoreSymmetricKey() {
-            Logger.Info($"[generateAndStoreSymmetricKey]Generating and storing an aes key.");
-            using (var myRijndael = new RijndaelManaged()) {
-                myRijndael.GenerateKey();
-                myRijndael.GenerateIV();
-
-                // store keys in settings
-                SettingsManager.UpdateCurrentSettings((currentSettings) => {
-                    currentSettings.AesKey = myRijndael.Key;
-                    currentSettings.AesIV = myRijndael.IV;
-                    return currentSettings;
-                });
             }
         }
 

@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
+
+    /// <inheritdoc/>
     public class CommandManager : ICommandManager, IDisposable {
 
         private ILogger Logger;
@@ -32,6 +34,7 @@ namespace MobileApp.BusinessLogic.Managers {
             SettingsManager = settingsManager;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> ConnectToWlan(WlanInfoDto wlanInfo) {
             Logger.Info($"[ConnectToWlan]Transmitting wlan ssid & secret to basestation.");
             var success = await StartConnection();
@@ -70,6 +73,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return success;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DisconnectFromWlan() {
             Logger.Info($"[DisconnectFromWlan]Sending disconnect command to the basestation.");
             var success = await StartConnection();
@@ -102,16 +106,19 @@ namespace MobileApp.BusinessLogic.Managers {
             return success;
         }
 
+        /// <inheritdoc/>
         public Task<bool> StartAutomaticIrrigation() {
             Logger.Info($"[StartAutomaticIrrigation]Sending start automatic irrigation command.");
             return sendCommand(CommunicationCodes.StartAutomaticIrrigationCommand);
         }
 
+        /// <inheritdoc/>
         public Task<bool> StopAutomaticIrrigation() {
             Logger.Info($"[StopAutomaticIrrigation]Sending stop automatic irrigation command.");
             return sendCommand(CommunicationCodes.StopAutomaticIrrigationCommand);
         }
 
+        /// <inheritdoc/>
         public Task<bool> StartManualIrrigation(TimeSpan timeSpan) {
             Logger.Info($"[StartManualIrrigation]Sending start manual irrigation command.");
             return sendCommand(CommunicationCodes.StartManualIrrigationCommand, openConnectionAction: new Func<Task>(async () => {
@@ -121,11 +128,13 @@ namespace MobileApp.BusinessLogic.Managers {
             }));
         }
 
+        /// <inheritdoc/>
         public Task<bool> StopManualIrrigation() {
             Logger.Info($"[StopManualIrrigation]Sending stop manual irrigation command.");
             return sendCommand(CommunicationCodes.StopManualIrrigationCommand);
         }
 
+        /// <inheritdoc/>
         public async Task<byte?> DiscoverNewModule(CancellationToken cancellationToken) {
             Logger.Info($"[DiscoverNewModule]Sending discover module command.");
 
@@ -150,11 +159,13 @@ namespace MobileApp.BusinessLogic.Managers {
             }
         }
 
+        /// <inheritdoc/>
         public Task<bool> Test() {
             Logger.Info($"[Test]Sending the test command.");
             return sendCommand(CommunicationCodes.Test);
         }
 
+        /// <inheritdoc/>
         public void Dispose() {
             AesTcpClient.Dispose();
         }

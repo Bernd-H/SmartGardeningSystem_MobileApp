@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.DataAccess.Communication {
+
+    /// <inheritdoc/>
     public class CommandsRelayServer : ICommandsRelayServer {
 
         private static ManualResetEvent _tcpClientConnected = new ManualResetEvent(false);
@@ -26,15 +28,13 @@ namespace MobileApp.DataAccess.Communication {
         private CancellationToken _cancellationToken;
 
 
-        private IAesEncrypterDecrypter AesEncrypterDecrypter;
-
         private ILogger Logger;
         
-        public CommandsRelayServer(ILoggerService loggerService, IAesEncrypterDecrypter aesEncrypterDecrpyter) {
+        public CommandsRelayServer(ILoggerService loggerService) {
             Logger = loggerService.GetLogger<CommandsRelayServer>();
-            AesEncrypterDecrypter = aesEncrypterDecrpyter;
         }
 
+        /// <inheritdoc/>
         public Task<bool> Start(IEncryptedTunnel relayTunnel, CancellationToken cancellationToken) {
             bool success = false;
             _relayTunnel = relayTunnel;

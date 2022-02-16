@@ -21,6 +21,8 @@ using Newtonsoft.Json;
 using NLog;
 
 namespace MobileApp.BusinessLogic.Managers {
+
+    /// <inheritdoc/>
     public class APIManager : IAPIManager, IDisposable {
 
         private readonly HttpClient client;
@@ -50,12 +52,14 @@ namespace MobileApp.BusinessLogic.Managers {
             Dispose();
         }
 
+        /// <inheritdoc/>
         public void Dispose() {
             client.Dispose();
         }
 
         #region User-Account methods
 
+        /// <inheritdoc/>
         public async Task<bool> Login(string email, string password, byte[] keyValidationBytes) {
             Logger.Info($"[Login]Login process initiated.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -98,7 +102,7 @@ namespace MobileApp.BusinessLogic.Managers {
                         return await tryAddWebTokenToHeader();
                     }
                 }
-                catch (CryptographicException) {
+                catch (WrongAesKeyException) {
                     throw;
                 }
                 catch(Exception ex) {
@@ -109,6 +113,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
+        /// <inheritdoc/>
         public void Logout() {
             Logger.Trace($"[Logout]Removing authorization header from http client.");
 
@@ -118,6 +123,7 @@ namespace MobileApp.BusinessLogic.Managers {
             }
         }
 
+        /// <inheritdoc/>
         public async Task<bool> ChangeLoginInfo(UpdateUserDto updateUserDto) {
             Logger.Info($"[ChangeLoginInfo]Sending update user data.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -192,6 +198,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         #region Module requests
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ModuleInfo>> GetModules() {
             Logger.Info($"[GetModules]Requesting all modules.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -230,6 +237,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateModule(ModuleInfo updatedModule) {
             Logger.Info($"[UpdateModule]Sending updated module configuration data.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -270,6 +278,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> AddModule(ModuleInfo newModule) {
             Logger.Info($"[AddModule]Sending a new module configuration.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -309,6 +318,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return false;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteModule(byte moduleId) {
             Logger.Info($"[DeleteModule]Sending remove module request.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -348,6 +358,7 @@ namespace MobileApp.BusinessLogic.Managers {
 
         #endregion
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<WlanInfo>> GetWlans() {
             Logger.Info($"[GetWlans]Requesting all reachable wlans.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -379,6 +390,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<SystemStatus> GetSystemStatus() {
             Logger.Info($"[GetSystemStatus]Requesting the system status.");
             var settings = await SettingsManager.GetApplicationSettings();
@@ -410,6 +422,7 @@ namespace MobileApp.BusinessLogic.Managers {
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> IsBasestationConnectedToWlan() {
             Logger.Info($"[IsBasestationConnectedToWlan]Requesting information, if the basestation is currently connected to a wlan.");
             var settings = await SettingsManager.GetApplicationSettings();
