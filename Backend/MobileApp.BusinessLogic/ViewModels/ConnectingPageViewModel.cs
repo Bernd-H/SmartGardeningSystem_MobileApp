@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
+using MobileApp.Common.Models.DTOs;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
@@ -48,8 +50,27 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set { SetProperty(ref updateViewProperty, value); }
         }
 
+        private bool deleteSettingsButtonEnabled = false;
+        public bool DeleteSettingsButtonEnabled {
+            get { return deleteSettingsButtonEnabled; }
+            set { SetProperty(ref deleteSettingsButtonEnabled, value); }
+        }
+
+        private bool reconnectButtonEnabled = false;
+        public bool ReconnectButtonEnabled {
+            get { return  reconnectButtonEnabled; }
+            set { SetProperty(ref reconnectButtonEnabled, value); }
+        }
+
+        public string ConnectImagePath {
+            get { return "undraw_connected_world_wuay"; }
+        }
 
         public ICommand ViewLogsPageCommand { get; }
+
+        public ICommand DeleteSettingsCommand { get; }
+
+        public ICommand ReconnectCommand { get; }
 
 
         private ILoggerService LoggerService;
@@ -92,6 +113,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             RelayManager = relayManager;
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
+            DeleteSettingsCommand = new Command(OnDeleteSettingsTapped);
+            ReconnectCommand = new Command(OnReconnectTapped);
 
             LoggerService.AddEventHandler(new EventHandler(LoadLogs));
 
@@ -131,6 +154,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         Task BeginConnect() {
             return Task.Run(async () => {
                 Logger.Debug($"[BeginConnect]Thread: {Thread.CurrentThread.ManagedThreadId}.");
+                ActivityIndicatorIsVisible = true;
 
                 // get basestation ip
                 Status = "Searching for a local basestation...";
@@ -171,6 +195,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                         ActivityIndicatorIsVisible = false;
                         await DialogService.ShowMessage("Could not connect to basestation!", "Error", "Ok", () => {
                             Status = "Exchanging a key with the basestation failed! Please restart the application.";
+                            DeleteSettingsButtonEnabled = true;
+                            ReconnectButtonEnabled = true;
                             //CloseApplicationService.CloseApplication();
                         });
                     }
@@ -188,6 +214,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
                     ActivityIndicatorIsVisible = false;
                     await DialogService.ShowMessage("Could not find a basestation in the local network!", "Error", "Ok", () => {
                         Status = "No basestation found! Please restart the application.";
+                        DeleteSettingsButtonEnabled = true;
+                        ReconnectButtonEnabled = true;
                         //CloseApplicationService.CloseApplication();
                     });
                 }
@@ -196,6 +224,21 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void OnViewLogsTapped(object obj) {
             await Shell.Current.GoToAsync(PageNames.LogsPage);
+        }
+
+        async void OnDeleteSettingsTapped(object obj) {
+            await SettingsManager.UpdateCurrentSettings((currentSettings) => {
+                return ApplicationSettingsDto.GetStandardSettings();
+            });
+            await DialogService.ShowMessage("Settings successfully deleted.", "Info", "Ok", () => {
+                DeleteSettingsButtonEnabled = false;
+            });
+        }  
+        
+        async void OnReconnectTapped(object obj) {
+            DeleteSettingsButtonEnabled = false;
+            ReconnectButtonEnabled = false;
+            await BeginConnect();
         }
     }
 }

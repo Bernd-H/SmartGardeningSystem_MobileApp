@@ -25,6 +25,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private IFileStorage FileStorage;
 
+        private ISecureStorage SecureStorage; // only store in secureStorage when not on windows....
+
         private string settingsFilePath;
 
         private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
@@ -32,9 +34,10 @@ namespace MobileApp.BusinessLogic.Managers {
         private static GlobalRuntimeVariables globalRuntimeVariables;
         private static SemaphoreSlim globalRuntimeVarsLOCKER = new SemaphoreSlim(1);
 
-        public SettingsManager(ILoggerService logger, IFileStorage fileStorage) {
+        public SettingsManager(ILoggerService logger, IFileStorage fileStorage, ISecureStorage secureStorage) { 
             Logger = logger.GetLogger<SettingsManager>();
             FileStorage = fileStorage;
+            SecureStorage = secureStorage;
         }
 
         #region runtime variables

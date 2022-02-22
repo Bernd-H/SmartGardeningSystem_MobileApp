@@ -3,6 +3,7 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\Mo
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.DI.deps.json
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.DI.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.DI.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.DI.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.Common.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Common\MobileApp.DI\bin\Debug\netstandard2.0\MobileApp.DataAccess.dll

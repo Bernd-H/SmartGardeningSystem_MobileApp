@@ -14,7 +14,8 @@
           "NETStandard.Library": "2.0.3",
           "NLog": "4.7.11",
           "SSH.NET": "2020.0.1",
-          "Mono.Android": "0.0.0.0"
+          "Mono.Android": "0.0.0.0",
+          "Xamarin.Essentials": "1.0.0.0"
         },
         "runtime": {
           "MobileApp.DataAccess.dll": {}
@@ -238,6 +239,14 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "Xamarin.Essentials/1.0.0.0": {
+        "runtime": {
+          "Xamarin.Essentials.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -400,6 +409,11 @@
       "sha512": ""
     },
     "Mono.Android/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Xamarin.Essentials/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

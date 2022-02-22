@@ -28,7 +28,11 @@ namespace MobileApp.Common.Models {
                 ModuleTypeName = (module.ModuleType == ModuleType.Sensor) ? ModuleTypeNames.SENSOR : ModuleTypeNames.VALVE,
                 AssociatedModules = module.AssociatedModules,
                 InformationTimestamp = module.InformationTimestamp,
-                EnabledForManualIrrigation = module.EnabledForManualIrrigation
+                EnabledForManualIrrigation = module.EnabledForManualIrrigation,
+                LastWaterings = module.LastWaterings,
+                SignalStrength = module.SignalStrength,
+                SoilMoistureMeasurements = module.SoilMoistureMeasurements,
+                TemperatureMeasurements = module.TemperatureMeasurements
             };
         }
 
@@ -40,7 +44,10 @@ namespace MobileApp.Common.Models {
                 LastWaterings = moduleInfoDto.LastWaterings,
                 ModuleType = (moduleInfoDto.ModuleTypeName == ModuleTypeNames.SENSOR) ? ModuleType.Sensor : ModuleType.Valve,
                 Name = moduleInfoDto.Name,
-                EnabledForManualIrrigation = moduleInfoDto.EnabledForManualIrrigation
+                EnabledForManualIrrigation = moduleInfoDto.EnabledForManualIrrigation,
+                TemperatureMeasurements = moduleInfoDto.TemperatureMeasurements,
+                SoilMoistureMeasurements = moduleInfoDto.SoilMoistureMeasurements,
+                SignalStrength = moduleInfoDto.SignalStrength
             };
         }
 

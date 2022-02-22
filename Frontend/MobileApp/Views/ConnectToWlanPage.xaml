@@ -7,66 +7,69 @@
              x:Class="MobileApp.Views.ConnectToWlanPage"
              Title="{Binding SSID_Text, Mode=OneWay}">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="15"                         >
-            <StackLayout Orientation="Vertical" Spacing="0">
-                <Label FontSize="20"
+        <Grid RowDefinitions="*, Auto">
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="15">
+                <StackLayout Orientation="Vertical" Spacing="0">
+                    <Label FontSize="20"
                    Margin="25,0,0,0"
                        HorizontalOptions="StartAndExpand"
                        Text="Please enter the password for wlan "/>
-                <Label FontSize="20"
+                    <Label FontSize="20"
                         Margin="25,0,0,0"
                        HorizontalOptions="StartAndExpand"
                        FontAttributes="Bold"
                        Text="{Binding SSID_Text, Mode=OneWay}"/>
-            </StackLayout>
+                </StackLayout>
 
 
-            <!-- password field -->
-            <pancake:PancakeView
+                <!-- password field -->
+                <pancake:PancakeView
                 Margin="15,0,15,0"        
                 Padding="10,0,10,0"
                         BackgroundColor="White"
                         CornerRadius="15"
                         HeightRequest="50">
-                <Entry  FontSize="20"
+                    <Entry  FontSize="20"
                             ClearButtonVisibility="WhileEditing"
                             TextColor="#484848"
                             Placeholder="wlan password"
                             IsPassword="True"
                             Text="{Binding WlanPassword, Mode=OneWayToSource}"/>
-                <pancake:PancakeView.Shadow>
-                    <pancake:DropShadow BlurRadius="4"/>
-                </pancake:PancakeView.Shadow>
-            </pancake:PancakeView>
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow BlurRadius="4"/>
+                    </pancake:PancakeView.Shadow>
+                </pancake:PancakeView>
 
-            <Grid ColumnDefinitions="*,*" RowDefinitions="*,Auto" Margin="15,15,15,0">
-                <!-- do not connect to wlan button -->
-                <Label  Grid.Column="0"
+                <Grid ColumnDefinitions="*,*" Margin="15,15,15,0">
+                    <!-- do not connect to wlan button -->
+                    <Label  Grid.Column="0"
                         FontSize="20"
                         HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
                         Text="Abort"
                         TextColor="IndianRed">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AbortCommand}"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AbortCommand}"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
 
-                <!-- connect button -->
-                <Label  Grid.Column="1"  
+                    <!-- connect button -->
+                    <Label  Grid.Column="1"  
                         FontSize="20"
                         HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
                         Text="Connect"
                         TextColor="Green">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ConnectCommand}"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ConnectCommand}"></TapGestureRecognizer>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </StackLayout>
 
-                <!-- Snack Bar -->
-                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="EndAndExpand">
-                    <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
+            <!-- Snack Bar -->
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="EndAndExpand">
+                <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
                              BackgroundColor="#323232" 
                              TextColor="White"
                              IsOpen="{Binding SnackBar_IsOpen, Mode=OneWay}"
@@ -74,8 +77,7 @@
                              Message="{Binding SnackBarMessage, Mode=OneWay}"
                              ButtonTextColor="Orange"
                              CloseButtonText="Exit"/>
-                </StackLayout>
-            </Grid>
-        </StackLayout>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

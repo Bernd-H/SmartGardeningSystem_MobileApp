@@ -4,11 +4,116 @@
         <name>MobileApp.BusinessLogic</name>
     </assembly>
     <members>
+        <member name="T:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Decrypt(System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Encrypt(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Encrypt(System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Cryptography.AesTunnelInSslStream">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesTunnelInSslStream.ReceiveData(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesTunnelInSslStream.SendAndReceiveData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesTunnelInSslStream.SendData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.AesKeyExchangeManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.AesKeyExchangeManager.Start(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.APIManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.Login(System.String,System.String,System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.Logout">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.ChangeLoginInfo(MobileApp.Common.Models.DTOs.UpdateUserDto)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.GetModules">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.UpdateModule(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.AddModule(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.DeleteModule(System.Byte)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.GetWlans">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.GetSystemStatus">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.APIManager.IsBasestationConnectedToWlan">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.BusinessLogic.Managers.APIManager.serverCertificateValidationCallback(System.Net.Http.HttpRequestMessage,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
             <summary>
             Validates the server certificate.
             </summary>
             <returns>True, when <paramref name="serverCert"/> got verified.</returns>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.BasestationFinderManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.BasestationFinderManager.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.BasestationFinderManager.FindLocalBaseStation">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.CommandManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.ConnectToWlan(MobileApp.Common.Models.DTOs.WlanInfoDto)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.DisconnectFromWlan">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.StartAutomaticIrrigation">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.StopAutomaticIrrigation">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.StartManualIrrigation(System.TimeSpan)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.StopManualIrrigation">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.DiscoverNewModule(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.Test">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.Dispose">
+            <inheritdoc/>
         </member>
         <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.sendCommand(System.Byte[],System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken)">
             <summary>
@@ -24,6 +129,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.RelayManager">
+            <inheritdoc/>
+        </member>
+        <member name="F:MobileApp.BusinessLogic.Managers.RelayManager.TEST_PACKET_LENGTH_KB">
+            <summary>
+            Size of the test package in KB.
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.RelayManager.ConnectToTheBasestation(System.Threading.CancellationToken,System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.BusinessLogic.Managers.RelayManager.testConnection(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken,System.Int32)">
             <summary>
             Sends a package signed as RelayTest to the baseation and waits for it to return.
@@ -32,6 +148,87 @@
             <param name="cancellationToken">Cancellation token to abort the test</param>
             <param name="packageLength">Length of the random bytes to send.</param>
             <returns>True when the test was successful.</returns>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Managers.SettingsManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.SettingsManager.GetRuntimeVariables">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.SettingsManager.UpdateCurrentRuntimeVariables(System.Func{MobileApp.Common.Models.Entities.GlobalRuntimeVariables,MobileApp.Common.Models.Entities.GlobalRuntimeVariables})">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.SettingsManager.GetApplicationSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.SettingsManager.UpdateCurrentSettings(System.Func{MobileApp.Common.Models.DTOs.ApplicationSettingsDto,MobileApp.Common.Models.DTOs.ApplicationSettingsDto})">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Services.CachePageDataService">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.CachePageDataService.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.CachePageDataService.GetFromStore(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.CachePageDataService.RemoveFromStore(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.CachePageDataService.Store(System.Guid,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.CachePageDataService.UpdateCachedPageData(System.Guid,System.Func{System.Object,System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Services.DialogService">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowError(System.String,System.String,System.String,System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowError(System.Exception,System.String,System.String,System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowMessage(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowMessage(System.String,System.String,System.String,System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowMessage(System.String,System.String,System.String,System.String,System.Action{System.Boolean})">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.DialogService.ShowMessageBox(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.Services.ModuleDataStore">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.AddItemAsync(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.DeleteItemAsync``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.GetItemAsync``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.GetItemsAsync(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.UpdateItemAsync(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.BusinessLogic.LoggerService">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.LoggerService.GetLogger``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.LoggerService.GetLogFilePath(System.Boolean)">
+            <inheritdoc/>
         </member>
         <member name="F:MobileApp.BusinessLogic.ViewModels.AddModuleViewModel.dataInCacheId">
             <summary>
@@ -58,6 +255,13 @@
             </summary>
         </member>
         <member name="M:MobileApp.BusinessLogic.ViewModels.LoginViewModel.LoadLogs(System.Object,System.EventArgs)">
+            <summary>
+            Logging in this method is not allowed.
+            (Would create an infinite loop, because LoadLogs() gets called automatically, when 
+            someone logs -> LoggerService.AddEventHandler(....) in constructor....)
+            </summary>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.ViewModels.LogsPageViewModel.loadLogs">
             <summary>
             Logging in this method is not allowed.
             (Would create an infinite loop, because LoadLogs() gets called automatically, when 

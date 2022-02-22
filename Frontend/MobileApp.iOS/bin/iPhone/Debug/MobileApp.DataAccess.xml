@@ -4,11 +4,56 @@
         <name>MobileApp.DataAccess</name>
     </assembly>
     <members>
+        <member name="T:MobileApp.DataAccess.Communication.AesTcpClient">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.IsConnected">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.ReceiveData(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.SendAndReceiveData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.SendData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.Start(System.Net.IPEndPoint,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.AesTcpClient.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.Communication.ApiRequestsRelayServer">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.ApiRequestsRelayServer.Start(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.Communication.CommandsRelayServer">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.CommandsRelayServer.Start(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.Communication.LocalBasestationDiscovery">
+            <inheritdoc/>
+        </member>
         <member name="F:MobileApp.DataAccess.Communication.LocalBasestationDiscovery.ReceiveTimeOut">
             <summary>
             Maximum time to await an answer after the message to the multicast group got sent.
             (Set to 5 seconds)
             </summary>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.LocalBasestationDiscovery.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.LocalBasestationDiscovery.TryFindBasestation">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.Communication.MulticastUdpSender">
+            <inheritdoc/>
         </member>
         <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.MulticastAddressV4">
             <summary>
@@ -26,10 +71,83 @@
             Used to generate a unique identifier for this client instance.
             </summary>
         </member>
-        <member name="P:MobileApp.DataAccess.Communication.MulticastUdpSender.BaseSearchString">
+        <member name="F:MobileApp.DataAccess.Communication.MulticastUdpSender.BaseSearchString">
             <summary>
             When we send Announce we should embed the current <see cref="!:EngineSettings.ListenPort"/> as it is dynamic.
             </summary>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.MulticastUdpSender.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.MulticastUdpSender.SendToMulticastGroupAsync(System.Net.IPAddress,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.MulticastUdpSender.buildBaseSearchString">
+            <summary>
+            Builds the base search string for the local basestation discovery.
+            The basestationId can also be Guid.Empty. In this case all basestations in the network will answer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MobileApp.DataAccess.Communication.SslTcpClient">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.Start(System.Net.IPEndPoint,System.Boolean,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.ReceiveData(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.SendAndReceiveData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.SendData(System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.GetServerCert">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.Communication.SslTcpClient.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.FileStorageAndroid">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageAndroid.ReadAsString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageAndroid.WriteAllText(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.FileStorageiOS">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageiOS.ReadAsString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageiOS.WriteAllText(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.FileStorageWin">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageWin.ReadAsString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageWin.WriteAllText(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MobileApp.DataAccess.SecureDataStorage">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.SecureDataStorage.Read(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.SecureDataStorage.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.SecureDataStorage.Write(System.String,System.String)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

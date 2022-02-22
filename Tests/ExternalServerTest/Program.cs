@@ -92,10 +92,14 @@ namespace ExternalServerTest
                 var plr = Parallel.For(0, amountOfConnections, i => {
                     var client = IoC.Get<ISslTcpClient>();
 
-                    bool connectedSuccessfully = client.RunClient(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), (s, rCert) => {
-                        _connections.Add(s); // add the open ssl stream to a concurrent list
-                    }, selfSignedCertificate: false, closeConnectionAfterCallback: false, targetHost).Result;
+                    bool connectedSuccessfully = client.Start(new IPEndPoint(ip, Convert.ToInt32(config.ConnectionSettings.ExternalServer_RelayPort)), selfSignedCertificate: false, targetHost).Result;
 
+                    if (connectedSuccessfully) {
+                        // add the open ssl stream to a concurrent list
+                        _connections.Add(client.SslStream);
+                    }
+
+                    client.Stop();
                     Logger.Info($"[Start]Connection {i} connected: {connectedSuccessfully}.");
                 });
             }, _cts.Token);

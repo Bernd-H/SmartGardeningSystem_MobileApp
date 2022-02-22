@@ -8,13 +8,13 @@ namespace MobileApp.Common.Models.Entities {
 
         /// <summary>
         /// Exchanged to the mobile app securley. Used to decrypt
-        /// the authentication information (in RestAPI) sent by the mobile app.
+        /// packages from the CommandManager or relay packages received from the basestation over the external server.
         /// </summary>
         public byte[] AesKey { get; set; }
 
         /// <summary>
         /// Exchanged to the mobile app securley. Used to decrypt
-        /// the authentication information (in RestAPI) sent by the mobile app.
+        /// packages from the CommandManager or relay packages received from the basestation over the external server.
         /// </summary>
         public byte[] AesIV { get; set; }
 

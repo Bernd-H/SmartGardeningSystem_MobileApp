@@ -197,7 +197,7 @@ namespace MobileApp.DataAccess.Communication {
         //    networkStream.Flush();
         //}
 
-        public async Task Send(byte[] msg, NetworkStream networkStream) {
+        private async Task Send(byte[] msg, NetworkStream networkStream) {
             Logger.Info($"[SendData] Sending data with length {msg.Length}.");
 
             await CommunicationUtils.SendAsync(Logger, msg, networkStream);

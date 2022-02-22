@@ -16,3 +16,6 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\M
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Release\netstandard2.0\MobileApp.DataAccess.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Release\netstandard2.0\MobileApp.DataAccess.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\obj\Release\netstandard2.0\MobileApp.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\bin\Release\netstandard2.0\Xamarin.Essentials.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\bin\Release\netstandard2.0\Xamarin.Essentials.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Backend\MobileApp.DataAccess\bin\Release\netstandard2.0\Xamarin.Essentials.xml

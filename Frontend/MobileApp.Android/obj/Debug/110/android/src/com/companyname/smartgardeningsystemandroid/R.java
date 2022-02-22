@@ -7122,13 +7122,14 @@ public final class R {
     public static final int tooltip_frame_light=0x7f0700a9;
     public static final int twitter=0x7f0700aa;
     public static final int undraw_authentication_fsn5=0x7f0700ab;
-    public static final int undraw_faq_re_31cw=0x7f0700ac;
-    public static final int undraw_metrics=0x7f0700ad;
-    public static final int undraw_mind_map_re_nlb6=0x7f0700ae;
-    public static final int undraw_outdoors_amdn=0x7f0700af;
-    public static final int undraw_tabs=0x7f0700b0;
-    public static final int user=0x7f0700b1;
-    public static final int xamarin_logo=0x7f0700b2;
+    public static final int undraw_connected_world_wuay=0x7f0700ac;
+    public static final int undraw_faq_re_31cw=0x7f0700ad;
+    public static final int undraw_metrics=0x7f0700ae;
+    public static final int undraw_mind_map_re_nlb6=0x7f0700af;
+    public static final int undraw_outdoors_amdn=0x7f0700b0;
+    public static final int undraw_tabs=0x7f0700b1;
+    public static final int user=0x7f0700b2;
+    public static final int xamarin_logo=0x7f0700b3;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
@@ -26334,12 +26335,13 @@ public final class R {
     public static final int ViewStubCompat_android_inflatedId=2;
   }
   public static final class xml {
-    public static final int image_share_filepaths=0x7f110000;
-    public static final int standalone_badge=0x7f110001;
-    public static final int standalone_badge_gravity_bottom_end=0x7f110002;
-    public static final int standalone_badge_gravity_bottom_start=0x7f110003;
-    public static final int standalone_badge_gravity_top_start=0x7f110004;
-    public static final int standalone_badge_offset=0x7f110005;
-    public static final int xamarin_essentials_fileprovider_file_paths=0x7f110006;
+    public static final int auto_backup_rules=0x7f110000;
+    public static final int image_share_filepaths=0x7f110001;
+    public static final int standalone_badge=0x7f110002;
+    public static final int standalone_badge_gravity_bottom_end=0x7f110003;
+    public static final int standalone_badge_gravity_bottom_start=0x7f110004;
+    public static final int standalone_badge_gravity_top_start=0x7f110005;
+    public static final int standalone_badge_offset=0x7f110006;
+    public static final int xamarin_essentials_fileprovider_file_paths=0x7f110007;
   }
 }

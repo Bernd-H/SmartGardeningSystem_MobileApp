@@ -14,7 +14,8 @@
           "NETStandard.Library": "2.0.3",
           "NLog": "4.7.11",
           "SSH.NET": "2020.0.1",
-          "Mono.Android": "0.0.0.0"
+          "Mono.Android": "0.0.0.0",
+          "Xamarin.Essentials": "1.0.0.0"
         },
         "runtime": {
           "MobileApp.DataAccess.dll": {}
@@ -40,6 +41,46 @@
           "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.CSharp.dll": {
+            "assemblyVersion": "4.0.4.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.JsonWebTokens/6.15.1": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "6.15.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
+            "assemblyVersion": "6.15.1.0",
+            "fileVersion": "6.15.1.30119"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Logging/6.15.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll": {
+            "assemblyVersion": "6.15.1.0",
+            "fileVersion": "6.15.1.30119"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Tokens/6.15.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.IdentityModel.Logging": "6.15.1",
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {
+            "assemblyVersion": "6.15.1.0",
+            "fileVersion": "6.15.1.30119"
           }
         }
       },
@@ -103,6 +144,18 @@
           }
         }
       },
+      "System.IdentityModel.Tokens.Jwt/6.15.1": {
+        "dependencies": {
+          "Microsoft.IdentityModel.JsonWebTokens": "6.15.1",
+          "Microsoft.IdentityModel.Tokens": "6.15.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll": {
+            "assemblyVersion": "6.15.1.0",
+            "fileVersion": "6.15.1.30119"
+          }
+        }
+      },
       "System.Memory/4.5.4": {
         "dependencies": {
           "System.Buffers": "4.5.1",
@@ -129,6 +182,14 @@
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "assemblyVersion": "4.0.4.1",
             "fileVersion": "4.6.28619.1"
+          }
+        }
+      },
+      "System.Security.Cryptography.Cng/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.Cng.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.6.26515.6"
           }
         }
       },
@@ -164,6 +225,7 @@
           "Autofac": "6.3.0",
           "NLog": "4.7.11",
           "Newtonsoft.Json": "13.0.1",
+          "System.IdentityModel.Tokens.Jwt": "6.15.1",
           "Xamarin.Forms": "5.0.0.2083"
         },
         "runtime": {
@@ -175,6 +237,14 @@
           "Mono.Android.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Xamarin.Essentials/1.0.0.0": {
+        "runtime": {
+          "Xamarin.Essentials.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       }
@@ -199,6 +269,34 @@
       "sha512": "sha512-QnfOJlIz5evxU3Dn1Cz4V0wfznFaiS6tvroTYTbbw2uk14tAkOVSFyk/hCHy64S8/ck0PeQqLV4GuP9bANByPQ==",
       "path": "microsoft.bcl.asyncinterfaces/1.1.0",
       "hashPath": "microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "path": "microsoft.csharp/4.5.0",
+      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.JsonWebTokens/6.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X5K/Pt02agb1V+khh5u7Q8hg02IVTshxV5owpR7UdQ9zfs0+A6qzca0F9jyv3o8SlOjEFHBabs+5cp7Noofzvg==",
+      "path": "microsoft.identitymodel.jsonwebtokens/6.15.1",
+      "hashPath": "microsoft.identitymodel.jsonwebtokens.6.15.1.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Logging/6.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PpZHL/Bt/8vQ8g/6LxweuI1EusV0ogUBYnGM+bPeL/SG89gx2n05xKNE/U5JNEkLFLL+sk7O8T7c/PXhFtUtUg==",
+      "path": "microsoft.identitymodel.logging/6.15.1",
+      "hashPath": "microsoft.identitymodel.logging.6.15.1.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Tokens/6.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0bd0ocKuNai0/GdhboIW37R6z8I0vFqlmiPeG055SJxPPJ7dfBo2tjJ3bPV9vjFCRDuusj24dldOsg4hWui6iw==",
+      "path": "microsoft.identitymodel.tokens/6.15.1",
+      "hashPath": "microsoft.identitymodel.tokens.6.15.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -256,6 +354,13 @@
       "path": "system.diagnostics.diagnosticsource/4.7.1",
       "hashPath": "system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
     },
+    "System.IdentityModel.Tokens.Jwt/6.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q3ZLyWmpX4+jW4XITf7Axd+9sC6w2NrQaKcQQT9A8waoknHgaNwSeookpUmPMQDqS0afT9Lh0JYub196vzuzbA==",
+      "path": "system.identitymodel.tokens.jwt/6.15.1",
+      "hashPath": "system.identitymodel.tokens.jwt.6.15.1.nupkg.sha512"
+    },
     "System.Memory/4.5.4": {
       "type": "package",
       "serviceable": true,
@@ -277,6 +382,13 @@
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
     },
+    "System.Security.Cryptography.Cng/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
+      "path": "system.security.cryptography.cng/4.5.0",
+      "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    },
     "System.Threading.Tasks.Extensions/4.5.2": {
       "type": "package",
       "serviceable": true,
@@ -297,6 +409,11 @@
       "sha512": ""
     },
     "Mono.Android/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Xamarin.Essentials/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -97,6 +97,9 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microcharts.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microcharts.iOS.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microcharts.Forms.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Microsoft.IdentityModel.Tokens.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Extras.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Extras.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\GalaSoft.MvvmLight.Platform.dll
@@ -110,6 +113,8 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Renci.SshNet.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\SshNet.Security.Cryptography.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\System.Security.Cryptography.Cng.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Xamarin.CommunityToolkit.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Xamarin.Essentials.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Xamarin.Essentials.pdb
@@ -161,13 +166,19 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Mono.Android.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DataAccess.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.Common.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.Common.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.dll.config
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Mono.Android.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\Mono.Android.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\actool\_PartialAppManifest.items
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\actool\_BundleResourceWithLogicalName.items
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\ibtool\_BundleResourceWithLogicalName.items
@@ -179,8 +190,3 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp.iOS.csproj.CopyComplete
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.exe
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\obj\iPhone\Debug\MobileApp_Try2.iOS.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DataAccess.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.Common.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.BusinessLogic.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.dll
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.iOS\bin\iPhone\Debug\MobileApp.DI.pdb

@@ -116,6 +116,9 @@
                         TextColor="White"
                         VerticalOptions="CenterAndExpand">
                             </Label>
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow BlurRadius="5"/>
+                            </pancake:PancakeView.Shadow>
                         </pancake:PancakeView>
                         <!--<Label Grid.Row="4"
                     FontAttributes="None"

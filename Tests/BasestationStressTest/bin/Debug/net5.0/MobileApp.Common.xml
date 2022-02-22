@@ -1149,16 +1149,50 @@
             Time when the information got requested from the server
             </summary>
         </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.SignalStrength">
+            <summary>
+            Last measured signal strength to the module.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.TemperatureMeasurements">
+            <summary>
+            List of temperature measurements of the module.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.AssociatedModules">
+            <summary>
+            Property for valves.
+            Sensors that are associated to this valve.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.LastWaterings">
+            <summary>
+            Property for valves.
+            List of irrigation DateTimes with the time the valve was open in minutes.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.EnabledForManualIrrigation">
+            <summary>
+            Property for valves.
+            True to open or close this valve when the system gets controlled manually.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.SoilMoistureMeasurements">
+            <summary>
+            Property for sensors.
+            List of soil moisture measurements.
+            </summary>
+        </member>
         <member name="P:MobileApp.Common.Models.Entities.ApplicationSettings.AesKey">
             <summary>
             Exchanged to the mobile app securley. Used to decrypt
-            the authentication information (in RestAPI) sent by the mobile app.
+            packages from the CommandManager or relay packages received from the basestation over the external server.
             </summary>
         </member>
         <member name="P:MobileApp.Common.Models.Entities.ApplicationSettings.AesIV">
             <summary>
             Exchanged to the mobile app securley. Used to decrypt
-            the authentication information (in RestAPI) sent by the mobile app.
+            packages from the CommandManager or relay packages received from the basestation over the external server.
             </summary>
         </member>
         <member name="P:MobileApp.Common.Models.Entities.ApplicationSettings.BasestationCert">
@@ -1174,6 +1208,40 @@
         <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.InformationTimestamp">
             <summary>
             Time when the information got requested from the server
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.SignalStrength">
+            <summary>
+            Last measured signal strength to the module.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.TemperatureMeasurements">
+            <summary>
+            List of temperature measurements of the module.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.AssociatedModules">
+            <summary>
+            Property for valves.
+            Sensors that are associated to this valve.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.LastWaterings">
+            <summary>
+            Property for valves.
+            List of irrigation DateTimes with the time the valve was open in minutes.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.EnabledForManualIrrigation">
+            <summary>
+            Property for valves.
+            True to open or close this valve when the system gets controlled manually.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.SoilMoistureMeasurements">
+            <summary>
+            Property for sensors.
+            List of soil moisture measurements.
             </summary>
         </member>
         <member name="P:MobileApp.Common.Specifications.Configuration.IConnectionSettings.CommandsListener_Port">
@@ -1193,49 +1261,212 @@
             <param name="data">Data to encrypt.</param>
             <returns>Encrypted data.</returns>
         </member>
-        <member name="M:MobileApp.Common.Specifications.Cryptography.IAesEncrypterDecrypter.Encrypt(System.Byte[],System.Byte[],System.Byte[])">
+        <member name="M:MobileApp.Common.Specifications.Cryptography.IAesEncrypterDecrypter.Encrypt(System.Byte[])">
             <summary>
-            Encryptes data with given key and iv.
+            Encrypts a byte array with the Aes key, stored in the application settings.
             </summary>
             <param name="data">Data to encrypt.</param>
-            <param name="iv">Aes initialization vector.</param>
-            <param name="key">Aes key.</param>
             <returns>Encrypted data.</returns>
-            <exception cref="T:System.Exception">Thrown if something went wrong.</exception>
         </member>
-        <member name="M:MobileApp.Common.Specifications.Cryptography.IAesEncrypterDecrypter.Decrypt(System.Byte[],System.Byte[],System.Byte[])">
+        <member name="M:MobileApp.Common.Specifications.Cryptography.IAesEncrypterDecrypter.Decrypt(System.Byte[])">
             <summary>
-            Decrypts data with given key and iv.
+            Decrypts a byte array with the Aes key, stored in the application settings.
             </summary>
             <param name="data">Data to decrypt.</param>
-            <param name="iv">Aes initialization vector.</param>
-            <param name="key">Aes key.</param>
             <returns>Decrypted data.</returns>
-            <exception cref="T:System.Exception">Thrown if something went wrong.</exception>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Cryptography.IAesTunnelInSslStream">
+            <summary>
+            Class that manages receive and send methods and adds a aes encryption layer.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Cryptography.IAesTunnelInSslStream.Init(System.Net.Security.SslStream)">
+            <summary>
+            Initializes the class.
+            </summary>
+            <param name="sslStream">Stream to send data and to receive form.</param>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.IAesTcpClient">
+            <summary>
+            Tcp client that sends all packages aes encrypted and decryptes all received ones.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IAesTcpClient.Start(System.Net.IPEndPoint,System.Int32)">
+            <summary>
+            Builds the tcp connection to the <paramref name="remoteEndPoint"/>.
+            </summary>
+            <param name="remoteEndPoint">IP end point of the server to connect to.</param>
+            <param name="receiveTimeout">Sets the amount of time a System.Net.Sockets.TcpClient will wait to receive data once a read operation is initiated.</param>
+            <returns>
+            A task that represents the asynchronous read operation. The value of the TResult
+            parameter contains a boolean that is true when a connection got establilshed successfully.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IAesTcpClient.Stop">
+            <summary>
+            Disconnects the tcp client form the server.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IAesTcpClient.IsConnected">
+            <summary>
+            Gets a value indicating whether the underlying System.Net.Sockets.Socket for a System.Net.Sockets.TcpClient is connected to a remote host.
+            </summary>
+            <returns>True if the System.Net.Sockets.TcpClient.Client socket was connected to a remote resource as of the most recent operation; otherwise, false.</returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.IApiRequestsRelayServer">
+            <summary>
+            Server that relays api requests threw an encrypted tunnel and that relays the answer back.
+            This server is only locally accessable.
+            </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IApiRequestsRelayServer.Start(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken)">
             <summary>
-            Starts a local server that listens on the same port as the basestation API
+            Starts a local server that listens on the same port as the basestation API.
             </summary>
             <param name="relayTunnel">Tunnel to relay the received packages to.</param>
-            <param name="cancellationToken">To stop the server.</param>
-            <returns></returns>
+            <param name="cancellationToken">System.Threading.CancellationToken to stop the realy server.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when the server got started successfully.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.ICommandsRelayServer">
+            <summary>
+            Server that relays requests that are made for the command-server of the basestation threw an encrypted tunnel and that relays the answer back.
+            This server is only locally accessable.
+            </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.ICommandsRelayServer.Start(MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel,System.Threading.CancellationToken)">
             <summary>
-            Starts a local server that listens on the same port as the basestation command service.
+            Starts the local server that listens on the same port as the basestation command service.
             </summary>
             <param name="relayTunnel">Tunnel to relay the received packages to.</param>
-            <param name="cancellationToken">To stop the server.</param>
-            <returns></returns>
+            <param name="cancellationToken">System.Threading.CancellationToken to stop the realy server.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when the server got started successfully.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel">
+            <summary>
+            Interface that defines send and receive methods 
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel.ReceiveData(System.Threading.CancellationToken)">
+            <summary>
+            Reads data from an encrypted stream.
+            </summary>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is System.Threading.CancellationToken.None.</param>
+            <returns>
+            A task that represents the asynchronous read operation. The value of the TResult
+            parameter contains the received decrypted data.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel.SendData(System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Writes data encrypted to a stream.
+            </summary>
+            <param name="data">Data to send (plaintext).</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is System.Threading.CancellationToken.None.</param>
+            <returns>
+            A task that represents the asynchronous write operation.
+            </returns>
         </member>
         <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IEncryptedTunnel.SendAndReceiveData(System.Byte[],System.Threading.CancellationToken)">
             <summary>
             Calls first SendData() and then ReceiveData().
             For multithreading (locking) purposes.
             </summary>
-            <param name="msg"></param>
-            <returns></returns>
+            <param name="data">Data to send.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is System.Threading.CancellationToken.None.</param>
+            <returns>
+            A task that represents the asynchronous read operation. The value of the TResult
+            parameter contains the received decrypted data.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.ILocalBasestationDiscovery">
+            <summary>
+            Class that commissions the multicast UDP packages and handles the answer of a basestation.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.ILocalBasestationDiscovery.TryFindBasestation">
+            <summary>
+            Tries to find a basestation in the local area through sending a multicast message.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a BasestationFoundDto object containing the Id and remote end point of the basestation.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.IMulticastUdpSender">
+            <summary>
+            Class to build and send the multicast basestation search message.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.IMulticastUdpSender.SendToMulticastGroupAsync(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Builds the basestation search message and sends it to all internet interfaces.
+            </summary>
+            <param name="localIP">The private ip address of this device.</param>
+            <param name="replyPort">Port the basestation should send the answer to.</param>
+            <returns>A Task that represents an asynchronous operation.</returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.Communication.ISslTcpClient">
+            <summary>
+            A Tcp client that sends and receives all packages over a Ssl stream.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Specifications.DataAccess.Communication.ISslTcpClient.SslStream">
+            <summary>
+            Gets the Ssl stream. Null when the client isn't connected to the server.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.ISslTcpClient.Start(System.Net.IPEndPoint,System.Boolean,System.String)">
+            <summary>
+            Builds the tcp connection to the <paramref name="endPoint"/>.
+            </summary>
+            <param name="endPoint">IP end point of the server to connect to.</param>
+            <param name="selfSignedCertificate">True to ignore the server certificate.</param>
+            <param name="targetHost">The name of the server that shares this System.Net.Security.SslStream.</param>
+            <returns>
+            A task that represents the asynchronous read operation. The value of the TResult
+            parameter contains a boolean that is true when everything went good.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.ISslTcpClient.GetServerCert">
+            <summary>
+            Gets the certificate of the server.
+            </summary>
+            <returns>A X509Certificate object. Null when the client isn't connected to the server.</returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.Communication.ISslTcpClient.Stop">
+            <summary>
+            Disconnects the tcp client form the server and closes the ssl stream.
+            </summary>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.DataAccess.IFileStorage">
+            <summary>
+            Class to write and read from a file.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.IFileStorage.ReadAsString(System.String)">
+            <summary>
+            Reads a hole file.
+            </summary>
+            <param name="filePath">Filepath of the file to read.</param>
+            <returns>
+            A task that represents the asynchronous read operation. The value of the TResult
+            parameter contains the text of the file.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.DataAccess.IFileStorage.WriteAllText(System.String,System.String)">
+            <summary>
+            Writes a string to a file.
+            Overrides an existing file.
+            </summary>
+            <param name="filePath">Filepath of the file.</param>
+            <param name="text">Text to write to the file.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
         </member>
         <member name="T:MobileApp.Common.Specifications.DataObjects.IServiceDetails">
             <summary>
@@ -1252,58 +1483,173 @@
             Contains information of what currently active connection should be used in LocalRelayManager in the project "GardeningSystem" to forward data.
             </summary>
         </member>
+        <member name="T:MobileApp.Common.Specifications.ILoggerService">
+            <summary>
+            Class to get an NLog logger for a specific class.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.ILoggerService.GetLogger``1">
+            <summary>
+            Gets a NLog logger instance.
+            </summary>
+            <typeparam name="T">Type of the class the logger is for.</typeparam>
+            <returns>Logger for class with type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.ILoggerService.GetLogFilePath(System.Boolean)">
+            <summary>
+            Gets the path of the log file.
+            </summary>
+            <param name="allLogsFile">True to get the path of the log file where all logs get stored in (including TRACE logs).</param>
+            <returns>Full filepath.</returns>
+        </member>
         <member name="M:MobileApp.Common.Specifications.ILoggerService.AddEventHandler(System.EventHandler)">
             <summary>
+            Adds a new eventhandler.
             The <paramref name="eventHandler"/> will get invoked when a new entry gets written to the log file.
             </summary>
-            <param name="eventHandler"></param>
+            <param name="eventHandler">Eventhandler to add.</param>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.ILoggerService.RemoveEventHandler(System.EventHandler)">
+            <summary>
+            Removes an existing eventhandler.
+            </summary>
+            <param name="eventHandler">Eventhandler to remove.</param>
+            <returns>True if the event handler got removed successfully.</returns>
         </member>
         <member name="P:MobileApp.Common.Specifications.IValvesListViewModel.LinkedValves">
             <summary>
             List of valves which gets displayed in an view model
             </summary>
         </member>
-        <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.Login(System.String,System.String)">
+        <member name="T:MobileApp.Common.Specifications.Managers.IAesKeyExchangeManager">
+            <summary>
+            Class to get a aes key from a basestation.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.IAesKeyExchangeManager.Start(System.Threading.CancellationToken)">
+            <summary>
+            Connects to the basestation and receives the aes key through a secure connection.
+            </summary>
+            <param name="token">System.Threading.CancellationToken to stop the process.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when the key got retrieved successfully.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Managers.IAPIManager">
+            <summary>
+            Class that handles API requests to the basestation.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.Login(System.String,System.String,System.Byte[])">
             <summary>
             Performs a login and stores a Json Web Token (JwT) in the SettingsManager. 
             This token will be used by all following api requests/posts.
+            Checks if the stored aes key is valid.
             </summary>
-            <param name="email"></param>
-            <param name="password"></param>
-            <returns>True when login was successfully</returns>
+            <param name="username">Username.</param>
+            <param name="password">Plaintext password.</param>
+            <param name="keyValidationBytes">
+            Aes encrypted byte array that contains a specific code and a salt.
+            Will get decrypted by the basestation and checked if the decrypted data makes sense.
+            </param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when login was successfully.
+            </returns>
+            <exception cref="T:MobileApp.Common.Exceptions.WrongAesKeyException">Gets thrown when the basestation could not decrypt the keyValidationBytes.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.ChangeLoginInfo(MobileApp.Common.Models.DTOs.UpdateUserDto)">
             <summary>
-            Registers a new user.
-            Does not request an token. Login must be called in order to being able to access fully the api.
+            Changes the login information.
             </summary>
-            <param name="email"></param>
-            <param name="password"></param>
-            <returns>True when the registration was successful.</returns>
+            <param name="updateUserDto">An object containing the current login information and the new login information.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when the username and password got changed successfully.
+            </returns>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.Logout">
             <summary>
-            Clears stored session information 
+            Clears stored session information.
             </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.GetModules">
             <summary>
-            Requests all modules from rest api.
+            Requests all modules which are connected with the basestation.
             </summary>
-            <returns>Null when error</returns>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a list of all modules and is null when an error occured.
+            </returns>
             <exception cref="T:System.UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.UpdateModule(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <summary>
+            Updates a specific module.
+            </summary>
+            <param name="updatedModule">The updated module.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+            <remarks>The ModuleId of the <paramref name="updatedModule"/> cannot be changed.</remarks>
             <exception cref="T:System.UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.AddModule(MobileApp.Common.Models.Entities.ModuleInfo)">
+            <summary>
+            This method was just for test purposes and doesn't get supported by the basestation anymore.
+            </summary>
+            <param name="newModule">The module to add.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
             <exception cref="T:System.UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.DeleteModule(System.Byte)">
+            <summary>
+            Deletes/Disconnects a module from the system.
+            </summary>
+            <param name="moduleId">Id of the module to remove.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
             <exception cref="T:System.UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.IsBasestationConnectedToWlan">
+            <summary>
+            Asks the basestation if it is connected to a wlan.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean that is true when the basestation is connected to a wifi.
+            </returns>
             <exception cref="T:System.UnauthorizedAccessException">Gets thrown when token is not valid.</exception>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.GetWlans">
+            <summary>
+            Requests the ssids of all wifis which the basestation can reach.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a list with all available wifis.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.IAPIManager.GetSystemStatus">
+            <summary>
+            Requests the system status of the basestation.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a MobileApp.Common.Models.Entities.SystemStatus object.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Managers.IBasestationFinderManager">
+            <summary>
+            Class to locate a basestation in the local network.
+            </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IBasestationFinderManager.FindLocalBaseStation">
             <summary>
@@ -1311,35 +1657,173 @@
             Retries a view times if no basestation answered.
             Stores the ip address of a found basestation in settings.
             </summary>
-            <returns>True when a basestation got found. Otherwise false.</returns>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a boolean that is true when a basestation got found.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Managers.ICommandManager">
+            <summary>
+            Class to send commands to the basestation.
+            </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.ConnectToWlan(MobileApp.Common.Models.DTOs.WlanInfoDto)">
-            <param name="wlanInfo">wlan login data</param>
-            <returns>If the operation was successfull</returns>
+            <summary>
+            Trys to connect the basestation to another wifi.
+            </summary>
+            <param name="wlanInfo">Wlan-login-data.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.DisconnectFromWlan">
+            <summary>
+            Disconnects the basestation from a wifi.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.StartAutomaticIrrigation">
+            <summary>
+            Enables the automatic irrigation algorithm of the basestation that get's activated automatically to specific times.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.StopAutomaticIrrigation">
+            <summary>
+            Disables the automatic irrigation algorithm.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.StartManualIrrigation(System.TimeSpan)">
+            <summary>
+            Opens all valves which are enabled for manual irrigation immediately.
+            </summary>
+            <param name="timeSpan">Time the valves should stay open. The maximum timespan a valve can stay open is 8,5 hours.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.StopManualIrrigation">
+            <summary>
+            Closes all valves that are enabled for manual irrigation.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.DiscoverNewModule(System.Threading.CancellationToken)">
+            <summary>
+            Searches for a new module to connect to the system.
+            This process can take some time.
+            </summary>
+            <param name="cancellationToken">System.Threading.CancellationToken to abort the search.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains the Id of the new module if a new module got connected successfully and is null if no new module was found.
+            </returns>
+            <remarks>More information about this new module can be requested through the APIManager.</remarks>
+            <seealso cref="T:MobileApp.Common.Specifications.Managers.IAPIManager"/>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.Test">
+            <summary>
+            Tests if the command manager service is available.
+            (For debug reasons)
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains if the command services is available or not.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Managers.IRelayManager">
+            <summary>
+            Class to establish a connection to the basestation over the internet and to start local services that relay all traffic through that connection.
+            </summary>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.IRelayManager.ConnectToTheBasestation(System.Threading.CancellationToken,System.Boolean,System.Boolean)">
             <summary>
-            Tells the external server to connect it to the basestation.
+            Tells the external server that we want to establish a connection to a specific basestation.
             Changes the endpoints of all clients to a local relay server, if the connection with the basestation was successful.
             </summary>
             <param name="cancellationToken">To close all open connections and stop relaying api requests or commands.</param>
             <param name="forceRelay">True, to redirect all traffic over the external server and not directly to the basestation.</param>
             <param name="test">True when the the connection is only for a relay test.</param>
-            <returns>True, when a connection got esablished.</returns>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean that is true when a connection to the basestation got esablished.
+            </returns>
+            <remarks>
+            Trys to establish a connection directly to the basestation.
+            If that isn't possible a secure end-to-end encrypted tunnel will get opend over the external server to the basestation.
+            </remarks>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Managers.ISettingsManager">
+            <summary>
+            Class that manages the application settings.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ISettingsManager.GetApplicationSettings">
+            <summary>
+            Gets the application settings.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a MobileApp.Common.Models.DTOs.ApplicationSettingsDto object.
+            </returns>
         </member>
         <member name="M:MobileApp.Common.Specifications.Managers.ISettingsManager.UpdateCurrentSettings(System.Func{MobileApp.Common.Models.DTOs.ApplicationSettingsDto,MobileApp.Common.Models.DTOs.ApplicationSettingsDto})">
             <summary>
-            Ensures that up to date settings get passed to updateFunc and
-            multiple threads can not change settings while calling this function.
+            Ensures that the current settings get passed to the <paramref name="updateFunc"/> function.
+            This method is thread safe.
             </summary>
-            <param name="updateFunc">gets current settings and must return the changed settings</param>
+            <param name="updateFunc">Function that takes the current settings and returns the updated settings.</param>
+            <returns>A task that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ISettingsManager.GetRuntimeVariables">
+            <summary>
+            Gets the global runtime settings.
+            </summary>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains a MobileApp.Common.Models.Entities.GlobalRuntimeVariables object.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ISettingsManager.UpdateCurrentRuntimeVariables(System.Func{MobileApp.Common.Models.Entities.GlobalRuntimeVariables,MobileApp.Common.Models.Entities.GlobalRuntimeVariables})">
+            <summary>
+            Updates the global runtime settings.
+            Ensures that the current settings get passed to the <paramref name="updateFunc"/> function.
+            </summary>
+            <param name="updateFunc">Function that takes the current global runtime settings and that returns the updated settings.</param>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Services.ICachePageDataService">
+            <summary>
+            Class to cache objects associated with a Guid.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.ICachePageDataService.Store(System.Guid,System.Object)">
+            <summary>
+            Stores an object and it's id in memory.
+            </summary>
+            <param name="storageId">Id of the object.</param>
+            <param name="o">The object to store.</param>
         </member>
         <member name="M:MobileApp.Common.Specifications.Services.ICachePageDataService.RemoveFromStore(System.Guid)">
             <summary>
             Returns and removes an object form storage.
             </summary>
-            <param name="storageId"></param>
-            <returns>Returns the stored object</returns>
+            <param name="storageId">Id of the object.</param>
+            <returns>Returns the object that was associated to the given <paramref name="storageId"/>.</returns>
         </member>
         <member name="M:MobileApp.Common.Specifications.Services.ICachePageDataService.UpdateCachedPageData(System.Guid,System.Func{System.Object,System.Object})">
             <summary>
@@ -1350,9 +1834,95 @@
             <exception cref="T:System.ArgumentException">When there is no object stored at the passed <paramref>storageId</paramref>.</exception>
         </member>
         <member name="M:MobileApp.Common.Specifications.Services.ICachePageDataService.GetFromStore(System.Guid)">
-            <param name="storageId"></param>
-            <returns>An object stored under <paramref>storageId</paramref>.</returns>
+            <summary>
+            Gets an object without removing it.
+            </summary>
+            <param name="storageId">Id of the object.</param>
+            <returns>An object that is associated with the given <paramref name="storageId"/>.</returns>
             <exception cref="T:System.ArgumentException">When there is no object stored at the passed <paramref>storageId</paramref>.</exception>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Services.ICloseApplicationService">
+            <summary>
+            Class to close the app.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.ICloseApplicationService.CloseApplication">
+            <summary>
+            Closes the app.
+            </summary>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Services.IDataStore`1">
+            <summary>
+            Class to administrate objects. (repository)
+            </summary>
+            <typeparam name="T">Type of the objects that this class stores.</typeparam>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.AddItemAsync(`0)">
+            <summary>
+            Adds an item to the repository.
+            </summary>
+            <param name="item">Item to add.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.UpdateItemAsync(`0)">
+            <summary>
+            Updates an existing item.
+            </summary>
+            <param name="item">Updated item.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.DeleteItemAsync``1(``0)">
+            <summary>
+            Removes an existing item from the repository.
+            </summary>
+            <typeparam name="T1">Type of the Id of the item.</typeparam>
+            <param name="id">Id of the item that should get removed.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean indicating wether the operation was a success or not.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.GetItemAsync``1(``0)">
+            <summary>
+            Gets an item with a specific <paramref name="id"/> from the repository.
+            </summary>
+            <typeparam name="T1">Type of the Id of the item.</typeparam>
+            <param name="id">Id of the item.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains the item.
+            </returns>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.GetItemsAsync(System.Boolean)">
+            <summary>
+            Gets all items from the repository.
+            </summary>
+            <param name="forceRefresh">True to load all items from their source and not from the cache. (Updates the internal cache)</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter contains all items of the repository.
+            </returns>
+        </member>
+        <member name="T:MobileApp.Common.Specifications.Services.IDialogService">
+            <summary>
+            Class to show messages to the user.
+            </summary>
+        </member>
+        <member name="M:MobileApp.Common.Specifications.Services.IDialogService.ShowMessage(System.String,System.String,System.String,System.Action)">
+            <summary>
+            Displays a dialog to the user.
+            </summary>
+            <param name="message">Message.</param>
+            <param name="title">Title.</param>
+            <param name="buttonText">The text of the button. (for example: "Close")</param>
+            <param name="afterHideCallback">Method that gets called after the user pressed the button with the text=<paramref name="buttonText"/>.</param>
+            <returns>A Task that reprecents an asynchronous operation.</returns>
         </member>
         <member name="M:MobileApp.Common.Utilities.IpUtils.IPEndPoint_TryParse(System.String)">
             <summary>

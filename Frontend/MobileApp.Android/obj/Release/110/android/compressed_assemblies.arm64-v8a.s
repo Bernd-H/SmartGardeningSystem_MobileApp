@@ -134,7 +134,7 @@
 
 	/* 14: MobileApp.Android.dll */
 	/* uncompressed_file_size */
-	.word	480256
+	.word	480768
 	/* loaded */
 	.byte	0
 	/* data */
@@ -143,7 +143,7 @@
 
 	/* 15: MobileApp.BusinessLogic.dll */
 	/* uncompressed_file_size */
-	.word	148480
+	.word	151552
 	/* loaded */
 	.byte	0
 	/* data */
@@ -152,7 +152,7 @@
 
 	/* 16: MobileApp.Common.dll */
 	/* uncompressed_file_size */
-	.word	86528
+	.word	87040
 	/* loaded */
 	.byte	0
 	/* data */
@@ -170,7 +170,7 @@
 
 	/* 18: MobileApp.DataAccess.dll */
 	/* uncompressed_file_size */
-	.word	34816
+	.word	35840
 	/* loaded */
 	.byte	0
 	/* data */
@@ -179,7 +179,7 @@
 
 	/* 19: MobileApp.dll */
 	/* uncompressed_file_size */
-	.word	173056
+	.word	178176
 	/* loaded */
 	.byte	0
 	/* data */
@@ -188,7 +188,7 @@
 
 	/* 20: Mono.Android.dll */
 	/* uncompressed_file_size */
-	.word	2351104
+	.word	2393088
 	/* loaded */
 	.byte	0
 	/* data */
@@ -377,7 +377,7 @@
 
 	/* 41: System.dll */
 	/* uncompressed_file_size */
-	.word	1025536
+	.word	1001472
 	/* loaded */
 	.byte	0
 	/* data */
@@ -566,7 +566,7 @@
 
 	/* 62: Xamarin.Essentials.dll */
 	/* uncompressed_file_size */
-	.word	30208
+	.word	36864
 	/* loaded */
 	.byte	0
 	/* data */

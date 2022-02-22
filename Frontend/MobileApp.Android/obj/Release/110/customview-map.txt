@@ -22,12 +22,15 @@ com.google.android.material.tabs.TabLayout;C:\Users\bernd\Documents\Schule\Diplo
 com.google.android.material.tabs.TabLayout;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\layout\rootlayout.xml
 com.google.android.material.tabs.TabLayout;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\layout\tabbar.xml
 declare-styleable;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\values\attrs.xml
+exclude;obj\Release\110\res\xml\auto_backup_rules.xml
 external-cache-path;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 external-path;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Release\110\res\mipmap-anydpi-v26\icon.xml
 foreground;obj\Release\110\res\mipmap-anydpi-v26\icon_round.xml
 FrameLayout;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\55\jl\res\layout\camerafragment.xml
 FrameLayout;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\layout\bottomtablayout.xml
+full-backup-content;obj\Release\110\res\xml\auto_backup_rules.xml
+include;obj\Release\110\res\xml\auto_backup_rules.xml
 item;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\values\styles.xml
 LinearLayout;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\58\jl\res\layout\bottomtablayout.xml
 paths;C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml

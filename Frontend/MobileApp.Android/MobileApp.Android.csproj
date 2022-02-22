@@ -214,5 +214,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_logs_64.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\auto_backup_rules.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\undraw_connected_world_wuay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

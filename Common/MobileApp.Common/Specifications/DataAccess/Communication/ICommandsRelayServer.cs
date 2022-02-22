@@ -13,7 +13,7 @@ namespace MobileApp.Common.Specifications.DataAccess.Communication {
         /// Starts the local server that listens on the same port as the basestation command service.
         /// </summary>
         /// <param name="relayTunnel">Tunnel to relay the received packages to.</param>
-        /// <param name="cancellationToken">System.Threading.CancellationToken to stop the realy server.param>
+        /// <param name="cancellationToken">System.Threading.CancellationToken to stop the realy server.</param>
         /// <returns>
         /// A task that represents an asynchronous operation. The value of the TResult
         /// parameter contains a boolean that is true when the server got started successfully.

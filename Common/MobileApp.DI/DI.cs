@@ -60,11 +60,10 @@ namespace MobileApp.DI
             container.Register<IDataStore<ModuleInfo>, ModuleDataStore>();
             container.Register<IDataStore<WlanInfoDto>, WlansDataStore>();
 
+            container.Register<ISecureStorage, SecureDataStorage>().AsMultiInstance();
+
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>().AsMultiInstance();
             container.Register<IAesTunnelInSslStream, AesTunnelInSslStream>().AsMultiInstance();
-
-            container.Register<IMailClient, MailClient>();
-            container.Register<ISftpClient, SftpClient>();
 
             // register view models
             container.Register<AccountViewModel>().AsSingleton();

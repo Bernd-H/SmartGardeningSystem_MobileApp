@@ -21437,25 +21437,28 @@ namespace MobileApp.Droid
 			public const int undraw_authentication_fsn5 = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int undraw_Faq_re_31cw = 2131165356;
+			public const int undraw_connected_world_wuay = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int undraw_metrics = 2131165357;
+			public const int undraw_Faq_re_31cw = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int undraw_Mind_map_re_nlb6 = 2131165358;
+			public const int undraw_metrics = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int undraw_outdoors_amdn = 2131165359;
+			public const int undraw_Mind_map_re_nlb6 = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
-			public const int undraw_tabs = 2131165360;
+			public const int undraw_outdoors_amdn = 2131165360;
 			
 			// aapt resource value: 0x7F0700B1
-			public const int user = 2131165361;
+			public const int undraw_tabs = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int xamarin_logo = 2131165362;
+			public const int user = 2131165362;
+			
+			// aapt resource value: 0x7F0700B3
+			public const int xamarin_logo = 2131165363;
 			
 			static Drawable()
 			{
@@ -30041,25 +30044,28 @@ namespace MobileApp.Droid
 		{
 			
 			// aapt resource value: 0x7F110000
-			public const int image_share_filepaths = 2131820544;
+			public const int auto_backup_rules = 2131820544;
 			
 			// aapt resource value: 0x7F110001
-			public const int standalone_badge = 2131820545;
+			public const int image_share_filepaths = 2131820545;
 			
 			// aapt resource value: 0x7F110002
-			public const int standalone_badge_gravity_bottom_end = 2131820546;
+			public const int standalone_badge = 2131820546;
 			
 			// aapt resource value: 0x7F110003
-			public const int standalone_badge_gravity_bottom_start = 2131820547;
+			public const int standalone_badge_gravity_bottom_end = 2131820547;
 			
 			// aapt resource value: 0x7F110004
-			public const int standalone_badge_gravity_top_start = 2131820548;
+			public const int standalone_badge_gravity_bottom_start = 2131820548;
 			
 			// aapt resource value: 0x7F110005
-			public const int standalone_badge_offset = 2131820549;
+			public const int standalone_badge_gravity_top_start = 2131820549;
 			
 			// aapt resource value: 0x7F110006
-			public const int xamarin_essentials_fileprovider_file_paths = 2131820550;
+			public const int standalone_badge_offset = 2131820550;
+			
+			// aapt resource value: 0x7F110007
+			public const int xamarin_essentials_fileprovider_file_paths = 2131820551;
 			
 			static Xml()
 			{

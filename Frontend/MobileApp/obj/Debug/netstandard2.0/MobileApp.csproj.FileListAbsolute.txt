@@ -53,10 +53,16 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.Common.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DataAccess.dll
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\Mono.Android.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.Common.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.Common.xml
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DataAccess.pdb
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DataAccess.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\Mono.Android.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\Mono.Android.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\MobileApp.csproj.AssemblyReference.cache
@@ -86,8 +92,3 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\MobileApp.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\ref\MobileApp.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\obj\Debug\netstandard2.0\MobileApp.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.BusinessLogic.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.Common.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DataAccess.xml
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.dll
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp\bin\Debug\netstandard2.0\MobileApp.DI.pdb

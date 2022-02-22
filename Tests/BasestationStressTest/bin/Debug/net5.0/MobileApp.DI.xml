@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MobileApp.DI</name>
+    </assembly>
+    <members>
+        <member name="M:MobileApp.DI.DI.RegisterDependencies">
+            <summary>
+            Registers only dependencies, which are not platform specific.
+            Platform specific dependencies get registered in the particular start project (MobileApp.Android, MobileApp.iOS).
+            </summary>
+        </member>
+    </members>
+</doc>

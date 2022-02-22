@@ -82,6 +82,7 @@ namespace MobileApp.Common.Specifications.Managers {
         /// <summary>
         /// Tests if the command manager service is available.
         /// (For debug reasons)
+        /// </summary>
         /// <returns>
         /// A task that represents an asynchronous operation. The value of the TResult
         /// parameter contains if the command services is available or not.
