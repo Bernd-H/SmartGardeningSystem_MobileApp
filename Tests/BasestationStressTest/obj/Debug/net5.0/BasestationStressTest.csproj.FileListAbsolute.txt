@@ -1,7 +1,6 @@
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\Configuration\NLog.config
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\TinyIoc.cs
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\BasestationStressTest.exe
-C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\config.json
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\BasestationStressTest.deps.json
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\BasestationStressTest.runtimeconfig.json
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\BasestationStressTest.runtimeconfig.dev.json
@@ -46,3 +45,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\Bas
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\obj\Debug\net5.0\ref\BasestationStressTest.dll
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\obj\Debug\net5.0\BasestationStressTest.pdb
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\obj\Debug\net5.0\BasestationStressTest.genruntimeconfig.cache
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Tests\BasestationStressTest\bin\Debug\net5.0\config.json

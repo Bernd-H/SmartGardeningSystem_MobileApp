@@ -6,5 +6,9 @@ namespace MobileApp.Common.Specifications.Configuration {
         ConnectionSettings ConnectionSettings { get; set; }
 
         FileNames FileNames { get; set; }
+
+        int AesKeyLength_Bytes { get; set; }
+
+        int AesIvLength_Bytes { get; set; }
     }
 }

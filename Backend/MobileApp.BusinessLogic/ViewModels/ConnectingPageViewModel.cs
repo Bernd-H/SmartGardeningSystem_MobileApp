@@ -236,6 +236,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }  
         
         async void OnReconnectTapped(object obj) {
+            SettingsManager.accessedSecureStorage = false;
             DeleteSettingsButtonEnabled = false;
             ReconnectButtonEnabled = false;
             await BeginConnect();

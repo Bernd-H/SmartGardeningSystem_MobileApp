@@ -63,6 +63,7 @@ namespace MobileApp.DI
             container.Register<ISecureStorage, SecureDataStorage>().AsMultiInstance();
 
             container.Register<IAesEncrypterDecrypter, AesEncrypterDecrypter>().AsMultiInstance();
+            container.Register<IAesHandlerWithoutSettings, AesHandlerWithoutSettings>().AsMultiInstance();
             container.Register<IAesTunnelInSslStream, AesTunnelInSslStream>().AsMultiInstance();
 
             // register view models

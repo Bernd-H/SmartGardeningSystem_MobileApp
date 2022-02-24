@@ -113,7 +113,13 @@
         <member name="T:MobileApp.DataAccess.FileStorageAndroid">
             <inheritdoc/>
         </member>
+        <member name="M:MobileApp.DataAccess.FileStorageAndroid.Read(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.DataAccess.FileStorageAndroid.ReadAsString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageAndroid.Write(System.String,System.Byte[])">
             <inheritdoc/>
         </member>
         <member name="M:MobileApp.DataAccess.FileStorageAndroid.WriteAllText(System.String,System.String)">
@@ -128,10 +134,22 @@
         <member name="M:MobileApp.DataAccess.FileStorageiOS.WriteAllText(System.String,System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:MobileApp.DataAccess.FileStorageiOS.Read(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageiOS.Write(System.String,System.Byte[])">
+            <inheritdoc/>
+        </member>
         <member name="T:MobileApp.DataAccess.FileStorageWin">
             <inheritdoc/>
         </member>
+        <member name="M:MobileApp.DataAccess.FileStorageWin.Read(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.DataAccess.FileStorageWin.ReadAsString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.DataAccess.FileStorageWin.Write(System.String,System.Byte[])">
             <inheritdoc/>
         </member>
         <member name="M:MobileApp.DataAccess.FileStorageWin.WriteAllText(System.String,System.String)">

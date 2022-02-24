@@ -121,44 +121,44 @@
 	.section	.rodata.map_aname.20,"aMS",%progbits,1
 	.type	.L.map_aname.20, %object
 .L.map_aname.20:
-	.asciz	"SkiaSharp.Views.Forms"
-	.size	.L.map_aname.20, 22
+	.asciz	"MobileApp.Android"
+	.size	.L.map_aname.20, 18
 
 	.section	.rodata.map_aname.21,"aMS",%progbits,1
 	.type	.L.map_aname.21, %object
 .L.map_aname.21:
-	.asciz	"Xamarin.AndroidX.Browser"
-	.size	.L.map_aname.21, 25
+	.asciz	"SkiaSharp.Views.Forms"
+	.size	.L.map_aname.21, 22
 
 	.section	.rodata.map_aname.22,"aMS",%progbits,1
 	.type	.L.map_aname.22, %object
 .L.map_aname.22:
-	.asciz	"Xamarin.AndroidX.CoordinatorLayout"
-	.size	.L.map_aname.22, 35
+	.asciz	"Xamarin.AndroidX.Browser"
+	.size	.L.map_aname.22, 25
 
 	.section	.rodata.map_aname.23,"aMS",%progbits,1
 	.type	.L.map_aname.23, %object
 .L.map_aname.23:
-	.asciz	"Microcharts.Droid"
-	.size	.L.map_aname.23, 18
+	.asciz	"Xamarin.AndroidX.CoordinatorLayout"
+	.size	.L.map_aname.23, 35
 
 	.section	.rodata.map_aname.24,"aMS",%progbits,1
 	.type	.L.map_aname.24, %object
 .L.map_aname.24:
-	.asciz	"Xamarin.AndroidX.Loader"
-	.size	.L.map_aname.24, 24
+	.asciz	"Microcharts.Droid"
+	.size	.L.map_aname.24, 18
 
 	.section	.rodata.map_aname.25,"aMS",%progbits,1
 	.type	.L.map_aname.25, %object
 .L.map_aname.25:
-	.asciz	"Xamarin.Google.Guava.ListenableFuture"
-	.size	.L.map_aname.25, 38
+	.asciz	"Xamarin.AndroidX.Loader"
+	.size	.L.map_aname.25, 24
 
 	.section	.rodata.map_aname.26,"aMS",%progbits,1
 	.type	.L.map_aname.26, %object
 .L.map_aname.26:
-	.asciz	"MobileApp.Android"
-	.size	.L.map_aname.26, 18
+	.asciz	"Xamarin.Google.Guava.ListenableFuture"
+	.size	.L.map_aname.26, 38
 
 	.section	.rodata.map_aname.27,"aMS",%progbits,1
 	.type	.L.map_aname.27, %object

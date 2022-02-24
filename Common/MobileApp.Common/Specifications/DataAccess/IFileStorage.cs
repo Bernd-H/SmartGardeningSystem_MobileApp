@@ -25,5 +25,9 @@ namespace MobileApp.Common.Specifications.DataAccess {
         /// <param name="text">Text to write to the file.</param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
         Task WriteAllText(string filePath, string text);
+
+        Task<byte[]> Read(string filePath);
+
+        Task Write(string filePath, byte[] data);
     }
 }

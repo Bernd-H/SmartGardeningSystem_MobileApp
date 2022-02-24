@@ -1,6 +1,7 @@
 ﻿{
   "FileNames": {
-    "SettingsFileName": "settings.json"
+    "SettingsFileName": "settings.json",
+    "SecureStorageKey_SettingsFileEncryptionKey": "settingsEncryptionKey"
   },
   "ConnectionSettings": {
     //"LocalPeerDiscovery_port": 6777,
@@ -20,5 +21,8 @@
 
     "ExternalServer_Domain": "nas.djcodex.com",
     "ExternalServer_RelayPort": "5040"
-  }
+  },
+
+  "AesKeyLength_Bytes": "32",
+  "AesIvLength_Bytes": "16"
 }

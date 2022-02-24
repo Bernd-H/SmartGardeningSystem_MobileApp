@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MobileApp.Common.Configuration;
@@ -7,6 +8,7 @@ using MobileApp.Common.Models;
 using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
+using MobileApp.Common.Specifications.Cryptography;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
 using Newtonsoft.Json;
@@ -25,19 +27,30 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private IFileStorage FileStorage;
 
-        private ISecureStorage SecureStorage; // only store in secureStorage when not on windows....
+        private ISecureStorage SecureStorage;
+
+        private IAesHandlerWithoutSettings AesEncrypterDecrypter;
 
         private string settingsFilePath;
+
+        private byte[] cryptoKey;
+
+        private byte[] cryptoIV;
+
+        public bool accessedSecureStorage { get; set; } = false;
 
         private static SemaphoreSlim LOCKER = new SemaphoreSlim(1);
 
         private static GlobalRuntimeVariables globalRuntimeVariables;
         private static SemaphoreSlim globalRuntimeVarsLOCKER = new SemaphoreSlim(1);
 
-        public SettingsManager(ILoggerService logger, IFileStorage fileStorage, ISecureStorage secureStorage) { 
+        public SettingsManager(ILoggerService logger, IFileStorage fileStorage, ISecureStorage secureStorage, IAesHandlerWithoutSettings aesEncrypterDecrypter) { 
             Logger = logger.GetLogger<SettingsManager>();
             FileStorage = fileStorage;
             SecureStorage = secureStorage;
+            AesEncrypterDecrypter = aesEncrypterDecrypter;
+
+            setFilePathIfEmpty();
         }
 
         #region runtime variables
@@ -85,10 +98,20 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private async Task<ApplicationSettingsDto> getApplicationSettings() {
             Logger.Trace("[getApplicationSettings]Loading application settings.");
-            setFilePathIfEmpty();
+            if (!accessedSecureStorage) {
+                // try loading/saving the aes key with which the settings file gets encrypted/decrypted
+                var aesKeyLoaded = await getCryptoKey();
+                if (!aesKeyLoaded) {
+                    await trySaveCryptoKey();
+                }
+
+                accessedSecureStorage = true;
+            }
+
             await createDefaultSettingsByMissingFile();
 
-            var settingsRaw = FileStorage.ReadAsString(settingsFilePath).Result;
+            //var settingsRaw = await FileStorage.ReadAsString(settingsFilePath);
+            var settingsRaw = await getRawSettingsFile();
             var settings = JsonConvert.DeserializeObject<ApplicationSettings>(settingsRaw);
 
             return settings.ToDto();
@@ -96,7 +119,8 @@ namespace MobileApp.BusinessLogic.Managers {
 
         private async Task updateSettings(ApplicationSettingsDto newSettings) {
             var jsonSettings = JsonConvert.SerializeObject(newSettings.FromDto());
-            await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
+            //await FileStorage.WriteAllText(settingsFilePath, jsonSettings);
+            await writeRawSettingsFile(jsonSettings);
         }
 
         private async Task createDefaultSettingsByMissingFile() {
@@ -119,6 +143,82 @@ namespace MobileApp.BusinessLogic.Managers {
                     settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configuration.FileNames.SettingsFileName);
                 }
             }
+        }
+
+        private async Task<string> getRawSettingsFile() {
+            var rawSettingsFile = await FileStorage.Read(settingsFilePath);
+            if (cryptoKey != null) {
+                try {
+                    // decrypt file
+                    return Encoding.UTF8.GetString(AesEncrypterDecrypter.Decrypt(rawSettingsFile, cryptoKey, cryptoIV));
+                }
+                catch (Exception) {
+                    // wrong aes key
+                    // override the current settings file with a new one
+                    Logger.Error($"[getRawSettingsFile]Could not decrypt settings file. Deleting current settings.");
+                    await updateSettings(ApplicationSettingsDto.GetStandardSettings());
+                    return await getRawSettingsFile(); // warning: recurrent call... (should cause no problems though)
+                }
+            }
+
+            return Encoding.UTF8.GetString(rawSettingsFile);
+        }
+
+        private async Task writeRawSettingsFile(string textToSave) {
+            if (cryptoKey != null) {
+                // encrypt file
+                var encryptedFile = AesEncrypterDecrypter.Encrypt(Encoding.UTF8.GetBytes(textToSave), cryptoKey, cryptoIV);
+                await FileStorage.Write(settingsFilePath, encryptedFile);
+            }
+            else {
+                await FileStorage.WriteAllText(settingsFilePath, textToSave);
+            }
+        }
+
+        private async Task<bool> getCryptoKey() {
+            Logger.Trace($"[getCryptoKey]Requesting the aes key from the secure storage.");
+
+            var configuration = ConfigurationStore.GetConfig();
+            int keyLength = Convert.ToInt32(configuration.AesKeyLength_Bytes), ivLength = Convert.ToInt32(configuration.AesIvLength_Bytes);
+
+            // load the cryptokey from secure storage
+            var keyAndIV = await SecureStorage.Read(configuration.FileNames.SecureStorageKey_SettingsFileEncryptionKey);
+            if (!string.IsNullOrEmpty(keyAndIV)) {
+                var keyAndIVBytes = Convert.FromBase64String(keyAndIV);
+
+                cryptoKey = new byte[keyLength];
+                cryptoIV = new byte[ivLength];
+                Array.Copy(keyAndIVBytes, 0, cryptoKey, 0, keyLength);
+                Array.Copy(keyAndIVBytes, keyLength, cryptoIV, 0, ivLength);
+                return true;
+            }
+
+            return false;
+        }
+
+        private async Task<bool> trySaveCryptoKey() {
+            var configuration = ConfigurationStore.GetConfig();
+
+            (var keyBytes, var ivBytes) = AesEncrypterDecrypter.CreateAesKeyIv();
+            byte[] keyAndIvBytes = new byte[keyBytes.Length + ivBytes.Length];
+            Array.Copy(keyBytes, 0, keyAndIvBytes, 0, keyBytes.Length);
+            Array.Copy(ivBytes, 0, keyAndIvBytes, keyBytes.Length, ivBytes.Length);
+
+            string keyAndIvString = Convert.ToBase64String(keyAndIvBytes);
+
+            bool success = await SecureStorage.Write(configuration.FileNames.SecureStorageKey_SettingsFileEncryptionKey, keyAndIvString);
+            if (success) {
+                Logger.Info($"[trySaveCryptoKey]Saved the aes key in the secure storage successfully.");
+
+                // set local key variables
+                cryptoKey = keyBytes;
+                cryptoIV = ivBytes;
+            }
+            else {
+                Logger.Warn($"[trySaveCryptoKey]Could not save the aes key in the secure storage! (Storing settings unencrypted...)");
+            }
+
+            return success;
         }
     }
 }

@@ -42,5 +42,7 @@ namespace MobileApp.Common.Specifications.Managers {
         /// </summary>
         /// <param name="updateFunc">Function that takes the current global runtime settings and that returns the updated settings.</param>
         void UpdateCurrentRuntimeVariables(Func<GlobalRuntimeVariables, GlobalRuntimeVariables> updateFunc);
+
+        bool accessedSecureStorage { get; set; }
     }
 }

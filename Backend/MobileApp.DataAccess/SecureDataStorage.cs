@@ -27,7 +27,7 @@ namespace MobileApp.DataAccess {
             }
             catch (Exception ex) {
                 // Possible that device doesn't support secure storage on device.
-                Logger.Error(ex, "[Read]An error occured.");
+                Logger.Trace(ex, "[Read]An error occured.");
             }
 
             return result;
@@ -40,7 +40,7 @@ namespace MobileApp.DataAccess {
             }
             catch (Exception ex) {
                 // Possible that device doesn't support secure storage on device.
-                Logger.Error(ex, "[Remove]An error occured.");
+                Logger.Trace(ex, "[Remove]An error occured.");
                 return false;
             }
         }
@@ -52,7 +52,7 @@ namespace MobileApp.DataAccess {
             }
             catch (Exception ex) {
                 // Possible that device doesn't support secure storage on device.
-                Logger.Error(ex, "[Write]An error occured.");
+                Logger.Trace(ex, "[Write]An error occured.");
                 return false;
             }
 
