@@ -91,6 +91,30 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref type, value);
         }
 
+        private string temperature;
+        public string Temperature {
+            get => temperature;
+            set => SetProperty(ref temperature, value);
+        }
+
+        private string signalStrength;
+        public string SignalStrength {
+            get => signalStrength;
+            set => SetProperty(ref signalStrength, value);
+        }
+
+        private string lastIrrigationTime;
+        public string LastIrrigationTime {
+            get => lastIrrigationTime;
+            set => SetProperty(ref lastIrrigationTime, value);
+        }
+
+        private string lastIrrigationTimeSpan;
+        public string LastIrrigationTimeSpan {
+            get => lastIrrigationTimeSpan;
+            set => SetProperty(ref lastIrrigationTimeSpan, value);
+        }
+
         private string lastUpdated;
         public string LastUpdated {
             get => lastUpdated;
@@ -185,6 +209,28 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 Type = item.ModuleTypeName;
                 LastUpdated = item.InformationTimestamp.ToString();
                 ManualIrrigationEnabled = item.EnabledForManualIrrigation;
+                if (item.SignalStrength != null) {
+                    SignalStrength = $"{item.SignalStrength.Value} dB @ {item.SignalStrength.Timestamp}";
+                }
+                else {
+                    SignalStrength = "-";
+                }
+
+                if (item.TemperatureMeasurements?.Any() ?? false) {
+                    Temperature = $"{item.TemperatureMeasurements.Last().Value} °C @ {item.TemperatureMeasurements.Last().Timestamp}";
+                }
+                else {
+                    Temperature = "-";
+                }
+
+                if (item.LastWaterings?.Any() ?? false) {
+                    LastIrrigationTime = item.LastWaterings.Last().Timestamp.ToString();
+                    LastIrrigationTimeSpan = $"{item.LastWaterings.Last().Value} minutes";
+                }
+                else {
+                    LastIrrigationTime = "-";
+                    LastIrrigationTimeSpan = "-";
+                }
 
                 if (item.ModuleTypeName == ModuleTypeNames.VALVE) {
                     IsRemoveButtonEnabled = true;
@@ -217,7 +263,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
 
             Logger.Info($"[SetManualIrrigationSettings]Settings manual irrigation setting to {enabled} for module with id={ItemId}.");
-            var module = ParseToModuleInfo(associatedModules: null); // null because it's a valve not a sensor
+            var module = await ParseToModuleInfo(associatedModules: null); // null because it's a valve not a sensor
             
             bool success = await APIManager.UpdateModule(module);
             if (success) {
@@ -283,7 +329,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
 
             // update module via api
-            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfo(associatedModules));
+            bool success = await ModuleRepository.UpdateItemAsync(await ParseToModuleInfo(associatedModules));
 
             await userDialog;
 
@@ -307,7 +353,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
 
             // update module via api
-            bool success = await ModuleRepository.UpdateItemAsync(ParseToModuleInfo(associatedModules));
+            bool success = await ModuleRepository.UpdateItemAsync(await ParseToModuleInfo(associatedModules));
 
             await userDialog;
 
@@ -339,17 +385,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
         /// Converts all properties shown in this view into a single object
         /// </summary>
         /// <param name="associatedModules">LinkedValveIds</param>
-        private ModuleInfo ParseToModuleInfo(List<byte> associatedModules) {
+        private async Task<ModuleInfo> ParseToModuleInfo(List<byte> associatedModules) {
             Logger.Info($"[ParseToModuleInfo]Parsing displayed module data to an ModuleInfo object.");
-            var m = new ModuleInfoDto {
-                ModuleId = ItemId,
-                ModuleTypeName = Type,
-                Name = Name,
-                AssociatedModules = associatedModules,
-                EnabledForManualIrrigation = ManualIrrigationEnabled
-            };
+            var module = await ModuleRepository.GetItemAsync(moduleId);
 
-            return m.FromDto();
+            // override properties that can get changed by the mobile app
+            module.Name = Name;
+            module.AssociatedModules = associatedModules;
+            module.EnabledForManualIrrigation = ManualIrrigationEnabled;
+
+            return module;
         }
     }
 }

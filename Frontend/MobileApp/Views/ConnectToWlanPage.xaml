@@ -68,7 +68,7 @@
             </StackLayout>
 
             <!-- Snack Bar -->
-            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="EndAndExpand">
+            <StackLayout Grid.Row="1" VerticalOptions="EndAndExpand">
                 <views:SnackBar  x:Name="SnackB" HeightRequest="50" FontSize="{OnPlatform iOS=12, Android=13, UWP=15}" 
                              BackgroundColor="#323232" 
                              TextColor="White"

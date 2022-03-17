@@ -27,6 +27,7 @@
                 <Label Text="{Binding LastUpdated}" FontSize="16" TextColor="LightGray"/>
             </StackLayout>
 
+            <!-- module properties -->
             <StackLayout Grid.Row="2" Margin="15,10,15,15" Spacing="10">
                 <StackLayout Spacing="0">
                     <Label Text="ID" FontAttributes="Bold" FontSize="16" />
@@ -36,8 +37,25 @@
                     <Label Text="Typ" FontAttributes="Bold" FontSize="16" />
                     <Label Text="{Binding Type}" FontSize="18"/>
                 </StackLayout>
+                <StackLayout Spacing="0">
+                    <Label Text="Signal strength" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding SignalStrength}" FontSize="18"/>
+                </StackLayout>
+                <StackLayout Spacing="0">
+                    <Label Text="Temperature" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding Temperature}" FontSize="18"/>
+                </StackLayout>
+                <StackLayout Spacing="0" IsVisible="{Binding IsAValve}">
+                    <Label Text="Last irrigation time" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding LastIrrigationTime}" FontSize="18"/>
+                </StackLayout>
+                <StackLayout Spacing="0" IsVisible="{Binding IsAValve}">
+                    <Label Text="Last irrigation timespan" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding LastIrrigationTimeSpan}" FontSize="18"/>
+                </StackLayout>
             </StackLayout>
 
+            <!-- sensor irrigation setting -->
             <StackLayout Grid.Row="3" Margin="15" Spacing="10" IsVisible="{Binding IsWateringSettingVisible, Mode=OneWay}">
                 <StackLayout>
                     <Label Text="Watering setting" FontAttributes="Bold" FontSize="18" />

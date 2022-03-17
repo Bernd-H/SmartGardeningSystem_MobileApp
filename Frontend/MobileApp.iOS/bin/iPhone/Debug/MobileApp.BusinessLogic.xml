@@ -16,6 +16,18 @@
         <member name="M:MobileApp.BusinessLogic.Cryptography.AesEncrypterDecrypter.Encrypt(System.Byte[])">
             <inheritdoc/>
         </member>
+        <member name="T:MobileApp.BusinessLogic.Cryptography.AesHandlerWithoutSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesHandlerWithoutSettings.Decrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesHandlerWithoutSettings.Encrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:MobileApp.BusinessLogic.Cryptography.AesHandlerWithoutSettings.CreateAesKeyIv">
+            <inheritdoc/>
+        </member>
         <member name="T:MobileApp.BusinessLogic.Cryptography.AesTunnelInSslStream">
             <inheritdoc/>
         </member>

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Input;
+using MobileApp.Common;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using Xamarin.Forms;
@@ -13,13 +14,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref logs, value);
         }
 
-        public ICommand LoadLogsCommand { get; }
-
         private bool isButtonVisible = true;
         public bool IsButtonVisible {
             get => isButtonVisible;
             set => SetProperty(ref isButtonVisible, value);
         }
+
+        public ICommand LoadLogsCommand { get; }
+
+        public ICommand BackCommand { get; set; }
+
 
         private ILoggerService LoggerService;
 
@@ -30,6 +34,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             FileStorage = fileStorage;
 
             LoadLogsCommand = new Command(loadLogs);
+            BackCommand = new Command(OnBackTapped);
         }
 
         /// <summary>
@@ -52,6 +57,10 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
             // show logs
             Logs = logs;
+        }
+
+        async void OnBackTapped(object obj) {
+            await Shell.Current.GoToAsync(PageNames.SettingsPage);
         }
     }
 }

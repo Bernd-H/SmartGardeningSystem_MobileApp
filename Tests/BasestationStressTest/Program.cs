@@ -46,7 +46,7 @@ namespace BasestationStressTest {
                 var init = test.ExchangeAllNeccessaryKeys().Result;
                 if (init) {
                     RelayManager.TEST_PACKET_LENGTH_KB = 100;
-                    var testTask = test.Start(amountOfConcurrentTests: 10, forceRelay: true);
+                    var testTask = test.Start(amountOfConcurrentTests: 20, forceRelay: false);
 
                     Console.WriteLine("Press enter to stop the test.");
                     Console.ReadLine();
@@ -106,7 +106,11 @@ namespace BasestationStressTest {
                 Parallel.For(0, amountOfConcurrentTests, i => {
                     var relayManager = IoC.Get<IRelayManager>();
                     var success = relayManager.ConnectToTheBasestation(_cts.Token, forceRelay: forceRelay, test: true).Result;
-                    Logger.Info($"[Start]Test result {i}: {success}.");
+                    if (success) {
+                        Logger.Info($"[Start]Test result {i}: true.");
+                    } else {
+                        Logger.Error($"[Start]Test result {i}: false.");
+                    }
                 });
 
                 Logger.Info($"[Start]---------- Finished ----------");

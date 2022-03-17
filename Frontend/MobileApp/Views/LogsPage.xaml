@@ -6,6 +6,9 @@
              x:DataType="viewmodels:LogsPageViewModel"
              x:Class="MobileApp.Views.LogsPage"
              Title="Logs">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <StackLayout>
             <ScrollView>
@@ -27,6 +30,9 @@
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding LoadLogsCommand}"></TapGestureRecognizer>
                 </pancake:PancakeView.GestureRecognizers>
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow BlurRadius="5"/>
+                </pancake:PancakeView.Shadow>
                 <Label
                         FontAttributes="Bold"
                         FontSize="20"

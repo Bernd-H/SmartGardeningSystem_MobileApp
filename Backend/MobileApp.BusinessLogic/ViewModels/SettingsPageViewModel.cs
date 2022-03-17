@@ -9,7 +9,11 @@ using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
     public class SettingsPageViewModel : BaseViewModel {
-        public ICommand ManualControlCommand { get; set; }
+        //public ICommand ManualControlCommand { get; set; }
+
+        public ICommand StartManualIrrigationCommand { get; set; }
+
+        public ICommand StopManualIrrigationCommand { get; set; }
 
         public ICommand AccountSettingsCommand { get; set; }
 
@@ -33,7 +37,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             CommandManager = commandManager;
             DialogService = dialogService;
 
-            ManualControlCommand = new Command(ManualControlTapped);
+            StartManualIrrigationCommand = new Command(OnStartManualIrrigationTapped);
+            StopManualIrrigationCommand = new Command(OnStopManualIrrigationTapped);
             AccountSettingsCommand = new Command(AccountSettingsTapped);
             ChangeWlanCommand = new Command(ChangeWlanTapped);
             BackCommand = new Command(OnBackTapped);
@@ -69,8 +74,32 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
         }
 
-        private async void ManualControlTapped(object obj) {
-            //await Shell.Current.GoToAsync(PageNames.)
+        private async void OnStartManualIrrigationTapped(object obj) {
+            var waitMessage = DialogService.ShowMessage("Please wait... The initiated process can take some time.", "Info", "Ok", null);
+            var timespan = TimeSpan.FromHours(2);
+            bool success = await CommandManager.StartManualIrrigation(timespan);
+            await waitMessage;
+
+            if (success) {
+                await DialogService.ShowMessage("Opened all valves that are enabled for manual irrigation.\n" +
+                    $"These vavles will close automatically after {timespan.TotalHours}h.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Something went wrong while trying to start the manual irrigation.", "Error", "Ok", null);
+            }
+        }
+
+        private async void OnStopManualIrrigationTapped(object obj) {
+            var waitMessage = DialogService.ShowMessage("Please wait... The initiated process can take some time.", "Info", "Ok", null);
+            bool success = await CommandManager.StopManualIrrigation();
+            await waitMessage;
+
+            if (success) {
+                await DialogService.ShowMessage("Closed all valves which are enabled for the manual irrigation successfully.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Something went wrong while trying to stop the manual irrigation.", "Error", "Ok", null);
+            }
         }
 
         private async void OnOpenLogsPageTapped(object obj) {

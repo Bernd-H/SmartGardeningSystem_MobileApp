@@ -8,21 +8,30 @@
         <BackButtonBehavior Command="{Binding BackCommand}"/>
     </Shell.BackButtonBehavior>
     <ContentPage.Content>
-        <Grid Margin="15, 0, 15, 15" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
-            <!-- Manuel control -->
+        <Grid Margin="15, 0, 15, 15" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+            <!-- Start manual irrigation -->
             <!-- Separator (Line) -->
             <BoxView Grid.Row="0" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" IsVisible="false" />
             <!-- Button -->
             <pancake:PancakeView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-                <Label Text="Manual control" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <Label Text="Start manual irrigation" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ManualControlCommand}"></TapGestureRecognizer>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding StartManualIrrigationCommand}"></TapGestureRecognizer>
                 </pancake:PancakeView.GestureRecognizers>
             </pancake:PancakeView>
 
-            <!-- Account settings -->
+            <!-- Stop manual irrigation -->
             <BoxView Grid.Row="2"  HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
             <pancake:PancakeView Grid.Row="3"  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Label Text="Stop manual irrigation" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding StopManualIrrigationCommand}"></TapGestureRecognizer>
+                </pancake:PancakeView.GestureRecognizers>
+            </pancake:PancakeView>
+            
+            <!-- Account settings -->
+            <BoxView Grid.Row="4"  HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="5"  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
                 <Label Text="Account settings" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding AccountSettingsCommand}"></TapGestureRecognizer>
@@ -30,8 +39,8 @@
             </pancake:PancakeView>
             
             <!-- Change wlan -->
-            <BoxView Grid.Row="4" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
-            <pancake:PancakeView Grid.Row="5" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <BoxView Grid.Row="6" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="7" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
                 <Label Text="Change WLAN" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeWlanCommand}"></TapGestureRecognizer>
@@ -39,8 +48,8 @@
             </pancake:PancakeView>
 
             <!-- Disconnect from wlan -->
-            <BoxView Grid.Row="6" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
-            <pancake:PancakeView Grid.Row="7" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <BoxView Grid.Row="8" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="9" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
                 <Label Text="Disconnect from WLAN" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding DisconnectFromWlanCommand}"></TapGestureRecognizer>
@@ -48,8 +57,8 @@
             </pancake:PancakeView>
             
             <!-- Logs page -->
-            <BoxView Grid.Row="8" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
-            <pancake:PancakeView Grid.Row="9" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <BoxView Grid.Row="10" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <pancake:PancakeView Grid.Row="11" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
                 <Label Text="Show logs" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15"/>
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenLogsPageCommand}"></TapGestureRecognizer>
@@ -57,7 +66,7 @@
             </pancake:PancakeView>
 
             <!-- Separator (Line) -->
-            <BoxView Grid.Row="10" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
+            <BoxView Grid.Row="12" HeightRequest="1" Color="LightGray" Margin="10, 0, 10, 0" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
