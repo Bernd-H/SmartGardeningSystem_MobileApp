@@ -591,3 +591,4 @@ C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\stamp\_ResolveLibraryProjectImports.stamp
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\res\xml\auto_backup_rules.xml
 C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\res\drawable\undraw_connected_world_wuay.png
+C:\Users\bernd\Documents\Schule\Diplomarbeit\GardeningSystem_MobileApp\Frontend\MobileApp.Android\obj\Release\110\res\drawable\refresh.png

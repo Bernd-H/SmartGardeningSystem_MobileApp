@@ -19,6 +19,8 @@
 
         public static byte[] Test = new byte[] { 156 };
 
+        public static byte[] PingModuleCommand = new byte[] { 157 };
+
         public static byte[] KeyValidationMessage = new byte[] { 0xAA, 0x55 };
     }
 }

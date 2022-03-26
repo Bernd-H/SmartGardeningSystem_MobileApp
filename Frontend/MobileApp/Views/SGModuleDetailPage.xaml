@@ -14,17 +14,33 @@
     </Shell.BackButtonBehavior>
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto,Auto,Auto, Auto,*,Auto">
+            <!-- picture and blue background -->
             <pancake:PancakeView Grid.Row="0" Grid.RowSpan="2" CornerRadius="0,0,20,20" BackgroundColor="WhiteSmoke" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Frame BackgroundColor="#084ebf" />
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow />
                 </pancake:PancakeView.Shadow>
             </pancake:PancakeView>
-
             <Image Grid.Row="0" Source="{Binding ModuleImagePath}" Margin="0,15,0,0" WidthRequest="120" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+            
+            <!-- name & date -->
             <StackLayout Grid.Row="1" Margin="15" VerticalOptions="End" HorizontalOptions="Start">
                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="24" TextColor="LightGray"/>
                 <Label Text="{Binding LastUpdated}" FontSize="16" TextColor="LightGray"/>
+            </StackLayout>
+            
+            <!-- refresh icon -->
+            <StackLayout Grid.Row="1" HorizontalOptions="EndAndExpand" VerticalOptions="End" Margin="15">
+                <pancake:PancakeView CornerRadius="37" BackgroundColor="#084ebf" HeightRequest="37" WidthRequest="37">
+                    <Image Source="refresh" Aspect="AspectFit" Margin="7" />
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer
+                                NumberOfTapsRequired="1"
+                                Command="{Binding RefreshCommand}">
+                        </TapGestureRecognizer>
+                    </pancake:PancakeView.GestureRecognizers>
+                </pancake:PancakeView>
+                <Label Text="Refresh" FontSize="16" TextColor="LightGray"/>
             </StackLayout>
 
             <!-- module properties -->
@@ -42,6 +58,10 @@
                     <Label Text="{Binding SignalStrength}" FontSize="18"/>
                 </StackLayout>
                 <StackLayout Spacing="0">
+                    <Label Text="Battery level" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding BatteryLevel}" FontSize="18"/>
+                </StackLayout>
+                <StackLayout Spacing="0" IsVisible="{Binding IsAValve}">
                     <Label Text="Temperature" FontAttributes="Bold" FontSize="16" />
                     <Label Text="{Binding Temperature}" FontSize="18"/>
                 </StackLayout>

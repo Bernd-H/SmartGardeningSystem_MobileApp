@@ -10,6 +10,7 @@ using MobileApp.Common.Models.Enums;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Services;
 using MobileApp.Common.Utilities;
+using NLog;
 using Xamarin.Forms;
 
 namespace MobileApp.BusinessLogic.ViewModels {
@@ -54,7 +55,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
             }
             set {
                 moduleId = value;
-                var m = ModuleRepository.GetItemAsync(Utils.ConvertHexToByte(moduleId)).Result;
+                // No refresh nedded. The WaitingForNewModulePageViewModel class refreshes the internal cache
+                var m = ModuleRepository.GetItemAsync(Utils.ConvertHexToByte(moduleId), forceRefresh: false).Result;
                 AddingASensor = m.ModuleType == ModuleType.Sensor;
             }
         }
@@ -119,6 +121,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         #endregion
 
+        private ILogger Logger;
 
         private ICachePageDataService CachePageData;
 
@@ -126,7 +129,9 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IDataStore<ModuleInfo> ModuleRepository;
 
-        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService, IDataStore<ModuleInfo> moduleRepository) {
+        public AddModuleViewModel(ICachePageDataService cachePageDataService, IDialogService dialogService, IDataStore<ModuleInfo> moduleRepository,
+            ILoggerService loggerService) {
+            Logger = loggerService.GetLogger<AddModuleViewModel>();
             CachePageData = cachePageDataService;
             DialogService = dialogService;
             ModuleRepository = moduleRepository;

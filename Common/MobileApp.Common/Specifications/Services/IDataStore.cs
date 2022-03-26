@@ -45,11 +45,12 @@ namespace MobileApp.Common.Specifications.Services {
         /// </summary>
         /// <typeparam name="T1">Type of the Id of the item.</typeparam>
         /// <param name="id">Id of the item.</param>
+        /// <param name="forceRefresh">True to load the item from the source and not from the cache. (Updates the internal cache)</param>
         /// <returns>
         /// A task that represents an asynchronous operation. The value of the TResult
         /// parameter contains the item.
         /// </returns>
-        Task<T> GetItemAsync<T1>(T1 id) where T1 : struct;
+        Task<T> GetItemAsync<T1>(T1 id, bool forceRefresh = false) where T1 : struct;
 
         /// <summary>
         /// Gets all items from the repository.

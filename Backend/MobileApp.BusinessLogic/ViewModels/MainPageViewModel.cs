@@ -192,20 +192,26 @@ namespace MobileApp.BusinessLogic.ViewModels {
         async void OnStartTapped(object obj) {
             bool success = await CommandManager.StartAutomaticIrrigation();
             if (success) {
+                var refreshTask = ExecuteLoadItemsCommand(); // to refresh the system status info
                 await DialogService.ShowMessage("Successfully started the automatic irrigation.", "Info", "Ok", null);
+                await refreshTask;
             }
             else {
-                await DialogService.ShowMessage("Something went wrong while trying to start the automatic irrigation.", "Error", "Ok", null);
+                await DialogService.ShowMessage("Something went wrong while trying to start the automatic irrigation.\n" +
+                    "If the SystemStatus is \"ManualIrrigation\" the stop the manual irrigation with Settings->Stop-manual-irrigation first.", "Error", "Ok", null);
             }
         }
 
         async void OnStopTapped(object obj) {
             bool success = await CommandManager.StopAutomaticIrrigation();
             if (success) {
+                var refreshTask = ExecuteLoadItemsCommand(); // to refresh the system status info
                 await DialogService.ShowMessage("Successfully stopped the automatic irrigation.", "Info", "Ok", null);
+                await refreshTask;
             }
             else {
-                await DialogService.ShowMessage("Something went wrong while trying to stop the automatic irrigation.", "Error", "Ok", null);
+                await DialogService.ShowMessage("Something went wrong while trying to stop the automatic irrigation.\n" +
+                    "If the SystemStatus is \"ManualIrrigation\" the stop the manual irrigation with Settings->Stop-manual-irrigation first.", "Error", "Ok", null);
             }
         }
 

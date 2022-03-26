@@ -72,13 +72,20 @@ namespace MobileApp.BusinessLogic.Services {
         }
 
         /// <inheritdoc/>
-        public Task<ModuleInfo> GetItemAsync<T1>(T1 id) where T1 : struct {
+        public async Task<ModuleInfo> GetItemAsync<T1>(T1 id, bool forceRefresh = false) where T1 : struct {
             byte moduleId = Utils.ConvertValue<byte, T1>(id);
 
-            Logger.Info($"[GetItemAsync]Requested module with id={Utils.ConvertByteToHex(moduleId)} from local memory.");
+            if (forceRefresh) {
+                // request module from the api server of the basestation
+                await GetItemsAsync(true);
+            }
+            else {
+                Logger.Info($"[GetItemAsync]Requested module with id={Utils.ConvertByteToHex(moduleId)} from local memory.");
+            }
+
             var module = modules.Find(m => m.ModuleId == moduleId);
 
-            return Task.FromResult(module);
+            return module;
         }
 
         /// <inheritdoc/>

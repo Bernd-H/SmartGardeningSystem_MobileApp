@@ -54,7 +54,7 @@ namespace MobileApp.BusinessLogic.Services {
             throw new NotImplementedException();
         }
 
-        public Task<WlanInfoDto> GetItemAsync<T1>(T1 id) where T1 : struct {
+        public Task<WlanInfoDto> GetItemAsync<T1>(T1 id, bool forceRefresh = false) where T1 : struct {
             throw new NotImplementedException();
         }
 

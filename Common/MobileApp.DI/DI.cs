@@ -72,7 +72,7 @@ namespace MobileApp.DI
             container.Register<LoginViewModel>().AsMultiInstance();
             container.Register<MainPageViewModel>().AsSingleton();
             container.Register<SGModuleDetailViewModel>().AsMultiInstance();
-            container.Register<WaitingForNewModulePageViewModel>().AsSingleton();
+            container.Register<WaitingForNewModulePageViewModel>().AsMultiInstance();
             container.Register<SelectValvePageViewModel>().AsMultiInstance();
             container.Register<SelectWlanPageViewModel>().AsMultiInstance();
             container.Register<ConnectToWlanPageViewModel>().AsMultiInstance();

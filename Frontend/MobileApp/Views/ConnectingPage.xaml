@@ -94,8 +94,8 @@
     </ContentPage>
 
     <ContentPage>
-        <ScrollView>
-            <Label Text="{Binding Logs, Mode=OneWay}"
+        <ScrollView x:Name="scrollView">
+            <Label x:Name="logsLabel" Text="{Binding Logs, Mode=OneWay}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="StartAndExpand"
                 FontSize="18"/>

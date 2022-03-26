@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MobileApp.Common;
+using MobileApp.Common.Models.Entities;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.Managers;
 using MobileApp.Common.Specifications.Services;
@@ -18,6 +19,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref status, value);
         }
 
+        private bool activityIndicatorIsVisible = true;
+        public bool ActivityIndicatorIsVisible {
+            get => activityIndicatorIsVisible;
+            set => SetProperty(ref activityIndicatorIsVisible, value);
+        }
+
         public ICommand ViewLogsPageCommand { get; }
 
         public ICommand AbortCommand { get; }
@@ -29,12 +36,16 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private ICommandManager CommandManager;
 
+        private IDataStore<ModuleInfo> ModuleRepository;
+
         private CancellationTokenSource cancellationTS = new CancellationTokenSource();
 
-        public WaitingForNewModulePageViewModel(ILoggerService loggerService, IDialogService dialogService, ICommandManager commandManager) {
+        public WaitingForNewModulePageViewModel(ILoggerService loggerService, IDialogService dialogService, ICommandManager commandManager,
+            IDataStore<ModuleInfo> moduleRepository) {
             Logger = loggerService.GetLogger<WaitingForNewModulePageViewModel>();
             DialogService = dialogService;
             CommandManager = commandManager;
+            ModuleRepository = moduleRepository;
 
             ViewLogsPageCommand = new Command(OnViewLogsTapped);
             AbortCommand = new Command(OnAbortTapped);
@@ -47,12 +58,20 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async Task BeginSearch() {
+            ActivityIndicatorIsVisible = true;
             byte? moduleId = await CommandManager.DiscoverNewModule(cancellationTS.Token);
 
             if (!moduleId.HasValue) {
-                await DialogService.ShowMessage("Found no new module.", "Info", "Ok", null);
+                ActivityIndicatorIsVisible = false;
+                await DialogService.ShowMessage("No new module found!", "Info", "Ok", null);
+                await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
             }
             else if (!cancellationTS.IsCancellationRequested) {
+                Logger.Info($"[BeginSearch]Found new module with id={Utils.ConvertByteToHex(moduleId.Value)}.");
+
+                // request all modules from the api of the basestation to update the internal module cache
+                await ModuleRepository.GetItemsAsync(true);
+
                 await Shell.Current.GoToAsync($"{PageNames.AddModulePage}?{nameof(AddModuleViewModel.ModuleId)}={Utils.ConvertByteToHex(moduleId.Value)}");
             }
         }
@@ -66,7 +85,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             cancellationTS.Cancel();
 
             // navigate back to home page
-            await Shell.Current.GoToAsync(PageNames.MainPage);
+            await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
         }
     }
 }

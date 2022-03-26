@@ -80,6 +80,16 @@ namespace MobileApp.Common.Specifications.Managers {
         Task<byte?> DiscoverNewModule(CancellationToken cancellationToken);
 
         /// <summary>
+        /// Pings a module and updates the rssi property of the module.
+        /// </summary>
+        /// <param name="moduleId">Id of the module.</param>
+        /// <returns>
+        /// A task that represents an asynchronous operation. The value of the TResult
+        /// parameter is a boolean that is true when the ping was successful.
+        /// </returns>
+        Task<bool> PingModule(byte moduleId);
+
+        /// <summary>
         /// Tests if the command manager service is available.
         /// (For debug reasons)
         /// </summary>

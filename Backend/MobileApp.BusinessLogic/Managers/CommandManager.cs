@@ -53,14 +53,11 @@ namespace MobileApp.BusinessLogic.Managers {
                         // receive return code
                         try {
                             success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
-                        } catch (Exception rrc_ex) {
-                            if (rrc_ex.GetType() == typeof(ConnectionClosedException) || rrc_ex.GetType() == typeof(SocketException)) {
-                                // return code won't get received if CommandServer connected to another wlan successfully
-                                success = true;
-                            }
-                            else {
-                                throw;
-                            }
+                        }
+                        catch (SocketException) {
+                            // return code won't get received if CommandServer connected to another wlan successfully
+                            // (SocketException: Network subsystem is down)
+                            success = true;
                         }
                     }
                 } catch (Exception ex) {
@@ -143,6 +140,9 @@ namespace MobileApp.BusinessLogic.Managers {
             var success = await sendCommand(CommunicationCodes.DiscoverNewModuleCommand, openConnectionAction: new Func<Task>(async () => {
                 // receive Module info
                 moduleInfoBytes = await AesTcpClient.ReceiveData(cancellationToken);
+                Logger.Info($"[DiscoverNewModule]Received {moduleInfoBytes.Length} bytes.");
+
+                await AesTcpClient.SendData(CommunicationCodes.ACK, cancellationToken);
             }));
 
             if (success && !cancellationToken.IsCancellationRequested) {
@@ -157,6 +157,15 @@ namespace MobileApp.BusinessLogic.Managers {
             else {
                 return null;
             }
+        }
+
+        /// <inheritdoc/>
+        public Task<bool> PingModule(byte moduleId) {
+            Logger.Info($"[PingModule]Sending ping command for module {moduleId}.");
+            return sendCommand(CommunicationCodes.PingModuleCommand, new Func<Task>(async () => {
+                // send module id
+                await AesTcpClient.SendData(new byte[] { moduleId });
+            }));
         }
 
         /// <inheritdoc/>

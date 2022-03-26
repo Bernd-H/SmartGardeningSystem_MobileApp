@@ -32,7 +32,8 @@ namespace MobileApp.Common.Models {
                 LastWaterings = module.LastWaterings,
                 SignalStrength = module.SignalStrength,
                 SoilMoistureMeasurements = module.SoilMoistureMeasurements,
-                TemperatureMeasurements = module.TemperatureMeasurements
+                TemperatureMeasurements = module.TemperatureMeasurements,
+                BatteryLevel = module.BatteryLevel
             };
         }
 
@@ -47,7 +48,8 @@ namespace MobileApp.Common.Models {
                 EnabledForManualIrrigation = moduleInfoDto.EnabledForManualIrrigation,
                 TemperatureMeasurements = moduleInfoDto.TemperatureMeasurements,
                 SoilMoistureMeasurements = moduleInfoDto.SoilMoistureMeasurements,
-                SignalStrength = moduleInfoDto.SignalStrength
+                SignalStrength = moduleInfoDto.SignalStrength,
+                BatteryLevel = moduleInfoDto.BatteryLevel
             };
         }
 

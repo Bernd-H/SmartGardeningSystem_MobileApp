@@ -116,7 +116,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             DeleteSettingsCommand = new Command(OnDeleteSettingsTapped);
             ReconnectCommand = new Command(OnReconnectTapped);
 
-            LoggerService.AddEventHandler(new EventHandler(LoadLogs));
+            LoggerService.AddEventHandler(new EventHandler(async (s, e) => await LoadLogs(s,e)));
 
             if (beginConnectTask == null) {
                 beginConnectTask = BeginConnect();
@@ -132,7 +132,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         /// (Would create an infinite loop, because LoadLogs() gets called automatically, when 
         /// someone logs -> LoggerService.AddEventHandler(....) in constructor....)
         /// </summary>
-        public async void LoadLogs(object sender, EventArgs eventArgs) {
+        public async Task LoadLogs(object sender, EventArgs eventArgs) {
             var logsFilePath = LoggerService.GetLogFilePath(allLogsFile: false);
             string logs;
             if (File.Exists(logsFilePath)) {

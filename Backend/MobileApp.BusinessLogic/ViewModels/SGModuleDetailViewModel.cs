@@ -34,7 +34,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set {
                 itemId = value;
                 moduleId = Utils.ConvertHexToByte(itemId);
-                LoadItemId(value);
+                LoadItem();
                 FillLinkedValvesList();
             }
         }
@@ -103,6 +103,12 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref signalStrength, value);
         }
 
+        private string batteryLevel;
+        public string BatteryLevel {
+            get => batteryLevel;
+            set => SetProperty(ref batteryLevel, value);
+        }
+
         private string lastIrrigationTime;
         public string LastIrrigationTime {
             get => lastIrrigationTime;
@@ -162,6 +168,8 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         public ICommand BackCommand { get; }
 
+        public ICommand RefreshCommand { get; }
+
         #endregion
 
         #region show / add / remove linked valves properties
@@ -185,23 +193,27 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         private IAPIManager APIManager;
 
+        private ICommandManager CommandManager;
+
         public SGModuleDetailViewModel(LoggerService loggerService, IDialogService dialogService, ICachePageDataService cachePageDataService,
-            IDataStore<ModuleInfo> moduleRepository, IAPIManager _APIManager) {
+            IDataStore<ModuleInfo> moduleRepository, IAPIManager _APIManager, ICommandManager commandManager) {
             Logger = loggerService.GetLogger<SGModuleDetailViewModel>();
             DialogService = dialogService;
             CachePageDataService = cachePageDataService;
             ModuleRepository = moduleRepository;
             APIManager = _APIManager;
+            CommandManager = commandManager;
 
             Title = "Module Info";
             RemoveCommand = new Command(OnRemoveClicked);
             BackCommand = new Command(OnBackTapped);
+            RefreshCommand = new Command(OnRefreshTapped);
             LinkedValves = new ObservableCollection<ModuleInfoDto>();
             AddCorrespondingValveCommand = new Command(AddCorrespondingValveTapped);
             RemoveValveFromModuleCommand = new Command<ModuleInfoDto>(RemoveValveTapped);
         }
 
-        public async void LoadItemId(string itemId) {
+        public async void LoadItem() {
             try {
                 var item = (await ModuleRepository.GetItemAsync(moduleId))?.ToDto();
                 Id = item.ModuleId;
@@ -210,13 +222,21 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 LastUpdated = item.InformationTimestamp.ToString();
                 ManualIrrigationEnabled = item.EnabledForManualIrrigation;
                 if (item.SignalStrength != null) {
-                    SignalStrength = $"{item.SignalStrength.Value} dB @ {item.SignalStrength.Timestamp}";
+                    SignalStrength = $"{item.SignalStrength.Value} dBm @ {item.SignalStrength.Timestamp}";
                 }
                 else {
                     SignalStrength = "-";
                 }
 
+                if (item.BatteryLevel != null) {
+                    BatteryLevel = $"{item.BatteryLevel.Value}% @ {item.BatteryLevel.Timestamp}";
+                }
+
                 if (item.TemperatureMeasurements?.Any() ?? false) {
+                    Logger.Info($"[LoadItem]TempMeasurementsCount: {item.TemperatureMeasurements.Count()}"); // only for debugging
+                }
+
+                if (item.TemperatureMeasurements != null && item.TemperatureMeasurements.Any()) {
                     Temperature = $"{item.TemperatureMeasurements.Last().Value} °C @ {item.TemperatureMeasurements.Last().Timestamp}";
                 }
                 else {
@@ -307,6 +327,27 @@ namespace MobileApp.BusinessLogic.ViewModels {
 
         async void OnBackTapped(object obj) {
             await Shell.Current.GoToAsync(PageNames.GetNavigationString(PageNames.MainPage));
+        }
+
+        async void OnRefreshTapped(object obj) {
+            var dialogMessage = DialogService.ShowMessage("Refreshing...\nPlease wait.", "Info", "Ok", null);
+
+            bool success = await CommandManager.PingModule(moduleId);
+            if (success) {
+                // update the internal cache
+                success = await ModuleRepository.GetItemAsync(moduleId, forceRefresh: true) != null;
+
+                LoadItem();
+            }
+
+            await dialogMessage;
+
+            if (success) {
+                await DialogService.ShowMessage("Refresh was successful.", "Info", "Ok", null);
+            }
+            else {
+                await DialogService.ShowMessage("Could not refresh this module.", "Error", "Ok", null);
+            }
         }
 
         async void AddCorrespondingValveTapped(object obj) {

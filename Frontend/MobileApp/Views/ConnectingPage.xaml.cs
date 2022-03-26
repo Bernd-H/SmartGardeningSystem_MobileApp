@@ -15,9 +15,11 @@ namespace MobileApp.Views {
             Shell.SetTabBarIsVisible(this, false);
 
             this.BindingContext = IoC.Get<ConnectingPageViewModel>();
+
+            ((ConnectingPageViewModel)BindingContext).PropertyChanged += ConnectingPage_PropertyChanged;
         }
 
-        protected override void OnCurrentPageChanged() {
+        protected override async void OnCurrentPageChanged() {
             base.OnCurrentPageChanged();
 
             if (BindingContext != null) {
@@ -25,8 +27,21 @@ namespace MobileApp.Views {
 
                 if (!connectingPageSelected) {
                     // load logs...
-                   ((ConnectingPageViewModel)BindingContext).LoadLogs(null, null);
+                   await ((ConnectingPageViewModel)BindingContext).LoadLogs(null, null);
+
+                    // scroll to the end
+                    await scrollView.ScrollToAsync(logsLabel, ScrollToPosition.End, false);
                 }
+            }
+        }
+
+        private async void ConnectingPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            if (e.PropertyName == "Logs" && !connectingPageSelected) {
+                // give the mobile phone time to update the logsLabel
+                await Task.Delay(300);
+
+                // scroll to the end
+                await scrollView.ScrollToAsync(logsLabel, ScrollToPosition.End, false);
             }
         }
     }

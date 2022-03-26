@@ -87,7 +87,7 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Unter dem Stop und Start Knopf sind die verbunden Module aufgelistet. Drück man auf ein verbundenes Modul, so giebt es ganz unten die Option 'Remove Module'." TextColor="WhiteSmoke" FontSize="18"/>
+                                <Label Margin="15,0,15,15" Text="Unter dem Stop und Start Knopf sind die verbunden Module aufgelistet. Drückt man auf ein verbundenes Modul, so gibt es ganz unten die Option 'Remove Module'." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
@@ -140,14 +140,14 @@
                                 </Grid>
                             </xct:Expander.Header>
                             <xct:Expander.Content>
-                                <Label Margin="15,0,15,15" Text="Der eigen, unter aufsicht eines lang erfahrenen Gärtnerpaares, entwickelte Gießalgorithmus zieht Variablen wie Bodenfeuchtigkeit, Wetterbericht in betracht. Weiters wird nicht oft in kleinen Mengen gegossen, da dadurch die Pflanzenwurzeln nicht zu Sauerstoff gelangen, was der Pflanze schädigt." TextColor="WhiteSmoke" FontSize="18"/>
+                                <Label Margin="15,0,15,15" Text="Der eigen, entwickelte Gießalgorithmus zieht Variablen wie Bodenfeuchtigkeit, Temperatur, Luftfeuchtigkeit, Niederschlag und Wettervorhersagen in betracht. Weiters wird nicht oft in kleinen Mengen gegossen, da dadurch die Pflanzenwurzeln nicht zu Sauerstoff gelangen, was der Pflanze schädigt." TextColor="WhiteSmoke" FontSize="18"/>
                             </xct:Expander.Content>
                         </xct:Expander>
                     </pancake:PancakeView>
                 </StackLayout>
 
                 <StackLayout Grid.Row="5" Margin="15,0,0,0" Spacing="2">
-                    <Label Text="Für weitere Frage schreiben Sie uns ein Email an:" FontSize="18" />
+                    <Label Text="Für weitere Fragen schreiben Sie uns ein Email an:" FontSize="18" />
                     <Label Text="question@smartgardening.at" FontAttributes="Bold" FontSize="18" />
                 </StackLayout>
 

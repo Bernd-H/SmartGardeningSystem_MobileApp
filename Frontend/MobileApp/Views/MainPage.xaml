@@ -84,10 +84,10 @@
                         </pancake:PancakeView.Shadow>
                     </pancake:PancakeView>
 
-                    <!-- Account icon -->
+                    <!-- Settings icon -->
                     <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="EndAndExpand" Margin="15">
                         <pancake:PancakeView CornerRadius="47" BackgroundColor="#37a6b8" HeightRequest="47" WidthRequest="47">
-                            <Image Source="user" Aspect="AspectFit" Margin="7" />
+                            <Image Source="settings" Aspect="AspectFit" Margin="7" />
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow />
                             </pancake:PancakeView.Shadow>
@@ -98,7 +98,10 @@
                                 </TapGestureRecognizer>
                             </pancake:PancakeView.GestureRecognizers>
                         </pancake:PancakeView>
-                        <Label Text="Settings" FontSize="16"/>
+                        <StackLayout Spacing="0">
+                            <Label Text="Settings" FontSize="16"/>
+                            <Label Text="&amp; more" FontSize="16"/>
+                        </StackLayout>
                     </StackLayout>
 
                 </Grid>
