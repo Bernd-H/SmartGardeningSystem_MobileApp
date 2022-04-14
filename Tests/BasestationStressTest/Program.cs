@@ -153,7 +153,7 @@ namespace BasestationStressTest {
         /// Stops the test and closes all currently opend connections.
         /// </summary>
         public void Stop() {
-            Logger.Info($"[Stop]Closeing all connections...");
+            Logger.Info($"[Stop]Closing all connections...");
             _cts.Cancel();
         }
     }

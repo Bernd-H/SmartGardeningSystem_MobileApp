@@ -151,8 +151,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
         }
 
         async void SaveTapped(object obj) {
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrWhiteSpace(Name) || (AddingASensor && LinkedValves.Count == 0) ||
-                (!AddingASensor && WateringMethod_PickerIndex == -1)) {
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrWhiteSpace(Name) || (!AddingASensor && WateringMethod_PickerIndex == -1)) {
                 await DialogService.ShowMessage("Can not process data. Please make sure that everything is set properly.", "Error", "Ok", null);
                 return;
             }

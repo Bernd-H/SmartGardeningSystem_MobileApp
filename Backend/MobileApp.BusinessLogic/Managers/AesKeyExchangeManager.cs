@@ -56,7 +56,7 @@ namespace MobileApp.BusinessLogic.Managers {
                         //    return;
                         //}
 
-                        Logger.Info($"[Start]Waiting to receive aes key, iv and the certificate for the server.");
+                        Logger.Info($"[Start]Waiting to receive aes key, iv and the certificate of the basestation.");
 
                         // receive key
                         var key = await SslTcpClient.ReceiveData();
@@ -71,7 +71,7 @@ namespace MobileApp.BusinessLogic.Managers {
                         await SslTcpClient.SendData(CommunicationCodes.ACK);
 
                         // save the received key information
-                        Logger.Info($"[Start]Saving the received aes key information.");
+                        Logger.Info($"[Start]Saving the received aes key.");
                         await SettingsManager.UpdateCurrentSettings(currentSettings => {
                             currentSettings.AesKey = key;
                             currentSettings.AesIV = iv;
