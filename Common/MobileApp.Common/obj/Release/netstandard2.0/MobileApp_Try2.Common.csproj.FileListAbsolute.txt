@@ -1,9 +1,0 @@
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\bin\Release\netstandard2.0\MobileApp_Try2.Common.deps.json
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\bin\Release\netstandard2.0\MobileApp_Try2.Common.dll
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\bin\Release\netstandard2.0\MobileApp_Try2.Common.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.AssemblyInfoInputs.cache
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.AssemblyInfo.cs
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.csproj.CoreCompileInputs.cache
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.dll
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.pdb
-C:\Users\bernd\Documents\Schule\Diplomarbeit\MobileApp_Try2\MobileApp_Try2.Common\obj\Release\netstandard2.0\MobileApp_Try2.Common.csproj.AssemblyReference.cache
