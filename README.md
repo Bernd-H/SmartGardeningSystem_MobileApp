@@ -9,9 +9,11 @@ First compile the hole project. Select **Build > Rebuild Solution** to verify th
 For a more details see [docs.microsoft.com](https://docs.microsoft.com/en-us/xamarin/android/deploy-test/release-prep/?tabs=windows).
 
 ## Compatibility
+- Android 5.0 (API-Ebene 21 – Lollipop) or higher
+- iOS 8.0 or higher
 
-
-# License
+## License
 This project is licensed under the GPLv3 license.
 
-# Contact
+## Contact
+github.smartgardeningsystem@gmail.com
