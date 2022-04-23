@@ -104,7 +104,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
             HelpCommand = new Command(OnHelpTapped);
             StartCommand = new Command(OnStartTapped);
             StopCommand = new Command(OnStopTapped);
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.djcodex.com"));
+            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://github.com/Bernd-H/SmartGardeningSystem"));
             ViewLogsPageCommand = new Command(OnViewLogsPageTapped);
         }
 
