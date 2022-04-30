@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:MobileApp.Controls"
              xmlns:viewmodels="clr-namespace:MobileApp.BusinessLogic.ViewModels;assembly=MobileApp.BusinessLogic"
              xmlns:model="clr-namespace:MobileApp.Common.Models.DTOs;assembly=MobileApp.Common"
+             xmlns:helpers="clr-namespace:MobileApp.Helpers"
              x:DataType="viewmodels:SGModuleDetailViewModel"
              Title="{Binding Title}"
              BackgroundColor="WhiteSmoke">
@@ -61,9 +62,13 @@
                     <Label Text="Battery level" FontAttributes="Bold" FontSize="16" />
                     <Label Text="{Binding BatteryLevel}" FontSize="18"/>
                 </StackLayout>
-                <StackLayout Spacing="0" IsVisible="{Binding IsAValve}">
+                <StackLayout Spacing="0" IsVisible="{Binding IsAValve, Converter={helpers:InverseBoolConverter}}"> <!-- Visible if Sensor -->
                     <Label Text="Temperature" FontAttributes="Bold" FontSize="16" />
                     <Label Text="{Binding Temperature}" FontSize="18"/>
+                </StackLayout>
+                <StackLayout Spacing="0" IsVisible="{Binding IsAValve, Converter={helpers:InverseBoolConverter}}"> <!-- Visible if Sensor -->
+                    <Label Text="Soil moisture" FontAttributes="Bold" FontSize="16" />
+                    <Label Text="{Binding SoilMoisture}" FontSize="18"/>
                 </StackLayout>
                 <StackLayout Spacing="0" IsVisible="{Binding IsAValve}">
                     <Label Text="Last irrigation time" FontAttributes="Bold" FontSize="16" />

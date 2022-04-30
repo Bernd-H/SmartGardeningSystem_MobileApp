@@ -55,7 +55,7 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 if (dataInCacheId != string.Empty) {
                     // load cached data and set properties
                     var cachedData = CachePageDataService.RemoveFromStore(Guid.Parse(dataInCacheId)) as SGModuleDetailViewModel;
-                    itemId = cachedData.ItemId;
+                    ItemId = cachedData.ItemId;
 
                     Id = cachedData.Id;
                     Name = cachedData.Name;
@@ -91,31 +91,37 @@ namespace MobileApp.BusinessLogic.ViewModels {
             set => SetProperty(ref type, value);
         }
 
-        private string temperature;
+        private string temperature = "-";
         public string Temperature {
             get => temperature;
             set => SetProperty(ref temperature, value);
         }
 
-        private string signalStrength;
+        private string signalStrength = "-";
         public string SignalStrength {
             get => signalStrength;
             set => SetProperty(ref signalStrength, value);
         }
 
-        private string batteryLevel;
+        private string batteryLevel = "-";
         public string BatteryLevel {
             get => batteryLevel;
             set => SetProperty(ref batteryLevel, value);
         }
 
-        private string lastIrrigationTime;
+        private string soilMoisture = "-";
+        public string SoilMoisture {
+            get => soilMoisture;
+            set => SetProperty(ref soilMoisture, value);
+        }
+
+        private string lastIrrigationTime = "-";
         public string LastIrrigationTime {
             get => lastIrrigationTime;
             set => SetProperty(ref lastIrrigationTime, value);
         }
 
-        private string lastIrrigationTimeSpan;
+        private string lastIrrigationTimeSpan = "-";
         public string LastIrrigationTimeSpan {
             get => lastIrrigationTimeSpan;
             set => SetProperty(ref lastIrrigationTimeSpan, value);
@@ -224,9 +230,6 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 if (item.SignalStrength != null) {
                     SignalStrength = $"{item.SignalStrength.Value} dBm @ {item.SignalStrength.Timestamp}";
                 }
-                else {
-                    SignalStrength = "-";
-                }
 
                 if (item.BatteryLevel != null) {
                     BatteryLevel = $"{item.BatteryLevel.Value}% @ {item.BatteryLevel.Timestamp}";
@@ -239,17 +242,14 @@ namespace MobileApp.BusinessLogic.ViewModels {
                 if (item.TemperatureMeasurements != null && item.TemperatureMeasurements.Any()) {
                     Temperature = $"{item.TemperatureMeasurements.Last().Value} °C @ {item.TemperatureMeasurements.Last().Timestamp}";
                 }
-                else {
-                    Temperature = "-";
+
+                if (item.SoilMoistureMeasurements != null && item.SoilMoistureMeasurements.Any()) {
+                    SoilMoisture = $"{item.SoilMoistureMeasurements.Last().Value} % @ {item.SoilMoistureMeasurements.Last().Timestamp}";
                 }
 
-                if (item.LastWaterings?.Any() ?? false) {
+                if (item.LastWaterings != null && item.LastWaterings.Any()) {
                     LastIrrigationTime = item.LastWaterings.Last().Timestamp.ToString();
                     LastIrrigationTimeSpan = $"{item.LastWaterings.Last().Value} minutes";
-                }
-                else {
-                    LastIrrigationTime = "-";
-                    LastIrrigationTimeSpan = "-";
                 }
 
                 if (item.ModuleTypeName == ModuleTypeNames.VALVE) {

@@ -121,6 +121,9 @@
         <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.DiscoverNewModule(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
+        <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.PingModule(System.Byte)">
+            <inheritdoc/>
+        </member>
         <member name="M:MobileApp.BusinessLogic.Managers.CommandManager.Test">
             <inheritdoc/>
         </member>
@@ -224,7 +227,7 @@
         <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.DeleteItemAsync``1(``0)">
             <inheritdoc/>
         </member>
-        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.GetItemAsync``1(``0)">
+        <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.GetItemAsync``1(``0,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:MobileApp.BusinessLogic.Services.ModuleDataStore.GetItemsAsync(System.Boolean)">

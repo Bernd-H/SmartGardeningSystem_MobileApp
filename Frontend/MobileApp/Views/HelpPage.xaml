@@ -148,7 +148,7 @@
 
                 <StackLayout Grid.Row="5" Margin="15,0,0,0" Spacing="2">
                     <Label Text="Für weitere Fragen schreiben Sie uns ein Email an:" FontSize="18" />
-                    <Label Text="question@smartgardening.at" FontAttributes="Bold" FontSize="18" />
+                    <Label Text="github.smartgardeningsystem@gmail.com" FontAttributes="Bold" FontSize="18" />
                 </StackLayout>
 
             </Grid>

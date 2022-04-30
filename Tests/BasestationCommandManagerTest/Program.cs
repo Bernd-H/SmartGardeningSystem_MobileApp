@@ -41,7 +41,7 @@ namespace BasestationCommandManagerTest
                 logger.Info($"Key exchanaged: {keyExchanged}");
 
                 if (keyExchanged) {
-                    logger.Info($"Test result: {await test.StartTest()}");
+                    await test.StartTest(10);
                 }
             }
             catch (Exception ex) {
@@ -72,7 +72,7 @@ namespace BasestationCommandManagerTest
 
         private ISettingsManager SettingsManager;
 
-        private ICommandManager CommandManager;
+        //private ICommandManager CommandManager;
 
         public Test(ILoggerService loggerService, IBasestationFinderManager basestationFinderManager,
             IAesKeyExchangeManager aesKeyExchangeManager, ISettingsManager settingsManager, ICommandManager commandManager) {
@@ -80,11 +80,27 @@ namespace BasestationCommandManagerTest
             BasestationFinderManager = basestationFinderManager;
             AesKeyExchangeManager = aesKeyExchangeManager;
             SettingsManager = settingsManager;
-            CommandManager = commandManager;
+            //CommandManager = commandManager;
         }
 
-        public Task<bool> StartTest() {
-            return CommandManager.Test();
+        public Task StartTest(int amountOfConcurrentTests = 10) {
+            return Task.Run(() => {
+                Parallel.For(0, amountOfConcurrentTests, i => {
+                    var commandManager = IoC.Get<ICommandManager>();
+
+                    for (int l = 0; l < 3; l++) { // execute the test 2 times on the same instance
+                        var success = commandManager.Test().Result;
+                        //var success = commandManager.PingModule(235).Result;
+
+                        if (success) {
+                            Logger.Info($"[StartTest]Test result {i}.{l}: true.");
+                        }
+                        else {
+                            Logger.Error($"[StartTest]Test result {i}.{l}: false!");
+                        }
+                    }
+                });
+            });
         }
 
         /// <summary>

@@ -1154,6 +1154,11 @@
             Last measured signal strength to the module.
             </summary>
         </member>
+        <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.BatteryLevel">
+            <summary>
+            Last measured battery level of the module.
+            </summary>
+        </member>
         <member name="P:MobileApp.Common.Models.DTOs.ModuleInfoDto.TemperatureMeasurements">
             <summary>
             List of temperature measurements of the module.
@@ -1213,6 +1218,11 @@
         <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.SignalStrength">
             <summary>
             Last measured signal strength to the module.
+            </summary>
+        </member>
+        <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.BatteryLevel">
+            <summary>
+            Last measured battery level of the module.
             </summary>
         </member>
         <member name="P:MobileApp.Common.Models.Entities.ModuleInfo.TemperatureMeasurements">
@@ -1736,6 +1746,16 @@
             <remarks>More information about this new module can be requested through the APIManager.</remarks>
             <seealso cref="T:MobileApp.Common.Specifications.Managers.IAPIManager"/>
         </member>
+        <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.PingModule(System.Byte)">
+            <summary>
+            Pings a module and updates the rssi property of the module.
+            </summary>
+            <param name="moduleId">Id of the module.</param>
+            <returns>
+            A task that represents an asynchronous operation. The value of the TResult
+            parameter is a boolean that is true when the ping was successful.
+            </returns>
+        </member>
         <member name="M:MobileApp.Common.Specifications.Managers.ICommandManager.Test">
             <summary>
             Tests if the command manager service is available.
@@ -1888,12 +1908,13 @@
             parameter is a boolean indicating wether the operation was a success or not.
             </returns>
         </member>
-        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.GetItemAsync``1(``0)">
+        <member name="M:MobileApp.Common.Specifications.Services.IDataStore`1.GetItemAsync``1(``0,System.Boolean)">
             <summary>
             Gets an item with a specific <paramref name="id"/> from the repository.
             </summary>
             <typeparam name="T1">Type of the Id of the item.</typeparam>
             <param name="id">Id of the item.</param>
+            <param name="forceRefresh">True to load the item from the source and not from the cache. (Updates the internal cache)</param>
             <returns>
             A task that represents an asynchronous operation. The value of the TResult
             parameter contains the item.
