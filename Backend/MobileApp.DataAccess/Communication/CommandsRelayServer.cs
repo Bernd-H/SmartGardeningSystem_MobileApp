@@ -62,7 +62,7 @@ namespace MobileApp.DataAccess.Communication {
                 success = true;
             }
             catch (Exception ex) {
-                Logger.Fatal(ex, $"[Start]An error orrued while starting API-relay-server.");
+                Logger.Fatal(ex, $"[Start]An error orrued while starting the command-relay-server.");
             }
 
             return Task.FromResult(success);
@@ -156,46 +156,13 @@ namespace MobileApp.DataAccess.Communication {
                 }
             }
             catch (Exception ex) {
-                Logger.Fatal(ex, $"[AcceptTcpClientCallback]An error occured in api relay server.");
+                Logger.Error(ex, $"[AcceptTcpClientCallback]An error occured in command relay server.");
             }
         }
-
-        //private async Task<byte[]> Receive(NetworkStream networkStream, Guid networkStreamId) {
-        //    try {
-        //        List<byte> packet = new List<byte>();
-        //        byte[] buffer = new byte[1024];
-        //        int readBytes = 0;
-        //        while (true) {
-        //            readBytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, _cancellationToken);
-
-        //            if (readBytes == 0) {
-        //                throw new ConnectionClosedException(networkStreamId);
-        //            }
-        //            if (readBytes < buffer.Length) {
-        //                var tmp = new List<byte>(buffer);
-        //                packet.AddRange(tmp.GetRange(0, readBytes));
-        //                break;
-        //            }
-        //            else {
-        //                packet.AddRange(buffer);
-        //            }
-        //        }
-
-        //        return packet.ToArray();
-        //    }
-        //    catch (ObjectDisposedException) {
-        //        throw new ConnectionClosedException(networkStreamId);
-        //    }
-        //}
 
         private async Task<byte[]> Receive(NetworkStream networkStream, Guid networkStreamId) {
             return await CommunicationUtils.ReceiveAsync(Logger, networkStream, networkStreamId);
         }
-
-        //private async Task Send(byte[] msg, NetworkStream networkStream) {
-        //    await networkStream.WriteAsync(msg, 0, msg.Length, _cancellationToken);
-        //    networkStream.Flush();
-        //}
 
         private async Task Send(byte[] msg, NetworkStream networkStream) {
             Logger.Info($"[SendData] Sending data with length {msg.Length}.");

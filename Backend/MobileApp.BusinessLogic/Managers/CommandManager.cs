@@ -49,9 +49,11 @@ namespace MobileApp.BusinessLogic.Managers {
                     if ((await AesTcpClient.ReceiveData()).SequenceEqual(CommunicationCodes.ACK)) {
                         // send connect information
                         await AesTcpClient.SendData(CommunicationUtils.SerializeObject(wlanInfo));
+                        _ = await AesTcpClient.ReceiveData(); // ACK
 
                         // receive return code
                         try {
+                            await AesTcpClient.SendData(CommunicationCodes.SendMoreInformationCommand);
                             success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
                         }
                         catch (SocketException) {
@@ -85,6 +87,7 @@ namespace MobileApp.BusinessLogic.Managers {
                     if ((await AesTcpClient.ReceiveData()).SequenceEqual(CommunicationCodes.ACK)) {
                         // receive return code
                         try {
+                            await AesTcpClient.SendData(CommunicationCodes.SendMoreInformationCommand);
                             success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(), 0);
                         }
                         catch (ConnectionClosedException) {
@@ -122,6 +125,8 @@ namespace MobileApp.BusinessLogic.Managers {
                 // send TimeSpan
                 var timeSpanMinutes = BitConverter.GetBytes(timeSpan.TotalMinutes);
                 await AesTcpClient.SendData(timeSpanMinutes);
+
+                _ = await AesTcpClient.ReceiveData(); // ACK
             }));
         }
 
@@ -138,11 +143,11 @@ namespace MobileApp.BusinessLogic.Managers {
             byte[] moduleInfoBytes = null;
 
             var success = await sendCommand(CommunicationCodes.DiscoverNewModuleCommand, openConnectionAction: new Func<Task>(async () => {
+                await AesTcpClient.SendData(CommunicationCodes.SendMoreInformationCommand);
+
                 // receive Module info
                 moduleInfoBytes = await AesTcpClient.ReceiveData(cancellationToken);
                 Logger.Info($"[DiscoverNewModule]Received {moduleInfoBytes.Length} bytes.");
-
-                await AesTcpClient.SendData(CommunicationCodes.ACK, cancellationToken);
             }));
 
             if (success && !cancellationToken.IsCancellationRequested) {
@@ -165,6 +170,8 @@ namespace MobileApp.BusinessLogic.Managers {
             return sendCommand(CommunicationCodes.PingModuleCommand, new Func<Task>(async () => {
                 // send module id
                 await AesTcpClient.SendData(new byte[] { moduleId });
+
+                _ = await AesTcpClient.ReceiveData(); // ACK
             }));
         }
 
@@ -199,6 +206,7 @@ namespace MobileApp.BusinessLogic.Managers {
                         await (openConnectionAction?.Invoke() ?? Task.CompletedTask);
 
                         // receive return code
+                        await AesTcpClient.SendData(CommunicationCodes.SendMoreInformationCommand);
                         success = BitConverter.ToBoolean(await AesTcpClient.ReceiveData(token), 0);
                     }
                 }

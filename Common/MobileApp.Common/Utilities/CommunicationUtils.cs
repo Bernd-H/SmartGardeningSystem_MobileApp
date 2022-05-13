@@ -166,6 +166,10 @@ namespace MobileApp.Common.Utilities {
                 byte[] buffer = new byte[2048];
                 bytes = await networkStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
 
+                if (packetLength == -1 && bytes == 0) {
+                    throw new ConnectionClosedException(networkStreamId);
+                }
+
                 // get length
                 if (packetLength == -1) {
                     byte[] length = new byte[4];

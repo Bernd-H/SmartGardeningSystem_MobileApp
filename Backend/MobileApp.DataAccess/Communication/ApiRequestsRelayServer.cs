@@ -88,57 +88,36 @@ namespace MobileApp.DataAccess.Communication {
                 networkStream = client.GetStream();
 
                 // get all data
-                //while (!_cancellationToken.IsCancellationRequested) {
-                    byte[] data = await Receive(networkStream);
+                byte[] data = await Receive(networkStream);
 
-                //try {
-                    //await _locker.WaitAsync();
-                    //byte[] data = GetRequestOrAnswer(networkStream);
+                // pack data to an object
+                IWanPackage wanPackage = new WanPackage() {
+                    Package = data,
+                    PackageType = PackageType.Relay,
+                    ServiceDetails = new ServiceDetails() {
+                        //Port = ConfigurationStore.GetConfig().ConnectionSettings.API_Port,
+                        Port = 5000,
+                        Type = ServiceType.API
+                    }
+                };
+                var wanPackageJson = JsonConvert.SerializeObject(wanPackage);
 
-                    //var a = Encoding.UTF8.GetString(data);
-                    //Console.WriteLine($"Sent to server:\n{a}\n----END----");
+                // tunnel data threw tunnel and wait for answer
+                byte[] answer = await _relayTunnel.SendAndReceiveData(Encoding.UTF8.GetBytes(wanPackageJson));
 
-                    // pack data to an object
-                    IWanPackage wanPackage = new WanPackage() {
-                        Package = data,
-                        PackageType = PackageType.Relay,
-                        ServiceDetails = new ServiceDetails() {
-                            //Port = ConfigurationStore.GetConfig().ConnectionSettings.API_Port,
-                            Port = 5000,
-                            Type = ServiceType.API
-                        }
-                    };
-                    var wanPackageJson = JsonConvert.SerializeObject(wanPackage);
+                // deserialize wan package
+                var answerWanPackage = JsonConvert.DeserializeObject<WanPackage>(Encoding.UTF8.GetString(answer));
 
-                    // tunnel data threw tunnel and wait for answer
-                    //await _relayTunnel.SendData(Encoding.UTF8.GetBytes(wanPackageJson));
-                    //byte[] answer = await _relayTunnel.ReceiveData();
-                    byte[] answer = await _relayTunnel.SendAndReceiveData(Encoding.UTF8.GetBytes(wanPackageJson));
-
-                    // deserialize wan package
-                    var answerWanPackage = JsonConvert.DeserializeObject<WanPackage>(Encoding.UTF8.GetString(answer));
-
-                    var b = Encoding.UTF8.GetString(answerWanPackage.Package);
-                    Console.WriteLine($"Got form server:\n{b}\n----END----");
-
-                    //b += "0\r\n\r\n";
-
-                    //answerWanPackage.Package = Encoding.UTF8.GetBytes(b);
-
-                    // send answer back to request maker
-                    await Send(answerWanPackage.Package, networkStream);
-                    //}
-                //}
-                //finally {
-                //    _locker?.Release();
-                //}
-            } catch(Exception ex) {
+                // send answer back to request maker
+                await Send(answerWanPackage.Package, networkStream);
+            }
+            catch (Exception ex) {
                 Logger.Fatal(ex, $"[AcceptTcpClientCallback]An error occured in api relay server.");
             }
             finally {
                 //Console.WriteLine("Closing connection.");
-                //networkStream?.Close();
-                //client?.Close();
+                networkStream?.Close();
+                client?.Close();
 
                 if (!resetEventSet) {
                     _tcpClientConnected.Set();

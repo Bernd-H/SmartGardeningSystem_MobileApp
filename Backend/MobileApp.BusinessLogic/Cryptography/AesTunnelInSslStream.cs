@@ -45,8 +45,10 @@ namespace MobileApp.BusinessLogic.Cryptography {
             try {
                 await LOCKER.WaitAsync();
 
+                Logger.Info($"[SendAndReceiveData]Sending {data.Length} bytes through the relay tunnel.");
                 await SendData(data, cancellationToken);
                 var received = await ReceiveData(cancellationToken);
+                Logger.Info($"[SendAndReceiveData]Received {received.Length} bytes from the relay tunnel.");
 
                 return received;
             }

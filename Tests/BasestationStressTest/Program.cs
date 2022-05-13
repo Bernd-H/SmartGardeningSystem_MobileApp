@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MobileApp.BusinessLogic;
 using MobileApp.BusinessLogic.Managers;
 using MobileApp.Common.Configuration;
+using MobileApp.Common.Models.DTOs;
 using MobileApp.Common.Specifications;
 using MobileApp.Common.Specifications.DataAccess;
 using MobileApp.Common.Specifications.Managers;
@@ -36,17 +37,15 @@ namespace BasestationStressTest {
 
                 // delete stored aes key
                 IoC.Get<ISettingsManager>().UpdateCurrentSettings((currentSettings) => {
-                    currentSettings.AesIV = null;
-                    currentSettings.AesKey = null;
-                    return currentSettings;
+                    return ApplicationSettingsDto.GetStandardSettings();
                 }).Wait();
 
                 var test = IoC.Get<RelayTest>();
 
                 var init = test.ExchangeAllNeccessaryKeys().Result;
                 if (init) {
-                    RelayManager.TEST_PACKET_LENGTH_KB = 100;
-                    var testTask = test.Start(amountOfConcurrentTests: 20, forceRelay: false);
+                    RelayManager.TEST_PACKET_LENGTH_KB = 10000;
+                    var testTask = test.Start(amountOfConcurrentTests: 1, forceRelay: false);
 
                     Console.WriteLine("Press enter to stop the test.");
                     Console.ReadLine();
@@ -129,7 +128,17 @@ namespace BasestationStressTest {
 
             if (settings.AesKey == null || settings.AesIV == null) {
                 // find basestaiton locally and exchange a aes key
-                var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+                //var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
+
+                #region fix basestation ip
+                Logger.Warn($"[ExchangeAllNeccessaryKeys]Setting the ip of the basestation.");
+                await SettingsManager.UpdateCurrentSettings(currentSettings => {
+                    currentSettings.BaseStationIP = "192.168.1.2";
+                    currentSettings.BasestationId = Guid.Parse("18ee5b73-d2f0-4391-b16f-8616456567dd");
+                    return currentSettings;
+                });
+                var baseStationFound = true;
+                #endregion
 
                 if (baseStationFound) {
                     // perform key exchange

@@ -40,6 +40,8 @@ namespace BasestationCommandManagerTest
                 var keyExchanged = await test.ExchangeAllNeccessaryKeys();
                 logger.Info($"Key exchanaged: {keyExchanged}");
 
+                logger.Info($"Connected from outside: {await test.ConnectOverTheInternet(forceExternalServerRelay: true)}");
+
                 if (keyExchanged) {
                     await test.StartTest(10);
                 }
@@ -72,15 +74,15 @@ namespace BasestationCommandManagerTest
 
         private ISettingsManager SettingsManager;
 
-        //private ICommandManager CommandManager;
+        private IRelayManager RelayManager;
 
         public Test(ILoggerService loggerService, IBasestationFinderManager basestationFinderManager,
-            IAesKeyExchangeManager aesKeyExchangeManager, ISettingsManager settingsManager, ICommandManager commandManager) {
+            IAesKeyExchangeManager aesKeyExchangeManager, ISettingsManager settingsManager, IRelayManager relayManager) {
             Logger = loggerService.GetLogger<Test>();
             BasestationFinderManager = basestationFinderManager;
             AesKeyExchangeManager = aesKeyExchangeManager;
             SettingsManager = settingsManager;
-            //CommandManager = commandManager;
+            RelayManager = relayManager;
         }
 
         public Task StartTest(int amountOfConcurrentTests = 10) {
@@ -88,7 +90,7 @@ namespace BasestationCommandManagerTest
                 Parallel.For(0, amountOfConcurrentTests, i => {
                     var commandManager = IoC.Get<ICommandManager>();
 
-                    for (int l = 0; l < 3; l++) { // execute the test 2 times on the same instance
+                    for (int l = 0; l < 1; l++) { // execute the test 2 times on the same instance
                         var success = commandManager.Test().Result;
                         //var success = commandManager.PingModule(235).Result;
 
@@ -122,6 +124,16 @@ namespace BasestationCommandManagerTest
                 // find basestaiton locally and exchange a aes key
                 var baseStationFound = await BasestationFinderManager.FindLocalBaseStation();
 
+                #region fix basestation ip
+                //Logger.Warn($"[ExchangeAllNeccessaryKeys]Setting the ip of the basestation.");
+                //await SettingsManager.UpdateCurrentSettings(currentSettings => {
+                //    currentSettings.BaseStationIP = "192.168.1.2";
+                //    currentSettings.BasestationId = Guid.Parse("18ee5b73-d2f0-4391-b16f-8616456567dd");
+                //    return currentSettings;
+                //});
+                //var baseStationFound = true;
+                #endregion
+
                 if (baseStationFound) {
                     // perform key exchange
                     Logger.Info($"[ExchangeAllNeccessaryKeys]Trying to get a aes key from the basestation.");
@@ -138,6 +150,16 @@ namespace BasestationCommandManagerTest
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// Relays all outgoing traffic to one outgoing connection, which goes over the external server or directly to the basestation.
+        /// </summary>
+        /// <param name="forceExternalServerRelay"></param>
+        /// <returns>A Task that reprecents an asynchronous operation. The value of the TResult parameter contains a boolean indicating whether
+        /// the operation was a success or not.</returns>
+        public Task<bool> ConnectOverTheInternet(bool forceExternalServerRelay = true) {
+            return RelayManager.ConnectToTheBasestation(CancellationToken.None, forceExternalServerRelay);
         }
     }
 }
